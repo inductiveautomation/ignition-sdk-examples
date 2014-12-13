@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+
+<wicket:panel>
+
+	<form wicket:id="upload-form">
+	<div>
+	<input type="file" wicket:id="upload-field" />
+	<a href="#" wicket:id="import-link"><wicket:message
+		key="importlinklabel">Import Configuration</wicket:message></a>
+	</div>
+	</form>
+
+	<br />
+	<br />
+	<a href="#" wicket:id="export-link"><wicket:message
+		key="exportlinklabel">Export Configuration</wicket:message></a>
+
+	<br />
+	<br />
+
+
+	<form wicket:id="form">
+	
+	<div wicket:id="feedback"></div>
+
+	<div wicket:id="table-container">
+	<table class="actiontable" cellpadding="0" cellspacing="0">
+		<thead>
+			<tr>
+				<td><wicket:message key="prefixlabel">Prefix</wicket:message></td>
+				<td><wicket:message key="startlabel">Start</wicket:message></td>
+				<td><wicket:message key="endlabel">End</wicket:message></td>
+				<td><wicket:message key="steplabel">Step</wicket:message></td>
+				<td><wicket:message key="modbusunitidlabel">Unit ID</wicket:message></td>
+				<td><wicket:message key="modbustypelabel">Modbus Type</wicket:message></td>
+				<td class="last"><wicket:message key="modbusaddresslabel">Modbus Address</wicket:message></td>
+				<td class="action">&nbsp;</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr wicket:id="config-listview">
+				<td><input type="text" style="width: 40px;" wicket:id="prefix" /></td>
+				<td><input type="text" style="width: 40px;" wicket:id="start" /></td>
+				<td><input type="text" style="width: 40px;" wicket:id="end" /></td>
+				<td><input type="checkbox" style="width: 15px;" wicket:id="step" /></td>
+				<td><input type="text" style="width: 25px;" wicket:id="unitid" /></td>
+				<td><select wicket:id="type" /></td>
+				<td class="last"><input type="text" style="width: 45px;" wicket:id="address" /></td>
+				<td class="action">
+				<ul>
+					<li><a href="#" wicket:id="delete-link" ><wicket:message
+						key="deletelink">[delete]</wicket:message></a></li>
+				</ul>
+				</td>
+			</tr>
+
+			<tr wicket:id="radix-container">
+				<td style="border-left: 0px; border-bottom: 0px;">&nbsp;</td>
+
+				<td colspan="3" style="text-align: center;"><span
+					wicket:id="radix-label" /> <input type="text" size="5"
+					wicket:id="radix" id="radix" /> <a href="#" wicket:id="set-radix"><wicket:message
+					key="setradix">Set</wicket:message></a></td>
+
+				<td style="border-bottom: 0px; border-right: 0px;">&nbsp;</td>
+				<td style="border: 0px;">&nbsp;</td>
+				<td style="border: 0px;">&nbsp;</td>
+				<td class="action">&nbsp;</td>
+			</tr>
+
+			<tr wicket:id="no-mappings-container">
+				<td colspan="5" style="border: 0px;"><span
+					wicket:id="no-mappings-label" /></td>
+				<td class="action">&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div>
+	<br />
+
+	<a href="#" wicket:id="add-row-link"><wicket:message
+		key="addrowlabel">Add Row</wicket:message></a>
+
+	<br />
+	<br />
+
+	<input wicket:id="save" type="submit" value="Save" />
+	</div>
+	</form>
+</wicket:panel>
+
+</body>
+</html>

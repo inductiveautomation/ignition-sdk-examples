@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
+        <artifactId>weather-module-example</artifactId>
+        <version>1.7.0</version>
+    </parent>
+
+    <artifactId>wme-designer</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>ignition-common</artifactId>
+            <version>7.7.1</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>designer-api</artifactId>
+            <version>7.7.1</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>vision-common</artifactId>
+            <version>7.7.1</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>vision-designer-api</artifactId>
+            <version>7.7.1</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.inductiveautomation.ignition.examples</groupId>
+            <artifactId>wme-client</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

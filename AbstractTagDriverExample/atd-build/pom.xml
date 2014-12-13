@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.inductiveautomation.examples</groupId>
+        <artifactId>abstract-tag-driver</artifactId>
+        <version>1.7.0</version>
+    </parent>
+
+    <artifactId>atd-build</artifactId>
+    <version>1.7.0</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.inductiveautomation.examples</groupId>
+            <artifactId>atd-gateway</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.inductiveautomation.ignitionsdk</groupId>
+                <artifactId>ignition-maven-plugin</artifactId>
+                <version>1.0.4</version>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>modl</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <projectScopes>
+                        <projectScope>
+                            <name>atd-gateway</name>
+                            <scope>G</scope>
+                        </projectScope>
+                    </projectScopes>
+
+                    <moduleId>com.inductiveautomation.ignition.examples.atd</moduleId>
+                    <moduleName>AbstractTagDriver</moduleName>
+                    <moduleDescription>An AbstractTagDriver implementation example.</moduleDescription>
+                    <moduleVersion>${project.version}</moduleVersion>
+                    <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <licenseFile>license.html</licenseFile>
+                    <documentationFile>doc/index.html</documentationFile>
+
+                    <depends>
+                        <depend>
+                            <scope>G</scope>
+                            <moduleId>xopc</moduleId>
+                        </depend>
+                    </depends>
+
+                    <hooks>
+                        <hook>
+                            <scope>G</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.atd.ModuleHook</hookClass>
+                        </hook>
+                    </hooks>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
