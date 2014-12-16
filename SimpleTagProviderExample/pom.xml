@@ -35,6 +35,10 @@
         <repository>
             <id>snapshots</id>
             <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
 
         <repository>
