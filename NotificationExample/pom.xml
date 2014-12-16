@@ -36,6 +36,11 @@
         </repository>
 
         <repository>
+            <id>snapshots</id>
+            <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-snapshots</url>
+        </repository>
+
+        <repository>
             <id>thirdparty</id>
             <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-thirdparty</url>
         </repository>

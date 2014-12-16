@@ -26,9 +26,11 @@
         <repository>
             <id>releases</id>
             <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
+        </repository>
+
+        <repository>
+            <id>snapshots</id>
+            <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-snapshots</url>
         </repository>
 
         <repository>
