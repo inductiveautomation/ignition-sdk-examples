@@ -13,13 +13,6 @@
 <artifactId>ce-client</artifactId>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>com.inductiveautomation.ignition.examples</groupId>-->
-            <!--<artifactId>ce-designer</artifactId>-->
-            <!--<version>1.7.0</version>-->
-        <!--</dependency>-->
-
-
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>ignition-common</artifactId>
@@ -60,5 +53,19 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
