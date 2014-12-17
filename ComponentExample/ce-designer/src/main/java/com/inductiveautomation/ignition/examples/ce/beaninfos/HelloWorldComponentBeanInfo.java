@@ -2,7 +2,7 @@
  * Created by Perry Arellano-Jones on 12/11/14.
  * Copyright Inductive Automation 2014
  */
-package com.inductiveautomation.ignition.examples.ce.components.beaninfos;
+package com.inductiveautomation.ignition.examples.ce.beaninfos;
 
 
 import static com.inductiveautomation.ignition.examples.ce.components.HelloWorldComponent.ANIMATION_LTR;

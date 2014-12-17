@@ -7,6 +7,7 @@ package com.inductiveautomation.ignition.examples.ce;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.designer.model.AbstractDesignerModuleHook;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
+import com.inductiveautomation.ignition.examples.ce.components.ChartComponent;
 import com.inductiveautomation.ignition.examples.ce.components.HelloWorldComponent;
 import com.inductiveautomation.vision.api.designer.VisionDesignerInterface;
 import com.inductiveautomation.vision.api.designer.palette.JavaBeanPaletteItem;
@@ -24,7 +25,7 @@ public class MyModuleDesignerHook extends AbstractDesignerModuleHook {
     @Override
     public void startup(DesignerContext context, LicenseState activationState) throws Exception {
         // Add the BeanInfo package to the search path
-        context.addBeanInfoSearchPath("com.inductiveautomation.ignition.examples.ce.components.beaninfos");
+        context.addBeanInfoSearchPath("com.inductiveautomation.ignition.examples.ce.beaninfos");
 
         // Add my component to its own palette
         VisionDesignerInterface sdk = (VisionDesignerInterface) context
@@ -34,6 +35,7 @@ public class MyModuleDesignerHook extends AbstractDesignerModuleHook {
 
             PaletteItemGroup group = palette.addGroup("Example");
             group.addPaletteItem(new JavaBeanPaletteItem(HelloWorldComponent.class));
+            group.addPaletteItem(new JavaBeanPaletteItem(ChartComponent.class));
         }
     }
 
