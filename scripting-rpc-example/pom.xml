@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>scripting-rpc-build</module>
         <module>scripting-rpc-client</module>
         <module>scripting-rpc-common</module>
         <module>scripting-rpc-designer</module>

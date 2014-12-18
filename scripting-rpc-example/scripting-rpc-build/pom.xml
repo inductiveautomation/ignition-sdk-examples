@@ -39,7 +39,7 @@
             <plugin>
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
 
                 <executions>
                     <execution>
@@ -76,6 +76,21 @@
                     <moduleVersion>1.7.0</moduleVersion>
                     <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
                     <requiredFrameworkVersion>6</requiredFrameworkVersion>
+
+                    <hooks>
+                        <hook>
+                            <scope>C</scope>
+                            <hookClass>com.inductiveautomation.examples.scriptingrpc.client.ModuleHook</hookClass>
+                        </hook>
+                        <hook>
+                            <scope>D</scope>
+                            <hookClass>com.inductiveautomation.examples.scriptingrpc.designer.ModuleHook</hookClass>
+                        </hook>
+                        <hook>
+                            <scope>G</scope>
+                            <hookClass>com.inductiveautomation.examples.scriptingrpc.ModuleHook</hookClass>
+                        </hook>
+                    </hooks>
 
                 </configuration>
             </plugin>
