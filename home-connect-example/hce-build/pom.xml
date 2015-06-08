@@ -3,24 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>com.inductiveautomation.ignition.examples</groupId>
-        <artifactId>weather-module-example</artifactId>
-        <version>1.7.0</version>
+        <artifactId>home-connect-example</artifactId>
+        <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
+        <version>1.0.0</version>
     </parent>
 
-    <artifactId>wme-build</artifactId>
+    <artifactId>hce-build</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>wme-designer</artifactId>
-            <version>1.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>wme-client</artifactId>
-            <version>1.7.0</version>
+            <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
+            <artifactId>hce-gateway</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
@@ -30,13 +26,22 @@
 
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.9-SNAPSHOT</version>
 
                 <executions>
                     <execution>
+                        <id>package-modl</id>
                         <phase>package</phase>
                         <goals>
                             <goal>modl</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-module</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>modl</goal>
+                            <goal>post</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -44,43 +49,34 @@
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>wme-client</name>
-                            <scope>C</scope>
-                        </projectScope>
-
-                        <projectScope>
-                            <name>wme-designer</name>
-                            <scope>D</scope>
+                            <name>hce-gateway</name>
+                            <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.wme</moduleId>
-                    <moduleName>WeatherModuleExample</moduleName>
-                    <moduleDescription>A module that provides current and forecasted weather conditions.
-                    </moduleDescription>
+                    <moduleId>com.inductiveautomation.ignition.examples.hce</moduleId>
+                    <moduleName>HomeConnectExample</moduleName>
+                    <moduleDescription>A simple example demonstrating how to create top-level navigation in the Gateway Config section.</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
                     <requiredFrameworkVersion>6</requiredFrameworkVersion>
-                    <licenseFile>license.html</licenseFile>
-                    <documentationFile>doc/index.html</documentationFile>
 
                     <depends>
                         <depend>
-                            <scope>D</scope>
-                            <moduleId>fpmi</moduleId>
+                            <scope>G</scope>
+                            <moduleId>xopc</moduleId>
                         </depend>
                     </depends>
 
                     <hooks>
                         <hook>
-                            <scope>D</scope>
-                            <hookClass>com.inductiveautomation.ignition.examples.wme.designer.DesignerHook</hookClass>
+                            <scope>G</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.hce.GatewayHook</hookClass>
                         </hook>
                     </hooks>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 
 </project>

@@ -5,18 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.inductiveautomation.examples</groupId>
-        <artifactId>simple-tag-provider</artifactId>
-        <version>1.7.0</version>
+        <artifactId>home-connect-example</artifactId>
+        <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
+        <version>1.0.0</version>
     </parent>
 
-    <artifactId>stp-gateway</artifactId>
+    <artifactId>hce-gateway</artifactId>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>ignition-common</artifactId>
-            <version>7.7.1</version>
+            <version>7.7.2</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -24,15 +25,25 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>gateway-api</artifactId>
-            <version>7.7.1</version>
+            <version>7.7.2</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.paho</groupId>
-            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-            <version>1.0.2</version>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>driver-api</artifactId>
+            <version>7.7.2</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.inductiveautomation.ignition</groupId>
+            <artifactId>gateway-api-jars</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+            <version>7.7.2</version>
         </dependency>
     </dependencies>
 
@@ -49,12 +60,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>Eclipse Paho Repo</id>
-            <url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
-        </repository>
-    </repositories>
 
 </project>
