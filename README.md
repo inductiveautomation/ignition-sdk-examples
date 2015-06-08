@@ -15,19 +15,11 @@ We are in the process of updating documentation and will post updates here and o
 
 2. You will also need a developer account, which you can get started at the Ignition [Module Development](https://marketplace.inductiveautomation.com/developer) page.  *Note:* The dev registration process is longer if you are interested in selling your modules through the Inductive Automation [Module Marketplace](http://marketplace.inductiveautomation.com/).  
 
-<<<<<<< HEAD
 3. Once you have configured your developer gateway, clone this repo to a directory of your choice :
 
     ```git clone https://github.com/inductiveautomation/ignition-sdk-examples.git```
 
 4. Using your IDE of choice, you should be able to create or open any of these included Example Modules through the parent pom.xml file located in the root of each example.  Upon importing this project into your IDE, it should download (if auto-import is on) Maven dependencies from the Inductive Automation artifact repository. Dependencies are managed through Maven and are cached to your local environment after they are downloaded.
-=======
-3. Once you have configured your developer gateway, clone this repo to a directory of your choice to get all the examples:
-
-    ```git clone https://github.com/inductiveautomation/ignition-sdk-examples.git```
-
-4. Using your IDE of choice, you should be able to create or open any of these included Example Modules through the parent pom.xml file located in the root of each example.  Upon importing this project into your IDE, it should download (if auto-import is on) Maven dependencies from the Inductive Automation Nexus artifact repository. Dependencies are managed through Maven and are cached to your local environment after they are downloaded.
->>>>>>> pr/2
 
 5. Once all dependencies are cached, you should be able to run `mvn package` in any of the examples to generate the *.modl* file (which will be created in the `build\target\` directory of the example).  The modl file is the Ignition module file you install to the Dev Mode Ignition in `Config > Modules` in your browser's Gateway page (generally found at `http://localhost:8088/main`).
 
