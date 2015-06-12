@@ -86,14 +86,14 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
     private void initMenu() {
         /* header is the top-level title in the gateway config page, e.g. System, Configuration, etc */
-        LabelConfigMenuNode header = new LabelConfigMenuNode(HCON_MENU_PATH[0], "GatewayHook.nav.header");
+        LabelConfigMenuNode header = new LabelConfigMenuNode(HCON_MENU_PATH[0], "HomeConnect.nav.header");
         header.setPosition(801);
 
         context.getConfigMenuModel().addConfigMenuNode(null, header);
 
         /* Create the nodes/links that will exist under our parent nav header */
         LinkConfigMenuNode settingsNode = new LinkConfigMenuNode("settings",
-                "GatewayHook.nav.settings.title",
+                "HomeConnect.nav.settings.title",
                 HCSettingsPage.class);
 
         /* register our nodes with the context config menu model */
