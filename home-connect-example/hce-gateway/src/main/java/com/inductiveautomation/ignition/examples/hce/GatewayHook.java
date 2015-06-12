@@ -6,10 +6,12 @@ import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.examples.hce.web.HCSettingsPage;
 import com.inductiveautomation.ignition.examples.hce.records.HCSettingsRecord;
+import com.inductiveautomation.ignition.gateway.localdb.persistence.IRecordListener;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.web.components.LabelConfigMenuNode;
 import com.inductiveautomation.ignition.gateway.web.components.LinkConfigMenuNode;
+import com.inductiveautomation.ignition.gateway.web.models.KeyValue;
 import org.apache.log4j.Logger;
 
 /**
@@ -46,6 +48,29 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
         // create records if needed
         maybeCreateHCSettings(context);
+
+        // get the settings record and do something with it...
+        HCSettingsRecord theOneRecord = context.getLocalPersistenceInterface().find(HCSettingsRecord.META, 0L);
+        log.info("Hub name: " + theOneRecord.getHCHubName());
+        log.info("IP address: " + theOneRecord.getHCIPAddress());
+
+        // listen for updates to the settings record...
+        HCSettingsRecord.META.addRecordListener(new IRecordListener<HCSettingsRecord>() {
+            @Override
+            public void recordUpdated(HCSettingsRecord hcSettingsRecord) {
+                log.info("recordUpdated()");
+            }
+
+            @Override
+            public void recordAdded(HCSettingsRecord hcSettingsRecord) {
+                log.info("recordAdded()");
+            }
+
+            @Override
+            public void recordDeleted(KeyValue keyValue) {
+                log.info("recordDeleted()");
+            }
+        });
 
         //initialize our Gateway nav menu
         initMenu();
