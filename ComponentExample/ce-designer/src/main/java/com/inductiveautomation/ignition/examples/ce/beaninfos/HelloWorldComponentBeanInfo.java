@@ -30,63 +30,63 @@ import javax.swing.ImageIcon;
  */
 public class HelloWorldComponentBeanInfo extends CommonBeanInfo {
 
-	public HelloWorldComponentBeanInfo() {
-	    /*
-	     * Our superclass constructor takes the class of the component we describe and the customizers that are
-		 * applicable
-		 */
-		super(HelloWorldComponent.class, DynamicPropertyProviderCustomizer.VALUE_DESCRIPTOR, StyleCustomizer.VALUE_DESCRIPTOR);
-	}
+    public HelloWorldComponentBeanInfo() {
+        /*
+         * Our superclass constructor takes the class of the component we describe and the customizers that are
+         * applicable
+         */
+        super(HelloWorldComponent.class, DynamicPropertyProviderCustomizer.VALUE_DESCRIPTOR, StyleCustomizer.VALUE_DESCRIPTOR);
+    }
 
-	@Override
-	protected void initProperties() throws IntrospectionException {
-		// Adds common properties
-		super.initProperties();
+    @Override
+    protected void initProperties() throws IntrospectionException {
+        // Adds common properties
+        super.initProperties();
 
-		// Remove some properties which aren't used in our component.
-		removeProp("foreground");
-		removeProp("background");
-		removeProp("opaque");
+        // Remove some properties which aren't used in our component.
+        removeProp("foreground");
+        removeProp("background");
+        removeProp("opaque");
 
-		// Add our properties
-		// Note that all String properties are automatically added to the component's translatable terms
-		// unless you add NOT_TRANSLATABLE_MASK
-		addProp("text", "Text", "The text to display in the component", CAT_DATA, PREFERRED_MASK | BOUND_MASK);
+        // Add our properties
+        // Note that all String properties are automatically added to the component's translatable terms
+        // unless you add NOT_TRANSLATABLE_MASK
+        addProp("text", "Text", "The text to display in the component", CAT_DATA, PREFERRED_MASK | BOUND_MASK);
 
-		addEnumProp("animation", "Animation Mode", "This mode turns on or off animation marquee.", CAT_BEHAVIOR,
-				new int[]{ANIMATION_OFF, ANIMATION_LTR, ANIMATION_RTL},
-				new String[]{"Off", "Left to Right", "Right to Left"});
-		addProp("animationRate", "Animation Rate", "The time between frames of animation, if it is turned on.",
-				CAT_BEHAVIOR);
+        addEnumProp("animation", "Animation Mode", "This mode turns on or off animation marquee.", CAT_BEHAVIOR,
+                new int[]{ANIMATION_OFF, ANIMATION_LTR, ANIMATION_RTL},
+                new String[]{"Off", "Left to Right", "Right to Left"});
+        addProp("animationRate", "Animation Rate", "The time between frames of animation, if it is turned on.",
+                CAT_BEHAVIOR);
 
-		addProp("fillColor", "Fill Color", "The color to fill the letters with.", CAT_APPEARANCE, PREFERRED_MASK);
-		addProp("strokeColor", "Stroke Color", "The color to use for the letter outline.", CAT_APPEARANCE);
-		addProp("strokeWidth", "Stroke Width", "The width of the letter outline, or 0 to turn outlining off.",
-				CAT_APPEARANCE);
-	}
+        addProp("fillColor", "Fill Color", "The color to fill the letters with.", CAT_APPEARANCE, PREFERRED_MASK);
+        addProp("strokeColor", "Stroke Color", "The color to use for the letter outline.", CAT_APPEARANCE);
+        addProp("strokeWidth", "Stroke Width", "The width of the letter outline, or 0 to turn outlining off.",
+                CAT_APPEARANCE);
+    }
 
-	@Override
-	public Image getIcon(int kind) {
-		switch (kind) {
-			case BeanInfo.ICON_COLOR_16x16:
-			case BeanInfo.ICON_MONO_16x16:
-				return new ImageIcon(getClass().getResource("/images/hello_world_16.png")).getImage();
-			case SimpleBeanInfo.ICON_COLOR_32x32:
-			case SimpleBeanInfo.ICON_MONO_32x32:
-				return new ImageIcon(getClass().getResource("/images/hello_world_32.png")).getImage();
-		}
-		return null;
-	}
+    @Override
+    public Image getIcon(int kind) {
+        switch (kind) {
+            case BeanInfo.ICON_COLOR_16x16:
+            case BeanInfo.ICON_MONO_16x16:
+                return new ImageIcon(getClass().getResource("/images/hello_world_16.png")).getImage();
+            case SimpleBeanInfo.ICON_COLOR_32x32:
+            case SimpleBeanInfo.ICON_MONO_32x32:
+                return new ImageIcon(getClass().getResource("/images/hello_world_32.png")).getImage();
+        }
+        return null;
+    }
 
-	@Override
-	protected void initDesc() {
-		VisionBeanDescriptor bean = getBeanDescriptor();
-		bean.setName("Hello World");
-		bean.setDisplayName("Hello World");
-		bean.setShortDescription("A component that displays the text 'Hello World'.");
-		// This adds any extra translatable terms (other than String properties above)
-		// Alter HelloWorldComponentTermFinder to add static and dynamic props
-		bean.setValue(CommonBeanInfo.TERM_FINDER_CLASS, HelloWorldComponentTermFinder.class);
-	}
+    @Override
+    protected void initDesc() {
+        VisionBeanDescriptor bean = getBeanDescriptor();
+        bean.setName("Hello World");
+        bean.setDisplayName("Hello World");
+        bean.setShortDescription("A component that displays the text 'Hello World'.");
+        // This adds any extra translatable terms (other than String properties above)
+        // Alter HelloWorldComponentTermFinder to add static and dynamic props
+        bean.setValue(CommonBeanInfo.TERM_FINDER_CLASS, HelloWorldComponentTermFinder.class);
+    }
 
 }

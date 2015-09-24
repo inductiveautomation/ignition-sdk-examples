@@ -16,16 +16,16 @@ import com.inductiveautomation.ignition.examples.ce.components.HelloWorldCompone
  */
 public class HelloWorldComponentTermFinder extends ComponentPropertyTermFinder {
 
-	public HelloWorldComponentTermFinder() {
-	}
+    public HelloWorldComponentTermFinder() {
+    }
 
-	@Override
-	public void getTermsFor(JComponent component, List<TermDescriptor> results) {
-		super.getTermsFor(component, results);
-		if (component instanceof HelloWorldComponent) {
-			// Replace this with specific terms you want to add. Terms can be fixed, or
-			// can come from properties of the component.
-			results.add(new TermDescriptor("Hello", "Hello"));
-		}
-	}
+    @Override
+    public void getTermsFor(JComponent component, List<TermDescriptor> results) {
+        super.getTermsFor(component, results);
+        if (component instanceof HelloWorldComponent) {
+            // Replace this with specific terms you want to add. Terms can be fixed, or
+            // can come from properties of the component.
+            results.add(new TermDescriptor("Hello", "Hello"));
+        }
+    }
 }
