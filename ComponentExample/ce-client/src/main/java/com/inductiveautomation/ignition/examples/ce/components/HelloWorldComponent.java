@@ -21,261 +21,280 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import com.inductiveautomation.ignition.client.model.LocaleListener;
 import com.inductiveautomation.vision.api.client.components.model.AbstractVisionComponent;
+
+import static com.inductiveautomation.factorypmi.application.i18n.TranslationUtils.t;
 
 /**
  * This is the actual component for the Ignition SDK's component example module.
  *
  * @author Carl Gould
  */
-public class HelloWorldComponent extends AbstractVisionComponent {
+public class HelloWorldComponent extends AbstractVisionComponent implements LocaleListener {
 
-    /**
-     * No animation
-     */
-    public static final int ANIMATION_OFF = 0;
-    /**
-     * Marquee animation, right to left
-     */
-    public static final int ANIMATION_RTL = 1;
-    /**
-     * Marquee animation, left to right
-     */
-    public static final int ANIMATION_LTR = 2;
+	/**
+	 * No animation
+	 */
+	public static final int ANIMATION_OFF = 0;
+	/**
+	 * Marquee animation, right to left
+	 */
+	public static final int ANIMATION_RTL = 1;
+	/**
+	 * Marquee animation, left to right
+	 */
+	public static final int ANIMATION_LTR = 2;
 
-    /**
-     * The text we'll draw inside our bounds
-     */
-    private String text = "Hello World";
+	/**
+	 * The text we'll draw inside our bounds
+	 */
+	private String text = "Hello World";
 
-    private Color fillColor = Color.BLACK;
-    private Color strokeColor = Color.BLACK;
-    private float strokeWidth = 0f;
+	private Color fillColor = Color.BLACK;
+	private Color strokeColor = Color.BLACK;
+	private float strokeWidth = 0f;
 
-    private int animation = ANIMATION_OFF;
-    private int animationRate = 30;
+	private int animation = ANIMATION_OFF;
+	private int animationRate = 30;
 
-    /**
-     * The Swing timer used when animation is turned on
-     */
-    private Timer _timer;
-    /**
-     * The position for the animation: 0-99
-     */
-    private int _position = 0;
+	/**
+	 * The Swing timer used when animation is turned on
+	 */
+	private Timer _timer;
+	/**
+	 * The position for the animation: 0-99
+	 */
+	private int _position = 0;
 
-    /**
-     * The listener for the swing timer
-     */
-    private ActionListener animationListener = new ActionListener() {
-        int t = 0;
+	/**
+	 * The listener for the swing timer
+	 */
+	private ActionListener animationListener = new ActionListener() {
+		int t = 0;
 
-        /** This gets executed when animation is turned on, to move the animationPosition between 0 and 99 */
-        public void actionPerformed(ActionEvent e) {
-            t = (t + 1) % 100;
-            if (animation == ANIMATION_RTL) {
-                _position = 100 - t;
-            } else {
-                _position = t;
-            }
-            repaint();
-        }
-    };
+		/** This gets executed when animation is turned on, to move the animationPosition between 0 and 99 */
+		public void actionPerformed(ActionEvent e) {
+			t = (t + 1) % 100;
+			if (animation == ANIMATION_RTL) {
+				_position = 100 - t;
+			} else {
+				_position = t;
+			}
+			repaint();
+		}
+	};
 
-    /**
-     * Temp rectangle used to store our component's inner area (compensated for border size)
-     */
-    private Rectangle _area;
+	/**
+	 * Temp rectangle used to store our component's inner area (compensated for border size)
+	 */
+	private Rectangle _area;
 
-    /**
-     * Stores the actual Java2D stroke object to use
-     */
-    private Stroke _stroke = null;
+	/**
+	 * Stores the actual Java2D stroke object to use
+	 */
+	private Stroke _stroke = null;
 
-    /**
-     * The constructor for the component. Note that it takes zero arguments. This is important for serialization
-     */
-    public HelloWorldComponent() {
-        setOpaque(false);
-        setPreferredSize(new Dimension(130, 45));
-        setFont(new Font("Dialog", Font.PLAIN, 24));
-    }
+	/**
+	 * The constructor for the component. Note that it takes zero arguments. This is important for serialization
+	 */
+	public HelloWorldComponent() {
+		setOpaque(false);
+		setPreferredSize(new Dimension(130, 45));
+		setFont(new Font("Dialog", Font.PLAIN, 24));
+	}
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame("test");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public static void main(String[] args) {
+		JFrame f = new JFrame("test");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        f.add(new HelloWorldComponent());
+		f.add(new HelloWorldComponent());
 
-        f.setBounds(100, 100, 300, 300);
-        f.setVisible(true);
-    }
+		f.setBounds(100, 100, 300, 300);
+		f.setVisible(true);
+	}
 
-    /**
-     * Overriding paintComponent is how you make a component that has custom graphics. All of the graphics code here
-     * would be covered in any Java2D book.
-     */
-    @Override
-    protected void paintComponent(Graphics _g) {
-        Graphics2D g = (Graphics2D) _g;
+	/**
+	 * Overriding paintComponent is how you make a component that has custom graphics. All of the graphics code here
+	 * would be covered in any Java2D book.
+	 */
+	@Override
+	protected void paintComponent(Graphics _g) {
+		Graphics2D g = (Graphics2D) _g;
 
-        // Preserve the original transform to roll back to at the end
-        AffineTransform originalTx = g.getTransform();
+		// Preserve the original transform to roll back to at the end
+		AffineTransform originalTx = g.getTransform();
 
-        // Turn on anti-aliasing
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		// Turn on anti-aliasing
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Calculate the inner area, compensating for borders
-        _area = SwingUtilities.calculateInnerArea(this, _area);
-        // Now translate so that 0,0 is is at the inner origin
-        g.translate(_area.x, _area.y);
+		// Calculate the inner area, compensating for borders
+		_area = SwingUtilities.calculateInnerArea(this, _area);
+		// Now translate so that 0,0 is is at the inner origin
+		g.translate(_area.x, _area.y);
 
-        // Set the font to our component's font property
+		// Set the font to our component's font property
 
-        g.setFont(getFont());
-        FontMetrics fm = g.getFontMetrics();
+		g.setFont(getFont());
+		FontMetrics fm = g.getFontMetrics();
 
-        // Calculate the x,y for the String's baseline in order to center it
-        int stringWidth = fm.stringWidth(text);
-        int stringX = (_area.width - stringWidth) / 2;
+		// Calculate the x,y for the String's baseline in order to center it
+		int stringWidth = fm.stringWidth(text);
+		int stringX = (_area.width - stringWidth) / 2;
 
-        // This is the _easy_ way to draw a string, but that's no fun...
-        //		g.drawString(text, stringX, stringY);
+		// This is the _easy_ way to draw a string, but that's no fun...
+		//		g.drawString(text, stringX, stringY);
 
-        if (_position == 0) {
-            // Perfectly centered
-            paintTextAt(g, stringX);
-        } else {
-            // Draw twice to achieve marquee effect
-            float dX = _area.width * (_position / 100f);
-            paintTextAt(g, stringX + dX);
-            paintTextAt(g, stringX - _area.width + dX);
-        }
+		if (_position == 0) {
+			// Perfectly centered
+			paintTextAt(g, stringX);
+		} else {
+			// Draw twice to achieve marquee effect
+			float dX = _area.width * (_position / 100f);
+			paintTextAt(g, stringX + dX);
+			paintTextAt(g, stringX - _area.width + dX);
+		}
 
-        // Reverse any transforms we made
-        g.setTransform(originalTx);
-    }
+		// Reverse any transforms we made
+		g.setTransform(originalTx);
+	}
 
-    private void paintTextAt(Graphics2D g, float xPosition) {
-        Font font = g.getFont();
-        FontRenderContext frc = g.getFontRenderContext();
-        GlyphVector vector = font.createGlyphVector(frc, text);
+	private void paintTextAt(Graphics2D g, float xPosition) {
+		Font font = g.getFont();
+		FontRenderContext frc = g.getFontRenderContext();
+		GlyphVector vector = font.createGlyphVector(frc, getText());
 
-        Rectangle2D bounds = vector.getVisualBounds();
+		Rectangle2D bounds = vector.getVisualBounds();
 
-        float yPosition = (float) (_area.getHeight() + bounds.getHeight()) / 2f;
+		float yPosition = (float) (_area.getHeight() + bounds.getHeight()) / 2f;
 
-        Shape textShape = vector.getOutline(xPosition, yPosition);
+		Shape textShape = vector.getOutline(xPosition, yPosition);
 
-        g.setColor(fillColor);
-        g.fill(textShape);
+		g.setColor(fillColor);
+		g.fill(textShape);
 
-        if (_stroke != null) {
-            g.setColor(strokeColor);
-            g.setStroke(_stroke);
-            g.draw(textShape);
-        }
-    }
+		if (_stroke != null) {
+			g.setColor(strokeColor);
+			g.setStroke(_stroke);
+			g.draw(textShape);
+		}
+	}
 
 	/*
-     * Even though the animation is fun, it is really there to show how to use these startup/shutdown lifecycle methods
+	 * Even though the animation is fun, it is really there to show how to use these startup/shutdown lifecycle methods
 	 * to ensure that any long-running logic in your component gets properly shut down.
 	 */
 
-    @Override
-    protected void onStartup() {
-        // Seems like a no-op, but actually will trigger logic to re-start the timer if necessary
-        setAnimation(animation);
-    }
+	@Override
+	protected void onStartup() {
+		// Seems like a no-op, but actually will trigger logic to re-start the timer if necessary
+		setAnimation(animation);
+	}
 
-    @Override
-    protected void onShutdown() {
-        if (_timer != null && _timer.isRunning()) {
-            _timer.stop();
-        }
-    }
+	@Override
+	protected void onShutdown() {
+		if (_timer != null && _timer.isRunning()) {
+			_timer.stop();
+		}
+	}
 
-    public String getText() {
-        return text;
-    }
+	/**
+	 * getText() returns a translated version of the text string. Always use this version when displaying the text,
+	 * rather than accessing the variable directly.
+	 */
+	public String getText() {
+		return t(this, text);   // This function returns a translated version of the text
+	}
 
-    public void setText(String text) {
-        // Firing property changes like this is required for any property that has the BOUND_MASK set on it.
-        // (See this component's BeanInfo class)
-        String old = this.text;
-        this.text = text;
-        firePropertyChange("text", old, text);
+	public void setText(String text) {
+		// Firing property changes like this is required for any property that has the BOUND_MASK set on it.
+		// (See this component's BeanInfo class)
+		String old = this.text;
+		this.text = text;
+		firePropertyChange("text", old, text);
 
-        repaint();
-    }
+		repaint();
+	}
 
-    public int getAnimation() {
-        return animation;
-    }
+	public int getAnimation() {
+		return animation;
+	}
 
-    public void setAnimation(int animation) {
-        this.animation = animation;
-        if (animation == ANIMATION_OFF && _timer != null && _timer.isRunning()) {
-            _timer.stop();
-            _position = 0;
-            repaint();
-        }
-        if (animation != ANIMATION_OFF) {
-            if (_timer == null) {
-                _timer = new Timer(animationRate, animationListener);
-            }
-            if (!_timer.isRunning()) {
-                _timer.start();
-            }
-        }
-    }
+	public void setAnimation(int animation) {
+		this.animation = animation;
+		if (animation == ANIMATION_OFF && _timer != null && _timer.isRunning()) {
+			_timer.stop();
+			_position = 0;
+			repaint();
+		}
+		if (animation != ANIMATION_OFF) {
+			if (_timer == null) {
+				_timer = new Timer(animationRate, animationListener);
+			}
+			if (!_timer.isRunning()) {
+				_timer.start();
+			}
+		}
+	}
 
-    public Color getFillColor() {
-        return fillColor;
-    }
+	public Color getFillColor() {
+		return fillColor;
+	}
 
-    public void setFillColor(Color fillColor) {
-        this.fillColor = fillColor;
-        repaint();
-    }
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+		repaint();
+	}
 
-    public Color getStrokeColor() {
-        return strokeColor;
-    }
+	public Color getStrokeColor() {
+		return strokeColor;
+	}
 
-    public void setStrokeColor(Color strokeColor) {
-        this.strokeColor = strokeColor;
-        repaint();
-    }
+	public void setStrokeColor(Color strokeColor) {
+		this.strokeColor = strokeColor;
+		repaint();
+	}
 
-    public float getStrokeWidth() {
-        return strokeWidth;
-    }
+	public float getStrokeWidth() {
+		return strokeWidth;
+	}
 
-    public void setStrokeWidth(float strokeWidth) {
-        this.strokeWidth = strokeWidth;
-        if (strokeWidth > 0) {
-            _stroke = new BasicStroke(strokeWidth);
-        } else {
-            _stroke = null;
-        }
-        repaint();
-    }
+	public void setStrokeWidth(float strokeWidth) {
+		this.strokeWidth = strokeWidth;
+		if (strokeWidth > 0) {
+			_stroke = new BasicStroke(strokeWidth);
+		} else {
+			_stroke = null;
+		}
+		repaint();
+	}
 
-    public int getAnimationRate() {
-        return animationRate;
-    }
+	public int getAnimationRate() {
+		return animationRate;
+	}
 
-    public void setAnimationRate(int animationRate) {
-        this.animationRate = Math.max(10, animationRate);
-        if (_timer != null) {
-            _timer.setDelay(animationRate);
-        }
-    }
+	public void setAnimationRate(int animationRate) {
+		this.animationRate = Math.max(10, animationRate);
+		if (_timer != null) {
+			_timer.setDelay(animationRate);
+		}
+	}
 
+	/**
+	 * This function is called whenever the user's locale changes. Add code here to deal with any
+	 * translations, number formats, or date formats that need to change as a result of the locale
+	 * changing. Some items may need to be revalidated/repainted to cause the screen to update.
+	 */
+	@Override
+	public void localeChanged(Locale locale) {
+		//We need to fire a change on text in order to trigger html based displays to refresh.
+		firePropertyChange("text", null, getText());
+		repaint();
+	}
 }
