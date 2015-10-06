@@ -14,6 +14,7 @@ import com.inductiveautomation.factorypmi.designer.property.customizers.StyleCus
 import com.inductiveautomation.ignition.examples.ce.components.HelloWorldComponent;
 import com.inductiveautomation.vision.api.designer.beans.CommonBeanInfo;
 import com.inductiveautomation.vision.api.designer.beans.VisionBeanDescriptor;
+
 import java.awt.Image;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -32,8 +33,8 @@ public class HelloWorldComponentBeanInfo extends CommonBeanInfo {
     public HelloWorldComponentBeanInfo() {
         /*
          * Our superclass constructor takes the class of the component we describe and the customizers that are
-		 * applicable
-		 */
+         * applicable
+         */
         super(HelloWorldComponent.class, DynamicPropertyProviderCustomizer.VALUE_DESCRIPTOR, StyleCustomizer.VALUE_DESCRIPTOR);
     }
 
@@ -48,6 +49,8 @@ public class HelloWorldComponentBeanInfo extends CommonBeanInfo {
         removeProp("opaque");
 
         // Add our properties
+        // Note that all String properties are automatically added to the component's translatable terms
+        // unless you add NOT_TRANSLATABLE_MASK
         addProp("text", "Text", "The text to display in the component", CAT_DATA, PREFERRED_MASK | BOUND_MASK);
 
         addEnumProp("animation", "Animation Mode", "This mode turns on or off animation marquee.", CAT_BEHAVIOR,
@@ -81,6 +84,9 @@ public class HelloWorldComponentBeanInfo extends CommonBeanInfo {
         bean.setName("Hello World");
         bean.setDisplayName("Hello World");
         bean.setShortDescription("A component that displays the text 'Hello World'.");
+        // This adds any extra translatable terms (other than String properties above)
+        // Alter HelloWorldComponentTermFinder to add static and dynamic props
+        bean.setValue(CommonBeanInfo.TERM_FINDER_CLASS, HelloWorldComponentTermFinder.class);
     }
 
 }

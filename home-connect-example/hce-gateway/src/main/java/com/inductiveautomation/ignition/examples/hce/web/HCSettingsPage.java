@@ -1,11 +1,11 @@
-package com.inductiveautomation.ignition.examples.hce.config.web;
+package com.inductiveautomation.ignition.examples.hce.web;
 
-import com.inductiveautomation.ignition.examples.hce.HCConnectionSettings;
+import com.inductiveautomation.ignition.examples.hce.records.HCSettingsRecord;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.web.components.RecordEditForm;
+import com.inductiveautomation.ignition.gateway.web.models.LenientResourceModel;
 import com.inductiveautomation.ignition.gateway.web.pages.IConfigPage;
 import org.apache.wicket.Application;
-import org.apache.wicket.model.Model;
 
 /**
  * Filename: HCSettingsPage
@@ -19,8 +19,8 @@ public class HCSettingsPage extends RecordEditForm {
     public static final String[] PATH = {"homeconnect", "settings"};
 
     public HCSettingsPage(final IConfigPage configPage) {
-        super(configPage, null, Model.of("HomeConnect Settings"),
-                ((GatewayContext) Application.get()).getPersistenceInterface().find(HCConnectionSettings.META, 0L));
+        super(configPage, null, new LenientResourceModel("HomeConnect.nav.settings.panelTitle"),
+                ((GatewayContext) Application.get()).getPersistenceInterface().find(HCSettingsRecord.META, 0L));
     }
 
 

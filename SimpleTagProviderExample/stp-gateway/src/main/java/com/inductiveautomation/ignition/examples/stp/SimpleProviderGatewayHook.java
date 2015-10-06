@@ -3,10 +3,13 @@
  */
 package com.inductiveautomation.ignition.examples.stp;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.Random;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import com.inductiveautomation.ignition.common.TypeUtilities;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
@@ -22,14 +25,21 @@ import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.sqltags.simple.SimpleTagProvider;
 import com.inductiveautomation.ignition.gateway.sqltags.simple.WriteHandler;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /**
  * The "gateway hook" is the entry point for a module on the gateway. Since this example is so simple, we just do
  * everything here.
- *
+ * <p/>
  * This example uses the {@link SimpleTagProvider} to expose tags through SQLTags. We create a number of tags under a
  * folder, and update their values every second with random values.
- *
+ * <p/>
  * There is a "control" tag that can be used to modify the number of tags provided. This tag illustrates how to set up
  * write handling.
  */
@@ -99,6 +109,70 @@ public class SimpleProviderGatewayHook extends AbstractGatewayModuleHook {
         } catch (Exception e) {
             logger.fatal("Error starting up SimpleTagProvider example module.", e);
         }
+
+        pahoTest();
+    }
+
+    private static void pahoTest() {
+        String topic = "MQTT Examples";
+        String content = "Message from MqttPublishSample";
+        int qos = 2;
+        String broker = "ssl://test.mosquitto.org:8883";
+        String clientId = "JavaSample";
+        MemoryPersistence persistence = new MemoryPersistence();
+
+        try {
+            MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+
+            connOpts.setCleanSession(true);
+            connOpts.setConnectionTimeout(5000);
+            try {
+                connOpts.setSocketFactory(createSocketFactory());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            System.out.println("Connecting to broker: " + broker);
+            sampleClient.connect(connOpts);
+            System.out.println("Connected");
+            System.out.println("Publishing message: " + content);
+            MqttMessage message = new MqttMessage(content.getBytes());
+            message.setQos(qos);
+            sampleClient.publish(topic, message);
+            System.out.println("Message published");
+            sampleClient.disconnect();
+            System.out.println("Disconnected");
+        } catch (MqttException me) {
+            System.out.println("reason " + me.getReasonCode());
+            System.out.println("msg " + me.getMessage());
+            System.out.println("loc " + me.getLocalizedMessage());
+            System.out.println("cause " + me.getCause());
+            System.out.println("excep " + me);
+            me.printStackTrace();
+        }
+    }
+
+    private static SSLSocketFactory createSocketFactory() throws Exception {
+        TrustManager[] naiveTrustManager = new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[0];
+                    }
+
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                    }
+                }
+        };
+
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, naiveTrustManager, new SecureRandom());
+
+        return sc.getSocketFactory();
     }
 
     @Override

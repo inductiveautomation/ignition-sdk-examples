@@ -21,19 +21,23 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import com.inductiveautomation.ignition.client.model.LocaleListener;
 import com.inductiveautomation.vision.api.client.components.model.AbstractVisionComponent;
+
+import static com.inductiveautomation.factorypmi.application.i18n.TranslationUtils.t;
 
 /**
  * This is the actual component for the Ignition SDK's component example module.
  *
  * @author Carl Gould
  */
-public class HelloWorldComponent extends AbstractVisionComponent {
+public class HelloWorldComponent extends AbstractVisionComponent implements LocaleListener {
 
     /**
      * No animation
@@ -164,7 +168,7 @@ public class HelloWorldComponent extends AbstractVisionComponent {
     private void paintTextAt(Graphics2D g, float xPosition) {
         Font font = g.getFont();
         FontRenderContext frc = g.getFontRenderContext();
-        GlyphVector vector = font.createGlyphVector(frc, text);
+        GlyphVector vector = font.createGlyphVector(frc, getText());
 
         Rectangle2D bounds = vector.getVisualBounds();
 
@@ -182,10 +186,10 @@ public class HelloWorldComponent extends AbstractVisionComponent {
         }
     }
 
-	/*
+    /*
      * Even though the animation is fun, it is really there to show how to use these startup/shutdown lifecycle methods
-	 * to ensure that any long-running logic in your component gets properly shut down.
-	 */
+     * to ensure that any long-running logic in your component gets properly shut down.
+     */
 
     @Override
     protected void onStartup() {
@@ -200,8 +204,12 @@ public class HelloWorldComponent extends AbstractVisionComponent {
         }
     }
 
+    /**
+     * getText() returns a translated version of the text string. Always use this version when displaying the text,
+     * rather than accessing the variable directly.
+     */
     public String getText() {
-        return text;
+        return t(this, text);   // This function returns a translated version of the text
     }
 
     public void setText(String text) {
@@ -278,4 +286,15 @@ public class HelloWorldComponent extends AbstractVisionComponent {
         }
     }
 
+    /**
+     * This function is called whenever the user's locale changes. Add code here to deal with any
+     * translations, number formats, or date formats that need to change as a result of the locale
+     * changing. Some items may need to be revalidated/repainted to cause the screen to update.
+     */
+    @Override
+    public void localeChanged(Locale locale) {
+        //We need to fire a change on text in order to trigger html based displays to refresh.
+        firePropertyChange("text", null, getText());
+        repaint();
+    }
 }

@@ -51,7 +51,7 @@
                     <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
                     <requiredFrameworkVersion>6</requiredFrameworkVersion>
-                    <licenseFile>license.html</licenseFile>
+                    <licenseFile></licenseFile>
                     <documentationFile>doc/index.html</documentationFile>
 
                     <depends></depends>
