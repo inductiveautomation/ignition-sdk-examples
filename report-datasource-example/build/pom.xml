@@ -8,7 +8,7 @@
     <parent>
         <artifactId>report-datasource-example</artifactId>
         <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>datasource-build</artifactId>
@@ -19,17 +19,17 @@
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-designer</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-gateway</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-common</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -83,7 +83,7 @@
                     <moduleId>rest-json-report-datasource</moduleId>
                     <moduleName>RestJsonDataSource</moduleName>
                     <moduleDescription>A module that adds a datasource to Ignition Reporting Module</moduleDescription>
-                    <moduleVersion>1.0.0</moduleVersion>
+                    <moduleVersion>1.0.0-SNAPSHOT</moduleVersion>
                     <requiredIgnitionVersion>7.8.0</requiredIgnitionVersion>
                     <requiredFrameworkVersion>7</requiredFrameworkVersion>
                     <freeModule>true</freeModule>

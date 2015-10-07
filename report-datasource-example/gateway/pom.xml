@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-datasource-example</artifactId>
         <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>datasource-gateway</artifactId>
@@ -19,12 +19,13 @@
             <artifactId>reporting-gateway</artifactId>
             <version>7.8.0-SNAPSHOT</version>
             <scope>provided</scope>
+            <type>pom</type>
         </dependency>
         <dependency>
             <!-- common dependency for things we need to share between scopes -->
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-common</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <!-- use OkHttp as a simple and efficient HTTP client to call for our data -->
