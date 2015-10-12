@@ -1,11 +1,6 @@
 # Ignition SDK
 
-We have restructured the Ignition SDK to let you create Ignition modules with minimal startup time.  This new format reduces configuration, eases dependency management and makes it easier to set up the development environment of your choosing.  This project is still in early-preview and we plan for it to become the standard for module development in a future Ignition 7.7.x release.  
-
-We are in the process of updating documentation and will post updates here and on the [Inductive Automation](http://www.inductiveautomation.com) website.  Until then, the existing module SDK programming guide is available with the 7.7.1 SDK and provides some good material to get started with.
-
-
-## How to get started
+## Getting Started
 
 1. You will need the Java JDK 1.8+ installed, downloadable from the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.
 
