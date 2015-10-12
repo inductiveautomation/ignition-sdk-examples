@@ -39,13 +39,21 @@
             <plugin>
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.9-SNAPSHOT</version>
 
                 <executions>
                     <execution>
+                        <id>package-modl</id>
                         <phase>package</phase>
                         <goals>
                             <goal>modl</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-modl</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>post</goal>
                         </goals>
                     </execution>
                 </executions>
