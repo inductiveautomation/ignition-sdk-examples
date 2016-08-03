@@ -13,6 +13,8 @@
         <module>ce-client</module>
         <module>ce-designer</module>
         <module>ce-build</module>
+        <module>client-launcher</module>
+        <module>designer-launcher</module>
     </modules>
 
     <pluginRepositories>
