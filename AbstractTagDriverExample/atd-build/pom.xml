@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.inductiveautomation.examples</groupId>
         <artifactId>abstract-tag-driver</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>atd-build</artifactId>
@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.inductiveautomation.examples</groupId>
             <artifactId>atd-gateway</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
     </dependencies>
 

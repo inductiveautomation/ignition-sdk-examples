@@ -6,7 +6,7 @@
     <parent>
         <artifactId>scripting-rpc-example</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
-        <version>1.7.0-SNAPSHOT</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>scripting-rpc-designer</artifactId>
@@ -15,18 +15,18 @@
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>scripting-rpc-client</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
+            <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>scripting-rpc-common</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
+            <version>1.8.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>ignition-common</artifactId>
-            <version>7.8.0-SNAPSHOT</version>
+            <version>7.8.4-SNAPSHOT</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>client-api</artifactId>
-            <version>7.8.0-SNAPSHOT</version>
+            <version>7.8.4-SNAPSHOT</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>designer-api</artifactId>
-            <version>7.8.0-SNAPSHOT</version>
+            <version>7.8.4-SNAPSHOT</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>vision-designer-api</artifactId>
-            <version>7.8.0-SNAPSHOT</version>
+            <version>7.8.4-SNAPSHOT</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>

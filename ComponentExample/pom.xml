@@ -6,7 +6,7 @@
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>component-example</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
     <packaging>pom</packaging>
 
     <modules>

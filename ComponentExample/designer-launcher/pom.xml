@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <artifactId>component-example</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>designer-launcher</artifactId>
@@ -15,18 +15,18 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>designer-api</artifactId>
-            <version>7.8.3</version>
+            <version>7.8.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>vision-designer-api</artifactId>
-            <version>7.8.3</version>
+            <version>7.8.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>ce-designer</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
     </dependencies>
 

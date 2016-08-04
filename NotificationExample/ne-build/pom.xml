@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <artifactId>notification-example</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>ne-build</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>ne-gateway</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
     </dependencies>
 

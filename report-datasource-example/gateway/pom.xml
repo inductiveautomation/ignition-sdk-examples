@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-datasource-example</artifactId>
         <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>datasource-gateway</artifactId>
@@ -17,7 +17,7 @@
             <!-- reporting-gateway dependency provides reporting gateway api -->
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>reporting-gateway</artifactId>
-            <version>7.8.0-SNAPSHOT</version>
+            <version>7.8.4-SNAPSHOT</version>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
@@ -25,19 +25,19 @@
             <!-- common dependency for things we need to share between scopes -->
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.8.0</version>
         </dependency>
 
         <!-- use OkHttp as a simple and efficient HTTP client to call for our data -->
         <dependency>
             <groupId>com.squareup.okhttp</groupId>
             <artifactId>okhttp</artifactId>
-            <version>2.5.0</version>
+            <version>2.7.5</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okio</groupId>
             <artifactId>okio</artifactId>
-            <version>1.6.0</version>
+            <version>1.9.0</version>
         </dependency>
     </dependencies>
 

@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <artifactId>component-example</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>ce-build</artifactId>
@@ -16,12 +16,12 @@
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>ce-client</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>ce-designer</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
     </dependencies>
 

@@ -7,7 +7,7 @@
     <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
     <artifactId>home-connect-example</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.8.0</version>
 
     <modules>
         <module>hce-gateway</module>

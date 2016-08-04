@@ -8,7 +8,7 @@
     <parent>
         <artifactId>report-datasource-example</artifactId>
         <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>datasource-build</artifactId>
@@ -19,17 +19,17 @@
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-designer</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-gateway</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
             <artifactId>datasource-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.8.0</version>
         </dependency>
     </dependencies>
 

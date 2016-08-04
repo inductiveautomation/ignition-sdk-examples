@@ -7,7 +7,7 @@
     <groupId>com.inductiveautomation.examples</groupId>
     <artifactId>abstract-tag-driver</artifactId>
     <packaging>pom</packaging>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
 
     <modules>
         <module>atd-build</module>

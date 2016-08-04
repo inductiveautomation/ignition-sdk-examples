@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-component</artifactId>
         <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>component-common</artifactId>
@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>reporting-common</artifactId>
-            <version>7.8.0-SNAPSHOT</version>
+            <version>7.8.4-SNAPSHOT</version>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
