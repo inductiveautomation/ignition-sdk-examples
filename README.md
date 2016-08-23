@@ -8,8 +8,6 @@
 
 1. You will want a running version of Ignition to test your module in.  If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.  
 
-2. You will also need a developer account, which you can get started at the Ignition [Module Development](https://marketplace.inductiveautomation.com/developer) page.  *Note:* The dev registration process is longer if you are interested in selling your modules through the Inductive Automation [Module Marketplace](http://marketplace.inductiveautomation.com/).  
-
 3. Once you have configured your developer gateway, clone this repo to a directory of your choice :
 
     ```git clone https://github.com/inductiveautomation/ignition-sdk-examples.git```
