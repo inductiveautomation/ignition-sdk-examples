@@ -4,11 +4,11 @@
 
 1. You will need the Java JDK 1.8+ installed, downloadable from the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.
 
-2. You will need Maven 3.+ installed.  Linux users can use their package manager to install at the command line (example for apt package management`sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`.  Windows users can install via [Chocolatey](https://chocolatey.org/) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
+2. You will need Maven 3.+ installed.  Linux users can use their package manager to install at the command line (example for apt package management`sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`.  Windows users can install via [Chocolatey](https://chocolatey.org/) (`choco install maven`) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
 
 1. You will want a running version of Ignition to test your module in.  If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.  
 
-3. Once you have configured your developer gateway, clone this repo to a directory of your choice :
+3. Once you have configured your developer gateway, make sure [git](https://git-scm.com/downloads) is installed and clone this repo to a directory of your choice :
 
     ```git clone https://github.com/inductiveautomation/ignition-sdk-examples.git```
 
