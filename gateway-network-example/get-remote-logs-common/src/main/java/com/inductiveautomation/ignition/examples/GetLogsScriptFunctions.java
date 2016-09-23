@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.script.builtin.KeywordArgs;
 import com.inductiveautomation.ignition.common.script.builtin.PyArgumentMap;
 import com.inductiveautomation.ignition.common.script.hints.NoHint;
@@ -26,7 +27,7 @@ import org.python.core.PyObject;
 public abstract class GetLogsScriptFunctions {
 
     @NoHint
-    public abstract HashMap<String, List<LoggingEvent>> getLogEntriesInternal(List<String> remoteServers, Date startDate, Date endDate);
+    public abstract HashMap<String, List<LogEvent>> getLogEntriesInternal(List<String> remoteServers, Date startDate, Date endDate);
 
     @KeywordArgs(names = {"remoteServers", "startDate", "endDate"}, types = {List.class, Date.class, Date.class})
     public PyDictionary getRemoteLogEntries(PyObject[] pyArgs, String[] keywords) throws JSONException {
@@ -40,7 +41,7 @@ public abstract class GetLogsScriptFunctions {
         Date startDate = args.getDateArg("startDate");
         Date endDate = args.getDateArg("endDate");
 
-        HashMap<String, List<LoggingEvent>> logsMap = getLogEntriesInternal(remoteServers, startDate, endDate);
+        HashMap<String, List<LogEvent>> logsMap = getLogEntriesInternal(remoteServers, startDate, endDate);
         PyDictionary dict = new PyDictionary();
         for(String key: logsMap.keySet()){
 
@@ -48,11 +49,11 @@ public abstract class GetLogsScriptFunctions {
                     .colNames("level","name","timestamp","message")
                     .colTypes(String.class,String.class,Date.class,String.class);
 
-            List<LoggingEvent> events = logsMap.get(key);
+            List<LogEvent> events = logsMap.get(key);
 
             // Convert the logging events into dataset rows
-            for(LoggingEvent event: events){
-                dataBuilder.addRow(event.getLevel().toString(), event.getLoggerName(), new Date(event.getTimeStamp()), event.getMessage().toString());
+            for(LogEvent event: events){
+                dataBuilder.addRow(event.getLevel().toString(), event.getLoggerName(), new Date(event.getTimestamp()), event.getMessage().toString());
             }
 
             dict.put(key, dataBuilder.build());

@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.script.hints.NoHint;
-import org.apache.log4j.spi.LoggingEvent;
 
 /**
  * Created by mattgross on 9/15/2016. Gateway implementation of GetLogsScriptFunctions. The actual code to retrieve
@@ -21,7 +21,7 @@ public class GetLogsGatewayFunctions extends GetLogsScriptFunctions {
 
     @NoHint
     @Override
-    public HashMap<String, List<LoggingEvent>> getLogEntriesInternal(List<String> remoteServers, Date startDate, Date endDate){
+    public HashMap<String, List<LogEvent>> getLogEntriesInternal(List<String> remoteServers, Date startDate, Date endDate){
         return rpc.getRemoteLogEntries(remoteServers, startDate, endDate);
     }
 

@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.examples.service.GetLogsService;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.metro.api.ServerId;
 import com.inductiveautomation.metro.api.ServiceManager;
 import com.inductiveautomation.metro.api.services.ServiceState;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
 
 /**
  * Created by mattgross on 9/15/2016. Implementation of GetLogsRPC, and handles remote calls from clients and designers.
@@ -25,9 +25,9 @@ public class GetLogsRPCImpl implements GetLogsRPC {
     }
 
     @Override
-    public HashMap<String, List<LoggingEvent>> getRemoteLogEntries(List<String> remoteServers, Date startDate, Date endDate){
+    public HashMap<String, List<LogEvent>> getRemoteLogEntries(List<String> remoteServers, Date startDate, Date endDate){
 
-        HashMap<String, List<LoggingEvent>> logsMap = new HashMap<>();
+        HashMap<String, List<LogEvent>> logsMap = new HashMap<>();
 
         ServiceManager sm = context.getGatewayAreaNetworkManager().getServiceManager();
         for(String server: remoteServers){
@@ -42,7 +42,7 @@ public class GetLogsRPCImpl implements GetLogsRPC {
             }
             else{
                 // The service call will time out after 60 seconds if no response is received from the remote Gateway.
-                List<LoggingEvent> events = sm.getService(serverId, GetLogsService.class).get().getLogEvents(startDate, endDate);
+                List<LogEvent> events = sm.getService(serverId, GetLogsService.class).get().getLogEvents(startDate, endDate);
                 logsMap.put(server, events);
             }
         }

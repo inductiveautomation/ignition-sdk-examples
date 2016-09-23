@@ -7,7 +7,7 @@
     <parent>
         <artifactId>get-remote-logs</artifactId>
         <groupId>com.example</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>get-remote-logs-designer</artifactId>
@@ -16,12 +16,12 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>get-remote-logs-client</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.9.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>get-remote-logs-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.9.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

@@ -3,10 +3,10 @@ package com.inductiveautomation.ignition.examples.service;
 import java.util.Date;
 import java.util.List;
 
+import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.gateway.gan.security.TrialPeriodProtected;
 import com.inductiveautomation.metro.api.ServerId;
 import com.inductiveautomation.metro.impl.services.annotations.FileStream;
-import org.apache.log4j.spi.LoggingEvent;
 
 /**
  * Created by mattgross on 9/19/2016.
@@ -24,7 +24,7 @@ public interface GetLogsService {
      * @param endDate returns logging events with a timestamp before this date. Set to null to not use an end date.
      * @return a List of LoggingEvents, or an empty List if no logging events are available
      */
-    List<LoggingEvent> getLogEvents(Date startDate, Date endDate);
+    List<LogEvent> getLogEvents(Date startDate, Date endDate);
 
     /**
      * Triggers the local machine to send a copy of its wrapper log to the requesting remote machine.

@@ -2,21 +2,22 @@ package com.inductiveautomation.ignition.examples.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.inductiveautomation.ignition.common.util.RAFCircularBuffer;
-import com.inductiveautomation.ignition.common.util.RAFCircularBuffer.Filter;
+import com.inductiveautomation.ignition.common.logging.LogEvent;
+import com.inductiveautomation.ignition.common.logging.LogQueryConfig;
+import com.inductiveautomation.ignition.common.logging.LogQueryConfig.LogQueryConfigBuilder;
+import com.inductiveautomation.ignition.common.logging.LogResults;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.metro.api.ServerId;
 import com.inductiveautomation.metro.api.ServiceManager;
-import com.inductiveautomation.metro.utils.IOUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Created by mattgross on 9/19/2016. Implementation of the GetLogsService, and performs the actual work of sending
@@ -25,31 +26,26 @@ import org.apache.log4j.spi.LoggingEvent;
 public class GetLogsServiceImpl implements GetLogsService {
 
     private GatewayContext context;
-    private Logger logger = LogManager.getLogger("GetLogsService");
+    private Logger logger = LoggerFactory.getLogger("GetLogsService");
 
     public GetLogsServiceImpl(GatewayContext context){
         this.context = context;
     }
 
     @Override
-    public List<LoggingEvent> getLogEvents(Date startDate, Date endDate) {
-
-        List<LoggingEvent> events = new ArrayList<>();
-        File logFile = new File(context.getLogsDir() + File.separator + "logs.bin");
-        if(logFile.exists()){
-            try{
-                // Open a backwards-iterating 20MB buffer
-                RAFCircularBuffer<LoggingEvent> buffer = new RAFCircularBuffer<>(logFile, 1024 * 20, false);
-                events = buffer.iterateBackward(new DateFilter(startDate, endDate));
-            }
-            catch(IOException e){
-                logger.error("IOException thrown when reading log buffer", e);
-            }
-
+    public List<LogEvent> getLogEvents(Date startDate, Date endDate) {
+        LogQueryConfigBuilder query = LogQueryConfig.newBuilder();
+        if(startDate != null){
+            query.newerThan(startDate.getTime());
         }
-        else{
-            logger.warn(String.format("%s does not exist. No logs will be returned", logFile.getAbsolutePath()));
+
+        if(endDate != null){
+            query.olderThan(endDate.getTime());
         }
+
+        LogQueryConfig filter = query.build();
+        LogResults result = context.getLoggingManager().queryLogEvents(filter);
+        List<LogEvent> events  = result.getEvents();
 
         return events;
     }
@@ -106,48 +102,4 @@ public class GetLogsServiceImpl implements GetLogsService {
         return SUCCESS_MSG;
     }
 
-    private static class DateFilter implements Filter<LoggingEvent> {
-
-        private Long startTime;
-        private Long endTime;
-        private boolean isFinished = false;
-
-        /**
-         * Pass startDate as null to not have any filter for start date. The same applies to endDate. If both dates
-         * are null, all log events are returned.
-         * @param startDate
-         * @param endDate
-         */
-        public DateFilter(Date startDate, Date endDate){
-            if(startDate != null){
-                this.startTime = startDate.getTime();
-            }
-
-            if(endDate != null){
-                this.endTime = endDate.getTime();
-            }
-        }
-
-        @Override
-        public boolean accept(LoggingEvent event) {
-            Long timestamp = event.getTimeStamp();
-
-            if(startTime != null && timestamp < startTime){
-                // We are going backwards, so we know that any entries after this are also out of range.
-                isFinished = true;
-                return false;
-            }
-
-            if(endTime != null && timestamp > endTime){
-                return false;
-            }
-
-            return true;
-        }
-
-        @Override
-        public boolean finished() {
-            return isFinished;
-        }
-    }
 }
