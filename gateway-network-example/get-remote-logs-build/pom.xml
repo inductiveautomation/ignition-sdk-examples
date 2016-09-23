@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>get-remote-logs</artifactId>
+        <groupId>com.example</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>get-remote-logs-build</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>get-remote-logs-client</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>get-remote-logs-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>get-remote-logs-designer</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>get-remote-logs-gateway</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.inductiveautomation.ignitionsdk</groupId>
+                <artifactId>ignition-maven-plugin</artifactId>
+                <version>1.0.12</version>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>modl</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- Auto-installs module in Gateway, requires a cd-key with developer mode enabled -->
+                    <execution>
+                        <id>install-modl</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>post</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+
+                    <gatewayAddress>http://localhost:8088</gatewayAddress>
+
+                    <projectScopes>
+                        <projectScope>
+                            <name>get-remote-logs-client</name>
+                            <scope>C</scope>
+                        </projectScope>
+                        <projectScope>
+                            <name>get-remote-logs-common</name>
+                            <scope>CDG</scope>
+                        </projectScope>
+                        <projectScope>
+                            <name>get-remote-logs-designer</name>
+                            <scope>CD</scope>
+                        </projectScope>
+                        <projectScope>
+                            <name>get-remote-logs-gateway</name>
+                            <scope>G</scope>
+                        </projectScope>
+                    </projectScopes>
+
+                    <moduleId>com.example.get-remote-logs</moduleId>
+                    <moduleName>${project.parent.name}</moduleName>
+                    <moduleDescription>${project.description}</moduleDescription>
+                    <moduleVersion>1.0.0-SNAPSHOT</moduleVersion>
+                    <requiredIgnitionVersion>7.8.0</requiredIgnitionVersion>
+
+                    <hooks>
+                        <hook>
+                            <scope>C</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.client.ClientHook</hookClass>
+                        </hook>
+                        <hook>
+                            <scope>D</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.designer.DesignerHook</hookClass>
+                        </hook>
+                        <hook>
+                            <scope>G</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.GatewayHook</hookClass>
+                        </hook>
+                    </hooks>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
