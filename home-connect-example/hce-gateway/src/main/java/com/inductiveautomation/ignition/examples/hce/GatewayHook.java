@@ -1,18 +1,38 @@
 package com.inductiveautomation.ignition.examples.hce;
 
-import java.sql.SQLException;
-
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
-import com.inductiveautomation.ignition.examples.hce.web.HCSettingsPage;
+import com.inductiveautomation.ignition.common.util.LogUtil;
+import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.examples.hce.records.HCSettingsRecord;
+import com.inductiveautomation.ignition.examples.hce.web.HCSettingsPage;
+import com.inductiveautomation.ignition.examples.hce.web.HomeConnectStatusRoutes;
+import com.inductiveautomation.ignition.gateway.ContextState;
+import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.IRecordListener;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.ignition.gateway.web.components.LabelConfigMenuNode;
-import com.inductiveautomation.ignition.gateway.web.components.LinkConfigMenuNode;
+import com.inductiveautomation.ignition.gateway.web.components.AbstractNamedTab;
+import com.inductiveautomation.ignition.gateway.web.models.ConfigCategory;
+import com.inductiveautomation.ignition.gateway.web.models.DefaultConfigTab;
+import com.inductiveautomation.ignition.gateway.web.models.IConfigTab;
+import com.inductiveautomation.ignition.gateway.web.models.INamedTab;
 import com.inductiveautomation.ignition.gateway.web.models.KeyValue;
-import org.apache.log4j.Logger;
+import com.inductiveautomation.ignition.gateway.web.pages.BasicReactPanel;
+import com.inductiveautomation.ignition.gateway.web.pages.config.overviewmeta.ConfigOverviewContributor;
+import com.inductiveautomation.ignition.gateway.web.pages.status.StatusCategories;
+import com.inductiveautomation.ignition.gateway.web.pages.status.overviewmeta.OverviewContributor;
+import org.apache.wicket.Application;
+import org.apache.wicket.ThreadContext;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.protocol.http.WebApplication;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Filename: GatewayHook.java
@@ -22,17 +42,47 @@ import org.apache.log4j.Logger;
  *
  * The "gateway hook" is the entry point for a module on the gateway.
  *
- * This example uses {@link BundleUtil} to register our i18n property bundles to the internationalization system, and
- * adds {@link LabelConfigMenuNode} and {@link LinkConfigMenuNode} to create Wicket navigation items for display in
- * the Gateway Configuration panel.
+ * This example uses the new status and config pages for 7.9 and later.
  *
  */
 public class GatewayHook extends AbstractGatewayModuleHook {
     private static final String[] HCON_MENU_PATH = {"homeconnect"};
     private GatewayContext context;
 
-    private final Logger log = Logger.getLogger(getClass());
+    private final LoggerEx log = LogUtil.getLogger(getClass().getSimpleName());
 
+    /**
+     * This sets up the status panel which we'll add to the statusPanels list. The controller will be
+     * HomeConnectStatusRoutes.java, and the model and view will be in our javascript folder.
+     */
+    private static final INamedTab HCE_STATUS_PAGE = new AbstractNamedTab(
+            "homeconnect",
+            StatusCategories.SYSTEMS,
+            "HomeConnect.nav.status.header") {
+
+        @Override
+        public WebMarkupContainer getPanel(String panelId) {
+            // We've set  GatewayHook.getMountPathAlias() to return hce, so we need to use that alias here.
+            return new BasicReactPanel(panelId, "/main/res/hce/js/homeconnectstatus.js", "homeconnectstatus");
+        }
+
+        @Override
+        public Iterable<String> getSearchTerms(){
+            return Arrays.asList("home connect", "hce");
+        }
+    };
+
+    /**
+     * Here we're setting up the config page for our module.
+     */
+//    public static final ConfigCategory HCE_CATEGORY = new ConfigCategory("hce", "HomeConnect.nav.header", 700);
+//    private static final IConfigTab HCE_CONFIG_TAB = DefaultConfigTab.builder()
+//            .category(HCE_CATEGORY)
+//            .name("hce")
+//            .i18n("HomeConnect.nav.settings.title")
+//            .page(HCSettingsPage.class)
+//            .terms("home connect settings")
+//            .build();
 
     @Override
     public void setup(GatewayContext gatewayContext) {
@@ -72,8 +122,6 @@ public class GatewayHook extends AbstractGatewayModuleHook {
             }
         });
 
-        //initialize our Gateway nav menu
-        initMenu();
 
         log.debug("Setup Complete.");
     }
@@ -109,21 +157,12 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         log.trace("HomeConnect Settings Record Established");
     }
 
-    private void initMenu() {
-        /* header is the top-level title in the gateway config page, e.g. System, Configuration, etc */
-        LabelConfigMenuNode header = new LabelConfigMenuNode(HCON_MENU_PATH[0], "HomeConnect.nav.header");
-        header.setPosition(801);
-
-        context.getConfigMenuModel().addConfigMenuNode(null, header);
-
-        /* Create the nodes/links that will exist under our parent nav header */
-        LinkConfigMenuNode settingsNode = new LinkConfigMenuNode("settings",
-                "HomeConnect.nav.settings.title",
-                HCSettingsPage.class);
-
-        /* register our nodes with the context config menu model */
-        context.getConfigMenuModel().addConfigMenuNode(HCON_MENU_PATH, settingsNode);
-    }
+//    @Override
+//    public List<? extends IConfigTab> getConfigPanels() {
+//        return Arrays.asList(
+//                HCE_CONFIG_TAB
+//        );
+//    }
 
 
     @Override
@@ -136,8 +175,53 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         /* remove our bundle */
         BundleUtil.get().removeBundle("HomeConnect");
 
-        /* remove our nodes from the menu */
-        context.getConfigMenuModel().removeConfigMenuNode(HCON_MENU_PATH);
+        if (context.getState() != ContextState.STOPPING) {
+            WebApplication wicket = context.getWebApplication();
+
+            Application currentApplication = ThreadContext.getApplication();
+            ThreadContext.setApplication(wicket);
+            try {
+                wicket.unmount("ack/${id}");
+            } finally {
+                ThreadContext.setApplication(currentApplication);
+            }
+        }
     }
 
+    // This allows us to use a shorter mount path. Use caution with these, because we don't want a conflict with
+    // other modules by other authors.
+    @Override
+    public Optional<String> getMountPathAlias() {
+        return Optional.of("hce");
+    }
+
+    // Use this whenever you have mounted resources
+    @Override
+    public Optional<String> getMountedResourceFolder() {
+        return Optional.of("mounted");
+    }
+
+    // Define your route handlers here
+    @Override
+    public void mountRouteHandlers(RouteGroup routes) {
+        new HomeConnectStatusRoutes(context, routes).mountRoutes();
+    }
+
+//    private final OverviewContributor overviewContributor = new AlarmOverviewContributor();
+//    private final ConfigOverviewContributor configOverviewContributor = new AlarmConfigOverviewContributor();
+//
+//    @Override
+//    public Optional<OverviewContributor> getStatusOverviewContributor() {
+//        return Optional.of(overviewContributor);
+//    }
+//
+//    @Override
+//    public Optional<ConfigOverviewContributor> getConfigOverviewContributor() {
+//        return Optional.of(configOverviewContributor);
+//    }
+
+    @Override
+    public List<? extends INamedTab> getStatusPanels() {
+        return Collections.singletonList(HCE_STATUS_PAGE);
+    }
 }

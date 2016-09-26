@@ -37,14 +37,6 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.inductiveautomation.ignition</groupId>
-            <artifactId>gateway-api-jars</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
-            <version>7.8.3-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>

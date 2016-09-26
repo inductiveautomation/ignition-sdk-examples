@@ -86,7 +86,7 @@ public class HCSettingsRecord extends PersistentRecord {
         return getString(HCIPAddress);
     }
 
-    public Integer getHCPowerOutpout() {
+    public Integer getHCPowerOutput() {
         return getInt(HCPowerOutput);
     }
 
