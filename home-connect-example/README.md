@@ -1,7 +1,7 @@
 home-connect-example
 ====================
 
-This simple module gives an example of how you add top-level navigational items to the Configuration page of the 
+This simple module gives an example of how you add top-level navigational items to the Configuration and Status pages of the 
 Ignition Gateway.  
 
 Downloading
@@ -15,4 +15,4 @@ Build Instructions
 ------------------
 To build, you will need mvn installed.  Navigate to the root of this example (where this Readme is located) and run
 ```mvn package```.   Then simply install the module into your Dev-Mode Gateway and you should see the new menu items
-on the left hand side of your Configuration page.
+on the left hand side of your Configuration and Status pages, and an overview item added to the status overview page.

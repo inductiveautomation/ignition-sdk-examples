@@ -26,7 +26,7 @@
 
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.0.9-SNAPSHOT</version>
+                <version>1.0.9</version>
 
                 <executions>
                     <execution>
@@ -56,10 +56,10 @@
 
                     <moduleId>com.inductiveautomation.ignition.examples.hce</moduleId>
                     <moduleName>HomeConnectExample</moduleName>
-                    <moduleDescription>A simple example demonstrating how to create top-level navigation in the Gateway Config section.</moduleDescription>
+                    <moduleDescription>A simple example demonstrating how to create Gateway Config and Status pages.</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <requiredIgnitionVersion>7.9.0</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>7</requiredFrameworkVersion>
 
                     <depends>
                         <depend>
