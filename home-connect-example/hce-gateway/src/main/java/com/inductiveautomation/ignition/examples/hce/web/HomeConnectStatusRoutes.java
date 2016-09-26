@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.net.URLDecoder;
 
 import static com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup.TYPE_JSON;
 

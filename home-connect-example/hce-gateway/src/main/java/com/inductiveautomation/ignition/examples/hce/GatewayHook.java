@@ -1,11 +1,18 @@
 package com.inductiveautomation.ignition.examples.hce;
 
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.util.LogUtil;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.examples.hce.records.HCSettingsRecord;
 import com.inductiveautomation.ignition.examples.hce.web.HCSettingsPage;
+import com.inductiveautomation.ignition.examples.hce.web.HomeConnectOverviewContributor;
 import com.inductiveautomation.ignition.examples.hce.web.HomeConnectStatusRoutes;
 import com.inductiveautomation.ignition.gateway.ContextState;
 import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
@@ -19,20 +26,12 @@ import com.inductiveautomation.ignition.gateway.web.models.IConfigTab;
 import com.inductiveautomation.ignition.gateway.web.models.INamedTab;
 import com.inductiveautomation.ignition.gateway.web.models.KeyValue;
 import com.inductiveautomation.ignition.gateway.web.pages.BasicReactPanel;
-import com.inductiveautomation.ignition.gateway.web.pages.config.overviewmeta.ConfigOverviewContributor;
 import com.inductiveautomation.ignition.gateway.web.pages.status.StatusCategories;
 import com.inductiveautomation.ignition.gateway.web.pages.status.overviewmeta.OverviewContributor;
 import org.apache.wicket.Application;
 import org.apache.wicket.ThreadContext;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.protocol.http.WebApplication;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Filename: GatewayHook.java
@@ -53,7 +52,8 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
     /**
      * This sets up the status panel which we'll add to the statusPanels list. The controller will be
-     * HomeConnectStatusRoutes.java, and the model and view will be in our javascript folder.
+     * HomeConnectStatusRoutes.java, and the model and view will be in our javascript folder. The status panel is optional
+     * Only add if your module will provide meaningful info.
      */
     private static final INamedTab HCE_STATUS_PAGE = new AbstractNamedTab(
             "homeconnect",
@@ -73,16 +73,40 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     };
 
     /**
-     * Here we're setting up the config page for our module.
+     * This sets up the config panel
      */
-//    public static final ConfigCategory HCE_CATEGORY = new ConfigCategory("hce", "HomeConnect.nav.header", 700);
-//    private static final IConfigTab HCE_CONFIG_TAB = DefaultConfigTab.builder()
-//            .category(HCE_CATEGORY)
-//            .name("hce")
-//            .i18n("HomeConnect.nav.settings.title")
-//            .page(HCSettingsPage.class)
-//            .terms("home connect settings")
-//            .build();
+    public static final ConfigCategory CONFIG_CATEGORY = new ConfigCategory("hce", "HomeConnect.nav.header", 700);
+
+    @Override
+    public List<ConfigCategory> getConfigCategories() {
+        return Collections.singletonList(CONFIG_CATEGORY);
+    }
+
+    public static final IConfigTab HCE_CONFIG_ENTRY = DefaultConfigTab.builder()
+            .category(CONFIG_CATEGORY)
+            .name("hub")
+            .i18n("HomeConnect.nav.settings.title")
+            .page(HCSettingsPage.class)
+            .terms("home connect settings")
+            .build();
+
+    @Override
+    public List<? extends IConfigTab> getConfigPanels() {
+        return Arrays.asList(
+                HCE_CONFIG_ENTRY
+        );
+    }
+
+    /**
+     * We'll add an overview contributor. This is optional -- only add if your module will provide meaningful info.
+     */
+    private final OverviewContributor overviewContributor = new HomeConnectOverviewContributor();
+
+    @Override
+    public Optional<OverviewContributor> getStatusOverviewContributor() {
+        return Optional.of(overviewContributor);
+    }
+
 
     @Override
     public void setup(GatewayContext gatewayContext) {
@@ -157,13 +181,6 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         log.trace("HomeConnect Settings Record Established");
     }
 
-//    @Override
-//    public List<? extends IConfigTab> getConfigPanels() {
-//        return Arrays.asList(
-//                HCE_CONFIG_TAB
-//        );
-//    }
-
 
     @Override
     public void startup(LicenseState licenseState) {
@@ -188,7 +205,12 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         }
     }
 
-    // This allows us to use a shorter mount path. Use caution with these, because we don't want a conflict with
+    /**
+     * The following methods are used by the status panel. Only add these if you are providing a status panel.
+     */
+
+
+    // getMountPathAlias() allows us to use a shorter mount path. Use caution, because we don't want a conflict with
     // other modules by other authors.
     @Override
     public Optional<String> getMountPathAlias() {
@@ -206,19 +228,6 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     public void mountRouteHandlers(RouteGroup routes) {
         new HomeConnectStatusRoutes(context, routes).mountRoutes();
     }
-
-//    private final OverviewContributor overviewContributor = new AlarmOverviewContributor();
-//    private final ConfigOverviewContributor configOverviewContributor = new AlarmConfigOverviewContributor();
-//
-//    @Override
-//    public Optional<OverviewContributor> getStatusOverviewContributor() {
-//        return Optional.of(overviewContributor);
-//    }
-//
-//    @Override
-//    public Optional<ConfigOverviewContributor> getConfigOverviewContributor() {
-//        return Optional.of(configOverviewContributor);
-//    }
 
     @Override
     public List<? extends INamedTab> getStatusPanels() {

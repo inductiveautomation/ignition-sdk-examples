@@ -1887,8 +1887,6 @@ var homeconnectstatus =
 	});
 	exports.getConnectionsStatus = getConnectionsStatus;
 	exports.getConnectionDetail = getConnectionDetail;
-	exports.viewAll = viewAll;
-	exports.viewConnectionDetails = viewConnectionDetails;
 	exports.fetchPermissions = fetchPermissions;
 	
 	var _redux = __webpack_require__(2);
@@ -2009,6 +2007,7 @@ var homeconnectstatus =
 	    };
 	}
 	
+	// Not used in this example. Shown here as an example of how to pass parameters to status routes
 	function getConnectionDetail(connectionName, startNextPoll) {
 	    var encodedConnectionName = encodeURIComponent(encodeURIComponent(connectionName)); // Needs to be double. Do this for anything that could be user generated
 	    return function (dispatch) {
@@ -2031,19 +2030,7 @@ var homeconnectstatus =
 	    };
 	}
 	
-	function viewAll() {
-	    return {
-	        type: VIEW_ALL
-	    };
-	}
-	
-	function viewConnectionDetails(connection) {
-	    return {
-	        type: VIEW_CONNECTION,
-	        connection: connection
-	    };
-	}
-	
+	// Not used in this example status page, but can be used to only allow users with config permission to make changes from the status page
 	function fetchPermissions() {
 	    return function (dispatch) {
 	        fetch('/main/data/status/permissions', {
@@ -2167,6 +2154,37 @@ var homeconnectstatus =
 	                    return _react2.default.createElement(
 	                        'div',
 	                        null,
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'small-12 columns' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'page-heading' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'quick-links' },
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '/main/web/config/hce.hub' },
+	                                            'Configure'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'h6',
+	                                        null,
+	                                        'Systems'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'h1',
+	                                        null,
+	                                        'Performance'
+	                                    )
+	                                )
+	                            )
+	                        ),
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'row' },

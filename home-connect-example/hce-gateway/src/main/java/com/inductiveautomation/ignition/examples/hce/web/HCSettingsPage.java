@@ -6,6 +6,7 @@ import com.inductiveautomation.ignition.gateway.web.components.RecordEditForm;
 import com.inductiveautomation.ignition.gateway.web.models.LenientResourceModel;
 import com.inductiveautomation.ignition.gateway.web.pages.IConfigPage;
 import org.apache.wicket.Application;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Filename: HCSettingsPage
@@ -25,8 +26,8 @@ public class HCSettingsPage extends RecordEditForm {
 
 
     @Override
-    public String[] getMenuPath() {
-        return PATH;
+    public Pair<String, String> getMenuLocation() {
+        return Pair.of("homeconnect", "settings");
     }
 
 }

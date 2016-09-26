@@ -69,6 +69,17 @@ class ConnectOverview extends Component {
 
                 return (<div>
                     <div className="row">
+                        <div className="small-12 columns">
+                            <div className="page-heading">
+                                <div className="quick-links">
+                                    <a href="/main/web/config/hce.hub">Configure</a>
+                                </div>
+                                <h6>Systems</h6>
+                                <h1>Performance</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
                         <div className="small-12 medium-5 large-3 columns">
                             <Gauge label="Connections" value={connectionCount}/>
                         </div>
