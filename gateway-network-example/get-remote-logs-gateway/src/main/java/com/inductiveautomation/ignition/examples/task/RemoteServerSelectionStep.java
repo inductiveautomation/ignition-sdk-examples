@@ -14,6 +14,7 @@ import org.apache.wicket.extensions.wizard.WizardStep;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
@@ -27,6 +28,7 @@ public class RemoteServerSelectionStep extends WizardStep {
 
     private static final String TITLE = "remotelogging.tasks.getwrapperlog.wizard.Title";
     private List<SimpleRemoteGateway> gateways;
+    private String accessKey = "";
 
     public RemoteServerSelectionStep(IModel<RemoteGatewaySelection> settings){
         super(BundleUtil.get().getString(TITLE), null, settings);
@@ -40,6 +42,8 @@ public class RemoteServerSelectionStep extends WizardStep {
         if(gateways == null){
             gateways = loadRemoteGateways(settings.getObject().getSelectedGateways());
         }
+
+        this.accessKey = settings.getObject().getAccessKey();
 
         // A list of remote Gateways, the status of each and a checkbox for each.
         ListView<SimpleRemoteGateway> list = new ListView<SimpleRemoteGateway>("list", gateways) {
@@ -58,6 +62,12 @@ public class RemoteServerSelectionStep extends WizardStep {
 
         list.setReuseItems(true);   // Needed to preserve checkbox selections when moving through the wizard.
         form.add(list);
+
+        // Text field to allow a service access key to be sent when the retrieve wrapper service call is made.  On the
+        // remote machine, the access key is set on the services security page. The remote system can reject this
+        // system's retrieve wrapper call if the keys do not match. The key is empty by default on both sides.
+        TextField<String> accessFld = new TextField<String>("accessKey", new PropertyModel<String>(this, "accessKey"));
+        form.add(accessFld);
     }
 
     /**
@@ -77,6 +87,7 @@ public class RemoteServerSelectionStep extends WizardStep {
 
         RemoteGatewaySelection settings = (RemoteGatewaySelection) this.getDefaultModel().getObject();
         settings.setSelectedGateways(selectedGateways);
+        settings.setAccessKey(this.accessKey);
     }
 
     /**

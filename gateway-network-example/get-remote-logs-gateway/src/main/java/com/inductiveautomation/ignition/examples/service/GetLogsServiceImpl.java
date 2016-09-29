@@ -2,7 +2,6 @@ package com.inductiveautomation.ignition.examples.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +10,9 @@ import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.logging.LogQueryConfig;
 import com.inductiveautomation.ignition.common.logging.LogQueryConfig.LogQueryConfigBuilder;
 import com.inductiveautomation.ignition.common.logging.LogResults;
+import com.inductiveautomation.ignition.examples.service.GLSecurityConfigValues.Mode;
+import com.inductiveautomation.ignition.gateway.gan.security.SecuredEntity;
+import com.inductiveautomation.ignition.gateway.gan.security.SecuredEntityImplementation;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.metro.api.ServerId;
 import com.inductiveautomation.metro.api.ServiceManager;
@@ -22,8 +24,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by mattgross on 9/19/2016. Implementation of the GetLogsService, and performs the actual work of sending
  * log entries and files.
+ * Adding 'implements SecuredEntityImplementation' allows use to use some convenience methods available in that
+ * interface, such as the getClassSecurityConfig() method.
  */
-public class GetLogsServiceImpl implements GetLogsService {
+@SecuredEntity(id="get-wrapper-log",
+        nameKey="remotelogging.services.security.name",
+        configPropDescriptionFactory=GLSecurityDescriptorFactory.class,
+        configFactory=GLSecurityConfigFactory.class)
+public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplementation<GLSecurityConfigValues, Void> {
 
     private GatewayContext context;
     private Logger logger = LoggerFactory.getLogger("GetLogsService");
@@ -51,9 +59,24 @@ public class GetLogsServiceImpl implements GetLogsService {
     }
 
     @Override
-    public String requestWrapperLog(ServerId requestingServer) {
+    public String requestWrapperLog(ServerId requestingServer, String accessKey) {
+        try{
+            // Verify that the access key sent from remote Gateway matches the one configured in the service security settings.
+            getClassSecurityConfig().checkAccessKey(accessKey);
 
-        // First, make a temporary copy of wrapper.log
+            // Then verify that the 'Allow wrapper log access' setting is enabled.
+            getClassSecurityConfig().checkAllowWrapperSetting();
+
+            // Then verify that all dynamic properties are enabled.
+            getClassSecurityConfig().checkDynamicProperties();
+        }
+        catch(SecurityException e){
+            logger.warn(e.getMessage());
+            throw e;
+        }
+
+
+        // If all security checks passed, we can continue. Start by making a temporary copy of wrapper.log
         File wrapperFile = new File(context.getLogsDir() + File.separator + "wrapper.log");
         File tempLog = null;
         if(wrapperFile.exists()){
@@ -101,5 +124,6 @@ public class GetLogsServiceImpl implements GetLogsService {
 
         return SUCCESS_MSG;
     }
+
 
 }

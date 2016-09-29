@@ -31,6 +31,8 @@ public class GetWrapperLogTaskSettingsRecord extends PersistentRecord implements
 
     public static final StringField TargetGateways = new StringField(META, "targetGateways");
 
+    public static final StringField AccessKey = new StringField(META, "accessKey").setDefault("");
+
     @Override
     public RecordMeta<?> getMeta() {
         return META;
@@ -60,5 +62,20 @@ public class GetWrapperLogTaskSettingsRecord extends PersistentRecord implements
         }
 
         setString(TargetGateways, selected);
+    }
+
+    @Override
+    public void setAccessKey(String accessKey) {
+        setString(AccessKey, accessKey);
+    }
+
+    @Override
+    public String getAccessKey(){
+        String accesskey = getString(AccessKey);
+
+        if(accesskey == null){
+            accesskey = "";
+        }
+        return accesskey;
     }
 }

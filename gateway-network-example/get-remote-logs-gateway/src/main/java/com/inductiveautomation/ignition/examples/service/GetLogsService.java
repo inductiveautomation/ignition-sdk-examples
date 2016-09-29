@@ -14,6 +14,8 @@ import com.inductiveautomation.metro.impl.services.annotations.FileStream;
 @TrialPeriodProtected(moduleId = "com.example.get-remote-logs")
 public interface GetLogsService {
 
+    String WRAPPER_ALLOWED_PROP = "wrapper-retrieve-allowed";
+    String ACCESS_KEY = "wrapper-service-key";
     String SUCCESS_MSG = "SUCCESS";
     String FAIL_MSG = "FAIL";
 
@@ -29,9 +31,11 @@ public interface GetLogsService {
     /**
      * Triggers the local machine to send a copy of its wrapper log to the requesting remote machine.
      * @param requestingServer the server making the request for the wrapper log
+     * @param accessKey a String sent from the requesting server and which is validated by this server's service
+     *                  security. If the sent key and the configured key do not match, a security exception is thrown.
      * @return "SUCCESS", or "FAIL" with an error message appended.
      */
-    String requestWrapperLog(ServerId requestingServer);
+    String requestWrapperLog(ServerId requestingServer, String accessKey);
 
     /**
      * Handles the wrapper.log that has been sent from the remote machine.

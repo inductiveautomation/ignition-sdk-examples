@@ -79,7 +79,8 @@ public class GetWrapperLogTask extends AbstractTask {
                 // When the remote service runs, it will stream a copy of its wrapper.log file to this machine in a
                 // temp location. GetLogsServiceImpl.streamWrapperLog() handles the streamed wrapper.log.
                 // Note that this service call will time out in 60 seconds if a result has not been received.
-                String status = gm.getServiceManager().getService(remoteId, GetLogsService.class).get().requestWrapperLog(localAddr);
+                String accessKey = taskSettings.getAccessKey();
+                String status = gm.getServiceManager().getService(remoteId, GetLogsService.class).get().requestWrapperLog(localAddr, accessKey);
                 if(GetLogsService.SUCCESS_MSG.equals(status)){
                     logger.info(String.format("%s wrapper.log was been successfully retrieved", gateway));
                 }
