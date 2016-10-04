@@ -4,7 +4,9 @@ This module provides examples for the following functionality:
 
 You will need to install the module on two separate Gateways. You can create a script to retrieve log entries from a remote machine, as shown below:
 
-### BEGIN ###
+### Scripting Example
+
+```
 import datetime
 
 servers = ["ide_controller"]
@@ -22,6 +24,7 @@ for row in range(serverLogs.rowCount):
 	
 	baseStr = '%(level)s [%(name)s] [%(timestamp)s]: %(message)s'
 	print baseStr % printable
-### END ###	
-	
+```
+
+
 To create a Gateway task to retrieve a wrapper.log, log into one of the Gateways and navigate to Config -> Gateway Tasks. Click on Create new Gateway Task and select the "Retrieve Wrapper Log" task.
