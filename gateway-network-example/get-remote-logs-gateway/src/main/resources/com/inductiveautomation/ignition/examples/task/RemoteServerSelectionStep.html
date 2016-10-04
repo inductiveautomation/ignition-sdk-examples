@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:panel>
+    <form wicket:id="form">
+        <div wicket:id="list">
+            <input type="checkbox" wicket:id="serverChk"/> <span wicket:id="server"></span>
+        </div>
+        <h3>Service Access Key</h3>
+        <div>Access Key&nbsp;<input type="text" wicket:id="accessKey"/></div>
+        <p style="margin-bottom:1em; font-size: .9em;">This value is sent when the retrieve wrapper service call is made. Leave empty to not use an access key.</p>
+    </form>
+</wicket:panel>
+</body>
+</html>
