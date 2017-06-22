@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>ignition-common</artifactId>
-            <version>7.9.0-SNAPSHOT</version>
+            <version>7.9.3</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>gateway-api</artifactId>
-            <version>7.9.0-SNAPSHOT</version>
+            <version>7.9.3</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>driver-api</artifactId>
-            <version>7.9.0-SNAPSHOT</version>
+            <version>7.9.3</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
