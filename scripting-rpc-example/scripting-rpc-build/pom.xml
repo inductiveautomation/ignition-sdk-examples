@@ -39,7 +39,7 @@
             <plugin>
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.0.9-SNAPSHOT</version>
+                <version>1.0.12</version>
 
                 <executions>
                     <execution>

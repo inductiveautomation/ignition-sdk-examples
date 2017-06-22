@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.0.9</version>
+                <version>1.0.12</version>
 
                 <!-- attach our .modl building process to the 'package' maven phase, and our 'post' or 'install to  -->
                 <!-- local developer gateway' goal to the install phase.                                            -->
