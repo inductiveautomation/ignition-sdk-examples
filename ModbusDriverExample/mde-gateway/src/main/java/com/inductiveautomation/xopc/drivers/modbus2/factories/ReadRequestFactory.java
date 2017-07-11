@@ -40,6 +40,7 @@ package com.inductiveautomation.xopc.drivers.modbus2.factories;
 
 import java.util.List;
 
+import com.inductiveautomation.ignition.common.util.LoggerEx;
 import org.apache.log4j.Logger;
 
 import com.inductiveautomation.xopc.driver.api.items.ReadItem;
@@ -59,20 +60,20 @@ public class ReadRequestFactory {
 	private final ModbusTransportFactory transportFactory;
 	private final boolean zeroBased;
 	private final int timeout;
-	private final Logger log;
+	private final LoggerEx log;
 	private final boolean swapWords;
 	private final boolean reverseStringByteOrder;
 	private final CommunicationCallback communicationCallback;
 
 	public ReadRequestFactory(
-			ChannelWriter channelWriter,
-			ModbusTransportFactory transportFactory,
-			boolean zeroBased,
-			int timeout,
-			Logger log,
-			boolean swapWords,
-			boolean reverseStringByteOrder,
-			CommunicationCallback communicationCallback) {
+        ChannelWriter channelWriter,
+        ModbusTransportFactory transportFactory,
+        boolean zeroBased,
+        int timeout,
+        LoggerEx log,
+        boolean swapWords,
+        boolean reverseStringByteOrder,
+        CommunicationCallback communicationCallback) {
 		this.channelWriter = channelWriter;
 		this.transportFactory = transportFactory;
 		this.zeroBased = zeroBased;

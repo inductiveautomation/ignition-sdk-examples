@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.opcua.nodes.Node;
 import com.inductiveautomation.opcua.types.AccessLevel;
 import com.inductiveautomation.opcua.types.DataType;
@@ -189,12 +190,12 @@ public abstract class AbstractModbusDriver extends AbstractIODelegatingDriver {
 				settings.isReadMultipleRegistersRequestAllowed(),
 				settings.isReadMultipleCoilsAllowed(),
 				settings.isReadMultipleDiscreteInputsAllowed(),
-				makeSubLogger(ModbusReadOptimizer.class.getSimpleName()));
+				log.createSubLogger(ModbusReadOptimizer.class.getSimpleName()));
 
 		writeOptimizer = new ModbusWriteOptimizer(
 				settings.isWriteMultipleCoilsRequestAllowed(),
 				settings.isWriteMultipleRegistersRequestAllowed(),
-				makeSubLogger(ModbusWriteOptimizer.class.getSimpleName()));
+				log.createSubLogger(ModbusWriteOptimizer.class.getSimpleName()));
 
 		nodeMap.put(ROOT_NODE_ADDRESS, rootNode);
 	}
@@ -217,7 +218,7 @@ public abstract class AbstractModbusDriver extends AbstractIODelegatingDriver {
 	protected List<List<? extends ReadItem>> optimizeRead(List<? extends ReadItem> items) {
 		setModbusAddressObject(items);
 
-		List<List<? extends ReadItem>> optimized = new ArrayList<List<? extends ReadItem>>();
+		List<List<? extends ReadItem>> optimized = new ArrayList<>();
 		optimized.addAll(readOptimizer.optimizeReads((List<ReadItem>) items));
 
 		return optimized;
@@ -228,7 +229,7 @@ public abstract class AbstractModbusDriver extends AbstractIODelegatingDriver {
 	protected List<List<? extends WriteItem>> optimizeWrite(List<? extends WriteItem> items) {
 		setModbusAddressObject(items);
 
-		List<List<? extends WriteItem>> optimized = new ArrayList<List<? extends WriteItem>>();
+		List<List<? extends WriteItem>> optimized = new ArrayList<>();
 		optimized.addAll(writeOptimizer.optimizeWrites((List<WriteItem>) items));
 
 		return optimized;
@@ -271,7 +272,7 @@ public abstract class AbstractModbusDriver extends AbstractIODelegatingDriver {
 
 	@Override
 	protected Request<byte[]> createBrowseRequest(BrowseOperation browseOp) {
-		List<String> results = new ArrayList<String>();
+		List<String> results = new ArrayList<>();
 
 		String address = browseOp.getStartingAddress();
 		if (address == null || address.isEmpty()) {
@@ -360,10 +361,6 @@ public abstract class AbstractModbusDriver extends AbstractIODelegatingDriver {
 	@Override
 	protected boolean isOfflineBrowsingSupported() {
 		return true;
-	}
-
-	private Logger makeSubLogger(String name) {
-		return Logger.getLogger(String.format("%s.%s", log.getName(), name));
 	}
 
 	private void setAddressMap(String addressMap) {

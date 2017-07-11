@@ -43,6 +43,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.opcua.types.DataValue;
 import com.inductiveautomation.opcua.types.NodeId;
 import com.inductiveautomation.xopc.driver.api.items.ReadItem;
@@ -125,7 +126,7 @@ public class ModbusReadOptimizerTest {
 		}
 
 		ModbusReadOptimizer optimizer = new ModbusReadOptimizer(1000, 2000, 125, 125, true, true, true, true,
-																Logger.getLogger("testCustomMaxCoils()"));
+																LoggerEx.newBuilder().build("testCustomMaxCoils()"));
 		List<List<ReadItem>> optimized = optimizer.optimizeReads(items);
 
 		assertEquals("Should have been optimized into 4 requests.", 4, optimized.size());
@@ -182,7 +183,7 @@ public class ModbusReadOptimizerTest {
 		items.add(new TestReadItem(addr4));
 
 		ModbusReadOptimizer optimizer = new ModbusReadOptimizer(2000, 2000, 125, 125, false, true, true, true,
-																Logger.getLogger("testGapSpanningOff"));
+																LoggerEx.newBuilder().build("testGapSpanningOff"));
 		List<List<ReadItem>> optimized = optimizer.optimizeReads(items);
 
 		assertEquals("Should have been optimized into 3 requests.", 3, optimized.size());

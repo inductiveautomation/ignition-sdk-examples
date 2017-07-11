@@ -38,6 +38,7 @@
  ******************************************************************************/
 package com.inductiveautomation.xopc.drivers.modbus2.requests.optimizer;
 
+import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.xopc.driver.api.items.ReadItem;
 import com.inductiveautomation.xopc.drivers.modbus2.address.ModbusAddress;
 import com.inductiveautomation.xopc.drivers.modbus2.address.ModbusTable;
@@ -64,22 +65,22 @@ public class ModbusReadOptimizer {
 	private boolean readMultipleCoilsAllowed = true;
 	private boolean readMultipleDiscreteInputsAllowed = true;
 
-	private final Logger log;
+	private final LoggerEx log;
 
 	ModbusReadOptimizer() {
-		log = Logger.getLogger(getClass().getSimpleName());
+		log = LoggerEx.newBuilder().build(getClass().getSimpleName());
 	}
 
 	public ModbusReadOptimizer(
-			int maxCoils,
-			int maxDiscreteInputs,
-			int maxHoldingRegisters,
-			int maxInputRegisters,
-			boolean spanGaps,
-			boolean readMultipleRegistersRequestAllowed,
-			boolean readMultipleCoilsAllowed,
-			boolean readMultipleDiscreteInputsAllowed,
-			Logger log) {
+        int maxCoils,
+        int maxDiscreteInputs,
+        int maxHoldingRegisters,
+        int maxInputRegisters,
+        boolean spanGaps,
+        boolean readMultipleRegistersRequestAllowed,
+        boolean readMultipleCoilsAllowed,
+        boolean readMultipleDiscreteInputsAllowed,
+        LoggerEx log) {
 		this.maxCoils = maxCoils;
 		this.maxDiscreteInputs = maxDiscreteInputs;
 		this.maxHoldingRegisters = maxHoldingRegisters;
@@ -102,7 +103,7 @@ public class ModbusReadOptimizer {
 	 * @return Items optimized into lists that will fit into a single {@link com.inductiveautomation.xopc.driver.api.requests.Request}.
 	 */
 	public List<List<ReadItem>> optimizeReads(List<ReadItem> toOptimize) {
-		List<List<ReadItem>> optimized = new ArrayList<List<ReadItem>>();
+		List<List<ReadItem>> optimized = new ArrayList<>();
 
 		long start = System.currentTimeMillis();
 
