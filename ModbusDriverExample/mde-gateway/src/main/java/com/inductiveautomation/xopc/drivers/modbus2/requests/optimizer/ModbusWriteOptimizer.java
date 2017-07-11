@@ -43,6 +43,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.inductiveautomation.ignition.common.util.LoggerEx;
 import org.apache.log4j.Logger;
 
 import com.google.common.base.Predicate;
@@ -77,16 +78,16 @@ public class ModbusWriteOptimizer {
 	private boolean writeMultipleCoilsRequestAllowed = true;
 	private boolean writeMultipleRegistersRequestAllowed = true;
 
-	private final Logger log;
+	private final LoggerEx log;
 
 	ModbusWriteOptimizer() {
-		log = Logger.getLogger(getClass().getSimpleName());
+		log = LoggerEx.newBuilder().build(getClass().getSimpleName());
 	}
 
 	public ModbusWriteOptimizer(
 			boolean writeMultipleCoilsRequestAllowed,
 			boolean writeMultipleRegistersRequestAllowed,
-			Logger log) {
+			LoggerEx log) {
 		this.writeMultipleCoilsRequestAllowed = writeMultipleCoilsRequestAllowed;
 		this.writeMultipleRegistersRequestAllowed = writeMultipleRegistersRequestAllowed;
 		this.log = log;

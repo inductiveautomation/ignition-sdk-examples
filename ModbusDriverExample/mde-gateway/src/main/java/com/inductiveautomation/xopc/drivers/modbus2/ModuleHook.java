@@ -45,7 +45,6 @@ import com.google.common.collect.Lists;
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.gateway.localdb.DDLSchemaFeature;
 import com.inductiveautomation.ignition.gateway.localdb.SchemaFeature;
-import com.inductiveautomation.ignition.gateway.localdb.persistence.StringField;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.xopc.driver.api.configuration.DriverManager;
 import com.inductiveautomation.xopc.driver.api.configuration.DriverType;
