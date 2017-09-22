@@ -32,6 +32,18 @@ public class MultiplyFunction extends AbstractFunction {
     }
 
     @Override
+    protected boolean validateNumArgs(int num) {
+        // We need to have exactly 2 args for this expression.
+        return num == 2;
+    }
+
+    @Override
+    protected boolean validateArgType(int argNum, Class<?> type) {
+        // We can only accept numbers. Values outside of integer range will still fail.
+        return TypeUtilities.isNumber(type);
+    }
+
+    @Override
     public QualifiedValue execute(Expression[] expressions) throws ExpressionException {
         // First user-supplied value of the expression
         QualifiedValue theValueQV = expressions[0].execute();
