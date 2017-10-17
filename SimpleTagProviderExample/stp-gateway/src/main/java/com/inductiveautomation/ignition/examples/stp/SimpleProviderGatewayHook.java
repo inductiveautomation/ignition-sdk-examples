@@ -23,6 +23,7 @@ import com.inductiveautomation.ignition.common.sqltags.model.types.TagEditingFla
 import com.inductiveautomation.ignition.common.sqltags.model.types.TagType;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.sqltags.simple.ProviderConfiguration;
 import com.inductiveautomation.ignition.gateway.sqltags.simple.SimpleTagProvider;
 import com.inductiveautomation.ignition.gateway.sqltags.simple.WriteHandler;
 import org.apache.log4j.LogManager;
@@ -67,9 +68,14 @@ public class SimpleProviderGatewayHook extends AbstractGatewayModuleHook {
             ourProvider = new SimpleTagProvider("DynamicTags");
 
             //Set up our tag type. By doing this, we can allow our tags to use alerting, history, etc.
-            //The STANDARD_STATUS flag set in TagEditingFlags provides for all features, without allowing tags to be renamed or deleted.
+            //The STANDARD_STATUS flag set in TagEditingFlags provides for all features, without allowing tags to
+            //be renamed.
             ourTagType = TagType.Custom;
             ourProvider.configureTagType(ourTagType, TagEditingFlags.STANDARD_STATUS, null);
+
+            // Needed to allow tag configuration to be editable. Comment this out to disable tag configuration editing.
+            ProviderConfiguration config = new ProviderConfiguration().setAllowTagCustomization(true);
+            ourProvider.configureProvider(config);
 
             //Set up the control tag.
             //1) Register the tag, and configure its type.
