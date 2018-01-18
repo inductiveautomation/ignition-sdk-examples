@@ -20,19 +20,19 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-releases</url>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
         </pluginRepository>
     </pluginRepositories>
 
     <repositories>
         <repository>
             <id>releases</id>
-            <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-releases</url>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
         </repository>
 
         <repository>
             <id>snapshots</id>
-            <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-snapshots</url>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -41,7 +41,7 @@
 
         <repository>
             <id>thirdparty</id>
-            <url>http://nexus.inductiveautomation.com:8081/nexus/content/repositories/inductiveautomation-thirdparty
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty
             </url>
         </repository>
     </repositories>
