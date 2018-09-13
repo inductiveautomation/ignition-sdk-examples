@@ -52,6 +52,8 @@
                             <goal>modl</goal>
                         </goals>
                     </execution>
+                    <!-- Auto-installs module in Gateway, requires a cd-key with developer mode enabled -->
+                    <!-- 
                     <execution>
                         <id>post</id>
                         <phase>install</phase>
@@ -59,6 +61,7 @@
                             <goal>post</goal>
                         </goals>
                     </execution>
+                     -->
                 </executions>
 
                 <!-- configure which scopes each of our maven modules should be associated with -->
