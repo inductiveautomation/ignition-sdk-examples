@@ -1,5 +1,40 @@
 # Ignition SDK
 
+## Summary of Example Modules
+**AbstractTagDriverExample**
+Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
+
+**ComponentExample**
+Creates a Hello World component that can be dragged onto a window in the Designer.
+
+**expression-example**
+Creates an exampleMultiply expression that can be used by other components, such as expression tags. The example expression is located under the Extended expression category.
+
+**gateway-network-example**
+Requires two Gateways connected via the gateway network. The module must also be installed on both Gateways. This module adds a system.example.getRemoteLogEntries script function that can retrieve console log entries from a remote Gateway over the gateway network. Also adds a Gateway Task type that can retrieve a remote gateway’s wrapper log and save as a local file.
+
+**home-connect-example**
+Demonstrates how to implement Gateway Status and Config pages. HomeConnect pages are added to the Gateway that configure an imaginary HomeConnect device. 
+
+**ModbusDriverExample**
+A module that provides a fully functional Modbus TCP driver.
+
+**NotificationExample**
+Adds a Console Alarm Notification type that handles alarm notifications via log messages in the console.
+
+**report-component**
+Adds a Smiley shaped component to the Report Designer.
+
+**report-datasource-example**
+Adds a datasource to the report designer that can retrieve JSON data via a REST call to a website.
+
+**scripting-rpc-example**
+Adds a system.example.multiply script that can be executed from both a client and a Gateway. Also demonstrates how the client can call a method in the Gateway via RPC.
+
+**SimpleTagProviderExample**
+Adds a DynamicTags tag provider, which includes tags that are updated every second by the module.
+
+
 ## Getting Started
 
 1. You will need the Java JDK 1.8+ installed, downloadable from the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.

@@ -36,6 +36,8 @@
                             <goal>modl</goal>
                         </goals>
                     </execution>
+                    <!-- Auto-installs module in Gateway, requires a cd-key with developer mode enabled -->
+                    <!--
                     <execution>
                         <id>post-module</id>
                         <phase>install</phase>
@@ -44,6 +46,7 @@
                             <goal>post</goal>
                         </goals>
                     </execution>
+                     -->
                 </executions>
 
                 <configuration>

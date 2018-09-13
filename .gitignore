@@ -16,3 +16,10 @@ target/*
 # Mercurial #
 .hg
 .hgignore
+
+# Eclipse #
+org.eclipse.jdt.core.prefs
+org.eclipse.m2e.core.prefs
+org.eclipse.core.resources.prefs
+.classpath
+.project
