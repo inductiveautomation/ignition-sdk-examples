@@ -13,7 +13,7 @@
     <description>Retrieves log entries from remote Gateways over the Gateway Network</description>
 
     <properties>
-        <ignition-sdk-version>7.9.3</ignition-sdk-version>
+        <ignition-sdk-version>8.0.0-SNAPSHOT</ignition-sdk-version>
     </properties>
 
     <modules>
