@@ -1,40 +1,47 @@
 package com.inductiveautomation.ignition.examples.ne.profile;
 
-import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.inductiveautomation.ignition.alarming.common.notification.BasicNotificationProfileProperty;
 import com.inductiveautomation.ignition.common.alarming.config.AlarmProperty;
 import com.inductiveautomation.ignition.common.alarming.config.BasicAlarmProperty;
-import com.inductiveautomation.ignition.common.config.CategorizedProperty.Option;
+import com.inductiveautomation.ignition.common.config.ConfigurationProperty;
 import com.inductiveautomation.ignition.common.i18n.LocalizedString;
-import java.util.ArrayList;
-import java.util.List;
+
+import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
 
 public class ConsoleLogProperties {
 
-	public static final BasicNotificationProfileProperty<String> MESSAGE = new BasicNotificationProfileProperty<String>(
-			"message",
-			"ConsoleNotification." + "Properties.Message.DisplayName",
-			null,
-			String.class);
+	public static final BasicNotificationProfileProperty<String> MESSAGE = new BasicNotificationProfileProperty<>(
+		"message",
+		"ConsoleNotification." + "Properties.Message.DisplayName",
+		null,
+		String.class
+	);
 
-	public static final BasicNotificationProfileProperty<String> THROTTLED_MESSAGE = new BasicNotificationProfileProperty<String>(
+	public static final BasicNotificationProfileProperty<String> THROTTLED_MESSAGE =
+		new BasicNotificationProfileProperty<>(
 			"throttledMessage",
 			"ConsoleNotification." + "Properties.ThrottledMessage.DisplayName",
 			null,
-			String.class);
+			String.class
+		);
 
-	public static final BasicNotificationProfileProperty<Long> TIME_BETWEEN_NOTIFICATIONS = new BasicNotificationProfileProperty<Long>(
+	public static final BasicNotificationProfileProperty<Long> TIME_BETWEEN_NOTIFICATIONS =
+		new BasicNotificationProfileProperty<>(
 			"delayBetweenContact",
 			"ConsoleNotification." + "Properties.TimeBetweenNotifications.DisplayName",
 			null,
-			Long.class);
+			Long.class
+		);
 
-	public static final BasicNotificationProfileProperty<Boolean> TEST_MODE = new BasicNotificationProfileProperty<Boolean>(
-			"testMode",
-			"ConsoleNotification." + "Properties.TestMode.DisplayName",
-			null,
-			Boolean.class);
+	public static final BasicNotificationProfileProperty<Boolean> TEST_MODE = new BasicNotificationProfileProperty<>(
+		"testMode",
+		"ConsoleNotification." + "Properties.TestMode.DisplayName",
+		null,
+		Boolean.class
+	);
 
 	/**
 	 * EXTENDED CONFIG - These are different than the properties above, they are registered for each alarm through the
@@ -58,9 +65,9 @@ public class ConsoleLogProperties {
 				+ "Properties.TimeBetweenNotifications.DefaultValue"));
 
 		TEST_MODE.setDefaultValue(false);
-		List<Option<Boolean>> options = new ArrayList<Option<Boolean>>();
-		options.add(new Option<Boolean>(true, new LocalizedString("words.yes")));
-		options.add(new Option<Boolean>(false, new LocalizedString("words.no")));
+		List<ConfigurationProperty.Option<Boolean>> options = new ArrayList<>();
+		options.add(new ConfigurationProperty.Option<>(true, new LocalizedString("words.yes")));
+		options.add(new ConfigurationProperty.Option<>(false, new LocalizedString("words.no")));
 		TEST_MODE.setOptions(options);
 	}
 

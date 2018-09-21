@@ -4,7 +4,7 @@
  */
 package com.inductiveautomation.ignition.examples.ne;
 
-import com.inductiveautomation.ignition.examples.ne.profile.ConsoleNotifcationProfileType;
+import com.inductiveautomation.ignition.examples.ne.profile.ConsoleNotificationProfileType;
 import com.inductiveautomation.ignition.examples.ne.profile.ConsoleNotificationProfileSettings;
 import org.apache.log4j.Logger;
 
@@ -39,7 +39,7 @@ public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServ
 		context.getModuleServicesManager().subscribe(AlarmNotificationContext.class, this);
 		
 		//register the contact type for the console type
-		context.getUserSourceManager().registerContactType(ConsoleNotifcationProfileType.CONSOLE);
+		context.getUserSourceManager().registerContactType(ConsoleNotificationProfileType.CONSOLE);
 		
 		//the's AlarmProperty instances can be edited when editing in the alarming section of the 
 		//tag edit config
@@ -63,7 +63,7 @@ public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServ
 		if (notificationContext != null) {
 			try {
 				notificationContext.getAlarmNotificationManager().removeAlarmNotificationProfileType(
-						new ConsoleNotifcationProfileType());
+						new ConsoleNotificationProfileType());
 			} catch (Exception e) {
 				log.error("Error removing notification profile.", e);
 			}
@@ -81,13 +81,13 @@ public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServ
 	public void serviceReady(Class<?> serviceClass) {
 		if (serviceClass == AlarmNotificationContext.class) {
 			//must set our notification context to the current running version of the AlarmNotifcationContext
-			notificationContext = AlarmNotificationContext.class.cast
-					(gatewayContext.getModuleServicesManager().getService(AlarmNotificationContext.class));
+			notificationContext = gatewayContext.getModuleServicesManager()
+				.getService(AlarmNotificationContext.class);
 
 			try {
 				//here's where we added our new notification type
 				notificationContext.getAlarmNotificationManager().addAlarmNotificationProfileType(
-						new ConsoleNotifcationProfileType());
+						new ConsoleNotificationProfileType());
 			} catch (Exception e) {
 				log.error("Error adding notification profile.", e);
 			}

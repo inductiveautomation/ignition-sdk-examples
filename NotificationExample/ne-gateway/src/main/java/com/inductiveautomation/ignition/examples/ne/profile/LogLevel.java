@@ -6,10 +6,7 @@ import org.apache.log4j.Level;
 
 import com.inductiveautomation.ignition.common.util.LoggerEx;
 
-
-
 public enum LogLevel {
-	
 	TRACE(Level.TRACE),
 	DEBUG(Level.DEBUG),
 	INFO(Level.INFO),

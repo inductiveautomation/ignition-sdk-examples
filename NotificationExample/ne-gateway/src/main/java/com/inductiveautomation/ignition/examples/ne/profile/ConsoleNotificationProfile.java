@@ -97,7 +97,7 @@ public class ConsoleNotificationProfile implements AlarmNotificationProfile {
 
 	@Override
 	public Collection<ContactType> getSupportedContactTypes() {
-		return Lists.newArrayList(ConsoleNotifcationProfileType.CONSOLE);
+		return Lists.newArrayList(ConsoleNotificationProfileType.CONSOLE);
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public class ConsoleNotificationProfile implements AlarmNotificationProfile {
 	private static class IsConsoleContactInfo implements Predicate<ContactInfo> {
 		@Override
 		public boolean apply(ContactInfo contactInfo) {
-			return ConsoleNotifcationProfileType.CONSOLE.getContactType().equals(contactInfo.getContactType());
+			return ConsoleNotificationProfileType.CONSOLE.getContactType().equals(contactInfo.getContactType());
 		}
 	}
 
