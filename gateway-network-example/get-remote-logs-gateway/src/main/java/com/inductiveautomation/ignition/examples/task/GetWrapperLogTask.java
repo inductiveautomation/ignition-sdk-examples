@@ -1,23 +1,20 @@
 package com.inductiveautomation.ignition.examples.task;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.inductiveautomation.ignition.examples.service.GetLogsService;
-import com.inductiveautomation.ignition.gateway.gan.GatewayAreaNetworkManager;
+import com.inductiveautomation.ignition.gateway.gan.GatewayNetworkManager;
 import com.inductiveautomation.ignition.gateway.tasks.AbstractTask;
 import com.inductiveautomation.ignition.gateway.tasks.TaskContext;
 import com.inductiveautomation.metro.api.ServerId;
-import com.inductiveautomation.metro.api.ServerState;
 import com.inductiveautomation.metro.api.services.ServiceState;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
- * Created by mattgross on 9/15/2016. When the task system fires a scheduled task, it creates a task instance here.
+ * When the task system fires a scheduled task, it creates a task instance here.
  * This task instance does the actual task work, and reports results to the task system.
  */
 public class GetWrapperLogTask extends AbstractTask {
@@ -50,7 +47,7 @@ public class GetWrapperLogTask extends AbstractTask {
 
         List<String> selectedGateways = taskSettings.getSelectedGateways();
         int completedGateways = 0;
-        GatewayAreaNetworkManager gm = context.getGatewayContext().getGatewayAreaNetworkManager();
+        GatewayNetworkManager gm = context.getGatewayContext().getGatewayAreaNetworkManager();
 
         // Retrieve this machine's server id, so that the remote system can use the address to stream the file
         // to this system.

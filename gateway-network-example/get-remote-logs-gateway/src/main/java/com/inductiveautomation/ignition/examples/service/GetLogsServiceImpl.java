@@ -10,7 +10,6 @@ import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.logging.LogQueryConfig;
 import com.inductiveautomation.ignition.common.logging.LogQueryConfig.LogQueryConfigBuilder;
 import com.inductiveautomation.ignition.common.logging.LogResults;
-import com.inductiveautomation.ignition.examples.service.GLSecurityConfigValues.Mode;
 import com.inductiveautomation.ignition.gateway.gan.security.SecuredEntity;
 import com.inductiveautomation.ignition.gateway.gan.security.SecuredEntityImplementation;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
@@ -53,9 +52,8 @@ public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplemen
 
         LogQueryConfig filter = query.build();
         LogResults result = context.getLoggingManager().queryLogEvents(filter);
-        List<LogEvent> events  = result.getEvents();
 
-        return events;
+        return result.getEvents();
     }
 
     @Override
@@ -77,8 +75,8 @@ public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplemen
 
 
         // If all security checks passed, we can continue. Start by making a temporary copy of wrapper.log
-        File wrapperFile = new File(context.getLogsDir() + File.separator + "wrapper.log");
-        File tempLog = null;
+        File wrapperFile = new File(context.getSystemManager().getLogsDir() + File.separator + "wrapper.log");
+        File tempLog;
         if(wrapperFile.exists()){
             tempLog = new File(System.getProperty("java.io.tmpdir") + File.separator + UUID.randomUUID().toString() + ".wrapper.log");
             try {
@@ -94,7 +92,7 @@ public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplemen
             return GetLogsService.FAIL_MSG + ": wrapper.log file was not found";
         }
 
-        String finalResult = null;
+        String finalResult;
         try{
             // Call the streamWrapperLog() function on the other side and stream the local wrapper.log.
             ServerId localId = context.getGatewayAreaNetworkManager().getServerAddress();

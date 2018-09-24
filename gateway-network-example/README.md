@@ -1,10 +1,12 @@
+# Get Remote Logs (Gateway Network) Example
+
 This module provides examples for the following functionality:
 - retrieve log events for a remote server over the Gateway network in the form of a Python dataset. A start date and an end date can be used to filter log queries.
 - execute a Gateway task that can download a full wrapper.log file from a remote server. This functionality also demonstrates file streaming over the Gateway Network.
 
 You will need to install the module on two separate Gateways. You can create a script to retrieve log entries from a remote machine, as shown below:
 
-### Scripting Example
+### Example Script
 
 ```
 import datetime

@@ -1,12 +1,11 @@
 package com.inductiveautomation.ignition.examples.task;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
-import com.inductiveautomation.ignition.gateway.gan.GatewayAreaNetworkManager;
+import com.inductiveautomation.ignition.gateway.gan.GatewayNetworkManager;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.metro.api.ServerId;
 import org.apache.wicket.Application;
@@ -28,7 +27,7 @@ public class RemoteServerSelectionStep extends WizardStep {
 
     private static final String TITLE = "remotelogging.tasks.getwrapperlog.wizard.Title";
     private List<SimpleRemoteGateway> gateways;
-    private String accessKey = "";
+    private String accessKey;
 
     public RemoteServerSelectionStep(IModel<RemoteGatewaySelection> settings){
         super(BundleUtil.get().getString(TITLE), null, settings);
@@ -66,7 +65,7 @@ public class RemoteServerSelectionStep extends WizardStep {
         // Text field to allow a service access key to be sent when the retrieve wrapper service call is made.  On the
         // remote machine, the access key is set on the services security page. The remote system can reject this
         // system's retrieve wrapper call if the keys do not match. The key is empty by default on both sides.
-        TextField<String> accessFld = new TextField<String>("accessKey", new PropertyModel<String>(this, "accessKey"));
+        TextField<String> accessFld = new TextField<>("accessKey", new PropertyModel<>(this, "accessKey"));
         form.add(accessFld);
     }
 
@@ -102,7 +101,7 @@ public class RemoteServerSelectionStep extends WizardStep {
 
         // Determine all known remote Gateways
         GatewayContext context = (GatewayContext) Application.get();
-        GatewayAreaNetworkManager gn = context.getGatewayAreaNetworkManager();
+        GatewayNetworkManager gn = context.getGatewayAreaNetworkManager();
         List<ServerId> servers = gn.getKnownServers();
         for(ServerId server: servers){
             SimpleRemoteGateway sg = new SimpleRemoteGateway(server.getServerName(), gn.getServer(server).getState().toString());
@@ -113,12 +112,7 @@ public class RemoteServerSelectionStep extends WizardStep {
             gateways.add(sg);
         }
 
-        Collections.sort(gateways, new Comparator<SimpleRemoteGateway>() {
-            @Override
-            public int compare(SimpleRemoteGateway obj1, SimpleRemoteGateway obj2) {
-                return obj1.getName().toLowerCase().compareTo(obj2.getName().toLowerCase());
-            }
-        });
+        gateways.sort(Comparator.comparing(obj -> obj.getName().toLowerCase()));
 
         return gateways;
     }

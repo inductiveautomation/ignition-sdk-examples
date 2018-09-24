@@ -20,7 +20,6 @@ public class GetLogsClientFunctions extends GetLogsScriptFunctions {
     @Override
     public HashMap<String, List<LogEvent>> getLogEntriesInternal(List<String> remoteServers, Date startDate, Date endDate){
         GetLogsRPC rpc = ModuleRPCFactory.create("com.example.get-remote-logs", GetLogsRPC.class);
-        HashMap<String, List<LogEvent>> map = rpc.getRemoteLogEntries(remoteServers, startDate, endDate);
-        return map;
+        return rpc.getRemoteLogEntries(remoteServers, startDate, endDate);
     }
 }

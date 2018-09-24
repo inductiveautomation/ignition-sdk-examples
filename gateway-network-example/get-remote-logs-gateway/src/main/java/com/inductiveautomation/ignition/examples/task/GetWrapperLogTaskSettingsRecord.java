@@ -1,6 +1,7 @@
 package com.inductiveautomation.ignition.examples.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.inductiveautomation.ignition.gateway.localdb.persistence.LongField;
@@ -26,7 +27,7 @@ public class GetWrapperLogTaskSettingsRecord extends PersistentRecord implements
     public static final LongField ProfileId = new LongField(META, "profileid", SFieldFlags.SMANDATORY,
             SFieldFlags.SPRIMARY_KEY);
 
-    public static final ReferenceField<GatewayTaskRecord> Profile = new ReferenceField<GatewayTaskRecord>(META,
+    public static final ReferenceField<GatewayTaskRecord> Profile = new ReferenceField<>(META,
             GatewayTaskRecord.META, "profile", ProfileId);
 
     public static final StringField TargetGateways = new StringField(META, "targetGateways");
@@ -45,9 +46,7 @@ public class GetWrapperLogTaskSettingsRecord extends PersistentRecord implements
 
         if(!StringUtils.isEmpty(targets)){
             String[] targetsArr = targets.split(",");
-            for(String target: targetsArr){
-                servers.add(target);
-            }
+            servers.addAll(Arrays.asList(targetsArr));
         }
 
         return servers;

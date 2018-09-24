@@ -3,7 +3,7 @@ package com.inductiveautomation.ignition.examples.task;
 import java.io.Serializable;
 
 /**
- * Easy-to-serialize class that is needed due to Wicket saving selection state as we move thru the wizard. Adding
+ * Easy-to-serialize class that is needed due to Wicket saving selection state as we move through the wizard. Adding
  * "implements Serializable" prevents a java.io.NotSerializableException
  */
 public class SimpleRemoteGateway implements Serializable {
