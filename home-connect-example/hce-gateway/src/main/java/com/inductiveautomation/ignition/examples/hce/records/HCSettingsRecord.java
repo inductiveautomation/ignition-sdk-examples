@@ -94,8 +94,6 @@ public class HCSettingsRecord extends PersistentRecord {
         setInt(HCPowerOutput, power);
     }
 
-
-
     @Override
     public RecordMeta<?> getMeta() {
         return META;

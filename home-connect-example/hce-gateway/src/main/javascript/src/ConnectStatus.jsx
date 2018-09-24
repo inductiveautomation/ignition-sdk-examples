@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {pollWaitAck} from 'ignition-lib';
 import {getConnectionsStatus} from './model';
-import {ItemTable, Gauge, BlankState, Loading} from 'ignition-react';
+import {BlankState, Gauge, ItemTable, Loading} from 'ignition-react';
 
 const BLANK_STATE = {
     image: <img src="/main/res/alarm-notification/img/blank_alarms.png" alt=""/>,
@@ -55,7 +55,7 @@ class ConnectOverview extends Component {
                 let items = [];
                 if (connectionList != null){
                     items = connectionList.map(function(connection){
-                        const item = [
+                        return [
                             connection.HomeConnectHubName,
                             connection.BroadcastSSID.toString(),
                             connection.DeviceCount,
@@ -63,7 +63,6 @@ class ConnectOverview extends Component {
                             connection.AllowInterop.toString(),
                             connection.PowerOutput,
                         ];
-                        return item;
                     });
                 }
 

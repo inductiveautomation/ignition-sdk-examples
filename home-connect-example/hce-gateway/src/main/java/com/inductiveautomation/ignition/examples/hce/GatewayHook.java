@@ -92,8 +92,8 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
     @Override
     public List<? extends IConfigTab> getConfigPanels() {
-        return Arrays.asList(
-                HCE_CONFIG_ENTRY
+        return Collections.singletonList(
+            HCE_CONFIG_ENTRY
         );
     }
 
@@ -193,7 +193,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         BundleUtil.get().removeBundle("HomeConnect");
 
         if (context.getState() != ContextState.STOPPING) {
-            WebApplication wicket = context.getWebApplication();
+            WebApplication wicket = context.getWebResourceManager().getWebApplication();
 
             Application currentApplication = ThreadContext.getApplication();
             ThreadContext.setApplication(wicket);
