@@ -28,9 +28,9 @@ public class Smiley extends AbstractJ2DShape {
                                                                            // to be registered in gateway hook along with
                                                                            // Smile.class
     public static final int ORIGIN = 0;
-    boolean isHappy = true;
-    Color background = Color.YELLOW;
-    Color foreground = Color.BLACK;
+    private boolean isHappy = true;
+    private Color background = Color.YELLOW;
+    private Color foreground = Color.BLACK;
 
 
     protected void render(Graphics2D g, int width, int height) {

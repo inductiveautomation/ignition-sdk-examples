@@ -12,13 +12,12 @@ import com.inductiveautomation.rm.archiver.RMArchiver;
  * @author Perry Arellano-Jones
  */
 public class GatewayHook extends AbstractGatewayModuleHook {
-    GatewayContext context;
+    private GatewayContext context;
 
     @Override
     public void setup(GatewayContext context) {
         this.context = context;
     }
-
 
     @Override
     public void startup(LicenseState activationState) {
