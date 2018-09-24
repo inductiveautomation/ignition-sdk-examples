@@ -19,16 +19,13 @@ import com.inductiveautomation.ignition.gateway.services.ModuleServiceConsumer;
 import com.inductiveautomation.ignition.examples.ne.profile.ConsoleLogProperties;
 
 public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServiceConsumer{
-
-	
 	public static final String MODULE_ID = "com.inductiveautomation.ignition.examples.ne";
 
 	private final LoggerEx log = new LoggerEx(Logger.getLogger(getClass()));
 
 	private volatile GatewayContext gatewayContext;
 	private volatile AlarmNotificationContext notificationContext;
-	
-	
+
 	@Override
 	public void setup(GatewayContext context) {
 		this.gatewayContext = context;
@@ -80,7 +77,7 @@ public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServ
 	@Override
 	public void serviceReady(Class<?> serviceClass) {
 		if (serviceClass == AlarmNotificationContext.class) {
-			//must set our notification context to the current running version of the AlarmNotifcationContext
+			//must set our notification context to the current running version of the AlarmNotificationContext
 			notificationContext = gatewayContext.getModuleServicesManager()
 				.getService(AlarmNotificationContext.class);
 

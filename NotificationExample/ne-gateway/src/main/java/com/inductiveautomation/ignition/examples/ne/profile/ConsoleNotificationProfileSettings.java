@@ -12,10 +12,11 @@ import com.inductiveautomation.ignition.gateway.localdb.persistence.ReferenceFie
 
 public class ConsoleNotificationProfileSettings extends PersistentRecord{
 
-	public static final RecordMeta<ConsoleNotificationProfileSettings> META = 
-			new RecordMeta<ConsoleNotificationProfileSettings>(
-					ConsoleNotificationProfileSettings.class,
-					"ConsoleNotificationProfileSettings");
+	public static final RecordMeta<ConsoleNotificationProfileSettings> META =
+        new RecordMeta<>(
+            ConsoleNotificationProfileSettings.class,
+            "ConsoleNotificationProfileSettings"
+        );
 	public static final IdentityField Id = new IdentityField(META);
 	public static final LongField ProfileId = new LongField(META, "ProfileId");
 	public static final ReferenceField<AlarmNotificationProfileRecord> Profile = new ReferenceField<AlarmNotificationProfileRecord>(

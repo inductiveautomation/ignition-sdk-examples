@@ -10,10 +10,8 @@ import com.inductiveautomation.ignition.gateway.localdb.persistence.RecordMeta;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 
 public class ConsoleNotificationProfileType extends AlarmNotificationProfileType{
-
 	public static final String TYPE_ID = "ConsoleType";
 	public static final ContactType CONSOLE = new ContactType("console", new LocalizedString("ConsoleNotification.ContactType.console"));
-	
 	
 	public ConsoleNotificationProfileType() {
 		super(TYPE_ID,

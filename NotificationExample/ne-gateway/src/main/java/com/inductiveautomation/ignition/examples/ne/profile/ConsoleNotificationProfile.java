@@ -58,21 +58,12 @@ public class ConsoleNotificationProfile implements AlarmNotificationProfile {
 		profileName = profileRecord.getName();
 
 		//We need to retrieve the audit profile name
-		PersistenceSession session = null;
-		try {
+		try (PersistenceSession session = context.getPersistenceInterface().getSession(settingsRecord.getDataSet())) {
 			//getAuditProfileName gets the AuditProfileRecord and queries the name
 			// So, we don't know if the AuditProfileRecord is detached so must reattach
-			session = context.getPersistenceInterface().getSession(settingsRecord.getDataSet());
 			auditProfileName = settingsRecord.getAuditProfileName();
 		} catch (Exception e) {
 			log.error("Error retrieving audit profile name.", e);
-		} finally {
-			if (session != null) {
-				try {
-					session.close();
-				} catch (Exception ignore) {
-				}
-			}
 		}
 
 	}
@@ -112,37 +103,34 @@ public class ConsoleNotificationProfile implements AlarmNotificationProfile {
 
 	@Override
 	public void sendNotification(final NotificationContext notificationContext) {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				Collection<ContactInfo> consoleContactInfos =
-						Collections2.filter(notificationContext.getUser().getContactInfo(), new IsConsoleContactInfo());
+		executor.execute(() -> {
+			Collection<ContactInfo> consoleContactInfos =
+					Collections2.filter(notificationContext.getUser().getContactInfo(), new IsConsoleContactInfo());
 
-				String message = evaluateMessageExpression(notificationContext);
-				// Check if we're in 'test mode'
-				//not really useful because we're logging, but just demonstrates would be done if using another
-				//form of notification
-				boolean testMode = notificationContext.getOrDefault(ConsoleLogProperties.TEST_MODE);
-				if (testMode) {
-					log.infof("THIS PROFILE IS RUNNING IN TEST MODE. The following WOULD have been sent:\n" +
-							"Recipient(s): %s\n" +
-							"Message: %s",
-							consoleContactInfos, message);
-
-					notificationContext.notificationDone();
-					return;
-				}
-
-				LogLevel level = settingsRecord.getLevel();
-
-				String formatString = "Recipient(s): %s\n" + "Message: %s";
-				//log to all the contact infos
-				level.log(log, consoleContactInfos, formatString, message);
-				//just shows how you can audit notifications optionally
-				audit(true, "Logged to Console", notificationContext);
+			String message = evaluateMessageExpression(notificationContext);
+			// Check if we're in 'test mode'
+			//not really useful because we're logging, but just demonstrates would be done if using another
+			//form of notification
+			boolean testMode = notificationContext.getOrDefault(ConsoleLogProperties.TEST_MODE);
+			if (testMode) {
+				log.infof("THIS PROFILE IS RUNNING IN TEST MODE. The following WOULD have been sent:\n" +
+						"Recipient(s): %s\n" +
+						"Message: %s",
+						consoleContactInfos, message);
 
 				notificationContext.notificationDone();
+				return;
 			}
+
+			LogLevel level = settingsRecord.getLevel();
+
+			String formatString = "Recipient(s): %s\n" + "Message: %s";
+			//log to all the contact infos
+			level.log(log, consoleContactInfos, formatString, message);
+			//just shows how you can audit notifications optionally
+			audit(true, "Logged to Console", notificationContext);
+
+			notificationContext.notificationDone();
 		});
 
 	}
