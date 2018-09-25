@@ -4,16 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-    <artifactId>report-datasource-example</artifactId>
-    <version>1.8.0</version>
+    <groupId>com.inductiveautomation.ignition.examples</groupId>
+    <artifactId>console-notification</artifactId>
     <packaging>pom</packaging>
+    <version>1.8.0</version>
 
     <modules>
-        <module>datasource-build</module>
-        <module>datasource-common</module>
-        <module>datasource-designer</module>
-        <module>datasource-gateway</module>
+        <module>console-notification-build</module>
+        <module>console-notification-gateway</module>
     </modules>
 
     <properties>

@@ -1,0 +1,34 @@
+# A general .gitignore for Gradle or Maven built Ignition SDK projects that
+# use IntelliJ or Eclipse as an IDE
+
+# Ignition Module files
+*.modl
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file used for proj. specific settings (sdk paths, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# git repos
+.git/
+
+# hg repos
+.hg/
+
+# Maven related
+*/target/
