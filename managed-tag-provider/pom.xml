@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.examples</groupId>
-    <artifactId>simple-tag-provider</artifactId>
+    <artifactId>managed-tag-provider</artifactId>
     <version>1.8.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>stp-build</module>
-        <module>stp-gateway</module>
+        <module>mtp-build</module>
+        <module>mtp-gateway</module>
     </modules>
 
     <properties>

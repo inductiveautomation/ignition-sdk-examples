@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.inductiveautomation.examples</groupId>
+        <artifactId>managed-tag-provider</artifactId>
+        <version>1.8.0</version>
+    </parent>
+
+    <artifactId>mtp-build</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.inductiveautomation.examples</groupId>
+            <artifactId>mtp-gateway</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.inductiveautomation.ignitionsdk</groupId>
+                <artifactId>ignition-maven-plugin</artifactId>
+                <version>1.0.12</version>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>modl</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <projectScopes>
+                        <projectScope>
+                            <name>mtp-gateway</name>
+                            <scope>G</scope>
+                        </projectScope>
+                    </projectScopes>
+
+                    <moduleId>com.inductiveautomation.examples.managedtagprovider</moduleId>
+                    <moduleName>SimpleTagProvider</moduleName>
+                    <moduleDescription>Adds a new Tag Provider through the ManagedTagProvider interface</moduleDescription>
+                    <moduleVersion>${project.version}</moduleVersion>
+                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <licenseFile></licenseFile>
+                    <documentationFile>doc/index.html</documentationFile>
+
+                    <depends></depends>
+
+                    <hooks>
+                        <hook>
+                            <scope>G</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.stp.ManagedProviderGatewayHook</hookClass>
+                        </hook>
+                    </hooks>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
