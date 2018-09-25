@@ -1,34 +1,34 @@
 # Ignition SDK
 
 ## Example Modules
-##### [Tag Driver](tag-driver/readme.md)
+##### [Tag Driver](tag-driver)
 Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
 
-##### [Vision Component](vision-component/readme.md)
+##### [Vision Component](vision-component)
 Creates a Hello World component that can be dragged onto a window in the Designer.
 
-##### [Expression Function](expression-function/readme.md)
+##### [Expression Function](expression-function)
 Creates an exampleMultiply expression that can be used by other components, such as expression tags. The example expression is located under the Extended expression category.
 
-##### [Gateway Network/Get Remote Logs](gateway-network-function/readme.md)
+##### [Gateway Network/Get Remote Logs](gateway-network-function)
 Requires two Gateways connected via the gateway network. The module must also be installed on both Gateways. This module adds a system.example.getRemoteLogEntries script function that can retrieve console log entries from a remote Gateway over the gateway network. Also adds a Gateway Task type that can retrieve a remote gateway’s wrapper log and save as a local file.
 
-##### [Gateway Webpage/Home Connect](gateway-webpage/readme.md)
+##### [Gateway Webpage/Home Connect](gateway-webpage)
 Demonstrates how to implement Gateway Status and Config pages. HomeConnect pages are added to the Gateway that configure an imaginary HomeConnect device. 
 
-##### [Slack Alarm Notification](slack-alarm-notification/readme.md)
+##### [Slack Alarm Notification](slack-alarm-notification)
 Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
 
-##### [Report Component](report-component/readme.md)
+##### [Report Component](report-component)
 Adds a Smiley shaped component to the Report Designer.
 
-##### [Report Datasource](report-datasource/readme.md)
+##### [Report Datasource](report-datasource)
 Adds a datasource to the report designer that can retrieve JSON data via a REST call to a website.
 
-##### [Scripting Function (RPC)](scripting-function/readme.md)
+##### [Scripting Function (RPC)](scripting-function)
 Adds a system.example.multiply script that can be executed from both a client and a Gateway. Also demonstrates how the client can call a method in the Gateway via RPC.
 
-##### [Managed Tag Provider](managed-tag-provider/readme.md)
+##### [Managed Tag Provider](managed-tag-provider)
 Shows how to implement a Managed Tag Provider, to allow easy control of Ignition tags from an external program or data.
 
 ## Requirements
