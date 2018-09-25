@@ -4,17 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>scripting-rpc-example</artifactId>
+        <artifactId>scripting-function-example</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>scripting-rpc-gateway</artifactId>
+    <artifactId>scripting-function-gateway</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>scripting-rpc-common</artifactId>
+            <artifactId>scripting-function-common</artifactId>
             <version>1.8.0</version>
         </dependency>
 

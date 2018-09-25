@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
-    <artifactId>scripting-rpc-example</artifactId>
+    <artifactId>scripting-function-example</artifactId>
     <version>1.8.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>scripting-rpc-build</module>
-        <module>scripting-rpc-client</module>
-        <module>scripting-rpc-common</module>
-        <module>scripting-rpc-designer</module>
-        <module>scripting-rpc-gateway</module>
+        <module>scripting-function-build</module>
+        <module>scripting-function-client</module>
+        <module>scripting-function-common</module>
+        <module>scripting-function-designer</module>
+        <module>scripting-function-gateway</module>
     </modules>
 
     <pluginRepositories>

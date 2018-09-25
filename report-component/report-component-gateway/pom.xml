@@ -10,19 +10,19 @@
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>component-designer</artifactId>
+    <artifactId>report-component-gateway</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
-            <artifactId>reporting-designer</artifactId>
-            <version>7.8.4-SNAPSHOT</version>
+            <artifactId>reporting-gateway</artifactId>
+            <version>8.0.0-SNAPSHOT</version>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-            <artifactId>component-common</artifactId>
+            <artifactId>report-component-common</artifactId>
             <version>1.8.0</version>
         </dependency>
     </dependencies>

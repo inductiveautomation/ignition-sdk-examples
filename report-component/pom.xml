@@ -10,10 +10,10 @@
     <version>1.8.0</version>
 
     <modules>
-        <module>designer</module>
-        <module>build</module>
-        <module>common</module>
-        <module>gateway</module>
+        <module>report-component-designer</module>
+        <module>report-component-build</module>
+        <module>report-component-common</module>
+        <module>report-component-gateway</module>
     </modules>
 
     <properties>

@@ -4,32 +4,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>scripting-rpc-example</artifactId>
+        <artifactId>scripting-function-example</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>scripting-rpc-build</artifactId>
+    <artifactId>scripting-function-build</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>scripting-rpc-client</artifactId>
+            <artifactId>scripting-function-client</artifactId>
             <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>scripting-rpc-common</artifactId>
+            <artifactId>scripting-function-common</artifactId>
             <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>scripting-rpc-designer</artifactId>
+            <artifactId>scripting-function-designer</artifactId>
             <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>scripting-rpc-gateway</artifactId>
+            <artifactId>scripting-function-gateway</artifactId>
             <version>1.8.0</version>
         </dependency>
     </dependencies>
@@ -49,44 +49,34 @@
                             <goal>modl</goal>
                         </goals>
                     </execution>
-                    <!-- Auto-installs module in Gateway, requires a cd-key with developer mode enabled -->
-                    <!--
-                    <execution>
-                        <id>install-modl</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>post</goal>
-                        </goals>
-                    </execution>
-                    -->
                 </executions>
 
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>scripting-rpc-client</name>
+                            <name>scripting-function-client</name>
                             <scope>C</scope>
                         </projectScope>
                         <projectScope>
-                            <name>scripting-rpc-common</name>
+                            <name>scripting-function-common</name>
                             <scope>CDG</scope>
                         </projectScope>
                         <projectScope>
-                            <name>scripting-rpc-designer</name>
+                            <name>scripting-function-designer</name>
                             <scope>CD</scope>
                         </projectScope>
                         <projectScope>
-                            <name>scripting-rpc-gateway</name>
+                            <name>scripting-function-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.scripting-rpc</moduleId>
+                    <moduleId>com.inductiveautomation.ignition.examples.scripting-function</moduleId>
                     <moduleName>ScriptingRPC</moduleName>
-                    <moduleDescription>A module that adds a scripting function that uses RPC...</moduleDescription>
-                    <moduleVersion>1.7.0</moduleVersion>
-                    <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <moduleDescription>A module that adds a scripting function that uses RPC</moduleDescription>
+                    <moduleVersion>${project.version}</moduleVersion>
+                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
                     <hooks>
                         <hook>

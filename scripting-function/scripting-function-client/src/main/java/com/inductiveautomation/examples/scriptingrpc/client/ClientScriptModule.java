@@ -10,7 +10,7 @@ public class ClientScriptModule extends AbstractScriptModule {
 
     public ClientScriptModule() {
         rpc = ModuleRPCFactory.create(
-                "com.inductiveautomation.ignition.examples.scripting-rpc",
+                "com.inductiveautomation.ignition.examples.scripting-function",
                 MathBlackBox.class);
     }
 

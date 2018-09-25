@@ -1,4 +1,4 @@
-# Home Connect Example
+# Gateway Webpage (Home Connect) Example
 
 This simple module gives an example of how you add top-level navigational items to the Configuration and Status pages of the 
 Ignition Gateway.
