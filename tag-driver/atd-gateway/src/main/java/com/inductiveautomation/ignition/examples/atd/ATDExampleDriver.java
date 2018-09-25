@@ -3,24 +3,21 @@ package com.inductiveautomation.ignition.examples.atd;
 import java.util.Random;
 
 import com.inductiveautomation.ignition.examples.atd.configuration.settings.ATDExampleDriverSettings;
-import com.inductiveautomation.ignition.gateway.opcua.server.api.DeviceContext;
-import com.inductiveautomation.xopc.driver.api.AbstractDriver;
-import com.inductiveautomation.xopc.driver.api.AbstractTagDriver;
 import com.inductiveautomation.xopc.driver.api.DriverContext;
 import com.inductiveautomation.xopc.driver.api.tags.DriverTag;
+import com.inductiveautomation.xopc.driver.common.nodemap.NodeMapDriver;
 import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 
-public class ATDExampleDriver extends AbstractTagDriver {
-
+public class ATDExampleDriver extends NodeMapDriver {
     /**
      * Creates some tags that can be referenced when the driver is running.
      *
      * @param deviceContext
      * @param settings
      */
-    public ATDExampleDriver(DeviceContext deviceContext, ATDExampleDriverSettings settings) {
+    public ATDExampleDriver(DriverContext deviceContext, ATDExampleDriverSettings settings) {
         super(deviceContext);
 
         int tagCount = settings.getTagCount();
@@ -54,4 +51,8 @@ public class ATDExampleDriver extends AbstractTagDriver {
         return "Connected";
     }
 
+    @Override
+    protected void initialize() {
+
+    }
 }
