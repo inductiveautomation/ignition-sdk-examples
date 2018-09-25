@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ignition-sdk-examples</groupId>
-    <artifactId>expression-example</artifactId>
+    <artifactId>expression-function</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -17,11 +17,11 @@
     </properties>
 
     <modules>
-        <module>expression-example-build</module>
-        <module>expression-example-client</module>
-        <module>expression-example-common</module>
-        <module>expression-example-designer</module>
-        <module>expression-example-gateway</module>
+        <module>expression-function-build</module>
+        <module>expression-function-client</module>
+        <module>expression-function-common</module>
+        <module>expression-function-designer</module>
+        <module>expression-function-gateway</module>
     </modules>
 
     <pluginRepositories>
