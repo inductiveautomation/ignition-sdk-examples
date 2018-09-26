@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.examples</groupId>
-    <artifactId>abstract-tag-driver</artifactId>
+    <artifactId>tag-driver</artifactId>
     <packaging>pom</packaging>
     <version>1.8.0</version>
 
     <modules>
-        <module>atd-build</module>
-        <module>atd-gateway</module>
+        <module>tag-driver-build</module>
+        <module>tag-driver-gateway</module>
     </modules>
 
     <properties>
@@ -46,7 +46,6 @@
                 <updatePolicy>always</updatePolicy>
             </releases>
         </repository>
-
         <repository>
             <id>snapshots</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
@@ -58,7 +57,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-
         <repository>
             <id>thirdparty</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty</url>
@@ -83,6 +81,4 @@
             </snapshots>
         </repository>
     </repositories>
-
-
 </project>

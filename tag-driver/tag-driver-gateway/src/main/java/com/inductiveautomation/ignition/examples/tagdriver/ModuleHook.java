@@ -1,10 +1,10 @@
-package com.inductiveautomation.ignition.examples.atd;
+package com.inductiveautomation.ignition.examples.tagdriver;
 
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import com.inductiveautomation.ignition.common.BundleUtil;
-import com.inductiveautomation.ignition.examples.atd.configuration.ATDExampleDriverType;
+import com.inductiveautomation.ignition.examples.tagdriver.configuration.ExampleTagDriverType;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.xopc.driver.api.DriverAPI;
 import com.inductiveautomation.xopc.driver.api.configuration.DriverType;
@@ -16,20 +16,20 @@ public class ModuleHook extends AbstractDriverModuleHook {
 
     static {
         DRIVER_TYPES = ImmutableList.<DriverType>builder()
-                .add(new ATDExampleDriverType())
+                .add(new ExampleTagDriverType())
                 .build();
     }
 
     @Override
     public void setup(GatewayContext context) {
-        BundleUtil.get().addBundle(ATDExampleDriver.class);
+        BundleUtil.get().addBundle(ExampleTagDriver.class);
 
         super.setup(context);
     }
 
     @Override
     public void shutdown() {
-        BundleUtil.get().removeBundle(ATDExampleDriver.class);
+        BundleUtil.get().removeBundle(ExampleTagDriver.class);
 
         super.shutdown();
     }

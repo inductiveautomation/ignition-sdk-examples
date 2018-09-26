@@ -1,24 +1,24 @@
-package com.inductiveautomation.ignition.examples.atd;
+package com.inductiveautomation.ignition.examples.tagdriver;
 
 import java.util.Random;
 
-import com.inductiveautomation.ignition.examples.atd.configuration.settings.ATDExampleDriverSettings;
+import com.inductiveautomation.ignition.examples.tagdriver.configuration.settings.ExampleTagDriverSettings;
+import com.inductiveautomation.xopc.driver.api.AbstractTagDriver;
 import com.inductiveautomation.xopc.driver.api.DriverContext;
 import com.inductiveautomation.xopc.driver.api.tags.DriverTag;
-import com.inductiveautomation.xopc.driver.common.nodemap.NodeMapDriver;
 import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 
-public class ATDExampleDriver extends NodeMapDriver {
+public class ExampleTagDriver extends AbstractTagDriver {
     /**
      * Creates some tags that can be referenced when the driver is running.
      *
-     * @param deviceContext
+     * @param driverContext
      * @param settings
      */
-    public ATDExampleDriver(DriverContext deviceContext, ATDExampleDriverSettings settings) {
-        super(deviceContext);
+    public ExampleTagDriver(DriverContext driverContext, ExampleTagDriverSettings settings) {
+        super(driverContext);
 
         int tagCount = settings.getTagCount();
 
@@ -51,8 +51,4 @@ public class ATDExampleDriver extends NodeMapDriver {
         return "Connected";
     }
 
-    @Override
-    protected void initialize() {
-
-    }
 }

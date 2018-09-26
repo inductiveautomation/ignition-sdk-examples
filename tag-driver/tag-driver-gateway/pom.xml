@@ -6,11 +6,11 @@
 
     <parent>
         <groupId>com.inductiveautomation.examples</groupId>
-        <artifactId>abstract-tag-driver</artifactId>
+        <artifactId>tag-driver</artifactId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>atd-gateway</artifactId>
+    <artifactId>tag-driver-gateway</artifactId>
 
     <dependencies>
         <dependency>

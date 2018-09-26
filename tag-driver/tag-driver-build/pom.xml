@@ -6,16 +6,16 @@
 
     <parent>
         <groupId>com.inductiveautomation.examples</groupId>
-        <artifactId>abstract-tag-driver</artifactId>
+        <artifactId>tag-driver</artifactId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>atd-build</artifactId>
+    <artifactId>tag-driver-build</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.examples</groupId>
-            <artifactId>atd-gateway</artifactId>
+            <artifactId>tag-driver-gateway</artifactId>
             <version>1.8.0</version>
         </dependency>
     </dependencies>
@@ -39,17 +39,17 @@
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>atd-gateway</name>
+                            <name>tag-driver-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.atd</moduleId>
-                    <moduleName>AbstractTagDriver</moduleName>
-                    <moduleDescription>An AbstractTagDriver implementation example.</moduleDescription>
+                    <moduleId>com.inductiveautomation.ignition.examples.tagdriver</moduleId>
+                    <moduleName>Tag Driver Example</moduleName>
+                    <moduleDescription>A TagDriver implementation example.</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
                     <licenseFile>license.html</licenseFile>
                     <documentationFile>doc/index.html</documentationFile>
 
@@ -63,7 +63,7 @@
                     <hooks>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.ignition.examples.atd.ModuleHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.tagdriver.ModuleHook</hookClass>
                         </hook>
                     </hooks>
                 </configuration>
