@@ -1,4 +1,4 @@
-package com.inductiveautomation.ignition.examples.stp;
+package com.inductiveautomation.ignition.examples.mtp;
 
 import java.util.Random;
 

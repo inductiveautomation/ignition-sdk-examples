@@ -45,11 +45,11 @@
                     </projectScopes>
 
                     <moduleId>com.inductiveautomation.examples.managedtagprovider</moduleId>
-                    <moduleName>SimpleTagProvider</moduleName>
+                    <moduleName>Managed Tag Provider</moduleName>
                     <moduleDescription>Adds a new Tag Provider through the ManagedTagProvider interface</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
                     <licenseFile></licenseFile>
                     <documentationFile>doc/index.html</documentationFile>
 
@@ -58,7 +58,7 @@
                     <hooks>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.ignition.examples.stp.ManagedProviderGatewayHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.mtp.ManagedProviderGatewayHook</hookClass>
                         </hook>
                     </hooks>
                 </configuration>

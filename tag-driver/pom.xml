@@ -19,7 +19,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
