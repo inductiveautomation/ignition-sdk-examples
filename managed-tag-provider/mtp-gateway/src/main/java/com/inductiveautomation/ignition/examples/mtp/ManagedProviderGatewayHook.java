@@ -68,7 +68,7 @@ public class ManagedProviderGatewayHook extends AbstractGatewayModuleHook {
             //Now set up our first batch of tags.
             adjustTags(10);
         } catch (Exception e) {
-            logger.fatal("Error setting up SimpleTagProvider example module.", e);
+            logger.fatal("Error setting up ManagedTagProvider example module.", e);
         }
     }
 
@@ -96,9 +96,9 @@ public class ManagedProviderGatewayHook extends AbstractGatewayModuleHook {
                 ourProvider.shutdown(true);
             }
         } catch (Exception e) {
-            logger.error("Error stopping SimpleTagProvider example module.", e);
+            logger.error("Error stopping ManagedTagProvider example module.", e);
         }
-        logger.info("SimpleTagProvider Example module stopped.");
+        logger.info("ManagedTagProvider example module stopped.");
     }
 
     /**
