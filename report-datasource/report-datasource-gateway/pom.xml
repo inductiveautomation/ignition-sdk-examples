@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>report-datasource-example</artifactId>
-        <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+        <artifactId>report-datasource</artifactId>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
@@ -14,7 +14,6 @@
 
     <dependencies>
         <dependency>
-            <!-- reporting-gateway dependency provides reporting gateway api -->
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>reporting-gateway</artifactId>
             <version>8.0.0-SNAPSHOT</version>
@@ -22,13 +21,11 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <!-- common dependency for things we need to share between scopes -->
-            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-datasource-common</artifactId>
             <version>1.8.0</version>
         </dependency>
 
-        <!-- use OkHttp as a simple and efficient HTTP client to call for our data -->
         <dependency>
             <groupId>com.squareup.okhttp</groupId>
             <artifactId>okhttp</artifactId>
@@ -43,7 +40,6 @@
 
     <build>
         <plugins>
-            <!-- ask maven to compile this module against java 8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>report-datasource-example</artifactId>
-        <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+        <artifactId>report-datasource</artifactId>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
@@ -54,7 +54,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-datasource-common</artifactId>
             <version>1.8.0</version>
         </dependency>

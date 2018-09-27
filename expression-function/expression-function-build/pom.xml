@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>expression-function</artifactId>
-        <groupId>ignition-sdk-examples</groupId>
+        <groupId>com.inductiveautomation.examples</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -14,22 +14,22 @@
 
     <dependencies>
         <dependency>
-            <groupId>ignition-sdk-examples</groupId>
+            <groupId>com.inductiveautomation.examples</groupId>
             <artifactId>expression-function-client</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>ignition-sdk-examples</groupId>
+            <groupId>com.inductiveautomation.examples</groupId>
             <artifactId>expression-function-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>ignition-sdk-examples</groupId>
+            <groupId>com.inductiveautomation.examples</groupId>
             <artifactId>expression-function-designer</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>ignition-sdk-examples</groupId>
+            <groupId>com.inductiveautomation.examples</groupId>
             <artifactId>expression-function-gateway</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
@@ -71,10 +71,10 @@
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>ignition-sdk-examples.expression-function</moduleId>
-                    <moduleName>${project.parent.name}</moduleName>
-                    <moduleDescription>${project.description}</moduleDescription>
-                    <moduleVersion>1.0.0-SNAPSHOT</moduleVersion>
+                    <moduleId>com.inductiveautomation.examples.expression-function</moduleId>
+                    <moduleName>Expression Function Example</moduleName>
+                    <moduleDescription>Provides a simple expression function to all scopes</moduleDescription>
+                    <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
