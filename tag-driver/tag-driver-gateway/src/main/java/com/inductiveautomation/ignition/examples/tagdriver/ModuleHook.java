@@ -1,47 +1,35 @@
 package com.inductiveautomation.ignition.examples.tagdriver;
 
-import java.util.List;
-
-import com.google.common.collect.ImmutableList;
 import com.inductiveautomation.ignition.common.BundleUtil;
-import com.inductiveautomation.ignition.examples.tagdriver.configuration.ExampleTagDriverType;
+import com.inductiveautomation.ignition.common.licensing.LicenseState;
+import com.inductiveautomation.ignition.examples.tagdriver.configuration.ExampleDeviceType;
+import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.xopc.driver.api.DriverAPI;
-import com.inductiveautomation.xopc.driver.api.configuration.DriverType;
-import com.inductiveautomation.xopc.driver.common.AbstractDriverModuleHook;
+import com.inductiveautomation.ignition.gateway.opcua.server.api.ExtensionManager;
 
-public class ModuleHook extends AbstractDriverModuleHook {
+public class ModuleHook extends AbstractGatewayModuleHook {
+    private ExtensionManager extensionManager;
+    private ExampleDeviceType deviceType;
 
-    private static final ImmutableList<DriverType> DRIVER_TYPES;
-
-    static {
-        DRIVER_TYPES = ImmutableList.<DriverType>builder()
-                .add(new ExampleTagDriverType())
-                .build();
+    @Override
+    public void setup(GatewayContext gatewayContext) {
+        BundleUtil.get().addBundle(ExampleTagDriver.class);
+        extensionManager = gatewayContext.getModuleServicesManager().getService(ExtensionManager.class);
+        deviceType = new ExampleDeviceType();
     }
 
     @Override
-    public void setup(GatewayContext context) {
-        BundleUtil.get().addBundle(ExampleTagDriver.class);
-
-        super.setup(context);
+    public void startup(LicenseState licenseState) {
+        if (extensionManager != null) {
+            extensionManager.registerDeviceType(deviceType);
+        }
     }
 
     @Override
     public void shutdown() {
         BundleUtil.get().removeBundle(ExampleTagDriver.class);
-
-        super.shutdown();
+        if (extensionManager != null) {
+            extensionManager.unregisterDeviceType(deviceType);
+        }
     }
-
-    @Override
-    protected int getExpectedAPIVersion() {
-        return DriverAPI.VERSION;
-    }
-
-    @Override
-    protected List<DriverType> getDriverTypes() {
-        return DRIVER_TYPES;
-    }
-
 }

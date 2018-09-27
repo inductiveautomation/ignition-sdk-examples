@@ -12,15 +12,15 @@ import simpleorm.dataset.SFieldFlags;
 /**
  * Implements all functionality needed to save a device and its settings in the internal database.
  */
-public class ExampleTagDriverSettings extends PersistentRecord {
+public class ExampleDeviceSettings extends PersistentRecord {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Needed so that the device record can be saved in the internal database.
      */
-    public static final RecordMeta<ExampleTagDriverSettings> META =
-            new RecordMeta<>(ExampleTagDriverSettings.class, "ExampleTagDriverSettings");
+    public static final RecordMeta<ExampleDeviceSettings> META =
+            new RecordMeta<>(ExampleDeviceSettings.class, "ExampleDeviceSettings");
 
     /**
      * Reference to parent DeviceSettingsRecord: holds items like Device Name setting and Enabled setting.
@@ -53,13 +53,13 @@ public class ExampleTagDriverSettings extends PersistentRecord {
      * Categories specific to the ExampleTagDriver; each category appears below the General category in the Gateway
      * when creating a new driver.
      * <p>
-     * In this case, the displayKey below is referencing ExampleTagDriverSettings.properties, which should be located
+     * In this case, the displayKey below is referencing ExampleDeviceSettings.properties, which should be located
      * in the same package as the class file on the file system. You must put the actual category name into this file.
      * <p>
      * The order number determines the order in which multiple categories are displayed on the page.
      */
     public static final Category EXAMPLE_CATEGORY =
-            new Category("ExampleTagDriverSettings.ExampleCategory", 1001).include(TAG_COUNT);
+            new Category("ExampleDeviceSettings.ExampleCategory", 1001).include(TAG_COUNT);
 
     static {
         // Hides some generic ReferenceField settings that are not needed in our driver example.

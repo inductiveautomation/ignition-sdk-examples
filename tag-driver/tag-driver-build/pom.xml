@@ -56,7 +56,7 @@
                     <depends>
                         <depend>
                             <scope>G</scope>
-                            <moduleId>xopc</moduleId>
+                            <moduleId>com.inductiveautomation.opcua</moduleId>
                         </depend>
                     </depends>
 

@@ -2,42 +2,40 @@ package com.inductiveautomation.ignition.examples.tagdriver.configuration;
 
 
 import com.inductiveautomation.ignition.examples.tagdriver.ExampleTagDriver;
-import com.inductiveautomation.ignition.examples.tagdriver.configuration.settings.ExampleTagDriverSettings;
+import com.inductiveautomation.ignition.examples.tagdriver.configuration.settings.ExampleDeviceSettings;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.PersistentRecord;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.RecordMeta;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.ReferenceField;
+import com.inductiveautomation.ignition.gateway.opcua.server.api.Device;
+import com.inductiveautomation.ignition.gateway.opcua.server.api.DeviceContext;
 import com.inductiveautomation.ignition.gateway.opcua.server.api.DeviceSettingsRecord;
-import com.inductiveautomation.xopc.driver.api.Driver;
-import com.inductiveautomation.xopc.driver.api.DriverContext;
-import com.inductiveautomation.xopc.driver.api.configuration.DriverType;
+import com.inductiveautomation.ignition.gateway.opcua.server.api.DeviceType;
 import org.jetbrains.annotations.NotNull;
 
 
-public class ExampleTagDriverType extends DriverType {
+public class ExampleDeviceType extends DeviceType {
 
     public static final String TYPE_ID = "ATDExample";
 
-    public ExampleTagDriverType() {
+    public ExampleDeviceType() {
         /* DisplayName and Description are retrieved from ADTExampleDriver.properties */
         super(TYPE_ID, "ExampleTagDriver.Meta.DisplayName", "ExampleTagDriver.Meta.Description");
     }
 
     @Override
     public RecordMeta<? extends PersistentRecord> getSettingsRecordType() {
-        return ExampleTagDriverSettings.META;
-    }
-
-    @NotNull
-    public Driver createDriver(DriverContext driverContext, DeviceSettingsRecord deviceSettings) {
-        ExampleTagDriverSettings settings =
-                findProfileSettingsRecord(driverContext.getGatewayContext(), deviceSettings);
-
-        return new ExampleTagDriver(driverContext, settings);
+        return ExampleDeviceSettings.META;
     }
 
     @Override
     public ReferenceField<?> getSettingsRecordForeignKey() {
-        return ExampleTagDriverSettings.DEVICE_SETTINGS;
+        return ExampleDeviceSettings.DEVICE_SETTINGS;
     }
 
+    @NotNull
+    @Override
+    public Device createDevice(@NotNull DeviceContext deviceContext,
+                               @NotNull DeviceSettingsRecord deviceSettingsRecord) {
+        return new ExampleTagDriver(deviceContext, deviceSettingsRecord);
+    }
 }
