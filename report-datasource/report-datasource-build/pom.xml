@@ -5,27 +5,27 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>report-component</artifactId>
-        <groupId>com.inductiveautomation.ignition.examples</groupId>
+        <artifactId>report-datasource-example</artifactId>
+        <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>report-component-build</artifactId>
+    <artifactId>report-datasource-build</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>report-component-designer</artifactId>
+            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <artifactId>report-datasource-designer</artifactId>
             <version>1.8.0</version>
         </dependency>
         <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>report-component-common</artifactId>
+            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <artifactId>report-datasource-gateway</artifactId>
             <version>1.8.0</version>
         </dependency>
         <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>report-component-gateway</artifactId>
+            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <artifactId>report-datasource-common</artifactId>
             <version>1.8.0</version>
         </dependency>
     </dependencies>
@@ -50,48 +50,48 @@
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>report-component-common</name>
-                            <scope>CDG</scope>
+                            <name>report-datasource-common</name>
+                            <scope>DG</scope>
                         </projectScope>
                         <projectScope>
-                            <name>report-component-designer</name>
+                            <name>report-datasource-designer</name>
                             <scope>D</scope>
                         </projectScope>
                         <projectScope>
-                            <name>report-component-gateway</name>
+                            <name>report-datasource-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.report-component</moduleId>
-                    <moduleName>Report Component Example</moduleName>
-                    <moduleDescription>A module that adds a Smiley shaped component to the Report Designer</moduleDescription>
+                    <moduleId>com.inductiveautomation.examples.report-datasource</moduleId>
+                    <moduleName>Report Datasource Example</moduleName>
+                    <moduleDescription>A module that adds a datasource to the Ignition Reporting Module</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
                     <depends>
                         <depend>
-                            <scope>D</scope>
+                            <scope>G</scope>
                             <moduleId>rept</moduleId>
                         </depend>
                         <depend>
-                            <scope>G</scope>
+                            <scope>D</scope>
                             <moduleId>rept</moduleId>
                         </depend>
                     </depends>
 
-                    <!-- declare where our hook classes can be found for each scope: only one per scope! -->
                     <hooks>
                         <hook>
                             <scope>D</scope>
-                            <hookClass>com.inductiveautomation.examples.report.component.designer.DesignerHook</hookClass>
+                            <hookClass>com.inductiveautomation.examples.reporting.datasource.designer.DesignerHook</hookClass>
                         </hook>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.examples.report.component.gateway.GatewayHook</hookClass>
+                            <hookClass>com.inductiveautomation.examples.reporting.datasource.gateway.GatewayHook</hookClass>
                         </hook>
                     </hooks>
+
                 </configuration>
             </plugin>
         </plugins>

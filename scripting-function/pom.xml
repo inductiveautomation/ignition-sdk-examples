@@ -9,7 +9,7 @@
     <version>1.8.0</version>
     <packaging>pom</packaging>
 
-    <modules>
+    <modules>ign
         <module>scripting-function-build</module>
         <module>scripting-function-client</module>
         <module>scripting-function-common</module>

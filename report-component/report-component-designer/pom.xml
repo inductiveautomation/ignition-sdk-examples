@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>report-component</artifactId>
-        <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
@@ -21,7 +21,7 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-component-common</artifactId>
             <version>1.8.0</version>
         </dependency>

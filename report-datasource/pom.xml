@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
-    <artifactId>report-datasource-example</artifactId>
+    <artifactId>report-datasource</artifactId>
     <version>1.8.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>datasource-build</module>
-        <module>datasource-common</module>
-        <module>datasource-designer</module>
-        <module>datasource-gateway</module>
+        <module>report-datasource-build</module>
+        <module>report-datasource-common</module>
+        <module>report-datasource-designer</module>
+        <module>report-datasource-gateway</module>
     </modules>
 
     <properties>

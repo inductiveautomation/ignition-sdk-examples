@@ -5,13 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>report-component</artifactId>
-        <groupId>com.inductiveautomation.ignition.examples</groupId>
+        <artifactId>report-datasource-example</artifactId>
+        <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>report-component-common</artifactId>
-
+    <artifactId>report-datasource-common</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
@@ -21,19 +20,5 @@
             <type>pom</type>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

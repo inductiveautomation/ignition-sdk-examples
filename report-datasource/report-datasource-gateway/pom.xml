@@ -5,15 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>report-component</artifactId>
-        <groupId>com.inductiveautomation.ignition.examples</groupId>
+        <artifactId>report-datasource-example</artifactId>
+        <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
         <version>1.8.0</version>
     </parent>
 
-    <artifactId>report-component-gateway</artifactId>
+    <artifactId>report-datasource-gateway</artifactId>
 
     <dependencies>
         <dependency>
+            <!-- reporting-gateway dependency provides reporting gateway api -->
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>reporting-gateway</artifactId>
             <version>8.0.0-SNAPSHOT</version>
@@ -21,12 +22,24 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>report-component-common</artifactId>
+            <!-- common dependency for things we need to share between scopes -->
+            <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+            <artifactId>report-datasource-common</artifactId>
             <version>1.8.0</version>
         </dependency>
-    </dependencies>
 
+        <!-- use OkHttp as a simple and efficient HTTP client to call for our data -->
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -42,4 +55,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>codehaus</id>
+            <url>http://repository.codehaus.org/org/codehaus</url>
+        </repository>
+    </repositories>
+
 </project>

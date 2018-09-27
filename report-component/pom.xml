@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.inductiveautomation.reporting.sdk.examples</groupId>
+    <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>report-component</artifactId>
     <packaging>pom</packaging>
     <version>1.8.0</version>
 
     <modules>
-        <module>report-component-designer</module>
         <module>report-component-build</module>
         <module>report-component-common</module>
+        <module>report-component-designer</module>
         <module>report-component-gateway</module>
     </modules>
 
@@ -72,5 +72,4 @@
             </snapshots>
         </repository>
     </repositories>
-
 </project>
