@@ -2,6 +2,7 @@ package com.inductiveautomation.ignition.examples.hce.web;
 
 import com.inductiveautomation.ignition.examples.hce.records.HCSettingsRecord;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.model.IgnitionWebApp;
 import com.inductiveautomation.ignition.gateway.web.components.RecordEditForm;
 import com.inductiveautomation.ignition.gateway.web.models.LenientResourceModel;
 import com.inductiveautomation.ignition.gateway.web.pages.IConfigPage;
@@ -21,7 +22,8 @@ public class HCSettingsPage extends RecordEditForm {
 
     public HCSettingsPage(final IConfigPage configPage) {
         super(configPage, null, new LenientResourceModel("HomeConnect.nav.settings.panelTitle"),
-                ((GatewayContext) Application.get()).getPersistenceInterface().find(HCSettingsRecord.META, 0L));
+            ((IgnitionWebApp) Application.get()).getContext().getPersistenceInterface().find(HCSettingsRecord.META, 0L)
+        );
     }
 
 
