@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ClientHook extends AbstractClientModuleHook {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
     @Override
     public void initializeScriptManager(ScriptManager manager) {

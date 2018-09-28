@@ -5,33 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>get-remote-logs</artifactId>
-        <groupId>com.example</groupId>
-        <version>1.9.0-SNAPSHOT</version>
+        <artifactId>gateway-network-function</artifactId>
+        <groupId>com.inductiveautomation.examples</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>get-remote-logs-build</artifactId>
+    <artifactId>gateway-network-function-build</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>get-remote-logs-client</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
+            <groupId>com.inductiveautomation.examples</groupId>
+            <artifactId>gateway-network-function-client</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>get-remote-logs-common</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
+            <groupId>com.inductiveautomation.examples</groupId>
+            <artifactId>gateway-network-function-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>get-remote-logs-designer</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
+            <groupId>com.inductiveautomation.examples</groupId>
+            <artifactId>gateway-network-function-designer</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>get-remote-logs-gateway</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
+            <groupId>com.inductiveautomation.examples</groupId>
+            <artifactId>gateway-network-function-gateway</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -49,47 +49,34 @@
                             <goal>modl</goal>
                         </goals>
                     </execution>
-
-                    <!-- Auto-installs module in Gateway, requires a cd-key with developer mode enabled -->
-                    <!-- 
-                    <execution>
-                        <id>install-modl</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>post</goal>
-                        </goals>
-                    </execution>
-                     -->
                 </executions>
 
                 <configuration>
-
-                    <gatewayAddress>http://localhost:8088</gatewayAddress>
-
                     <projectScopes>
                         <projectScope>
-                            <name>get-remote-logs-client</name>
+                            <name>gateway-network-function-client</name>
                             <scope>C</scope>
                         </projectScope>
                         <projectScope>
-                            <name>get-remote-logs-common</name>
+                            <name>gateway-network-function-common</name>
                             <scope>CDG</scope>
                         </projectScope>
                         <projectScope>
-                            <name>get-remote-logs-designer</name>
+                            <name>gateway-network-function-designer</name>
                             <scope>CD</scope>
                         </projectScope>
                         <projectScope>
-                            <name>get-remote-logs-gateway</name>
+                            <name>gateway-network-function-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.example.get-remote-logs</moduleId>
-                    <moduleName>${project.parent.name}</moduleName>
-                    <moduleDescription>${project.description}</moduleDescription>
-                    <moduleVersion>1.9.0-SNAPSHOT</moduleVersion>
-                    <requiredIgnitionVersion>7.8.0</requiredIgnitionVersion>
+                    <moduleId>com.inductiveautomation.examples.gateway-network-function</moduleId>
+                    <moduleName>Gateway Network Function Example</moduleName>
+                    <moduleDescription>Provides an example of a gateway network function and EAM task</moduleDescription>
+                    <moduleVersion>${project.version}</moduleVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
                     <hooks>
                         <hook>

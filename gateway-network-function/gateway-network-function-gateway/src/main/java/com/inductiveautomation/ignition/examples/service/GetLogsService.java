@@ -11,7 +11,7 @@ import com.inductiveautomation.metro.impl.services.annotations.FileStream;
 /**
  * Created by mattgross on 9/19/2016.
  */
-@TrialPeriodProtected(moduleId = "com.example.get-remote-logs")
+@TrialPeriodProtected(moduleId = "com.inductiveautomation.examples.gateway-network-function")
 public interface GetLogsService {
 
     String WRAPPER_ALLOWED_PROP = "wrapper-retrieve-allowed";
