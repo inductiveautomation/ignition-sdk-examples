@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.inductiveautomation.examples</groupId>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
         <artifactId>managed-tag-provider</artifactId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mtp-build</artifactId>
+    <artifactId>managed-tag-provider-build</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.inductiveautomation.examples</groupId>
-            <artifactId>mtp-gateway</artifactId>
-            <version>1.8.0</version>
+            <groupId>com.inductiveautomation.ignition.examples</groupId>
+            <artifactId>managed-tag-provider-gateway</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -39,21 +39,19 @@
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>mtp-gateway</name>
+                            <name>managed-tag-provider-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.examples.managedtagprovider</moduleId>
+                    <moduleId>com.inductiveautomation.ignition.examples.ignition.tag-provider</moduleId>
                     <moduleName>Managed Tag Provider</moduleName>
                     <moduleDescription>Adds a new Tag Provider through the ManagedTagProvider interface</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
-                    <licenseFile></licenseFile>
+                    <licenseFile>license.html</licenseFile>
                     <documentationFile>doc/index.html</documentationFile>
-
-                    <depends></depends>
 
                     <hooks>
                         <hook>
