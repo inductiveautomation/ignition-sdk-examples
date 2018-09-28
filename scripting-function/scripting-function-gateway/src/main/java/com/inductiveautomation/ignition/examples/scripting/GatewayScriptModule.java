@@ -1,4 +1,4 @@
-package com.inductiveautomation.examples.scriptingrpc;
+package com.inductiveautomation.ignition.examples.scripting;
 
 public class GatewayScriptModule extends AbstractScriptModule {
 

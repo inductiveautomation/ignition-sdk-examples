@@ -1,4 +1,4 @@
-package com.inductiveautomation.examples.scriptingrpc;
+package com.inductiveautomation.ignition.examples.scripting;
 
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.script.ScriptManager;
@@ -9,7 +9,7 @@ import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ModuleHook extends AbstractGatewayModuleHook {
+public class GatewayHook extends AbstractGatewayModuleHook {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -1,7 +1,7 @@
-package com.inductiveautomation.examples.scriptingrpc.client;
+package com.inductiveautomation.ignition.examples.scripting.client;
 
-import com.inductiveautomation.examples.scriptingrpc.AbstractScriptModule;
-import com.inductiveautomation.examples.scriptingrpc.MathBlackBox;
+import com.inductiveautomation.ignition.examples.scripting.AbstractScriptModule;
+import com.inductiveautomation.ignition.examples.scripting.MathBlackBox;
 import com.inductiveautomation.ignition.client.gateway_interface.ModuleRPCFactory;
 
 public class ClientScriptModule extends AbstractScriptModule {
@@ -10,8 +10,9 @@ public class ClientScriptModule extends AbstractScriptModule {
 
     public ClientScriptModule() {
         rpc = ModuleRPCFactory.create(
-                "com.inductiveautomation.ignition.examples.scripting-function",
-                MathBlackBox.class);
+            "com.inductiveautomation.ignition.examples.scripting-function",
+            MathBlackBox.class
+        );
     }
 
     @Override
