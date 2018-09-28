@@ -11,18 +11,29 @@ The javascript file next to that class is created by [webpack](https://webpack.g
 
 If you want to alter `homeconnectstatus.js`, you need to change the source in `src/main/javascript`, then run webpack before building your module. To do so, you will need Node and the Node Package Manager (npm) installed. See the [instructions for installing node and npm](https://docs.npmjs.com/getting-started/installing-node) if you don't have them installed on your development machine. Once installed, follow these instructions at the command line:
 
-1. Install webpack
-	`npm install webpack -g`
-	
+1. Install webpack and the webpack command-line interface globally
+	```
+	npm install webpack@3 -g
+	npm install webpack-cli -g
+	```
+2. Navigate to the source javascript directory:
+    ```
+    gateway-webpage-gateway/src/main/javascript
+    ```
 2. Install the dependencies defined in package.json
-	`npm install` in this directory
-
-3. Run webpack
-	`webpack`
-   Or, run webpack in watch mode to automatically run every time any source is changed.
-	`webpack --watch`
+	```
+	npm install
+	```
+3. From the same directory, run webpack:
+	```
+	webpack
+	```
+    Or, run webpack in watch mode to automatically run every time any source is changed.
+    ```
+    webpack --watch
+    ```
 	
-##### Note
+#### Note
 
 While this example uses [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org/), it should be noted that React is *not* a requirement for Ignition status pages.  Webpack transpiles this React source code into a javascript file which is located in `hce-gateway/src/main/resources/mounted/js`.  That transpiled javascript is what is ultimately mounted and served by Ignition. 
 

@@ -5,19 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>home-connect-example</artifactId>
+        <artifactId>gateway-webpage</artifactId>
         <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hce-gateway</artifactId>
-    <version>1.8.0</version>
+    <artifactId>gateway-webpage-gateway</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>ignition-common</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -25,7 +24,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>gateway-api</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -33,7 +32,7 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>driver-api</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>

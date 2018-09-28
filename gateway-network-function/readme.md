@@ -28,5 +28,4 @@ for row in range(serverLogs.rowCount):
 	print baseStr % printable
 ```
 
-
 To create a Gateway task to retrieve a wrapper.log, log into one of the Gateways and navigate to Config -> Gateway Tasks. Click on Create new Gateway Task and select the "Retrieve Wrapper Log" task.

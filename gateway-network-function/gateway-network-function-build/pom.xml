@@ -71,9 +71,9 @@
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.examples.gateway-network-function</moduleId>
-                    <moduleName>Gateway Network Function Example</moduleName>
-                    <moduleDescription>Provides an example of a gateway network function and EAM task</moduleDescription>
+                    <moduleId>com.inductiveautomation.ignition.examples.gan-function</moduleId>
+                    <moduleName>${module-name}</moduleName>
+                    <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
@@ -92,10 +92,8 @@
                             <hookClass>com.inductiveautomation.ignition.examples.GatewayHook</hookClass>
                         </hook>
                     </hooks>
-
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

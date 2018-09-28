@@ -5,25 +5,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>home-connect-example</artifactId>
+        <artifactId>gateway-webpage</artifactId>
         <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hce-build</artifactId>
+    <artifactId>gateway-webpage-build</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
-            <artifactId>hce-gateway</artifactId>
-            <version>1.8.0</version>
+            <artifactId>gateway-webpage-gateway</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
                 <version>1.0.12</version>
@@ -36,38 +35,27 @@
                             <goal>modl</goal>
                         </goals>
                     </execution>
-                    <!-- Auto-installs module in Gateway, requires a cd-key with developer mode enabled -->
-                    <!--
-                    <execution>
-                        <id>post-module</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>modl</goal>
-                            <goal>post</goal>
-                        </goals>
-                    </execution>
-                     -->
                 </executions>
 
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>hce-gateway</name>
+                            <name>gateway-webpage-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
                     <moduleId>com.inductiveautomation.ignition.examples.hce</moduleId>
-                    <moduleName>HomeConnectExample</moduleName>
-                    <moduleDescription>A simple example demonstrating how to create Gateway Config and Status pages.</moduleDescription>
+                    <moduleName>${module-name}</moduleName>
+                    <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>7.9.0</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>7</requiredFrameworkVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
                     <depends>
                         <depend>
                             <scope>G</scope>
-                            <moduleId>xopc</moduleId>
+                            <moduleId>com.inductiveautomation.opcua</moduleId>
                         </depend>
                     </depends>
 
@@ -81,5 +69,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

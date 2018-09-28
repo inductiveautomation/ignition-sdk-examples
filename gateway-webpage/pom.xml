@@ -5,16 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
-    <artifactId>home-connect-example</artifactId>
+    <artifactId>gateway-webpage</artifactId>
     <packaging>pom</packaging>
-    <version>1.8.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>hce-gateway</module>
-        <module>hce-build</module>
+        <module>gateway-webpage-gateway</module>
+        <module>gateway-webpage-build</module>
     </modules>
 
     <properties>
+        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-sdk-version>${ignition-platform-version}-SNAPSHOT</ignition-sdk-version>
+        <module-name>Gateway Webpage Example</module-name>
+        <module-description>Implements a fake "Home Connect" hub status and configuration page</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -70,6 +74,4 @@
             </snapshots>
         </repository>
     </repositories>
-
-
 </project>
