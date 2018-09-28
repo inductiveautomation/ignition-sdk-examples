@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-component</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>report-component-build</artifactId>
@@ -16,17 +16,17 @@
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-component-designer</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-component-common</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-component-gateway</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -64,10 +64,10 @@
                     </projectScopes>
 
                     <moduleId>com.inductiveautomation.ignition.examples.report-component</moduleId>
-                    <moduleName>Report Component Example</moduleName>
-                    <moduleDescription>A module that adds a Smiley shaped component to the Report Designer</moduleDescription>
+                    <moduleName>${module-name}</moduleName>
+                    <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
                     <depends>
@@ -81,15 +81,14 @@
                         </depend>
                     </depends>
 
-                    <!-- declare where our hook classes can be found for each scope: only one per scope! -->
                     <hooks>
                         <hook>
                             <scope>D</scope>
-                            <hookClass>com.inductiveautomation.examples.report.component.designer.DesignerHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.report.component.designer.DesignerHook</hookClass>
                         </hook>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.examples.report.component.gateway.GatewayHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.report.component.gateway.GatewayHook</hookClass>
                         </hook>
                     </hooks>
                 </configuration>

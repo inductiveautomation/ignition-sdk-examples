@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-component</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>report-component-gateway</artifactId>
@@ -16,21 +16,19 @@
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>reporting-gateway</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-component-common</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
-            <!-- ask maven to compile this module against java 8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-datasource</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>report-datasource-build</artifactId>
@@ -16,17 +16,17 @@
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-datasource-designer</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-datasource-gateway</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-datasource-common</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -63,11 +63,11 @@
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.examples.report-datasource</moduleId>
-                    <moduleName>Report Datasource Example</moduleName>
-                    <moduleDescription>A module that adds a datasource to the Ignition Reporting Module</moduleDescription>
+                    <moduleId>com.inductiveautomation.ignition.examples.report-datasource</moduleId>
+                    <moduleName>${module-name}</moduleName>
+                    <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
 
                     <depends>
@@ -84,17 +84,15 @@
                     <hooks>
                         <hook>
                             <scope>D</scope>
-                            <hookClass>com.inductiveautomation.examples.reporting.datasource.designer.DesignerHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.reporting.datasource.designer.DesignerHook</hookClass>
                         </hook>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.examples.reporting.datasource.gateway.GatewayHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.reporting.datasource.common.gateway.GatewayHook</hookClass>
                         </hook>
                     </hooks>
-
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

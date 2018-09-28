@@ -7,7 +7,7 @@
     <parent>
         <artifactId>report-datasource</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>report-datasource-designer</artifactId>
@@ -15,55 +15,34 @@
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
-            <artifactId>ignition-common</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.inductiveautomation.ignitionsdk</groupId>
-            <artifactId>vision-designer-api</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>client-api</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>designer-api</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>reporting-designer</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>${ignition-sdk-version}</version>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
-
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
             <artifactId>report-datasource-common</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
-            <!-- ask maven to compile this module against java 8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
