@@ -4,41 +4,15 @@ import java.util.Random;
 
 import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
-import org.jetbrains.annotations.NotNull;
 
 public class RandomSimulator extends AbstractSimulator {
     private Random random;
     private SimulatorTypes simType;
 
     public RandomSimulator(String name, SimulatorTypes type) {
-        this(name, getBuiltinDataType(type));
+        this(name, type.dataType);
         random = new Random();
         simType = type;
-    }
-
-    @NotNull
-    private static BuiltinDataType getBuiltinDataType(SimulatorTypes type) throws IllegalArgumentException {
-        BuiltinDataType dataType;
-        switch (type) {
-            case BOOLEAN:
-                dataType = BuiltinDataType.Boolean;
-                break;
-            case INT:
-                dataType = BuiltinDataType.UInt16;
-                break;
-            case LONG:
-                dataType = BuiltinDataType.UInt32;
-                break;
-            case FLOAT:
-                dataType = BuiltinDataType.Float;
-                break;
-            case DOUBLE:
-                dataType = BuiltinDataType.Double;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid simulator type");
-        }
-        return dataType;
     }
 
     public RandomSimulator(String name, BuiltinDataType dataType) {
@@ -51,10 +25,16 @@ public class RandomSimulator extends AbstractSimulator {
     }
 
     private enum SimulatorTypes {
-        BOOLEAN,
-        INT,
-        LONG,
-        FLOAT,
-        DOUBLE
+        BOOLEAN(BuiltinDataType.Boolean),
+        INT(BuiltinDataType.Int16),
+        LONG(BuiltinDataType.Int32),
+        FLOAT(BuiltinDataType.Float),
+        DOUBLE(BuiltinDataType.Double);
+
+        private final BuiltinDataType dataType;
+
+        SimulatorTypes(BuiltinDataType dataType) {
+            this.dataType = dataType;
+        }
     }
 }

@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.inductiveautomation.examples</groupId>
         <artifactId>tag-driver</artifactId>
-        <version>1.8.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>tag-driver-build</artifactId>
@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.inductiveautomation.examples</groupId>
             <artifactId>tag-driver-gateway</artifactId>
-            <version>1.8.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -45,10 +45,10 @@
                     </projectScopes>
 
                     <moduleId>com.inductiveautomation.ignition.examples.tagdriver</moduleId>
-                    <moduleName>Tag Driver Example</moduleName>
-                    <moduleDescription>A TagDriver implementation example.</moduleDescription>
+                    <moduleName>${module-name}</moduleName>
+                    <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
                     <requiredFrameworkVersion>8</requiredFrameworkVersion>
                     <licenseFile>license.html</licenseFile>
                     <documentationFile>doc/index.html</documentationFile>

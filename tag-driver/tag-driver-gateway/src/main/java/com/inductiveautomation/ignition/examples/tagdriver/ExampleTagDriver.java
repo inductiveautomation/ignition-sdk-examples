@@ -1,6 +1,5 @@
 package com.inductiveautomation.ignition.examples.tagdriver;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -89,20 +88,13 @@ public class ExampleTagDriver implements Device {
 
     @Override
     public void startup() {
-        UaFolderNode rootNode = new UaFolderNode(
+        UaFolderNode deviceFolder = new UaFolderNode(
             server,
-            deviceContext.nodeId("abc"),
+            deviceContext.nodeId(getName()),
             deviceContext.qualifiedName(getName()),
             new LocalizedText(getName())
         );
-        nodeManager.addNode(rootNode);
-        nodeManager.addReference(new Reference(
-            rootNode.getNodeId(),
-            Identifiers.Organizes,
-            deviceContext.getRootNodeId().expanded(),
-            NodeClass.Object,
-            false
-        ));
+        addChildNode(deviceContext.getRootNodeId(), deviceFolder);
 
         UByte accessLevel = Unsigned.ubyte(AccessLevel.getMask(AccessLevel.READ_WRITE));
         UaNode variable = UaVariableNode.builder(server)
@@ -114,7 +106,6 @@ public class ExampleTagDriver implements Device {
             .setAccessLevel(accessLevel)
             .setUserAccessLevel(accessLevel)
             .build();
-
         variable.setAttributeDelegate(new AttributeDelegate() {
             @Override
             public DataValue getValue(AttributeContext context, VariableNode node) {
@@ -127,19 +118,22 @@ public class ExampleTagDriver implements Device {
             }
         });
 
-        nodeManager.addNode(variable);
-
-        nodeManager.addReference(new Reference(
-            variable.getNodeId(),
-            Identifiers.Organizes,
-            rootNode.getNodeId().expanded(),
-            NodeClass.Object,
-            false
-        ));
+        addChildNode(deviceFolder.getNodeId(), variable);
 
         List<DataItem> dataItems = deviceContext.getSubscriptionModel().getDataItems(getName());
 
         onDataItemsCreated(dataItems);
+    }
+
+    private void addChildNode(NodeId parentId, UaNode child) {
+        nodeManager.addNode(child);
+        nodeManager.addReference(new Reference(
+            child.getNodeId(),
+            Identifiers.Organizes,
+            parentId.expanded(),
+            NodeClass.Object,
+            false
+        ));
     }
 
     @Override
