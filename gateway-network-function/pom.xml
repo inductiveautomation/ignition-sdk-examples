@@ -14,6 +14,8 @@
         <ignition-sdk-version>${ignition-platform-version}-SNAPSHOT</ignition-sdk-version>
         <module-name>Gateway Network Function Example</module-name>
         <module-description>Provides an example of a gateway network function and EAM task</module-description>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <modules>

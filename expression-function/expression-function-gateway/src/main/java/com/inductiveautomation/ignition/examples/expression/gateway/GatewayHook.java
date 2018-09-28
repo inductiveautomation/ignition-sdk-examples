@@ -1,6 +1,6 @@
-package com.inductiveautomation.examples.expression.gateway;
+package com.inductiveautomation.ignition.examples.expression.gateway;
 
-import com.inductiveautomation.examples.expression.common.MultiplyFunction;
+import com.inductiveautomation.ignition.examples.expression.common.MultiplyFunction;
 import com.inductiveautomation.ignition.common.expressions.ExpressionFunctionManager;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;

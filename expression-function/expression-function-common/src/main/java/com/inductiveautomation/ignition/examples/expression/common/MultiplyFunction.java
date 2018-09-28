@@ -1,4 +1,4 @@
-package com.inductiveautomation.examples.expression.common;
+package com.inductiveautomation.ignition.examples.expression.common;
 
 import com.inductiveautomation.ignition.common.TypeUtilities;
 import com.inductiveautomation.ignition.common.expressions.Expression;

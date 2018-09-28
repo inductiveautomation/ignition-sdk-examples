@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>expression-function</artifactId>
-        <groupId>com.inductiveautomation.examples</groupId>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 

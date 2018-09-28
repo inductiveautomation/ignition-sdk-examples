@@ -4,13 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.inductiveautomation.examples</groupId>
+    <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>expression-function</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <ignition-sdk-version>8.0.0-SNAPSHOT</ignition-sdk-version>
+        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-sdk-version>${ignition-platform-version}-SNAPSHOT</ignition-sdk-version>
+        <module-name>Expression Function Example</module-name>
+        <module-description>Implements a simple expression function in the client, designer, and gateway scope.</module-description>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <modules>

@@ -1,6 +1,6 @@
-package com.inductiveautomation.examples.expression.client;
+package com.inductiveautomation.ignition.examples.expression.client;
 
-import com.inductiveautomation.examples.expression.common.MultiplyFunction;
+import com.inductiveautomation.ignition.examples.expression.common.MultiplyFunction;
 import com.inductiveautomation.ignition.client.model.ClientContext;
 import com.inductiveautomation.ignition.common.expressions.ExpressionFunctionManager;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;

@@ -1,6 +1,6 @@
-package com.inductiveautomation.examples.expression.designer;
+package com.inductiveautomation.ignition.examples.expression.designer;
 
-import com.inductiveautomation.examples.expression.common.MultiplyFunction;
+import com.inductiveautomation.ignition.examples.expression.common.MultiplyFunction;
 import com.inductiveautomation.ignition.common.expressions.ExpressionFunctionManager;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.designer.model.AbstractDesignerModuleHook;

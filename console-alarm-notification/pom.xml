@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
-    <artifactId>console-notification</artifactId>
+    <artifactId>console-alarm-notification</artifactId>
     <packaging>pom</packaging>
-    <version>1.8.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <modules>
         <module>console-notification-build</module>
@@ -15,6 +15,10 @@
     </modules>
 
     <properties>
+        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-sdk-version>${ignition-platform-version}-SNAPSHOT</ignition-sdk-version>
+        <module-name>Console Alarm Notification Example</module-name>
+        <module-description>Implements a 'Console' alarm notification type, which just logs to the system console.</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
