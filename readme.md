@@ -1,12 +1,6 @@
 # Ignition SDK
 
 ## Example Modules
-##### [Tag Driver](tag-driver)
-Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
-
-##### [Vision Component](vision-component)
-Creates a Hello World component that can be dragged onto a window in the Designer.
-
 ##### [Expression Function](expression-function)
 Creates an exampleMultiply expression that can be used by other components, such as expression tags. The example expression is located under the Extended expression category.
 
@@ -16,8 +10,11 @@ Requires two Gateways connected via the gateway network. The module must also be
 ##### [Gateway Webpage/Home Connect](gateway-webpage)
 Demonstrates how to implement Gateway Status and Config pages. HomeConnect pages are added to the Gateway that configure an imaginary HomeConnect device. 
 
-##### [Slack Alarm Notification](slack-alarm-notification)
-Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
+##### [Managed Tag Provider](managed-tag-provider)
+Shows how to implement a Managed Tag Provider, to allow easy control of Ignition tags from an external program or data.
+
+##### [OPC UA Device](opc-ua-device)
+Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
 
 ##### [Report Component](report-component)
 Adds a Smiley shaped component to the Report Designer.
@@ -28,8 +25,11 @@ Adds a datasource to the report designer that can retrieve JSON data via a REST 
 ##### [Scripting Function (RPC)](scripting-function)
 Adds a system.example.multiply script that can be executed from both a client and a Gateway. Also demonstrates how the client can call a method in the Gateway via RPC.
 
-##### [Managed Tag Provider](managed-tag-provider)
-Shows how to implement a Managed Tag Provider, to allow easy control of Ignition tags from an external program or data.
+##### [Slack Alarm Notification](slack-alarm-notification)
+Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
+
+##### [Vision Component](vision-component)
+Creates a Hello World component that can be dragged onto a window in the Designer.
 
 ## Requirements
 * The Java Development Kit (JDK) 1.8+ installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.
