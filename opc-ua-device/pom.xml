@@ -4,23 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.inductiveautomation.ignition.examples</groupId>
-    <artifactId>report-component</artifactId>
+    <groupId>com.inductiveautomation.examples</groupId>
+    <artifactId>opc-ua-device</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>report-component-build</module>
-        <module>report-component-common</module>
-        <module>report-component-designer</module>
-        <module>report-component-gateway</module>
+        <module>opc-ua-device-build</module>
+        <module>opc-ua-device-gateway</module>
     </modules>
 
     <properties>
         <ignition-platform-version>8.0.0</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}-SNAPSHOT</ignition-sdk-version>
-        <module-name>Report Component Example</module-name>
-        <module-description>Adds a simple 'Smiley Face' component to the Reporting module.</module-description>
+        <module-name>OPC-UA Device Example</module-name>
+        <module-description>Shows how to implement a new OPC-UA device type</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -51,7 +49,6 @@
                 <updatePolicy>always</updatePolicy>
             </releases>
         </repository>
-
         <repository>
             <id>snapshots</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
@@ -63,7 +60,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-
         <repository>
             <id>thirdparty</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty</url>
@@ -73,6 +69,18 @@
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>oss-sonatype</id>
+            <name>oss-sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
