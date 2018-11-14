@@ -58,8 +58,8 @@
                     <moduleName>ComponentExample</moduleName>
                     <moduleDescription>A module that adds a simple component to the Vision module.</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>7.7.0</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>6</requiredFrameworkVersion>
+                    <requiredIgnitionVersion>8.0.0</requiredIgnitionVersion>
+                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
                     <!--<licenseFile>license.html</licenseFile>-->
                     <!--<documentationFile>doc/index.html</documentationFile>-->
 
