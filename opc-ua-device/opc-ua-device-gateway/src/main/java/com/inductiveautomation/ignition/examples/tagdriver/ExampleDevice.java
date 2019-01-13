@@ -20,12 +20,12 @@ import org.eclipse.milo.opcua.sdk.server.api.DataItem;
 import org.eclipse.milo.opcua.sdk.server.api.MonitoredItem;
 import org.eclipse.milo.opcua.sdk.server.api.nodes.VariableNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.AttributeContext;
-import org.eclipse.milo.opcua.sdk.server.nodes.NodeFactory;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaFolderNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaServerNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaVariableNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.delegates.AttributeDelegate;
+import org.eclipse.milo.opcua.sdk.server.nodes.factories.NodeFactory;
 import org.eclipse.milo.opcua.sdk.server.util.SubscriptionModel;
 import org.eclipse.milo.opcua.stack.core.AttributeId;
 import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
@@ -57,11 +57,6 @@ public class ExampleDevice implements Device {
     private UByte READ_ONLY = Unsigned.ubyte(AccessLevel.getMask(AccessLevel.READ_ONLY));
     private UByte READ_WRITE = Unsigned.ubyte(AccessLevel.getMask(AccessLevel.READ_WRITE));
 
-    /**
-     * Creates some tags that can be referenced when the driver is running.
-     *  @param deviceContext
-     * @param settings
-     */
     public ExampleDevice(DeviceContext deviceContext, ExampleDeviceSettings settings) {
         this.deviceContext = deviceContext;
         this.settings = settings;
