@@ -5,37 +5,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
-    <artifactId>report-component</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>expression-function</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
-    <modules>
-        <module>report-component-build</module>
-        <module>report-component-common</module>
-        <module>report-component-designer</module>
-        <module>report-component-gateway</module>
-    </modules>
+    <packaging>pom</packaging>
 
     <properties>
         <ignition-platform-version>8.0.0</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}-SNAPSHOT</ignition-sdk-version>
-        <module-name>Report Component Example</module-name>
-        <module-description>Adds a simple 'Smiley Face' component to the Reporting module.</module-description>
+        <module-name>Expression Function Example</module-name>
+        <module-description>Implements a simple expression function in the client, designer, and gateway scope.</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <modules>
+        <module>expression-function-build</module>
+        <module>expression-function-client</module>
+        <module>expression-function-common</module>
+        <module>expression-function-designer</module>
+        <module>expression-function-gateway</module>
+    </modules>
 
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
@@ -66,14 +60,14 @@
 
         <repository>
             <id>thirdparty</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty</url>
-            <releases>
+            <url>http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-vendor</url>
+            <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
             </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
     </repositories>
 </project>
