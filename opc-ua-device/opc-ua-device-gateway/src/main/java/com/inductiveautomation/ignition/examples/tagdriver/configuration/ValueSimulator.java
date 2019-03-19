@@ -1,17 +1,17 @@
 package com.inductiveautomation.ignition.examples.tagdriver.configuration;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.StatusCode;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 
 public class ValueSimulator implements Runnable {
-    private Map<String, Variant> trackedValues = new HashMap<>();
 
-    public ValueSimulator() {
-    }
+    private final Map<String, Variant> trackedValues = new ConcurrentHashMap<>();
+
+    public ValueSimulator() {}
 
     public void addTrackedValue(String key, long initial) {
         trackedValues.put(key, new Variant(initial));
@@ -34,4 +34,5 @@ public class ValueSimulator implements Runnable {
             trackedValues.put(key, new Variant((long) currentValue.getValue() + 1));
         }
     }
+
 }
