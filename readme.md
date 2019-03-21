@@ -16,6 +16,9 @@ Shows how to implement a Managed Tag Provider, to allow easy control of Ignition
 ##### [OPC UA Device](opc-ua-device)
 Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
 
+##### [Perspective Component](perspective-component)
+Adds a simple image component to the Perspective module's set of components.  In addition, utilizes Gradle as the build tool.  See the example readme for additional information.
+
 ##### [Report Component](report-component)
 Adds a Smiley shaped component to the Report Designer.
 
