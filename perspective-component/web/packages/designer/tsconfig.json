@@ -1,0 +1,46 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths" : {
+          "*": [
+              "*",
+              "../../node_modules/"
+          ]
+        },
+        "declaration": true,
+        "declarationDir": "dist/typings/",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "jsx": "react",
+        "module": "commonjs",
+        "noEmitOnError": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": false,
+        "noImplicitAny": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true,
+        "outDir": "dist/",
+        "pretty": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "target": "es6",
+        "lib": ["es2015.collection", "es2015.promise", "es2015.symbol", "es5", "es6", "dom", "es7", "es2017"]
+    },
+    "include": [
+        "./typescript/**/*.ts",
+        "./typescript/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "build"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+        "useBabel": true,
+        "useCache": true,
+        "babelCore": "babel-core"
+    }
+}
