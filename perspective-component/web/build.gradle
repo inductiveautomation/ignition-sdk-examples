@@ -67,19 +67,31 @@ task webpack(type: NpmTask) {
 
 // task to delete the dist folders
 task deleteDistFolders(type: Delete) {
-    delete(
-            project.fileTree("packages").matching {
-                include("client/dist/**", "designer/dist/**")
-            }.files
-    )
+    delete(file("packages/designer/dist/"))
+    delete(file("packages/client/dist/"))
 }
 
 // task to delete the output files from the gateway resources folder.
 task deleteGwJs(type: Delete) {
     delete fileTree(mountedJsDir) { include("**/Rad*.js", "**/Rad*.js.map") }
 }
+
 // makes the "built in" clean task execute the deletion tasks
 clean.dependsOn(deleteDistFolders, deleteGwJs)
+
+task deepClean() {
+    doLast {
+        delete(file("packages/designer/node_modules"))
+        delete(file("packages/designer/.gradle"))
+        delete(file("packages/client/node_modules"))
+        delete(file("packages/client/.gradle"))
+        delete(file(".gradle"))
+        delete(file("node_modules"))
+    }
+
+    dependsOn clean
+}
+
 
 // make sure the gateway project doesn't process resources until the webpack task is done.
 project(":gateway") {

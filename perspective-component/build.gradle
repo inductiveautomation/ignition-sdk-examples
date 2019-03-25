@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.inductiveautomation.gradle:ignition-module-plugin:1.2.8")
+        classpath("com.inductiveautomation.gradle:ignition-module-plugin:1.2.9")
     }
 }
 
@@ -34,7 +34,7 @@ allprojects {
 
         // what is the name of the "root" gradle project for this module.  In this case, it"s "this", aka, the project
         // specified as <repoPath>/rad-perspective-components/build.gradle
-        moduleRoot "perspective-alpha-example"
+        moduleRoot "perspective-component"
 
         // module xml configuration
         moduleName "RadComponents"
@@ -46,26 +46,26 @@ allprojects {
         isFree true
         license "license.html"
         moduleDependencies = [
-            [scope: "G", moduleId: "com.inductiveautomation.perspective"],
-            [scope: "D", moduleId: "com.inductiveautomation.perspective"]
+                [scope: "G", moduleId: "com.inductiveautomation.perspective"],
+                [scope: "D", moduleId: "com.inductiveautomation.perspective"]
         ]
         // map our projects to the scopes their jars should apply
         projectScopes = [
-            [name: "gateway", scope: "G"],
-            [name: "designer", scope: "D"],
-            [name: "common", scope: "GD"]
+                [name: "gateway", scope: "G"],
+                [name: "designer", scope: "D"],
+                [name: "common", scope: "GD"]
         ]
 
         hooks = [
-            [scope: "G", hookClass: "org.fakester.gateway.RadGatewayHook"],
-            [scope: "D", hookClass: "org.fakester.designer.RadDesignerHook"]
+                [scope: "G", hookClass: "org.fakester.gateway.RadGatewayHook"],
+                [scope: "D", hookClass: "org.fakester.designer.RadDesignerHook"]
         ]
 
     }
 
     if (project.plugins.hasPlugin("java")) {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     // check for new versions of dependencies more frequently than default 24 hours.
@@ -90,13 +90,13 @@ allprojects {
         maven {
             url "http://nexus.ia.local:8081/repository/ia-maven-group/"
         }
-       }
     }
-
-
-wrapper {
-    gradleVersion = "5.2.1"
-    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
+task deepClean() {
+    dependsOn clean
 
+    doLast {
+        delete(file(".gradle"))
+    }
+}

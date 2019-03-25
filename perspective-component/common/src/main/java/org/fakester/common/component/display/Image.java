@@ -1,7 +1,5 @@
 package org.fakester.common.component.display;
 
-import java.util.Objects;
-
 import com.inductiveautomation.ignition.common.jsonschema.JsonSchema;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptor;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptorImpl;
@@ -13,7 +11,7 @@ import org.fakester.common.RadComponents;
  */
 public class Image {
 
-    // unique ID of the component which perfectly matches that provided in the javascript's ComponentMeta implementation.
+    // unique ID of the component which perfectly matches that provided in the javascript's ComponentMeta implementation
     public static String COMPONENT_ID = "rad.display.image";
 
     /**
@@ -28,12 +26,12 @@ public class Image {
      * build the descriptor for this one component.
      */
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.component()
-        .withPaletteCategory("display")
-        .withPaletteDescription("A simple image component")
+        .withPaletteCategory("Rad Things")
+        .withPaletteDescription("A simple image component.")
         .withId(COMPONENT_ID)
         .withModuleId(RadComponents.MODULE_ID)
         .withSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .withPaletteName("Radness")
+        .withPaletteName("Rad Image")
         .withDefaultMetaName("radImage")
         .shouldAddToPalette(true)
         .withResources(RadComponents.BROWSER_RESOURCES)
