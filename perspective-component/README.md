@@ -36,15 +36,21 @@ More documentation incoming, and the web/README.md contains a lot of information
 
 This is a quick-start set of requirements/commands to get this project built.
 
-### Requirements
-
-
 Strictly speaking, this module should be buildable without downloading or installing any additional tools.  If
 build commands are executed through the [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html),
 it will handle downloading the appropriate versions of all tools, and then use those tools to execute the build.
 
+To run the build, clone this repo and open a command line in the `perspective-component` directory, and run the `buildModule` gradle task:
 
-If you you like to be able to execute parts of the build without depending on gradle, you'll need familiarity with
+```
+// on Windows
+gradlew.bat buildModule
+
+// on linux/osx
+./gradlew.sh buildModule
+```
+
+If you would like to be able to execute parts of the build without depending on gradle, you'll need familiarity with
 the javascript and typescript ecosystem, including NodeJs, NPM/Yarn, Typescript, Webpack, Babel, etc. 
 
 While not a comprehensive instruction set, the process of setting up these tools would look something like the following: 
