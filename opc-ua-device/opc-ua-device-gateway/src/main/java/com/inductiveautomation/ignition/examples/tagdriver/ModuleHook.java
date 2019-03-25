@@ -1,34 +1,43 @@
 package com.inductiveautomation.ignition.examples.tagdriver;
 
+import java.util.List;
+import javax.annotation.Nonnull;
+
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.examples.tagdriver.configuration.ExampleDeviceType;
-import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.ignition.gateway.opcua.server.api.ExtensionManager;
+import com.inductiveautomation.ignition.gateway.opcua.server.api.AbstractDeviceModuleHook;
+import com.inductiveautomation.ignition.gateway.opcua.server.api.DeviceType;
+import org.jetbrains.annotations.NotNull;
 
-public class ModuleHook extends AbstractGatewayModuleHook {
-    private ExtensionManager extensionManager;
-    private ExampleDeviceType deviceType;
-    private GatewayContext context;
+import static org.python.google.common.collect.Lists.newArrayList;
+
+public class ModuleHook extends AbstractDeviceModuleHook {
 
     @Override
-    public void setup(GatewayContext gatewayContext) {
+    public void setup(@NotNull GatewayContext context) {
+        super.setup(context);
+        
         BundleUtil.get().addBundle(ExampleDevice.class);
-        context = gatewayContext;
-        deviceType = new ExampleDeviceType();
     }
 
     @Override
-    public void startup(LicenseState licenseState) {
-        extensionManager = context.getModuleServicesManager().getService(ExtensionManager.class);
-        extensionManager.registerDeviceType(deviceType);
+    public void startup(@NotNull LicenseState activationState) {
+        super.startup(activationState);
     }
 
     @Override
     public void shutdown() {
+        super.shutdown();
+
         BundleUtil.get().removeBundle(ExampleDevice.class);
-        extensionManager = context.getModuleServicesManager().getService(ExtensionManager.class);
-        extensionManager.unregisterDeviceType(deviceType);
     }
+
+    @Nonnull
+    @Override
+    protected List<DeviceType> getDeviceTypes() {
+        return newArrayList(ExampleDeviceType.INSTANCE);
+    }
+
 }
