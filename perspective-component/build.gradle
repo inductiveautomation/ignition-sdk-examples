@@ -8,7 +8,13 @@ buildscript {
         mavenCentral()
         jcenter()
         maven {
-            url "http://nexus.ia.local:8081/repository/ia-maven-group/"
+            url "http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-thirdparty/"
+        }
+        maven {
+            url "http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-snapshots/"
+        }
+        maven {
+            url "http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-releases/"
         }
     }
 
@@ -21,7 +27,7 @@ plugins {
     id "base"
 }
 
-version "1.0.0-SNAPSHOT"
+version "1.0.0"
 group "org.fakester"
 
 
@@ -33,7 +39,7 @@ allprojects {
         fileName "RadComponents"
 
         // what is the name of the "root" gradle project for this module.  In this case, it"s "this", aka, the project
-        // specified as <repoPath>/rad-perspective-components/build.gradle
+        // specified as <repoPath>/perspective-component/build.gradle
         moduleRoot "perspective-component"
 
         // module xml configuration
@@ -49,7 +55,8 @@ allprojects {
                 [scope: "G", moduleId: "com.inductiveautomation.perspective"],
                 [scope: "D", moduleId: "com.inductiveautomation.perspective"]
         ]
-        // map our projects to the scopes their jars should apply
+        // map our projects to the scopes their jars should apply.  Web isn't here because its assets are moved
+        // into the gateway resource folder as part of the module's build
         projectScopes = [
                 [name: "gateway", scope: "G"],
                 [name: "designer", scope: "D"],
@@ -87,9 +94,9 @@ allprojects {
             url "http://maven.teamdev.com/repository/products"
 
         }
-        maven {
-            url "http://nexus.ia.local:8081/repository/ia-maven-group/"
-        }
+        maven { url "http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-thirdparty/" }
+        maven { url "http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-snapshots/" }
+        maven { url "http://nexus.inductiveautomation.com:8081/repository/inductiveautomation-releases/" }
     }
 }
 
