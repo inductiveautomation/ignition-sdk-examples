@@ -41,8 +41,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     }
 
     @Override
-    public Object getRPCHandler(ClientReqSession session, Long projectId) {
+    public Object getRPCHandler(ClientReqSession session, String projectName) {
         return scriptModule;
     }
-
 }
