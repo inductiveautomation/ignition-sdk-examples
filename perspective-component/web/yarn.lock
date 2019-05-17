@@ -653,10 +653,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@inductiveautomation/perspective-client@^0.0.1-beta.0":
-  version "0.0.1-beta.0"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-0.0.1-beta.0.tgz#4c6e49452796eb7384cc91ad9a2a7f46b24d07ec"
-  integrity sha512-zcS4iQCLPlVzgt2/4I4bkB8blz4uxD6cf0WKjnOMAEctjUKR0XDTEw6amUYN4j3O4aFrah6jVR5ElkoZi4iYwQ==
+"@inductiveautomation/perspective-client@^1.0.0":
+  version "1.0.0"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-1.0.0.tgz#2e90332b9058d51a31da63d61af6afd4c42625ed"
+  integrity sha512-3f1oH0AfpyhR+a0DUfakVaCQfrYWgKk3UCs9W/rokUBSccGjtiVFhw/T0/Nf6DRIqjjTmh0BCfvxDUJjH3FM3g==
   dependencies:
     axios "^0.18.0"
     bind-decorator "^1.0.10"
@@ -678,14 +678,14 @@
     react-swipeable-views "^0.13.0"
     ua-parser-js "^0.7.18"
 
-"@inductiveautomation/perspective-designer@^0.0.1-beta.0":
-  version "0.0.1-beta.0"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-0.0.1-beta.0.tgz#0767919b52595ab36ab35fdefb02d6351f8a36aa"
-  integrity sha512-7uhjlIeRxR9g+pV7M4V42mwE4mkRFAC3aQhiEXR3Auejpj8cUs/V/HSIlsvOmKAPl4cUGpFZPYexh3jyplcUaw==
+"@inductiveautomation/perspective-designer@^1.0.0":
+  version "1.0.0"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-1.0.0.tgz#14a0e3bb8e5b275976645039b5cf655370633fcb"
+  integrity sha512-rvTXPW3Q4Ievsrfory71QNafrCTp1pzUs44H6scBLb+NoCntRrNxaw2ueTDT76mjwyBlroJ2KswD9WoYRf/4qw==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/preset-env" "^7.1.6"
-    "@inductiveautomation/perspective-client" "^0.0.1-beta.0"
+    "@inductiveautomation/perspective-client" "^1.0.0"
     "@types/html2canvas" "^0.0.35"
     axios "^0.18.0"
     bind-decorator "^1.0.10"
