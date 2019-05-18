@@ -1,6 +1,6 @@
 {
   "name": "web-example",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "description": "example web package to distribute to nexus npm",
   "main": "dist/index.js",
   "author": "perry arellano-jones",

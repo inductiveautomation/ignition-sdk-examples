@@ -1,5 +1,7 @@
 package org.fakester.common.component.display;
 
+import javax.swing.ImageIcon;
+
 import com.inductiveautomation.ignition.common.jsonschema.JsonSchema;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptor;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptorImpl;
@@ -23,9 +25,9 @@ public class Image {
 
     /**
      * Components register with the Java side ComponentRegistry but providing a ComponentDescriptor.  Here we
-     * build the descriptor for this one component.
+     * build the descriptor for this one component. Icons on the component palette are optional.
      */
-    public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.component()
+    public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
         .withPaletteCategory("Rad Things")
         .withPaletteDescription("A simple image component.")
         .withId(COMPONENT_ID)

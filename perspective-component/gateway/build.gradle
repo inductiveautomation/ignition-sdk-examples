@@ -11,7 +11,7 @@ dependencies {
     //we have a compile dependency on the common project
     compile(project(":common"))
 
-    compileOnly ("com.inductiveautomation.ignitionsdk:ignition-common:8.0.0")
-    compileOnly ("com.inductiveautomation.ignitionsdk:gateway-api:8.0.0")
-    compileOnly ("com.inductiveautomation.ignitionsdk:perspective-gateway:8.0.0")
+    compileOnly ("com.inductiveautomation.ignitionsdk:ignition-common:8.0.1")
+    compileOnly ("com.inductiveautomation.ignitionsdk:gateway-api:8.0.1")
+    compileOnly ("com.inductiveautomation.ignitionsdk:perspective-gateway:8.0.1")
 }
