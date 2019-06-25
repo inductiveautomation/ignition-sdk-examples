@@ -71,13 +71,12 @@ export class TagCounter extends Component<ComponentProps, {}> {
         }
 
         // read the 'url' property provided by the perspective gateway via the component 'props'.
-        const count: string | number = props.read("count", 0);
 
         // note that the topmost piece of dom requires the application of events, style and className as shown below
         // otherwise the layout won't work, or any events configured will fail.
         return (
             <div {...this.props.emit({classes: ['tag-counter-component']})}>
-                <span className={"tag-counter-count"}>{count}</span>
+                <span className={"tag-counter-count"}>{this.tagCount}</span>
                 <span className={"tag-counter-interval"}>{`Interval ${interval} ms`}</span>
             </div>
 
