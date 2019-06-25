@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "fontSize": {
+            "type": "string",
+            "description": "Size of font to display the tag count in, as a valid css size",
+            "default": "3rem"
+        },
+        "interval": {
+            "type": "number",
+            "description": "Rate (in ms) in which to get a new tag count.  Only one request will happen at a time.",
+            "default": 1000
+        },
+        "style": {
+            "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
+            "default": {
+                "classes": ""
+            }
+        }
+    }
+}

@@ -7,13 +7,16 @@ buildscript {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
+
     }
 
+    ext.sdk_version = "8.0.3-SNAPSHOT"
+
     dependencies {
-        classpath("com.inductiveautomation.gradle:ignition-module-plugin:1.2.9")
+        classpath("com.inductiveautomation.gradle:ignition-module-plugin:1.2.10-SNAPSHOT")
     }
 }
 
@@ -72,7 +75,7 @@ allprojects {
     // check for new versions of dependencies more frequently than default 24 hours.
     configurations.all {
         resolutionStrategy {
-            cacheChangingModulesFor(600, TimeUnit.SECONDS)
+            cacheChangingModulesFor(30, TimeUnit.SECONDS)
         }
     }
 
@@ -88,16 +91,36 @@ allprojects {
             url "http://maven.teamdev.com/repository/products"
 
         }
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
     }
 }
 
 task deepClean() {
-    dependsOn clean
-
+    dependsOn allprojects.collect { "${it.path}:clean" }
+    description "Executes clean tasks and remove node plugin caches."
     doLast {
         delete(file(".gradle"))
+    }
+}
+task copyToWorkingGw(type: Copy) {
+
+    String outputDir = "/Users/pjones/dev/ignition/80dev/Ignition-Build/zip-installers/osx/user-lib/modules/"
+
+    from "$rootProject.buildDir/RadComponents.modl"
+    into outputDir
+
+    doLast {
+        logger.quiet("Copied to gateway dir!")
+    }
+}
+
+afterEvaluate {
+    Task bsm = rootProject.tasks.findByPath(":buildSignedModule")
+    if (bsm) {
+        bsm.finalizedBy ":copyToWorkingGw"
+    } else {
+        logger.error("NO BUILDSIGNEDMODULE TASK?!")
     }
 }

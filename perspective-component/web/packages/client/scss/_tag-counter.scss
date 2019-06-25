@@ -1,0 +1,16 @@
+.tag-counter-component {
+  display: flex;
+  flex-direction: column;
+
+  > .tag-counter-count {
+    color: blue;
+    font-size: 2rem;
+    align-content: center;
+    text-align: center;
+  }
+
+  > .tag-counter-interval {
+    text-align: center;
+  }
+
+}

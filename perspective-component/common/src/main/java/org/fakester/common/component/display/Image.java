@@ -10,8 +10,9 @@ import org.fakester.common.RadComponents;
 
 /**
  * Describes the component to the Java registry so the gateway and designer know to look for the front end elements.
+ * In a 'common' scope so that it's referencable by both gateway and designer.
  */
-public class Image {
+public class Image  {
 
     // unique ID of the component which perfectly matches that provided in the javascript's ComponentMeta implementation
     public static String COMPONENT_ID = "rad.display.image";
@@ -28,7 +29,7 @@ public class Image {
      * build the descriptor for this one component. Icons on the component palette are optional.
      */
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
-        .withPaletteCategory("Rad Things")
+        .withPaletteCategory(RadComponents.COMPONENT_CATEGORY)
         .withPaletteDescription("A simple image component.")
         .withId(COMPONENT_ID)
         .withModuleId(RadComponents.MODULE_ID)
@@ -38,4 +39,5 @@ public class Image {
         .shouldAddToPalette(true)
         .withResources(RadComponents.BROWSER_RESOURCES)
         .build();
+
 }

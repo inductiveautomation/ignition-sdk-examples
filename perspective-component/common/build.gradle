@@ -9,9 +9,8 @@ targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
     // compileOnly is the gradle equivalent to "provided" scope.
-    compileOnly("com.inductiveautomation.ignitionsdk:ignition-common:8.0.1")
-    compileOnly("com.inductiveautomation.ignitionsdk:perspective-common:8.0.1")
-
-    // this one uses the "shorthand" string notation instead of the map notation above.  Does same exact thing.
-    compileOnly("com.google.code.gson:gson:2.8.2")
+    compile("com.inductiveautomation.ignitionsdk:ignition-common:${sdk_version}")
+    compile("com.inductiveautomation.ignitionsdk:perspective-common:${sdk_version}")
+    compileOnly(group: 'com.google.guava', name: 'guava', version: '23.3-jre')
+    compileOnly(group: 'com.inductiveautomation.ignition', name: 'ia-gson', version: '2.8.5')
 }

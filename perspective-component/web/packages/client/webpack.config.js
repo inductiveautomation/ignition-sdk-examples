@@ -1,47 +1,62 @@
+/**
+ * Webpack build configuration file.  Uses generic configuration that is appropriate for development.  Depending on
+ * the needs of your module, you'll likely want to add appropriate 'production' configuration to this file in order
+ * do do things such as minify, postcss, etc.
+ *
+ * To learn more about webpack, visit https://webpack.js.org/
+ */
+
 const webpack = require('webpack'),
     path = require('path'),
-    fs = require('fs');
-
-const WebpackOnBuildPlugin = require('on-build-webpack');
+    fs = require('fs'),
+    MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+    WebpackOnBuildPlugin = require('on-build-webpack');
 
 const LibName = "RadComponents";
 
 // function that copies the result of the webpack from the dist/ folder into the gateway resources folder.  Used
 // in a post-build step so that our web assets are packed into our jar when the module is built.
 function copyToResources() {
-    const resourceFolder = path.resolve(__dirname, '../../..', 'gateway/src/main/resources/mounted/js/');
-    const toCopy = path.resolve(__dirname, "dist/", `${LibName}.js`);
-    const resourcePath = path.resolve(resourceFolder, `${LibName}.js`);
+    const resourceFolder = path.resolve(__dirname, '../../..', 'gateway/src/main/resources/mounted/');
+    const jsToCopy = path.resolve(__dirname, "dist/", `${LibName}.js`);
+    const cssToCopy = path.resolve(__dirname, "dist/", `${LibName}.css`);
+    const jSResourcePath = path.resolve(resourceFolder, `${LibName}.js`);
+    const cssResourcePath = path.resolve(resourceFolder, `${LibName}.css`);
 
+
+    const toCopy = [{from:jsToCopy, to: jSResourcePath}, {from: cssToCopy, to: cssResourcePath}];
 
     // if the desired folder doesn't exist, create it
     if (!fs.existsSync(resourceFolder)){
         fs.mkdirSync(resourceFolder)
     }
 
+    toCopy.forEach( file => {
+        console.log(`copying ${file} into ${resourceFolder}...`);
 
-    try {
-        console.log(`copying ${toCopy}...`);
-        fs.access(toCopy, fs.constants.R_OK, (err) => {
-
-            if (!err) {
-                fs.createReadStream(toCopy)
-                    .pipe(fs.createWriteStream(resourcePath));
-            } else {
-                console.log(`Error when attempting to copy ${toCopy} into ${resourcePath}`)
-            }
-        });
-    } catch (err) {
-        console.log(err);
-    }
+        try {
+            fs.access(file.from, fs.constants.R_OK, (err) => {
+                if (!err) {
+                    fs.createReadStream(file.from)
+                        .pipe(fs.createWriteStream(file.to));
+                } else {
+                    console.log(`Error when attempting to copy ${file.from} into ${file.to}`)
+                }
+            });
+        } catch (err) {
+            console.error(err);
+            // rethrow to fail build
+            throw err;
+        }
+    });
 }
 
 
-var config = {
+const config = {
 
     // define our entry point, from which we build our source tree for bundling
     entry: {
-        RadComponents:  path.join(__dirname, "./typescript/rad-client-components.ts"),
+        RadComponents:  path.join(__dirname, "./typescript/rad-client-components.ts")
     },
 
     output: {
@@ -52,11 +67,11 @@ var config = {
         umdNamedDefine: true
     },
 
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "eval-source-map",
+    // Enable sourcemaps for debugging webpack's output.  Should be changed for production builds.
+    devtool: "source-map",
 
     resolve: {
-        extensions: [".jsx", ".js", ".ts", ".tsx", ".d.ts"],
+        extensions: [".jsx", ".js", ".ts", ".tsx", ".d.ts", ".css", ".scss"],
         modules: [
             path.resolve(__dirname, "../../node_modules")  // look at the local as well as shared node modules when resolving dependencies
         ]
@@ -74,12 +89,35 @@ var config = {
                     }
                 },
                 exclude: /node_modules/
+            },
+            {
+                test: /\.css$|.scss$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            sourceMap: false
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {sourceMap: false }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {sourceMap: false }
+                    },
+                ]
             }
         ]
     },
     plugins: [
         new WebpackOnBuildPlugin(function(stats) {
             copyToResources();
+        }),
+        // pulls CSS out into a single file instead of dynamically inlining it
+        new MiniCssExtractPlugin({
+            filename: "[name].css"
         })
     ],
 
@@ -92,6 +130,18 @@ var config = {
         "mobx": "mobx",
         "mobx-react": "mobxReact",
         "@inductiveautomation/perspective-client": "PerspectiveClient"
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
     },
 };
 

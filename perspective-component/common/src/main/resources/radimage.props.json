@@ -5,6 +5,12 @@
             "type": "string",
             "description": "url of image to display on component.",
             "default": "/res/radcomponents/img/bananatime.gif"
+        },
+        "style": {
+            "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
+            "default": {
+                "classes": ""
+            }
         }
     }
 }

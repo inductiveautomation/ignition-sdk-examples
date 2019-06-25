@@ -9,10 +9,10 @@ targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
     compile(project(":common"))
-    compileOnly("com.inductiveautomation.ignitionsdk:designer-api:8.0.1")
-    compileOnly("com.inductiveautomation.ignitionsdk:perspective-common:8.0.1")
-    compileOnly("com.inductiveautomation.ignitionsdk:perspective-designer:8.0.1")
-    compileOnly("com.inductiveautomation.ignitionsdk:ignition-common:8.0.1")
+    compileOnly("com.inductiveautomation.ignitionsdk:designer-api:${sdk_version}")
+    compileOnly("com.inductiveautomation.ignitionsdk:perspective-common:${sdk_version}")
+    compileOnly("com.inductiveautomation.ignitionsdk:perspective-designer:${sdk_version}")
+    compileOnly("com.inductiveautomation.ignitionsdk:ignition-common:${sdk_version}")
 }
 
 
