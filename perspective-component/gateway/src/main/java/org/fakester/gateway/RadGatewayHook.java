@@ -19,7 +19,7 @@ import org.fakester.common.component.display.TagCounter;
 
 public class RadGatewayHook extends AbstractGatewayModuleHook {
 
-    private static final LoggerEx log = LoggerEx.newBuilder().build("rad.gateway.hook");
+    private static final LoggerEx log = LoggerEx.newBuilder().build("rad.gateway.RadGatewayHook");
 
     private GatewayContext gatewayContext;
     private PerspectiveContext perspectiveContext;
@@ -30,12 +30,20 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
     @Override
     public void setup(GatewayContext context) {
         this.gatewayContext = context;
+        log.info("Setting up RadComponents module.");
+    }
+
+    @Override
+    public void startup(LicenseState activationState) {
+        log.info("Starting up RadGatewayHook!");
 
         this.perspectiveContext = PerspectiveContext.get(this.gatewayContext);
         this.componentRegistry = this.perspectiveContext.getComponentRegistry();
         this.modelDelegateRegistry = this.perspectiveContext.getComponentModelDelegateRegistry();
 
+
         if (this.componentRegistry != null) {
+            log.info("Registering Rad components.");
             this.componentRegistry.registerComponent(Image.DESCRIPTOR);
             this.componentRegistry.registerComponent(TagCounter.DESCRIPTOR);
             this.componentRegistry.registerComponent(Messenger.DESCRIPTOR);
@@ -44,25 +52,24 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
         }
 
         if (this.modelDelegateRegistry != null) {
+            log.info("Registering model delegates.");
             this.modelDelegateRegistry.register(Messenger.COMPONENT_ID, MessageComponentModelDelegate::new);
         } else {
             log.error("ModelDelegateRegistry was not found!");
         }
-    }
-
-    @Override
-    public void startup(LicenseState activationState) {
-        log.info("Starting up RadGatewayHook!");
 
     }
 
     @Override
     public void shutdown() {
-        //
-        this.componentRegistry.removeComponent(Image.COMPONENT_ID);
-        this.componentRegistry.removeComponent(TagCounter.COMPONENT_ID);
-        this.componentRegistry.removeComponent(Messenger.COMPONENT_ID);
-
+        log.info("Shutting down RadComponent module and removing registered components.");
+        if (this.componentRegistry != null) {
+            this.componentRegistry.removeComponent(Image.COMPONENT_ID);
+            this.componentRegistry.removeComponent(TagCounter.COMPONENT_ID);
+            this.componentRegistry.removeComponent(Messenger.COMPONENT_ID);
+        } else {
+            log.warn("Component registry was null, could not unregister Rad Components.");
+        }
         if (this.modelDelegateRegistry != null ) {
             this.modelDelegateRegistry.remove(Messenger.COMPONENT_ID);
         }

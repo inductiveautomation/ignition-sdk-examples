@@ -35,7 +35,6 @@ public class MessageComponentModelDelegate extends ComponentModelDelegate {
     }
 
     // when a ComponentStoreDelegate event is fired from the client side, it comes through this method.
-    // The message contains
     @Override
     public void handleEvent(EventFiredMsg message) {
 
@@ -49,8 +48,8 @@ public class MessageComponentModelDelegate extends ComponentModelDelegate {
             if (payload != null) {
                 JsonElement count = payload.get("count");
 
-                if (payload.isJsonPrimitive() && payload.getAsJsonPrimitive().isNumber()) {
-                    int lastCount = payload.getAsJsonPrimitive().getAsInt();
+                if (count.isJsonPrimitive() && count.getAsJsonPrimitive().isNumber()) {
+                    int lastCount = count.getAsJsonPrimitive().getAsInt();
                     int next = lastCount + 1;
                     responsePayload.addProperty("count", next);
                 } else {
@@ -66,6 +65,7 @@ public class MessageComponentModelDelegate extends ComponentModelDelegate {
         }
     }
 
+    // not necessary to override for our use case, just here for informational purposes
     @Override
     public void fireEvent(String eventName, JsonObject event) {
         this.component.fireEvent("model", eventName, event);
