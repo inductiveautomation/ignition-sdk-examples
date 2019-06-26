@@ -104,23 +104,3 @@ task deepClean() {
         delete(file(".gradle"))
     }
 }
-task copyToWorkingGw(type: Copy) {
-
-    String outputDir = "/Users/pjones/dev/ignition/80dev/Ignition-Build/zip-installers/osx/user-lib/modules/"
-
-    from "$rootProject.buildDir/RadComponents.modl"
-    into outputDir
-
-    doLast {
-        logger.quiet("Copied to gateway dir!")
-    }
-}
-
-afterEvaluate {
-    Task bsm = rootProject.tasks.findByPath(":buildSignedModule")
-    if (bsm) {
-        bsm.finalizedBy ":copyToWorkingGw"
-    } else {
-        logger.error("NO BUILDSIGNEDMODULE TASK?!")
-    }
-}
