@@ -31,7 +31,9 @@ import {
     ComponentMeta,
     ComponentProps,
     ComponentStoreDelegate,
-    JsObject, PropertyTree,
+    isFunction,
+    JsObject,
+    PropertyTree,
     SizeObject
 } from '@inductiveautomation/perspective-client';
 
@@ -82,10 +84,13 @@ export const DEFAULT_MESSAGE_CONFIG: MessagePropConfig = {
  *
  */
 export class CustomValueStore {
+    readonly delegate: MessageComponentGatewayDelegate;
+
     /**
      * Mobx reactions provide a 'disposer' upon creation.  These should be called when the store is no longer in use
      * to de-register it and avoid accumulation of listeners/subscribers to stores that don't exist.  Generally
-     * this is called when a component is removed from the DOM and React's 'componentWillUnmount()' lifecycle is called.
+     * this is called when a component is removed from the DOM by calling the disposer in React's
+     * 'componentWillUnmount()' lifecycle is called.
      */
     pendingDisposer?: Disposer;
 
@@ -105,20 +110,29 @@ export class CustomValueStore {
 
     readonly propTree: PropertyTree;
 
-    constructor(props: PropertyTree){
+    constructor(props: PropertyTree, delegate: MessageComponentGatewayDelegate){
         this.propTree = props;
+        this.delegate = delegate;
+
+        delegate.setOnMessageReceivedCallback(this.handleMessageResponse);
+
         // this sets up a mobx reaction that says "any time there's a change to the reference held at
         // `this.messagesPending`, and that update made pending go from 'true' to 'false', add one to the count.
-        this.pendingDisposer = reaction(() => this.messagePending, (pending) => {
-            console.log(`reaction effect called with pending:${pending}, messagePending:${this.messagePending}`);
-            if (pending === false && this.messagePending === true) {
-                this.messageCount += 1;
+        this.pendingDisposer = reaction(() => this.messageCount, (count) => {
+            console.log(`Reaction responding to message count update to ${count}.  Setting 'pending' to false.`);
+            if (this.messagePending) {
+                this.messagePending = false;
             }
         });
     }
 
     public dispose() {
         this.pendingDisposer && this.pendingDisposer();
+    }
+
+    public fireGwMessage() {
+        this.messagePending = true;
+        this.delegate.messageGateway(this.messageCount);
     }
 
     /**
@@ -139,6 +153,7 @@ export class CustomValueStore {
      */
     @computed
     get displayMessage(): string {
+
         const messageConfig = this.propTree.read("messageConfig", DEFAULT_MESSAGE_CONFIG);
 
         // get the correct message based on the number of messages that have been sent to/from the gateway.
@@ -155,7 +170,28 @@ export class CustomValueStore {
                               }, [-1, "Default Message!"]);
 
         return msgItem[1] as string;
+    }
 
+    /**
+     * Callback that gets called from the store delegate when an app receives a message from the Gateway model delegate.
+     * @param payload
+     */
+    @action.bound
+    handleMessageResponse(payload: JsObject): void {
+        if (payload && payload.count && !isNaN(payload.count)) {
+            // here's the count our gateway is reporting.  We could use this directly...
+            // @ts-ignore
+            const gwCount: number = payload.count;
+
+            // ...but for demonstration purposes, we'll just toggle our "pending" value.  Changing pending results in
+            // reactions firing on any 'subscribed functions' or 'observers' that dereference the 'messagePending'
+            // property (since it's observable).  In our case, the reaction we setup in this class' constructor will
+            // respond and add one to our internal message count.  Since the count is observable and being observed
+            // by our component, updating its value is all we need to do to have the component render the new value!
+            this.messagePending = false;
+        } else if (payload && payload.error) {
+            console.error(`Error MessageDelegate Response: ${payload.error}`);
+        }
     }
 }
 
@@ -163,42 +199,54 @@ export class CustomValueStore {
 /**
  * ComponentStoreDelegate provides a way to send (and receive) data from the gateway that does _not_ go through a
  * component's property trees or traditional http/ajax requests.  Instead messages are sent to/from the gateway
- * via perspective's websocket connection.
+ * via perspective's websocket connection without any need to directly interact with the socket.
  *
  * This class is separate from the 'CustomValueStore' to avoid confusing two distinct concepts.  The use of a mobx
  * based store is in no way required in your ComponentStoreDelegate implementation.  This example just highlights
  * one way to have an 'un-managed' store (one which Perspective does not manage synchronizing values to/from the
- * gateway
- * via PropertyTree).  The CustomStore could extend 'ComponentStoreDelegate' itself and avoid separate classes for each
- * if desired.
+ * gateway via PropertyTree).  The CustomStore could extend 'ComponentStoreDelegate' itself and avoid separate
+ * classes for each if desired.
  *
  */
 export class MessageComponentGatewayDelegate extends ComponentStoreDelegate {
-    readonly customStore: CustomValueStore;
-    constructor(componentStore: AbstractUIElementStore, customStore: CustomValueStore){
+    public static EVENT_NAME: string = "messenger-component-message-event";
+    public static INCOMING_EVENT: string = "messenger-component-response-event";
+
+    private callback: (payload: JsObject) => void;
+
+    constructor(componentStore: AbstractUIElementStore){
         super(componentStore);
-        this.customStore = customStore;
+        this.messageGateway = this.messageGateway.bind(this);
+        this.handleEvent = this.handleEvent.bind(this);
+        this.setOnMessageReceivedCallback = this.setOnMessageReceivedCallback.bind(this);
+        this.fireEvent = this.fireEvent.bind(this);
     }
 
-    @action.bound
-    private updateMessagePending(newPendingState: boolean): void {
-        this.customStore.messagePending = newPendingState;
-    }
-
-
+    // not necessary to override, done so here for visibility
     public fireEvent(eventName: string, eventObject: JsObject): void {
-        this.customStore.messagePending = true;
+        // log messages left intentionally
+        console.log(`Firing ${eventName} event with message body ${eventObject}`);
         super.fireEvent(eventName, eventObject);
+    }
+
+    public messageGateway(count: Number): void {
+        this.fireEvent(MessageComponentGatewayDelegate.EVENT_NAME, { count: count });
     }
 
     // receives the model events fired from the gateway side.
     handleEvent(eventName: string, eventObject: JsObject): void {
-        if (eventName === "message-received-and-processed") {
-            this.updateMessagePending(false);
+        console.log(`Received '${eventName}' event!`);
+        if (eventName === MessageComponentGatewayDelegate.INCOMING_EVENT) {
+            if (this.callback && isFunction(this.callback)) {
+                this.callback(eventObject);
+            }
         }
     }
-}
 
+    setOnMessageReceivedCallback(callback: (payload: JsObject) => void): void {
+        this.callback = callback;
+    }
+}
 
 
 
@@ -215,8 +263,9 @@ export class MessengerComponent extends Component<ComponentProps, {}> {
 
     constructor(props: ComponentProps) {
         super(props);
-        this.myStore = new CustomValueStore(props.props);
-        this.delegate = new MessageComponentGatewayDelegate(props.store, this.myStore);
+        this.delegate = props.delegate as MessageComponentGatewayDelegate;
+        this.myStore = new CustomValueStore(props.props, this.delegate);
+
     }
 
     componentWillUnmount() {
@@ -225,12 +274,13 @@ export class MessengerComponent extends Component<ComponentProps, {}> {
     }
 
     /**
-     * Calling this sets the store's 'messagePending' value to true.  Doing so results in any subscribed reactions This
-     * is a mobx 'action' because it changes the value of a  mobx observable.
+     * Calling this sets the store's 'messagePending' value to true.  Doing so results in the firing of any subscribed
+     * reactions. This is a mobx 'action' because it changes the value of a  mobx observable.
      */
     @action.bound
     fireUpdateToGateway(): void {
-        //
+        console.info("Setting messagePending to true!");
+
         this.myStore.messagePending = true;
     }
 
@@ -240,12 +290,12 @@ export class MessengerComponent extends Component<ComponentProps, {}> {
         return (
             // note that the topmost piece of dom requires the use of the 'emitter' provided by props in order for
             // containers to appropriately position them.  The
-            <div {...this.props.emit()}>
-                <h3>
+            <div {...this.props.emit({classes: ["messenger-component"]})}>
+                <h3 className={"counter"}>
                     {this.myStore.messageCount}
                 </h3>
-                <span>{this.myStore.displayMessage}</span>
-                <button onClick={this.fireUpdateToGateway} disabled={this.myStore.messagePending}>{buttonText}</button>
+                <span className={"message"}>{this.myStore.displayMessage}</span>
+                <button className={"messenger-button"} onClick={this.fireUpdateToGateway} disabled={this.myStore.messagePending}>{buttonText}</button>
             </div>
         );
     }
@@ -266,8 +316,12 @@ export class MessengerComponentMeta implements ComponentMeta {
 
     getDefaultSize(): SizeObject {
         return ({
-            width: 360,
-            height: 360
+            width: 120,
+            height: 90
         });
+    }
+
+    public createDelegate(component: AbstractUIElementStore): ComponentStoreDelegate | undefined {
+        return new MessageComponentGatewayDelegate(component);
     }
 }

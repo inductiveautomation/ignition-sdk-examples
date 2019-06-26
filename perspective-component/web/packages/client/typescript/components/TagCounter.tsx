@@ -21,7 +21,6 @@ interface TagCountPayload {
 }
 
 
-
 const HOST = `${location.protocol}//${location.host}`;
 const COUNT_FETCH_URL = `${HOST}/main/data/radcomponents/component/tagcount`;
 /**
@@ -33,6 +32,8 @@ export class TagCounter extends Component<ComponentProps, {}> {
     fetchPoller?: Poller<TagCountPayload>;
 
     @observable tagCount: number = 0;
+
+    @observable animating: boolean = false;
 
     componentDidMount() {
         this.fetchPoller = new Poller<TagCountPayload>(COUNT_FETCH_URL,  this.props.props.read("interval", 1000));
@@ -46,6 +47,13 @@ export class TagCounter extends Component<ComponentProps, {}> {
 
     @bind
     updateTagCount(response: AxiosResponse<TagCountPayload>): void {
+        if (!this.animating) {
+            this.animating = true;
+            setTimeout(() => { this.animating = false; },
+                       this.props.props.read("interval", 1000)
+            );
+        }
+
         if (response && response.status === 200) {
             const json = response.data;
 
@@ -70,13 +78,15 @@ export class TagCounter extends Component<ComponentProps, {}> {
             this.fetchPoller.updateInterval(interval);
         }
 
+        const counterClasses = this.animating ? 'tag-counter-count message-animation' : 'tag-counter-count';
+
         // read the 'url' property provided by the perspective gateway via the component 'props'.
 
         // note that the topmost piece of dom requires the application of events, style and className as shown below
         // otherwise the layout won't work, or any events configured will fail.
         return (
             <div {...this.props.emit({classes: ['tag-counter-component']})}>
-                <span className={"tag-counter-count"}>{this.tagCount}</span>
+                <span className={counterClasses}>{this.tagCount}</span>
                 <span className={"tag-counter-interval"}>{`Interval ${interval} ms`}</span>
             </div>
 

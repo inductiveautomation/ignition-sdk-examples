@@ -7,10 +7,7 @@ import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.ignition.gateway.model.GatewayModule;
-import com.inductiveautomation.perspective.common.PerspectiveModule;
 import com.inductiveautomation.perspective.common.api.ComponentRegistry;
-import com.inductiveautomation.perspective.gateway.GatewayHook;
 import com.inductiveautomation.perspective.gateway.api.ComponentModelDelegateRegistry;
 import com.inductiveautomation.perspective.gateway.api.PerspectiveContext;
 import org.fakester.common.component.display.Messenger;
@@ -33,10 +30,7 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
     @Override
     public void setup(GatewayContext context) {
         this.gatewayContext = context;
-    }
 
-    @Override
-    public void startup(LicenseState activationState) {
         this.perspectiveContext = PerspectiveContext.get(this.gatewayContext);
         this.componentRegistry = this.perspectiveContext.getComponentRegistry();
         this.modelDelegateRegistry = this.perspectiveContext.getComponentModelDelegateRegistry();
@@ -51,7 +45,14 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
 
         if (this.modelDelegateRegistry != null) {
             this.modelDelegateRegistry.register(Messenger.COMPONENT_ID, MessageComponentModelDelegate::new);
+        } else {
+            log.error("ModelDelegateRegistry was not found!");
         }
+    }
+
+    @Override
+    public void startup(LicenseState activationState) {
+        log.info("Starting up RadGatewayHook!");
 
     }
 

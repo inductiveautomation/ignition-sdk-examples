@@ -1,0 +1,26 @@
+.messenger-component {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  .counter {
+    text-align: center;
+  }
+  .message {
+    text-align: center;
+    color: slategray;
+    width: 100%;
+  }
+
+  > * {
+    flex: 1 100%;
+  }
+
+  .messenger-button {
+    width: 100%;
+    background-color: blue;
+    color: aliceblue;
+    height: 2rem;
+    margin: auto;
+  }
+}

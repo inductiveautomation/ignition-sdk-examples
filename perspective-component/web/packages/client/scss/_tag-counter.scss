@@ -9,6 +9,11 @@
     text-align: center;
   }
 
+  > .message-animation {
+    transition: color 0.5s ease;
+    color: lightslategray;
+  }
+
   > .tag-counter-interval {
     text-align: center;
   }
