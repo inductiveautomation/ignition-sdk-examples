@@ -76,9 +76,8 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     }
 
     @Override
-    public GetLogsRPC getRPCHandler(ClientReqSession session, Long projectId){
+    public Object getRPCHandler(ClientReqSession session, String projectName) {
         return rpc;
     }
-
-
+    
 }
