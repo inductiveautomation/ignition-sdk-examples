@@ -154,8 +154,9 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
          */
         @Subscribe
         public void onComponentPropChange(SelectionPropertyUpdateEvent event) {
-            //
-            JsonElement changes = PropertyJsonUtil.decodeQualifiedValueObject(event.changes);
+            // property changes come as qualifed values.  We use this util to get a 'pure' JsonElement that does not
+            // have the quality mntadate.
+            JsonElement changes = PropertyJsonUtil.decodeQualifiedValueJson(event.changes);
             if (changes != null && changes.isJsonObject()) {
 
                 JsonObject json = changes.getAsJsonObject();
