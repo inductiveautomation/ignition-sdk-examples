@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -64,6 +66,7 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
         ComponentSelection selection;
         JLabel label = new JLabel(StringUtils.capitalize(INTERVAL_PROP_KEY));
         JTextField textField;
+
 
 
         private TagCountComponentConfigPanel(ComponentSelection selection) {
@@ -143,7 +146,9 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
         }
 
         private void updateIntervalPropValue(String text) {
-            selection.write(PropertyType.props, INTERVAL_PROP_KEY, text);
+            if (text != null && text.length() > 0) {
+                selection.write(PropertyType.props, INTERVAL_PROP_KEY, text);
+            }
         }
 
 
@@ -164,14 +169,17 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
                 // anchor is the first selected element.  But this config UI only loads for single component selection
                 // so it's always what we care about.
                 String pathOfAnchorComponent = selection.getAnchorPath().orElse(null);
-                if (null != pathOfAnchorComponent && json.get(pathOfAnchorComponent) != null) {
-                    if (json.get(pathOfAnchorComponent) != null && json.get(pathOfAnchorComponent).isJsonObject()) {
-                        JsonObject propScopes = json.get(pathOfAnchorComponent).getAsJsonObject();
-                        JsonElement props = propScopes.get("props");
-                        if (props != null && props.isJsonObject()) {
-                            JsonElement interval = propScopes.get("props").getAsJsonObject().get("interval");
-                            if (interval != null) {
-                                if (!this.textField.getText().equals(interval.toString()))
+
+                if (null != pathOfAnchorComponent
+                    && null != json.get(pathOfAnchorComponent)
+                    && json.get(pathOfAnchorComponent).isJsonObject()) {
+
+                    JsonObject propScopes = json.get(pathOfAnchorComponent).getAsJsonObject();
+                    JsonElement props = propScopes.get("props");
+                    if (props != null && props.isJsonObject()) {
+                        JsonElement interval = propScopes.get("props").getAsJsonObject().get("interval");
+                        if (interval != null) {
+                            if (!this.textField.getText().equals(interval.toString())) {
                                 this.textField.setText(interval.toString());
                             }
                         }
