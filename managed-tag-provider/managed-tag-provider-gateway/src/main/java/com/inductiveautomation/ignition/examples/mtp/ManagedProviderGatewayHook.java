@@ -51,7 +51,7 @@ public class ManagedProviderGatewayHook extends AbstractGatewayModuleHook {
             configuration.setAllowTagCustomization(true);
             configuration.setPersistTags(false);
             configuration.setPersistValues(false);
-            configuration.setMetaFlag(TagProviderMeta.FLAG_HAS_OPCBROWSE, false);
+            configuration.setAttribute(TagProviderMeta.FLAG_HAS_OPCBROWSE, false);
 
             ourProvider = context.getTagManager().getOrCreateManagedProvider(configuration);
             //Set up the control tag.
