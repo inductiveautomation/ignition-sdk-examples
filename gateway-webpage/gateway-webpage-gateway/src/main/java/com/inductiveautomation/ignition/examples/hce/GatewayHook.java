@@ -45,7 +45,6 @@ import org.apache.wicket.protocol.http.WebApplication;
  *
  */
 public class GatewayHook extends AbstractGatewayModuleHook {
-    private static final String[] HCON_MENU_PATH = {"homeconnect"};
     private GatewayContext context;
 
     private final LoggerEx log = LogUtil.getLogger(getClass().getSimpleName());
@@ -75,7 +74,8 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     /**
      * This sets up the config panel
      */
-    public static final ConfigCategory CONFIG_CATEGORY = new ConfigCategory("hce", "HomeConnect.nav.header", 700);
+    public static final ConfigCategory CONFIG_CATEGORY =
+        new ConfigCategory("HomeConnect", "HomeConnect.nav.header", 700);
 
     @Override
     public List<ConfigCategory> getConfigCategories() {
@@ -84,7 +84,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
     public static final IConfigTab HCE_CONFIG_ENTRY = DefaultConfigTab.builder()
             .category(CONFIG_CATEGORY)
-            .name("hub")
+            .name("homeconnect")
             .i18n("HomeConnect.nav.settings.title")
             .page(HCSettingsPage.class)
             .terms("home connect settings")
