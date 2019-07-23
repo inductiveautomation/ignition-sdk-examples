@@ -191,18 +191,6 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     public void shutdown() {
         /* remove our bundle */
         BundleUtil.get().removeBundle("HomeConnect");
-
-        if (context.getState() != ContextState.STOPPING) {
-            WebApplication wicket = context.getWebResourceManager().getWebApplication();
-
-            Application currentApplication = ThreadContext.getApplication();
-            ThreadContext.setApplication(wicket);
-            try {
-                wicket.unmount("ack/${id}");
-            } finally {
-                ThreadContext.setApplication(currentApplication);
-            }
-        }
     }
 
     /**
