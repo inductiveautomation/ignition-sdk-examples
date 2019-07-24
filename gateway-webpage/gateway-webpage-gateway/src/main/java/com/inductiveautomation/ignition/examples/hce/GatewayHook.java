@@ -20,6 +20,7 @@ import com.inductiveautomation.ignition.gateway.localdb.persistence.IRecordListe
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.web.components.AbstractNamedTab;
+import com.inductiveautomation.ignition.gateway.web.components.ConfigPanel;
 import com.inductiveautomation.ignition.gateway.web.models.ConfigCategory;
 import com.inductiveautomation.ignition.gateway.web.models.DefaultConfigTab;
 import com.inductiveautomation.ignition.gateway.web.models.IConfigTab;
@@ -82,6 +83,12 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         return Collections.singletonList(CONFIG_CATEGORY);
     }
 
+    /**
+     * An IConfigTab contains all the info necessary to create a link to your config page on the gateway nav menu.
+     * In order to make sure the breadcrumb and navigation works properly, the 'name' field should line up
+     * with the right-hand value returned from {@link ConfigPanel#getMenuLocation}. In this case name("homeconnect")
+     * lines up with HCSettingsPage#getMenuLocation().getRight()
+     */
     public static final IConfigTab HCE_CONFIG_ENTRY = DefaultConfigTab.builder()
             .category(CONFIG_CATEGORY)
             .name("homeconnect")
