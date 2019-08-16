@@ -7,13 +7,13 @@ buildscript {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
 
     }
 
-    ext.sdk_version = "8.0.3-SNAPSHOT"
+    ext.sdk_version = "8.0.3"
 
     dependencies {
         classpath("com.inductiveautomation.gradle:ignition-module-plugin:1.2.10-SNAPSHOT")
@@ -91,9 +91,9 @@ allprojects {
             url "http://maven.teamdev.com/repository/products"
 
         }
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
-        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
+        maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
     }
 }
 

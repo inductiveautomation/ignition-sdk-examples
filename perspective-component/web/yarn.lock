@@ -632,6 +632,32 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@inductiveautomation/perspective-client@^1.0.3":
+  version "1.0.3"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-1.0.3.tgz#98e1ed7be9f41d06ea227358f4b5a92778937568"
+  integrity sha512-dapDDULNgo1NZsXHDqGRlc21ijfZALYmYIWR1pDfk33nzDzZQKR//NvxJ3ZqDhQ5tpyRen55WyJ7DAu7O1n8bA==
+  dependencies:
+    axios "^0.18.0"
+    bind-decorator "^1.0.10"
+    d3-scale "^2.1.2"
+    history "^4.5.1"
+    jsnlog "^2.22.1"
+    json5 "^2.1.0"
+    lodash-es "4.17.14"
+    mobx "^5.9.0"
+    mobx-react "^5.4.3"
+    moment "2.18.1"
+    moment-timezone "^0.5.13"
+    prop-types "^15.7.2"
+    react "16.8.4"
+    react-container-dimensions "^1.3.3"
+    react-dom "16.8.4"
+    react-html-parser "^2.0.2"
+    react-resize-detector "^3.1.2"
+    react-select-plus "^1.0.0-rc.5"
+    react-swipeable-views "^0.13.0"
+    ua-parser-js "^0.7.18"
+
 "@inductiveautomation/perspective-client@^1.0.3-snapshot":
   version "1.0.3-snapshot.0"
   resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-1.0.3-snapshot.0.tgz#23384e255a625b905ba7f59c732ba35bcf7a5032"
@@ -658,10 +684,10 @@
     react-swipeable-views "^0.13.0"
     ua-parser-js "^0.7.18"
 
-"@inductiveautomation/perspective-designer@^1.0.3-snapshot":
-  version "1.0.3-snapshot.0"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-1.0.3-snapshot.0.tgz#6c808e4fe7fd6494e61fed9e9212539b79af129c"
-  integrity sha512-2Idh1Z+M2jphkUpaIkLcT5a9kgn0NUAwTFVfO9pjj8Uk/8NVUl5AXjdx7f07QIfZlb4IENk8KBN4S1XlSBlvGg==
+"@inductiveautomation/perspective-designer@^1.0.3":
+  version "1.0.3"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-1.0.3.tgz#43a7ea11f745c4d6c5543303c49c3115c7cfdf3e"
+  integrity sha512-NZ+xAMTpILZP0NYtyR3UaoI+X+RhhaqHBN2YEsCqZ8Vl3q2hL3+74kwz2EEcA1dywbxO3+aGk4/ffpJAjnCeEw==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/preset-env" "^7.1.6"
@@ -673,7 +699,7 @@
     history "^4.5.1"
     html2canvas "^1.0.0-alpha.12"
     jsnlog "^2.22.1"
-    lodash-es "^4.17.11"
+    lodash-es "4.17.14"
     mobx "^5.9.0"
     mobx-react "^5.4.3"
     moment "2.18.1"
@@ -4668,6 +4694,11 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lodash-es@4.17.14:
+  version "4.17.14"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.14.tgz#12a95a963cc5955683cee3b74e85458954f37ecc"
+  integrity sha512-7zchRrGa8UZXjD/4ivUWP1867jDkhzTG2c/uj739utSd7O/pFFdxspCemIFKEEjErbcqRzn8nKnGsi7mvTgRPA==
 
 lodash-es@^4.17.11:
   version "4.17.11"
