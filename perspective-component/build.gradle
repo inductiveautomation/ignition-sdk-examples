@@ -41,7 +41,7 @@ allprojects {
         moduleId "org.fakester.radcomponent"
         moduleVersion "${project.version}"
         moduleDescription "A module that adds components to the Perspective module."
-        requiredIgnitionVersion "8.0.1"
+        requiredIgnitionVersion "8.0.3"
         requiredFrameworkVersion "8"
         isFree true
         license "license.html"

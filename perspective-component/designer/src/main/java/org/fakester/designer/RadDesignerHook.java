@@ -17,8 +17,10 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
 
     @Override
     public void startup(DesignerContext context, LicenseState activationState) throws Exception {
-        PerspectiveDesignerInterface.getComponentRegistry(context)
-            .registerComponent(Image.DESCRIPTOR);
+
+        PerspectiveDesignerInterface.get(context)
+                .getDesignerComponentRegistry()
+                .registerComponent(Image.DESCRIPTOR);
     }
 
     @Override
