@@ -281,3 +281,5 @@ Ignition-Build/
 
 private/
 sign.props
+gateway/src/main/resources/mounted/RadComponents.css
+gateway/src/main/resources/mounted/RadComponents.js

@@ -1,12 +1,29 @@
 # Perspective Component Module Example 
 
-This is an example module which adds a component to the Perspective module.  In an effort to minimize complexity, this
-example follows the bare minimum required to create and register a Perspective component for Ignition 8.0's new
-visualization module.  As a result, this example does not follow _all_ best practices for modern web applications.  For
-example, the javascript bundled via webpack is not minified and obfuscated.  That said, we've chosen tools and structure
-that we've determined to be the best overall compromise in terms of convenience, maintainability and power.
+This is an example module which adds some custom components to the Perspective module.  There are 3 different components
+in this example, each exercising different aspects of the Perspective component API, as well as demonstrating 
+a few different ways of dealing with data and configuration of the components in the gateway designer.
 
-Additionally, this example is only one of countless ways a savvy developer can build a module targeting Perspective.
+### Summary of Components
+
+#### 1. Image
+
+Most basic component, provides a reference for the 'bare minimum' required to create a component and register it in the
+appropriate registries such that it's available on the palette in the designer and in the client at runtime.
+
+#### 2. TagCounter
+
+Demonstrates a component that provides a custom Java/Swing based configuration UI when the component is selected in the
+designer.  In addition, utilizes the gateway's `RouteGroup` api to create a web endpoint from which the component can 
+fetch data outside of the Perspective property tree system.
+
+#### 3. Messenger Component
+
+Somewhat silly example demonstrates the use of a Mobx based state class (component model/store) to contain state outside
+of the PropertyTree system, as well as demonstrates the use of the Store/Model Message Delegate API, which is a way to 
+send data between the gateway and browser via perspective's 'real time' websocket communication channel.  
+
+These examples are only a few of the countless ways a savvy developer can build a module targeting Perspective.
 Ultimately it's up to implementors to choose the tools they prefer.
 
 
@@ -160,3 +177,9 @@ Building this module through the gradle wrapper is easy!
  
 How to configure and customize the build is outside the scope of this example.  We encourage you to read the docs of 
 the various tools used and linked above to determine the appropriate build configurations for your project.
+
+### SDK Tips
+
+Perspective is a fairly complex system that is seeing regular changes/additions.  While we consider the APIs 'mostly stable', there will likely be additions and/or breaking changes as it matures.  As a result, we encourage testing modules against each version of Ignition/Perspective you intend to support.
+
+

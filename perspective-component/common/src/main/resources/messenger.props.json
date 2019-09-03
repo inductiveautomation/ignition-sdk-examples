@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "messageConfig": {
+            "type": "object",
+            "description": "A set of key:value pairs where the key is the cutoff point for when a message should be displayed, and the value is a string containing the message displayed when the 'key' number of messages is reached.",
+            "propertyNames": {
+                "pattern": "^[0-9][0-9]*$"
+            },
+            "default": {
+                "0": "None",
+                "1": "Messages!",
+                "5": "Lots of Messages!",
+                "10": "Literally ten+ messages!",
+                "25": "Carpal Tunnel Warning!"
+            }
+        },
+        "style": {
+            "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
+            "default": {
+                "classes": ""
+            }
+        }
+    }
+}

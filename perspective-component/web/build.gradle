@@ -54,9 +54,9 @@ task webpack(type: NpmTask) {
 
     // we should re-run this task on consecutive builds if we detect changes to any non-generated files, so here we
     // define that we wish to have all files -- except those excluded -- as input dependencies for this task.
-    inputs.files project.fileTree("packages").matching {
-        exclude("**/node_modules/**", "**/dist/**", "**/.awcache/**")
-    }
+    inputs.files(project.fileTree("packages").matching {
+        exclude("**/node_modules/**", "**/dist/**", "**/.awcache/**", "**/yarn-error.log")
+    }.toList())
 
     // the outputs of this task include where we place the final files for use in the module, as well as the local
     // temporary "dist" folders.  Defining these outputs gives the build enough awareness to avoid running this
