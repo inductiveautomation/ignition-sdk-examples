@@ -17,7 +17,7 @@
   "devDependencies": {
     "lerna": "3.13.1",
     "mini-css-extract-plugin": "^0.7.0",
-    "yarn": "1.17.3"
+    "yarn": "1.22.0"
   },
   "resolutions": {
     "@types/react": "16.8.8",
