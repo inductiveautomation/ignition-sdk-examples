@@ -8,8 +8,8 @@ import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import com.inductiveautomation.perspective.designer.DesignerComponentRegistry;
 import com.inductiveautomation.perspective.designer.api.ComponentDesignDelegateRegistry;
 import com.inductiveautomation.perspective.designer.api.PerspectiveDesignerInterface;
-import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Image;
+import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.TagCounter;
 import org.fakester.designer.component.TagCountDesignDelegate;
 
@@ -19,23 +19,22 @@ import org.fakester.designer.component.TagCountDesignDelegate;
  * root build.gradle file.
  */
 public class RadDesignerHook extends AbstractDesignerModuleHook {
-
     private static final LoggerEx logger = LoggerEx.newBuilder().build("RadComponents");
 
+    private DesignerContext context;
+    private DesignerComponentRegistry registry;
+    private ComponentDesignDelegateRegistry delegateRegistry;
+
     static {
-        BundleUtil.get()
-            .addBundle("radcomponents", RadDesignerHook.class.getClassLoader(), "radcomponents");
+        BundleUtil.get().addBundle("radcomponents", RadDesignerHook.class.getClassLoader(), "radcomponents");
     }
 
     public RadDesignerHook() {
         logger.info("Registering Rad Components in Designer!");
     }
-    private DesignerContext context;
-    private DesignerComponentRegistry registry;
-    private ComponentDesignDelegateRegistry delegateRegistry;
 
     @Override
-    public void startup(DesignerContext context, LicenseState activationState) throws Exception {
+    public void startup(DesignerContext context, LicenseState activationState) {
         this.context = context;
         init();
     }
@@ -55,7 +54,6 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
 
         // register design delegates to get the special config UI when a component type is selected in the designer
         delegateRegistry.register(TagCounter.COMPONENT_ID, new TagCountDesignDelegate());
-
     }
 
 

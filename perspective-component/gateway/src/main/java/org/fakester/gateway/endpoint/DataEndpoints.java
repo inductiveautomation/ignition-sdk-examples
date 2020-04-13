@@ -3,9 +3,7 @@ package org.fakester.gateway.endpoint;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
-
 import javax.servlet.http.HttpServletResponse;
-
 
 import com.inductiveautomation.ignition.common.gson.JsonObject;
 import com.inductiveautomation.ignition.common.tags.model.TagProvider;
@@ -15,28 +13,26 @@ import com.inductiveautomation.ignition.gateway.dataroutes.RequestContext;
 import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.tags.model.GatewayTagManager;
-import com.inductiveautomation.perspective.gateway.api.PerspectiveContext;
 
 
 /**
  * Class containing dynamic data 'routes' or 'endpoints'.
  */
-public class DataEndpoints {
-    private final RouteGroup routes;
-    private final PerspectiveContext context;
+public final class DataEndpoints {
     // how long to hold cached value before allowing new count calculation
-    private static final long CACHE_DURATION_MS = 50000L;
+    private static final long CACHE_DURATION_MS = Long.getLong("RadComponents.TagCounter.CacheDuration", 30000L);
     private static AtomicReference<Long> tagCount = new AtomicReference<>(0L);
     private static AtomicReference<Long> timestampOfLastCount = new AtomicReference<>(0L);
 
-    public DataEndpoints(PerspectiveContext context, RouteGroup routes) {
-        this.routes = routes;
-        this.context = context;
+    private DataEndpoints() {
+        // private constructor
+    }
 
+    public static void mountRoutes(RouteGroup routes) {
         // creates a new data route reachable at host:port/main/data/radcomppnents/component/tagcount
         routes.newRoute("/component/tagcount")
             .type(RouteGroup.TYPE_JSON)
-            .handler(this::fetchTagCount)
+            .handler(DataEndpoints::fetchTagCount)
             .mount();
     }
 
@@ -53,7 +49,7 @@ public class DataEndpoints {
      * Note: an 'ideal' implementation of this sort would require some additional concurrency handling for optimal
      * performance and safety, but was skipped to keep example focused on big picture functionality.
      */
-    private JsonObject fetchTagCount(RequestContext req, HttpServletResponse res) {
+    private static JsonObject fetchTagCount(RequestContext req, HttpServletResponse res) {
         // if we've exceeded our throttle duration, update count
         if (System.currentTimeMillis() - timestampOfLastCount.get() > CACHE_DURATION_MS) {
             timestampOfLastCount.set(System.currentTimeMillis());
@@ -66,10 +62,8 @@ public class DataEndpoints {
                 .map(TagProvider::getStatusInformation)
                 .map(Futures::getSafe)
                 .filter(Objects::nonNull)
-                .map(TagProviderInformation::getTagCount)
-                .reduce(Integer::sum)
-                .map(Long::valueOf)
-                .orElse(0L);
+                .mapToLong(TagProviderInformation::getTagCount)
+                .sum();
 
             tagCount.set(count);
         }

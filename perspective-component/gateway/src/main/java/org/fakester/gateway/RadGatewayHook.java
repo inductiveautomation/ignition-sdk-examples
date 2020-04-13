@@ -10,12 +10,12 @@ import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.perspective.common.api.ComponentRegistry;
 import com.inductiveautomation.perspective.gateway.api.ComponentModelDelegateRegistry;
 import com.inductiveautomation.perspective.gateway.api.PerspectiveContext;
-import org.fakester.common.component.display.Messenger;
-import org.fakester.gateway.delegate.MessageComponentModelDelegate;
-import org.fakester.gateway.endpoint.DataEndpoints;
 import org.fakester.common.RadComponents;
 import org.fakester.common.component.display.Image;
+import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.TagCounter;
+import org.fakester.gateway.delegate.MessageComponentModelDelegate;
+import org.fakester.gateway.endpoint.DataEndpoints;
 
 public class RadGatewayHook extends AbstractGatewayModuleHook {
 
@@ -25,7 +25,6 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
     private PerspectiveContext perspectiveContext;
     private ComponentRegistry componentRegistry;
     private ComponentModelDelegateRegistry modelDelegateRegistry;
-    private DataEndpoints routes;
 
     @Override
     public void setup(GatewayContext context) {
@@ -84,7 +83,7 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
     @Override
     public void mountRouteHandlers(RouteGroup routeGroup) {
         // where you may choose to implement web server endpoints accessible via `host:port/system/data/
-        routes = new DataEndpoints(this.perspectiveContext, routeGroup);
+        DataEndpoints.mountRoutes(routeGroup);
     }
 
     // Lets us use the route http://<gateway>/res/radcomponents/*
