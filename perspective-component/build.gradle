@@ -13,7 +13,7 @@ buildscript {
 
     }
 
-    ext.sdk_version = "8.0.3"
+    ext.sdk_version = "8.0.9"
 
     dependencies {
         classpath("com.inductiveautomation.gradle:ignition-module-plugin:1.2.10-SNAPSHOT")
@@ -44,7 +44,7 @@ allprojects {
         moduleId "org.fakester.radcomponent"
         moduleVersion "${project.version}"
         moduleDescription "A module that adds components to the Perspective module."
-        requiredIgnitionVersion "8.0.1"
+        requiredIgnitionVersion "8.0.10"
         requiredFrameworkVersion "8"
         isFree true
         license "license.html"

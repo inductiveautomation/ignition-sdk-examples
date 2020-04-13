@@ -1,7 +1,5 @@
 package org.fakester.common.component.display;
 
-import javax.swing.ImageIcon;
-
 import com.inductiveautomation.ignition.common.jsonschema.JsonSchema;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptor;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptorImpl;

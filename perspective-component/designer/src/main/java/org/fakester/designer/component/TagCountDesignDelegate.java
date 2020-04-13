@@ -6,9 +6,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -67,8 +64,6 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
         JLabel label = new JLabel(StringUtils.capitalize(INTERVAL_PROP_KEY));
         JTextField textField;
 
-
-
         private TagCountComponentConfigPanel(ComponentSelection selection) {
             super(new MigLayout());
             this.selection = selection;
@@ -90,7 +85,6 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
             Listen.toDocumentChange(textField, this::updateIntervalPropValue);
         }
 
-
         /**
          * Does some basic checks and returns a JsonObject containing a pure property tree, without the qualified value
          * encoding.
@@ -109,7 +103,6 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
 
             return Optional.empty();
         }
-
 
         /**
          * Reads 'props.interval' value from the component's prop tree
@@ -159,11 +152,10 @@ public class TagCountDesignDelegate implements ComponentDesignDelegate {
          */
         @Subscribe
         public void onComponentPropChange(SelectionPropertyUpdateEvent event) {
-            // property changes come as qualifed values.  We use this util to get a 'pure' JsonElement that does not
-            // have the quality mntadate.
+            // property changes come as qualified values.  We use this util to get a 'pure' JsonElement that does not
+            // have the quality metadata.
             JsonElement changes = PropertyJsonUtil.decodeQualifiedValueJson(event.changes);
             if (changes != null && changes.isJsonObject()) {
-
                 JsonObject json = changes.getAsJsonObject();
 
                 // anchor is the first selected element.  But this config UI only loads for single component selection
