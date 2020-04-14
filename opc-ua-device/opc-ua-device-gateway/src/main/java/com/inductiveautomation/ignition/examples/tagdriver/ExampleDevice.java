@@ -27,6 +27,7 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 
 public class ExampleDevice extends ManagedDevice {
 
+    private final ValueSimulator simulator = new ValueSimulator();
     private final SubscriptionModel subscriptionModel;
 
     private final DeviceContext deviceContext;
@@ -57,6 +58,11 @@ public class ExampleDevice extends ManagedDevice {
 
     private void onStartup() {
         subscriptionModel.startup();
+
+        // create a basic tag updater service, let the gateway run it separately from UA subscription management
+        deviceContext.getGatewayContext()
+            .getExecutionManager()
+            .registerAtFixedRate(ExampleDeviceType.TYPE_ID, deviceContext.getName(), simulator, 1, TimeUnit.SECONDS);
 
         // create a folder node for our configured device
         UaFolderNode rootNode = new UaFolderNode(
@@ -107,12 +113,6 @@ public class ExampleDevice extends ManagedDevice {
 
         // addOrganizes is just a helper method to an OPC UA "Organizes" references to a folder node
         rootNode.addOrganizes(folder);
-
-        // create a basic tag updater service, let the gateway run it separately from UA subscription management
-        ValueSimulator simulator = new ValueSimulator();
-        deviceContext.getGatewayContext()
-            .getExecutionManager()
-            .registerAtFixedRate(ExampleDeviceType.TYPE_ID, deviceContext.getName(), simulator, 1, TimeUnit.SECONDS);
 
         for (int i = 0; i < settings.getTagCount(); i++) {
             String formattedName = String.format("%s%d", name, i);
