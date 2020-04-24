@@ -4,6 +4,7 @@
 
 import * as React from 'react';
 import { Component, ComponentMeta, ComponentProps, SizeObject } from '@inductiveautomation/perspective-client';
+import { observer } from 'mobx-react';
 
 
 // the 'key' or 'id' for this component type.  Component must be registered with this EXACT key in the Java side as well
@@ -17,7 +18,7 @@ export interface ImageProps {
     url: string;   // the url of the image this component should display
 }
 
-
+@observer
 export class Image extends Component<ComponentProps, any> {
     render() {
         // the props we're interested in
@@ -32,6 +33,7 @@ export class Image extends Component<ComponentProps, any> {
             <img
                 {...this.props.emit()}
                 src={propUrl}
+                alt={`image-src-${propUrl}`}
             />
         );
     }
