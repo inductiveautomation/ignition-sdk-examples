@@ -9,8 +9,8 @@ plugins {
 // configurations on which versions of Node, Npm, and Yarn the gradle build should use.  Configuration provided by/to
 // the gradle node plugin that"s applied above (com.moowork.node)
 node {
-    version = "8.15.0"
-    yarnVersion = "1.15.2"
+    version = "10.18.1"
+    yarnVersion = "1.22.4"
     npmVersion = "6.4.1"
     download = true
     nodeModulesDir = file(project.projectDir)
@@ -20,23 +20,21 @@ node {
 String  mountedJsDir= "$project.parent.projectDir/gateway/src/main/resources/mounted"
 
 // define a gradle task that will install our npm dependencies, extends the YarnTask provided by the node gradle plugin
-
-
 task yarnPackages(type: YarnTask) {
 
     // group only used to categorize the task when running "gradle tasks" and viewing the list of possible tasks.group = "Web Build tasks"
     description = "Executes 'yarn' at the root of the web/ directory to install npm dependencies for the yarn workspace."
     // which yarn command to execute
-    args = ["install"]
+    args = ["install", "--verbose"]
 
     // set this tasks "inputs" to be any package.json files or yarn.lock files that are found in or below our current
     // folder (project.projectDir).  This lets the build system avoid repeatedly trying to reinstall dependencies
     // which have already been installed.  If changes to package.json or yarn.lock are detected, then it will execute
     // the install task again.
-    inputs.files(
-            fileTree(project.projectDir).matching {
-                include("**/package.json", "**/yarn.lock")
-            })
+//    inputs.files(
+//            fileTree(project.projectDir).matching {
+//                include("**/package.json")//, "**/yarn.lock")
+//            })
 
     dependsOn("${project.path}:yarn")
 }
@@ -64,6 +62,8 @@ task webpack(type: NpmTask) {
     // inputs.
     outputs.files(fileTree("${project.parent?.projectDir}/gateway/src/main/resources/mounted"))
 }
+
+project.tasks.findByName("build").dependsOn(webpack)
 
 // task to delete the dist folders
 task deleteDistFolders(type: Delete) {
