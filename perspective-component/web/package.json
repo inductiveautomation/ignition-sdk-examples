@@ -17,6 +17,7 @@
   "devDependencies": {
     "lerna": "3.13.1",
     "mini-css-extract-plugin": "^0.7.0",
+    "typescript": "3.6.5",
     "yarn": "1.22.4"
   },
   "resolutions": {
