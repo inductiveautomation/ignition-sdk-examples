@@ -20,10 +20,27 @@
         <ignition-platform-version>8.0.0</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Report Datasource Example</module-name>
-        <module-description>Adds a REST/Json datasource to Ignition's reporting module as a datasource</module-description>
+        <module-description>Adds a REST/Json datasource to Ignition's reporting module as a datasource
+        </module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <source>11</source>
+                        <target>11</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <pluginRepositories>
         <pluginRepository>
