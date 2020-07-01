@@ -632,10 +632,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@inductiveautomation/perspective-client@1.0.13":
-  version "1.0.13"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-1.0.13.tgz#eda4f5ea44bf44dfecaedef9a5a77ce935da5f37"
-  integrity sha512-xcQsw07z6BAu0+NunJ0XJmzBQvwhgZ/6mwHBxn5snwe8g/p7bFzJEf2s6SG3Ff+s7n3BUuUG/Hst6oJrNIvGeg==
+"@inductiveautomation/perspective-client@1.0.14":
+  version "1.0.14"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-1.0.14.tgz#de8eba724e1fbec5ea002e821ba86d75f0d94472"
+  integrity sha512-kvDyLtvPRdqTFLLpPI068CDh35IJu8OSypAa/Ma8RlAAE1UiXBM8OPPzVq5f6V903BhjrT87QUQ1hKWcEbfQJg==
   dependencies:
     axios "^0.18.0"
     bind-decorator "^1.0.10"
@@ -658,14 +658,14 @@
     transformation-matrix "^2.1.0"
     ua-parser-js "^0.7.18"
 
-"@inductiveautomation/perspective-designer@1.0.13":
-  version "1.0.13"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-1.0.13.tgz#dea5f993b7c21109c2deed60e024572f03a3ebdf"
-  integrity sha512-m75xZbNFssR/jMfYtocGCBvbYSTQEt/KDE+IsuLLIZ4c+TTjmmU92rol4zdqpTDCZt1ERytrM1H8QSUdnRqJHw==
+"@inductiveautomation/perspective-designer@1.0.14":
+  version "1.0.14"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-1.0.14.tgz#9c46f6380ad8b8a76b52625f6c8e75d52c3aa087"
+  integrity sha512-4s+q4h/4000ct390tE/tYaPi3gDNmAkalwSf8tttJBpBUhW4HX9mw6VkJxLrSxjBsNBJzMFy8osVIUhJUI+BeQ==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/preset-env" "^7.1.6"
-    "@inductiveautomation/perspective-client" "1.0.13"
+    "@inductiveautomation/perspective-client" "1.0.14"
     axios "^0.18.0"
     bind-decorator "^1.0.10"
     history "^4.5.1"
@@ -1400,14 +1400,7 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
   integrity sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
 
-"@types/react-dom@16.8.3":
-  version "16.8.3"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.3.tgz#6131b7b6158bc7ed1925a3374b88b7c00481f0cb"
-  integrity sha512-HF5hD5YR3z9Mn6kXcW1VKe4AQ04ZlZj1EdLBae61hzQ3eEWWxMgNLUbIxeZp40BnSxqY1eAYLsH9QopQcxzScA==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-dom@^16.8.3":
+"@types/react-dom@16.8.4", "@types/react-dom@^16.8.3":
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.4.tgz#7fb7ba368857c7aa0f4e4511c4710ca2c5a12a88"
   integrity sha512-eIRpEW73DCzPIMaNBDP5pPIpK1KXyZwNgfxiVagb5iGiz6da+9A5hslSX6GAQKdO7SayVCS/Fr2kjqprgAvkfA==

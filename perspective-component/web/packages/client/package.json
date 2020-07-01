@@ -14,7 +14,7 @@
         "deepClean": "npm run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
-        "@inductiveautomation/perspective-client": "1.0.13",
+        "@inductiveautomation/perspective-client": "1.0.14",
         "axios": "^0.19.0",
         "mobx": "5.15.1",
         "mobx-react": "6.1.8",
@@ -26,7 +26,7 @@
         "@types/jsnlog": "2.17.35",
         "@types/moment-timezone": "^0.5.3",
         "@types/react": "16.8.8",
-        "@types/react-dom": "16.8.3",
+        "@types/react-dom": "16.8.4",
         "babel-core": "^6.26.3",
         "css-loader": "^2.1.1",
         "mini-css-extract-plugin": "^0.7.0",

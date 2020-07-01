@@ -14,8 +14,8 @@
         "deepClean": "npm run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
-        "@inductiveautomation/perspective-client": "1.0.13",
-        "@inductiveautomation/perspective-designer": "1.0.13",
+        "@inductiveautomation/perspective-client": "1.0.14",
+        "@inductiveautomation/perspective-designer": "1.0.14",
         "@myCompanyNamespace/example-client": "1.0.0",
         "bind-decorator": "^1.0.11",
         "mobx": "5.15.1",
