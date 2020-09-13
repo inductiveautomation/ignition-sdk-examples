@@ -47,7 +47,7 @@ public class ExampleDeviceType extends DeviceType {
             deviceSettingsRecord
         );
 
-        return new ExampleDevice(deviceContext, settings);
+        return new ExampleDevice(this, deviceContext, settings);
     }
 
 }
