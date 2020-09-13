@@ -15,7 +15,7 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-platform-version>8.0.13</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>OPC UA Device Example</module-name>
         <module-description>Shows how to implement a new OPC UA device type</module-description>

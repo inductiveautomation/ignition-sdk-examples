@@ -93,6 +93,8 @@ public class ExampleDevice extends ManagedAddressSpaceServices implements Device
 
         addDynamicNodes(rootNode);
 
+        subscriptionModel.startup();
+
         // fire initial subscription creation
         List<DataItem> dataItems = deviceContext.getSubscriptionModel().getDataItems(getName());
         onDataItemsCreated(dataItems);
@@ -100,7 +102,9 @@ public class ExampleDevice extends ManagedAddressSpaceServices implements Device
 
     @Override
     public void onShutdown() {
-        super.getNodeContext();
+        super.onShutdown();
+
+        subscriptionModel.shutdown();
 
         deviceContext.getGatewayContext()
             .getExecutionManager()
