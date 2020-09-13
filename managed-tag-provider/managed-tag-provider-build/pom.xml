@@ -49,7 +49,6 @@
                     <moduleDescription>Adds a new Tag Provider through the ManagedTagProvider interface</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
                     <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
-                    <requiredFrameworkVersion>8</requiredFrameworkVersion>
                     <licenseFile>license.html</licenseFile>
                     <documentationFile>doc/index.html</documentationFile>
 

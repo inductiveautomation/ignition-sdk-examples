@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Expression Function Example</module-name>
         <module-description>Implements a simple expression function in the client, designer, and gateway scope.</module-description>

@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Report Datasource Example</module-name>
         <module-description>Adds a REST/Json datasource to Ignition's reporting module as a datasource
