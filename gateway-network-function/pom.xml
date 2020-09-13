@@ -10,7 +10,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <ignition-platform-version>8.0.0</ignition-platform-version>
+        <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Gateway Network Function Example</module-name>
         <module-description>Provides an example of a gateway network function and EAM task</module-description>

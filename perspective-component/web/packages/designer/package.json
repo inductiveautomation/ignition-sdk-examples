@@ -14,10 +14,11 @@
         "deepClean": "npm run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
-        "@inductiveautomation/perspective-client": "^1.0.3",
-        "@inductiveautomation/perspective-designer": "^1.0.3",
+        "@inductiveautomation/perspective-client": "1.0.13",
+        "@inductiveautomation/perspective-designer": "1.0.13",
         "@myCompanyNamespace/example-client": "1.0.0",
         "bind-decorator": "^1.0.11",
+        "mobx": "5.15.1",
         "react": "^16.8.4",
         "react-dom": "^16.8.4"
     },
@@ -27,9 +28,10 @@
         "@types/react-dom": "^16.8.3",
         "ts-loader": "5.3.3",
         "tslint": "5.14.0",
-        "typescript": "3.3.4000",
+        "tslint-react": "^5.0.0",
+        "typescript": "3.6.4",
         "webpack": "4.29.6",
         "webpack-cli": "3.3.0",
-        "yarn": "^1.17.3"
+        "yarn": "1.22.4"
     }
 }

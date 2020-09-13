@@ -22,8 +22,8 @@
  *
  */
 
-import { observable, action, reaction, computed } from 'mobx';
-import { Disposer, observer } from 'mobx-react';
+import { observable, action, reaction, computed, IReactionDisposer } from 'mobx';
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import {
     AbstractUIElementStore,
@@ -99,7 +99,7 @@ export class CustomValueStore implements MessageResponseHandler {
      * this is called when a component is removed from the DOM by calling the disposer in React's
      * 'componentWillUnmount()' lifecycle is called.
      */
-    messagePendingDisposer?: Disposer;
+    messagePendingDisposer?: IReactionDisposer;
 
     /**
      * Observable value that is set when a message should be pending.  Setting this to 'true' will trigger a 'reaction'

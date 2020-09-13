@@ -1,10 +1,68 @@
 {
     "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "url"
+    ],
     "properties": {
         "url": {
             "type": "string",
             "description": "url of image to display on component.",
             "default": "/res/radcomponents/img/bananatime.gif"
+        },
+        "color": {
+            "type": "string",
+            "description": "A pointless property to demonstrate the color schema validator.",
+            "format": "color",
+            "default": "#FFFFFF"
+        },
+        "enum": {
+            "type": "string",
+            "enum": [
+                "hand",
+                "off",
+                "auto"
+            ],
+            "description": "A pointless property to demonstrate the enum schema validator.",
+            "default": "off"
+        },
+        "fixedSuggestions": {
+            "type": "integer",
+            "suggestions": {
+                "hand": 0,
+                "off": 1,
+                "auto": 2
+            },
+            "default": 1,
+            "description": "A pointless property to demonstrate the suggestions schema validator."
+        },
+        "conditional": {
+            "type": "string",
+            "default": "Only visible sometimes!",
+            "visibleWhen": {
+                "property": "conditionalVisible",
+                "equals": true
+            }
+        },
+        "conditionalVisible": {
+            "type": "boolean",
+            "default": false,
+            "description": "Set true to show the hidden 'conditional' property."
+        },
+        "dynamicSuggestions": {
+            "type": "array",
+            "description": "Dynamic array of suggestions to use for another property.",
+            "default": [
+                "mary",
+                "jim",
+                "bob",
+                "sue"
+            ]
+        },
+        "suggestions": {
+            "type": "string",
+            "default": "",
+            "dynamicSuggestions": "/dynamicSuggestions/*"
         },
         "style": {
             "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
