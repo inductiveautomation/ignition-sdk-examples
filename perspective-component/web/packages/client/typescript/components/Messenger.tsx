@@ -22,7 +22,7 @@
  *
  */
 
-import { observable, action, reaction, computed, IReactionDisposer } from 'mobx';
+import { observable, action, reaction, IReactionDisposer } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import {
@@ -33,10 +33,11 @@ import {
     ComponentStoreDelegate,
     isFunction,
     JsObject,
-    makeLogger,
+    makeLogger, PComponent,
     PropertyTree,
     SizeObject
 } from '@inductiveautomation/perspective-client';
+import { bind } from 'bind-decorator';
 
 
 // the 'key' or 'id' for this component type.  Component must be registered with this EXACT key in the Java side as well
@@ -114,10 +115,7 @@ export class CustomValueStore implements MessageResponseHandler {
     @observable
     messageCount: number = 0;
 
-    readonly propTree: PropertyTree;
-
-    constructor(props: PropertyTree, delegate: MessageComponentGatewayDelegate){
-        this.propTree = props;
+    constructor(delegate: MessageComponentGatewayDelegate){
         this.delegate = delegate;
 
         this.dispose = this.dispose.bind(this);
@@ -145,42 +143,6 @@ export class CustomValueStore implements MessageResponseHandler {
         this.delegate.messageGateway(this.messageCount);
     }
 
-    /**
-     * A computed 'getter' is another way to create observable values.  These values are derived or 'computed' from an
-     * observable value.  The getter is called when a mobx tracked function calls the getter.  See mobx docs:
-     * https://mobx.js.org/refguide/computed-decorator.html
-     *
-     * In this case, there are two observables that may trigger this computation to run and emit updated values to any
-     * subscribed observers: this.messageCount and props.messageConfig (PropertyTree uses mobx internally, making
-     * all values read() from a property tree 'observable').
-     *
-     * As long as there is one 'observer' that calls this getter, it will get a new value any time messageCount or
-     * messageConfig changes.  This means that if this getter is called in the render() of our component implementation,
-     * the component will rerender when the getter's return value changes.  No additional logic needed!
-     *
-     * In this case, we're getting the message to be displayed by doing some minor validation on the configuration,
-     * finding the appropriate message to display from the config and returning it.
-     */
-    @computed
-    get displayMessage(): string {
-
-        const messageConfig = this.propTree.read("messageConfig", DEFAULT_MESSAGE_CONFIG);
-
-        // get the correct message based on the number of messages that have been sent to/from the gateway.
-        const msgItem = Object.entries(messageConfig)
-                              .filter(([k, v]: [string, string]) => /^[0-9]+$/.test(k))
-                              .map(([k, v]: [string, string]) => [Number(k), v])
-                              .sort((pair, pair2) => (pair[0] as number) - (pair2[0] as number))
-                              .reduce((accum, next) => {
-                                  if (this.messageCount >= (next[0] as number)) {
-                                      return next;
-                                  } else {
-                                      return accum;
-                                  }
-                              }, [-1, "Default Message!"]);
-
-        return msgItem[1] as string;
-    }
 
     /**
      * Callback that gets called from the store delegate when an app receives a message from the Gateway model delegate.
@@ -278,19 +240,18 @@ export class MessageComponentGatewayDelegate extends ComponentStoreDelegate {
 /**
  * Main component implementation class.
  */
-@observer
-export class MessengerComponent extends Component<ComponentProps, {}> {
+@observer   // observer because the internal store uses mobx
+export class MessengerComponent extends Component<ComponentProps<MessagePropConfig>, {}> {
 
     // store used for storing state using mobx as an alternative to react `setState()`
     readonly myStore: CustomValueStore;
     readonly delegate: MessageComponentGatewayDelegate;
 
 
-    constructor(props: ComponentProps) {
+    constructor(props: ComponentProps<MessagePropConfig>) {
         super(props);
         this.delegate = props.delegate as MessageComponentGatewayDelegate;
-        this.myStore = new CustomValueStore(props.props, this.delegate);
-
+        this.myStore = new CustomValueStore(this.delegate);
     }
 
     componentWillUnmount() {
@@ -309,6 +270,24 @@ export class MessengerComponent extends Component<ComponentProps, {}> {
         this.myStore.messagePending = true;
     }
 
+    @bind
+    renderMsg(): String {
+        // get the correct message based on the number of messages that have been sent to/from the gateway.
+        const msgItem = Object.entries(this.props.props.messageConfig)
+            .filter(([k, v]: [string, string]) => /^[0-9]+$/.test(k))
+            .map(([k, v]: [string, string]) => [Number(k), v])
+            .sort((pair, pair2) => (pair[0] as number) - (pair2[0] as number))
+            .reduce((accum, next) => {
+                if (this.myStore.messageCount >= (next[0] as number)) {
+                    return next;
+                } else {
+                    return accum;
+                }
+            }, [-1, "Default Message!"]);
+
+        return msgItem[1] as string;
+    }
+
     render() {
         const buttonText: string = this.myStore.messagePending ? "Waiting" : "Send Message";
 
@@ -319,7 +298,7 @@ export class MessengerComponent extends Component<ComponentProps, {}> {
                 <h3 className={"counter"}>
                     {this.myStore.messageCount}
                 </h3>
-                <span className={"message"}>{this.myStore.displayMessage}</span>
+                <span className={"message"}>{this.renderMsg()}</span>
                 <button className={"messenger-button"} onClick={this.fireUpdateToGateway} disabled={this.myStore.messagePending}>{buttonText}</button>
             </div>
         );
@@ -334,11 +313,6 @@ export class MessengerComponentMeta implements ComponentMeta {
         return COMPONENT_TYPE;
     }
 
-    // the class or React Type that this component provides
-    getViewClass(): React.ReactType {
-        return MessengerComponent;
-    }
-
     getDefaultSize(): SizeObject {
         return ({
             width: 120,
@@ -348,5 +322,14 @@ export class MessengerComponentMeta implements ComponentMeta {
 
     public createDelegate(component: AbstractUIElementStore): ComponentStoreDelegate | undefined {
         return new MessageComponentGatewayDelegate(component);
+    }
+
+    getViewComponent(): PComponent {
+        return MessengerComponent;
+
+    }
+
+    getPropsReducer(tree: PropertyTree): MessagePropConfig {
+        return { messageConfig: tree.read("messageConfig", DEFAULT_MESSAGE_CONFIG)};
     }
 }

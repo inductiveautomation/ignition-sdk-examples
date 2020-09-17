@@ -6,7 +6,13 @@ import { AxiosResponse } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
-import { Component, ComponentMeta, ComponentProps, SizeObject } from '@inductiveautomation/perspective-client';
+import {
+    Component,
+    ComponentMeta,
+    ComponentProps, PComponent,
+    PropertyTree,
+    SizeObject
+} from '@inductiveautomation/perspective-client';
 import { Poller } from '../util/Poller';
 import { bind } from 'bind-decorator';
 
@@ -20,6 +26,10 @@ interface TagCountPayload {
     tagCount: number;
 }
 
+interface TagCountProps {
+    interval: number;
+}
+
 
 const HOST = `${location.protocol}//${location.host}`;
 const COUNT_FETCH_URL = `${HOST}/main/data/radcomponents/component/tagcount`;
@@ -27,7 +37,7 @@ const COUNT_FETCH_URL = `${HOST}/main/data/radcomponents/component/tagcount`;
  * This example uses a 'data route' to collect tag counts according to a client-side polling request.
  */
 @observer
-export class TagCounter extends Component<ComponentProps, {}> {
+export class TagCounter extends Component<ComponentProps<TagCountProps>, {}> {
 
     fetchPoller?: Poller<TagCountPayload>;
 
@@ -36,7 +46,7 @@ export class TagCounter extends Component<ComponentProps, {}> {
     @observable animating: boolean = false;
 
     componentDidMount() {
-        this.fetchPoller = new Poller<TagCountPayload>(COUNT_FETCH_URL,  this.props.props.read("interval", 1000));
+        this.fetchPoller = new Poller<TagCountPayload>(COUNT_FETCH_URL,  this.props.props.interval);
         this.fetchPoller.start(this.updateTagCount);
     }
 
@@ -49,9 +59,7 @@ export class TagCounter extends Component<ComponentProps, {}> {
     updateTagCount(response: AxiosResponse<TagCountPayload>): void {
         if (!this.animating) {
             this.animating = true;
-            setTimeout(() => { this.animating = false; },
-                       this.props.props.read("interval", 1000)
-            );
+            setTimeout(() => { this.animating = false; }, this.props.props.interval);
         }
 
         if (response && response.status === 200) {
@@ -71,8 +79,8 @@ export class TagCounter extends Component<ComponentProps, {}> {
     render() {
         // the props we're interested in
 
-        const { props } = this.props;
-        const interval = props.read("interval", 1000);
+        const { props, emit } = this.props;
+        const interval = props.interval;
 
         if (this.fetchPoller && (this.fetchPoller.interval !== interval)) {
             this.fetchPoller.updateInterval(interval);
@@ -80,12 +88,10 @@ export class TagCounter extends Component<ComponentProps, {}> {
 
         const counterClasses = this.animating ? 'tag-counter-count message-animation' : 'tag-counter-count';
 
-        // read the 'url' property provided by the perspective gateway via the component 'props'.
-
         // note that the topmost piece of dom requires the application of events, style and className as shown below
         // otherwise the layout won't work, or any events configured will fail.
         return (
-            <div {...this.props.emit({classes: ['tag-counter-component']})}>
+            <div {...emit({classes: ['tag-counter-component']})}>
                 <span className={counterClasses}>{this.tagCount}</span>
                 <span className={"tag-counter-interval"}>{`Interval ${interval} ms`}</span>
             </div>
@@ -101,15 +107,21 @@ export class TagCounterMeta implements ComponentMeta {
         return COMPONENT_TYPE;
     }
 
-    // the class or React Type that this component provides
-    getViewClass(): React.ReactType {
-        return TagCounter;
-    }
-
     getDefaultSize(): SizeObject {
         return ({
             width: 160,
             height: 64
         });
     }
+
+    getPropsReducer(tree: PropertyTree): Record<string, any> {
+        return {
+            interval: tree.readNumber("interval", 1000)
+        };
+    }
+
+    getViewComponent(): PComponent {
+        return TagCounter;
+    }
+
 }

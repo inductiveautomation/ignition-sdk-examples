@@ -3,8 +3,14 @@
  */
 
 import * as React from 'react';
-import { Component, ComponentMeta, ComponentProps, SizeObject } from '@inductiveautomation/perspective-client';
-import { observer } from 'mobx-react';
+import {
+    Component,
+    ComponentMeta,
+    ComponentProps,
+    PComponent,
+    PropertyTree,
+    SizeObject
+} from '@inductiveautomation/perspective-client';
 
 
 // the 'key' or 'id' for this component type.  Component must be registered with this EXACT key in the Java side as well
@@ -18,22 +24,20 @@ export interface ImageProps {
     url: string;   // the url of the image this component should display
 }
 
-@observer
-export class Image extends Component<ComponentProps, any> {
+export class Image extends Component<ComponentProps<ImageProps>, any> {
     render() {
         // the props we're interested in
 
-        const { props } = this.props;
+        const { props, emit } = this.props;
         // read the 'url' property provided by the perspective gateway via the component 'props'.
-        const propUrl: string = props.read('url');
 
         // note that the topmost piece of dom requires the application of events, style and className as shown below
         // otherwise the layout won't work, or any events configured will fail.
         return (
             <img
-                {...this.props.emit()}
-                src={propUrl}
-                alt={`image-src-${propUrl}`}
+                {...emit()}
+                src={props.url}
+                alt={`image-src-${props.url}`}
             />
         );
     }
@@ -48,7 +52,7 @@ export class ImageMeta implements ComponentMeta {
     }
 
     // the class or React Type that this component provides
-    getViewClass(): React.ReactType {
+    getViewComponent(): PComponent {
         return Image;
     }
 
@@ -57,5 +61,11 @@ export class ImageMeta implements ComponentMeta {
             width: 360,
             height: 360
         });
+    }
+
+    getPropsReducer(tree: PropertyTree): ImageProps {
+        return {
+            url: tree.readString("url", "")
+        };
     }
 }
