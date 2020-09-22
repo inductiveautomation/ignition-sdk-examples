@@ -88,8 +88,6 @@ public class ExampleDevice extends ManagedDevice {
 
         addDynamicNodes(rootNode);
 
-        subscriptionModel.startup();
-
         // fire initial subscription creation
         List<DataItem> dataItems = deviceContext.getSubscriptionModel().getDataItems(getName());
         onDataItemsCreated(dataItems);
