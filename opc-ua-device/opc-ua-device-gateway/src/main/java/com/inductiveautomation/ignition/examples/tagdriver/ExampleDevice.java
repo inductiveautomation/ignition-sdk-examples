@@ -19,13 +19,18 @@ import org.eclipse.milo.opcua.sdk.server.nodes.UaFolderNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaVariableNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.filters.AttributeFilters;
 import org.eclipse.milo.opcua.sdk.server.util.SubscriptionModel;
+import org.eclipse.milo.opcua.stack.core.AttributeId;
 import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
 import org.eclipse.milo.opcua.stack.core.Identifiers;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.LocalizedText;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExampleDevice extends ManagedDevice {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ValueSimulator simulator = new ValueSimulator();
     private final SubscriptionModel subscriptionModel;
@@ -83,10 +88,10 @@ public class ExampleDevice extends ManagedDevice {
             Reference.Direction.INVERSE
         ));
 
-        addSimpleFolder(rootNode, "static", settings.getTagCount(), AccessLevel.READ_WRITE);
-        addSimpleFolder(rootNode, "readOnly", settings.getTagCount(), AccessLevel.READ_ONLY);
-
         addDynamicNodes(rootNode);
+
+        addStaticNodes(rootNode, "static", settings.getTagCount(), AccessLevel.READ_WRITE);
+        addStaticNodes(rootNode, "readOnly", settings.getTagCount(), AccessLevel.READ_ONLY);
 
         // fire initial subscription creation
         List<DataItem> dataItems = deviceContext.getSubscriptionModel().getDataItems(getName());
@@ -141,7 +146,7 @@ public class ExampleDevice extends ManagedDevice {
         }
     }
 
-    private void addSimpleFolder(UaFolderNode rootNode, String name, int count, Set<AccessLevel> accessLevel) {
+    private void addStaticNodes(UaFolderNode rootNode, String name, int count, Set<AccessLevel> accessLevel) {
         UaFolderNode folder = new UaFolderNode(
             getNodeContext(),
             deviceContext.nodeId(name),
@@ -164,6 +169,19 @@ public class ExampleDevice extends ManagedDevice {
                 .setUserAccessLevel(accessLevel)
                 .build();
             node.setValue(new DataValue(new Variant(i)));
+
+            if (accessLevel.contains(AccessLevel.CurrentWrite)) {
+                // This filter just intercepts the write to log it before
+                // passing it to the next filter in the chain. The default
+                // filter instance at the end will write the attribute to
+                // the UaNode instance.
+                node.getFilterChain().addLast(AttributeFilters.setValue((ctx, value) -> {
+                    logger.info("setValue: {}", value.getValue().getValue());
+
+                    ctx.setAttribute(AttributeId.Value, value);
+                }));
+            }
+
             getNodeManager().addNode(node);
             folder.addOrganizes(node);
         }
