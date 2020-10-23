@@ -20,7 +20,7 @@ import org.python.core.PyObject;
  */
 public class MessageComponentModelDelegate extends ComponentModelDelegate {
     public static final String INCOMING_EVENT_NAME = "messenger-component-message-event";
-    public static final String OUTBOUND_EVENT_NAME = "messenger-component-response-event";
+    public static final String OUTBOUND_EVENT_NAME = "messenger-component-message-response-event";
 
     public MessageComponentModelDelegate(Component component) {
         super(component);

@@ -1,7 +1,6 @@
 /**
  * Example of a component which displays an image, given a URL.
  */
-
 import * as React from 'react';
 import {
     Component,
@@ -13,38 +12,37 @@ import {
 } from '@inductiveautomation/perspective-client';
 
 
-// the 'key' or 'id' for this component type.  Component must be registered with this EXACT key in the Java side as well
+// The 'key' or 'id' for this component type.  Component must be registered with this EXACT key in the Java side as well
 // as on the client side.  In the client, this is done in the index file where we import and register through the
 // ComponentRegistry provided by the perspective-client API.
 export const COMPONENT_TYPE = "rad.display.image";
 
 
-// this is the shape of the properties we get from the perspective 'props' property tree.
+// This is the shape of the properties we get from the perspective 'props' property tree.
 export interface ImageProps {
     url: string;   // the url of the image this component should display
 }
 
 export class Image extends Component<ComponentProps<ImageProps>, any> {
     render() {
-        // the props we're interested in
+        // The props we're interested in.
+        const { props: { url }, emit } = this.props;
+        // Read the 'url' property provided by the perspective gateway via the component 'props'.
 
-        const { props, emit } = this.props;
-        // read the 'url' property provided by the perspective gateway via the component 'props'.
-
-        // note that the topmost piece of dom requires the application of events, style and className as shown below
-        // otherwise the layout won't work, or any events configured will fail.
+        // Note that the topmost piece of dom requires the application of events, style and className as shown below
+        // otherwise the layout won't work, or any events configured will fail. See render of MessengerComponent in Messenger.tsx
         return (
             <img
                 {...emit()}
-                src={props.url}
-                alt={`image-src-${props.url}`}
+                src={url}
+                alt={`image-src-${url}`}
             />
         );
     }
 }
 
 
-// this is the actual thing that gets registered with the component registry
+// This is the actual thing that gets registered with the component registry.
 export class ImageMeta implements ComponentMeta {
 
     getComponentType(): string {
@@ -63,6 +61,8 @@ export class ImageMeta implements ComponentMeta {
         });
     }
 
+    // Invoked when an update to the PropertyTree has occurred,
+    // effectively mapping the state of the tree to component props.
     getPropsReducer(tree: PropertyTree): ImageProps {
         return {
             url: tree.readString("url", "")
