@@ -1,6 +1,6 @@
 {
     "name": "@myCompanyNamespace/example-designer",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Example designer scope perspective components",
     "main": "dist/index.js",
     "typings": "dist/typings/example-designer.d.ts",
@@ -14,9 +14,9 @@
         "deepClean": "npm run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
-        "@inductiveautomation/perspective-client": "1.0.13",
-        "@inductiveautomation/perspective-designer": "1.0.13",
-        "@myCompanyNamespace/example-client": "1.0.0",
+        "@inductiveautomation/perspective-client": "^2.1.0",
+        "@inductiveautomation/perspective-designer": "^2.1.0",
+        "@myCompanyNamespace/example-client": "2.0.0",
         "bind-decorator": "^1.0.11",
         "mobx": "5.15.1",
         "react": "^16.8.4",

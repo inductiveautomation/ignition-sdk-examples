@@ -15,15 +15,14 @@ public class TagCounter {
         JsonSchema.parse(RadComponents.class.getResourceAsStream("/tagcounter.props.json"));
 
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
-        .withPaletteCategory(RadComponents.COMPONENT_CATEGORY)
-        .withPaletteDescription("A component that displays the number of tags associated with a gateway.")
-        .withId(COMPONENT_ID)
-        .withModuleId(RadComponents.MODULE_ID)
-        .withSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .withPaletteName("Tag Counter")
-        .withDefaultMetaName("tagCounter")
-        .shouldAddToPalette(true)
-        .withResources(RadComponents.BROWSER_RESOURCES)
+        .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
+        .setId(COMPONENT_ID)
+        .setModuleId(RadComponents.MODULE_ID)
+        .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
+        .setName("Tag Counter")
+        .addPaletteEntry("", "Tag Counter", "A component that displays the number of tags associated with a gateway.", null, null)
+        .setDefaultMetaName("tagCounter")
+        .setResources(RadComponents.BROWSER_RESOURCES)
         .build();
 
 }
