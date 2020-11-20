@@ -34,15 +34,13 @@ public class Messenger {
     }
 
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
-        .withPaletteCategory(RadComponents.COMPONENT_CATEGORY)
-        .withPaletteDescription("A component that uses component messaging and data fetching delegates.")
-        .withId(COMPONENT_ID)
-        .withModuleId(RadComponents.MODULE_ID)
-        .withSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .withPaletteName("Gateway Messenger")
-        .withDefaultMetaName("messenger")
-        .withEvents(List.of(new ComponentEventDescriptor("onMessageEvent", "Description of your event", EVENT_SCHEMA)))
-        .shouldAddToPalette(true)
-        .withResources(RadComponents.BROWSER_RESOURCES)
+        .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
+        .setId(COMPONENT_ID)
+        .setModuleId(RadComponents.MODULE_ID)
+        .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
+        .setName("Gateway Messenger")
+        .setDefaultMetaName("messenger")
+        .setEvents(List.of(new ComponentEventDescriptor("onMessageEvent", "Description of your event", EVENT_SCHEMA)))
+        .setResources(RadComponents.BROWSER_RESOURCES)
         .build();
 }

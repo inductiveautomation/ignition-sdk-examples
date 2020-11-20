@@ -632,12 +632,12 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@inductiveautomation/perspective-client@2.1.0-snapshot.0", "@inductiveautomation/perspective-client@^2.1.0-snapshot":
-  version "2.1.0-snapshot.0"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-2.1.0-snapshot.0.tgz#d64c068c3b722f331cf5270989243e05892f9cbc"
-  integrity sha512-1r2FhwbSBaI852NyuEUYS7xv7Uer6sjRWYJg1d8N9gQMhI51eax6S7JqP1i2+pKSCCr/yhE8muub2wDXfmBsKg==
+"@inductiveautomation/perspective-client@2.1.0", "@inductiveautomation/perspective-client@^2.1.0":
+  version "2.1.0"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-client/-/perspective-client-2.1.0.tgz#a8c945f1213ab8e68e2f951578da4a2e66f74518"
+  integrity sha512-u8p8SucZaqqX3iRYwKqN3afD1EFATI1HEPhpQDBuUFRESV6AYIo2lZdEq7Cwj4MFtG7rdetCQCTQt0wVWR7qng==
   dependencies:
-    axios "^0.18.0"
+    axios "^0.20.0"
     bind-decorator "^1.0.10"
     classnames "^2.2.6"
     history "^4.5.1"
@@ -658,15 +658,15 @@
     transformation-matrix "^2.1.0"
     ua-parser-js "^0.7.18"
 
-"@inductiveautomation/perspective-designer@^2.1.0-snapshot":
-  version "2.1.0-snapshot.0"
-  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-2.1.0-snapshot.0.tgz#6a80f1454baad024e932f602ad1eedb2b670cf1e"
-  integrity sha512-k77CGBaZzCk5kQFYpG2lH/FdrmZYCSRyfAh9Hu5OR9wJd1eelgaAnOOTN9utJJ7dxCZuW3HdUzkdVJiu9P6MSQ==
+"@inductiveautomation/perspective-designer@^2.1.0":
+  version "2.1.0"
+  resolved "https://nexus.inductiveautomation.com/repository/node-packages/@inductiveautomation/perspective-designer/-/perspective-designer-2.1.0.tgz#e075ec937a1cfa9bb3c689cdc0ce15a8cb0966d8"
+  integrity sha512-H0GGJcUkovPE919DjnzL8YWepr1KUyHUgyyQaLrao0gxKSx/QzpMRA3Kfrl20Egaibz/W0lBfMWJg/0RDWkQVQ==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/preset-env" "^7.1.6"
-    "@inductiveautomation/perspective-client" "2.1.0-snapshot.0"
-    axios "^0.18.0"
+    "@inductiveautomation/perspective-client" "2.1.0"
+    axios "^0.20.0"
     bind-decorator "^1.0.10"
     history "^4.5.1"
     jsnlog "^2.29.0"
@@ -1830,14 +1830,6 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
 
-axios@^0.18.0:
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
-  integrity sha512-0BfJq4NSfQXd+SkFdrvFbG7addhYSBA2mQwISr46pD6E5iqkWg02RAs8vyTT/j0RTnoYmeXauBuSv1qKwR179g==
-  dependencies:
-    follow-redirects "1.5.10"
-    is-buffer "^2.0.2"
-
 axios@^0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.0.tgz#8e09bff3d9122e133f7b8101c8fbdd00ed3d2ab8"
@@ -1845,6 +1837,13 @@ axios@^0.19.0:
   dependencies:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
+
+axios@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.20.0.tgz#057ba30f04884694993a8cd07fa394cff11c50bd"
+  integrity sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==
+  dependencies:
+    follow-redirects "^1.10.0"
 
 babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -3408,6 +3407,11 @@ follow-redirects@1.5.10:
   integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
   dependencies:
     debug "=3.1.0"
+
+follow-redirects@^1.10.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
+  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
 for-in@^0.1.3:
   version "0.1.8"
@@ -4990,17 +4994,10 @@ mobx-react-lite@2:
   resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-2.0.7.tgz#1bfb3b4272668e288047cf0c7940b14e91cba284"
   integrity sha512-YKAh2gThC6WooPnVZCoC+rV1bODAKFwkhxikzgH18wpBjkgTkkR9Sb0IesQAH5QrAEH/JQVmy47jcpQkf2Au3Q==
 
-mobx-react-lite@^1.4.2, mobx-react-lite@^1.5.0:
+mobx-react-lite@^1.5.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-1.5.2.tgz#c4395b0568b9cb16f07669d8869cc4efa1b8656d"
   integrity sha512-PyZmARqqWtpuQaAoHF5pKX7h6TKNLwq6vtovm4zZvG6sEbMRHHSqioGXSeQbpRmG8Kw8uln3q/W1yMO5IfL5Sg==
-
-mobx-react@6.1.8:
-  version "6.1.8"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-6.1.8.tgz#5b9a3950463d58c154dda2c94d16d48ed8fcb02e"
-  integrity sha512-NCMJn/hrWoeyeNbzCsBDtftWSy6VlFgw1VzhogrciPFvJIl2xs+8rJJdPlRHQTiNirwNoHNKJgUE4WhPZPvKDw==
-  dependencies:
-    mobx-react-lite "^1.4.2"
 
 mobx-react@^6.1.4:
   version "6.2.2"

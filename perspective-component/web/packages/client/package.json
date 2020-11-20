@@ -14,7 +14,7 @@
         "deepClean": "npm run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
-        "@inductiveautomation/perspective-client": "^2.1.0-snapshot",
+        "@inductiveautomation/perspective-client": "^2.1.0",
         "axios": "^0.19.0",
         "react": "16.8.4",
         "react-dom": "16.8.4"

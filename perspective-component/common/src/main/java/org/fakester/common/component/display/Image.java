@@ -27,15 +27,13 @@ public class Image  {
      * build the descriptor for this one component. Icons on the component palette are optional.
      */
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
-        .withPaletteCategory(RadComponents.COMPONENT_CATEGORY)
-        .withPaletteDescription("A simple image component.")
-        .withId(COMPONENT_ID)
-        .withModuleId(RadComponents.MODULE_ID)
-        .withSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .withPaletteName("Rad Image")
-        .withDefaultMetaName("radImage")
-        .shouldAddToPalette(true)
-        .withResources(RadComponents.BROWSER_RESOURCES)
+        .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
+        .setId(COMPONENT_ID)
+        .setModuleId(RadComponents.MODULE_ID)
+        .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
+        .setName("Rad Image")
+        .setDefaultMetaName("radImage")
+        .setResources(RadComponents.BROWSER_RESOURCES)
         .build();
 
 }
