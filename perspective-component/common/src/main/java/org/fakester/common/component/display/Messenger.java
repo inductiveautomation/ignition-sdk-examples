@@ -40,6 +40,7 @@ public class Messenger {
         .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
         .setName("Gateway Messenger")
         .setDefaultMetaName("messenger")
+        .addPaletteEntry("", "Gateway Messenger", "A component that uses component messaging and data fetching delegates.", null, null)
         .setEvents(List.of(new ComponentEventDescriptor("onMessageEvent", "Description of your event", EVENT_SCHEMA)))
         .setResources(RadComponents.BROWSER_RESOURCES)
         .build();

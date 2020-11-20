@@ -32,6 +32,7 @@ public class Image  {
         .setModuleId(RadComponents.MODULE_ID)
         .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
         .setName("Rad Image")
+        .addPaletteEntry("", "Rad Image", "A simple image component.", null, null)
         .setDefaultMetaName("radImage")
         .setResources(RadComponents.BROWSER_RESOURCES)
         .build();

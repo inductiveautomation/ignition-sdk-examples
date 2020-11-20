@@ -20,6 +20,7 @@ public class TagCounter {
         .setModuleId(RadComponents.MODULE_ID)
         .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
         .setName("Tag Counter")
+        .addPaletteEntry("", "Tag Counter", "A component that displays the number of tags associated with a gateway.", null, null)
         .setDefaultMetaName("tagCounter")
         .setResources(RadComponents.BROWSER_RESOURCES)
         .build();
