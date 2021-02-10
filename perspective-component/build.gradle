@@ -82,18 +82,10 @@ allprojects {
     // where should we try to resolve maven artifacts from?
     repositories {
         mavenLocal()
-        mavenCentral()
-        google()
-        jcenter()
-
-        maven {
-            name "teamdev"
-            url "http://maven.teamdev.com/repository/products"
-
-        }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty/" }
         maven { url "https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots/" }
+        mavenCentral()
     }
 }
 
