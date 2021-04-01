@@ -85,9 +85,9 @@ export class TagCounter extends Component<ComponentProps<TagCountProps>, TagCoun
 
         const counterClasses = this.state.animating ? 'tag-counter-count message-animation' : 'tag-counter-count';
 
-        // Note that the topmost piece of dom requires the application of events, style and className as shown below
-        // otherwise the layout won't work, or any events configured will fail. See render of MessengerComponent in 
-        // Messenger.tsx for more details.
+        // Note that the topmost piece of dom requires the application of an element reference, events, style and
+        // className as shown below otherwise the layout won't work, or any events configured will fail. See render
+        // of MessengerComponent in Messenger.tsx for more details.
         return (
             <div {...emit({ classes: ['tag-counter-component'] })}>
                 <span className={counterClasses}>{this.state.tagCount}</span>

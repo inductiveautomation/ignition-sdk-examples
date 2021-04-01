@@ -6,7 +6,7 @@ about the tools/requirements used to build the final JS that can be used for per
 ## Requirements ##
 
 There are two different ways to build these component resources.  The easiest is to simply allow Gradle to handle the build by 
-running `./gradlew :web:build` (macOs/linux) or `gradle.bat :web:build` (windows) from the root of the project.  Doing this will 
+running `./gradlew :web:build` (macOs/linux) or `gradlew.bat :web:build` (windows) from the root of the project.  Doing this will 
 download Node, Npm, Yarn, with versions set to those specified in the `web/build.gradle` configuration file.
 
 It will then execute the typescript compilation using these downloaded binaries.

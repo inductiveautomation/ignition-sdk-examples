@@ -29,8 +29,9 @@ export class Image extends Component<ComponentProps<ImageProps>, any> {
         const { props: { url }, emit } = this.props;
         // Read the 'url' property provided by the perspective gateway via the component 'props'.
 
-        // Note that the topmost piece of dom requires the application of events, style and className as shown below
-        // otherwise the layout won't work, or any events configured will fail. See render of MessengerComponent in Messenger.tsx
+        // Note that the topmost piece of dom requires the application of an element reference, events, style and
+        // className as shown below otherwise the layout won't work, or any events configured will fail. See render
+        // of MessengerComponent in Messenger.tsx for more details.
         return (
             <img
                 {...emit()}
