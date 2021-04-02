@@ -188,6 +188,15 @@ export class MessageComponentGatewayDelegate extends ComponentStoreDelegate {
  * a registered ComponentDelegate as it does in this example.
  */
 export class MessengerComponent extends Component<ComponentProps<MessagePropConfig, MessengerDelegateState>, {}> {
+
+    rootElementRef: Element | void;
+
+    componentDidMount() {
+        // If a reference to the root element is needed, it can be achieved using `this.props.store.element` after the
+        // component has mounted.
+        this.rootElementRef = this.props.store.element;
+    }
+
     @bind
     fireUpdateToGateway(): void {
         // We know a delegate exists because we've set implemented `createDelegate` in 
@@ -221,11 +230,15 @@ export class MessengerComponent extends Component<ComponentProps<MessagePropConf
         const buttonText: string = this.props.delegate!.messagePending ? "Waiting" : "Send Message";
         return (
             // Note that the topmost piece of DOM requires the use of the 'emitter' provided by props in order for
-            // containers to appropriately position them in addition to attaching event listeners and styles.  
+            // containers to appropriately position them in addition to attaching an element reference, event listeners, and styles.
             // Adding your own events here or styles here outside of the emitter will cause an override depending on 
             // the order in which they are declared relative to the invocation of the emitter. Add inline styles and classes
             // as shown below.  Add event listeners by using `this.props.domEvents.addListener` in the constructor or on mount,
-            // and be sure to remove these listeners to prevent memory leaks on un-mount.  
+            // and be sure to remove these listeners to prevent memory leaks on un-mount.  If a reference to the root element
+            // is needed, this can be done by using `this.props.store.element` as opposed to declaring a `ref` on the
+            // root element.  The later will override the emitted ref and will not allow your component to properly
+            // display any changes to the state of its qualities and may cause the component to throw an error.  It is
+            // also highly recommended that the root element does not change throughout the lifecycle of the component.
             <div {...this.props.emit({ classes: ["messenger-component"] })}>
                 <h3 className="counter">
                     {this.props.delegate!.messageCount}

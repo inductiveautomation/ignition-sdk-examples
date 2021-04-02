@@ -182,4 +182,15 @@ the various tools used and linked above to determine the appropriate build confi
 
 Perspective is a fairly complex system that is seeing regular changes/additions.  While we consider the APIs 'mostly stable', there will likely be additions and/or breaking changes as it matures.  As a result, we encourage testing modules against each version of Ignition/Perspective you intend to support.
 
+#### Standards
+
+As of the 8.1.4 release, a `ref` is passed down to the component via `emit` (emit props).  This is required to 
+provide back a reference to the root element of each component, which is used internally by the Perspective module.  
+For this reason, the root element of any authored components cannot contain a `ref` property.  Doing so will 
+override the emitted ref and will not allow your component to properly display any changes to the state of its 
+qualities and may cause the component to throw an error.  The ref can still be accessed from the component's store, 
+if needed.  In addition, it is highly recommended that the root element does not change throughout the lifecycle 
+of the component.  For more information and an example usage, see the `MessengerComponent` from the example
+components.
+
 
