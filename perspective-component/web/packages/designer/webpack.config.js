@@ -8,14 +8,14 @@ const LibName = "RadDesignComponents";
 
 // function that copies the result of the webpack from the dist/ folder into the gateway resources folder
 function copyToResources() {
-    const resourceFolder = path.resolve(__dirname, '../../..', 'gateway/src/main/resources/mounted/js/');
+    const generatedResourceDir = path.resolve(__dirname, '../..', 'build/generated-resources/mounted/');
     const toCopy = path.resolve(__dirname, "dist/", `${LibName}.js`);
-    const resourcePath = path.resolve(resourceFolder, `${LibName}.js`);
+    const resourcePath = path.resolve(generatedResourceDir, `${LibName}.js`);
 
 
     // if the desired folder doesn't exist, create it
-    if (!fs.existsSync(resourceFolder)){
-        fs.mkdirSync(resourceFolder)
+    if (!fs.existsSync(generatedResourceDir)){
+        fs.mkdirSync(generatedResourceDir)
     }
 
 
