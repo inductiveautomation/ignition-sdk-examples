@@ -1,0 +1,36 @@
+[versions]
+    ignition = "8.1.6"
+
+[libraries]
+    # Dependencies provided by the Ignition SDK, they all reference the 'ignition' version
+    ignition-alarm-notification-common = { module = "com.inductiveautomation.ignitionsdk:alarm-notification-common", version.ref = "ignition" }
+    ignition-alarm-notification-designer = { module = "com.inductiveautomation.ignitionsdk:alarm-notification-designer", version.ref = "ignition" }
+    ignition-alarm-notification-gateway-api = { module = "com.inductiveautomation.ignitionsdk:alarm-notification-gateway-api", version.ref = "ignition" }
+    ignition-client-api = { module = "com.inductiveautomation.ignitionsdk:client-api", version.ref = "ignition" }
+    ignition-client-launcher = { module = "com.inductiveautomation.ignitionsdk:client-launcher", version.ref = "ignition" }
+    ignition-common = { module = "com.inductiveautomation.ignitionsdk:ignition-common", version.ref = "ignition" }
+    ignition-designer-api = { module = "com.inductiveautomation.ignitionsdk:designer-api", version.ref = "ignition" }
+    ignition-designer-launcher = { module = "com.inductiveautomation.ignitionsdk:designer-launcher", version.ref = "ignition" }
+    ignition-driver-api = { module = "com.inductiveautomation.ignitionsdk:driver-api", version.ref = "ignition" }
+    ignition-gateway-api = { module = "com.inductiveautomation.ignitionsdk:gateway-api", version.ref = "ignition" }
+    ignition-perspective-common = { module = "com.inductiveautomation.ignitionsdk:perspective-common", version.ref = "ignition" }
+    ignition-perspective-designer = { module = "com.inductiveautomation.ignitionsdk:perspective-designer", version.ref = "ignition" }
+    ignition-perspective-gateway = { module = "com.inductiveautomation.ignitionsdk:perspective-gateway", version.ref = "ignition" }
+    ignition-reporting-common = { module = "com.inductiveautomation.ignitionsdk:reporting-common", version.ref = "ignition" }
+    ignition-reporting-designer = { module = "com.inductiveautomation.ignitionsdk:reporting-designer", version.ref = "ignition" }
+    ignition-reporting-gateway = { module = "com.inductiveautomation.ignitionsdk:reporting-gateway", version.ref = "ignition" }
+    ignition-sfc-client = { module = "com.inductiveautomation.ignitionsdk:sfc-client", version.ref = "ignition" }
+    ignition-sfc-common = { module = "com.inductiveautomation.ignitionsdk:sfc-common", version.ref = "ignition" }
+    ignition-sfc-designer = { module = "com.inductiveautomation.ignitionsdk:sfc-designer", version.ref = "ignition" }
+    ignition-sfc-gateway-api = { module = "com.inductiveautomation.ignitionsdk:sfc-gateway-api", version.ref = "ignition" }
+    ignition-tag-historian = { module = "com.inductiveautomation.ignitionsdk:tag-historian", version.ref = "ignition" }
+    ignition-vision-client-api = { module = "com.inductiveautomation.ignitionsdk:vision-client-api", version.ref = "ignition" }
+    ignition-vision-common = { module = "com.inductiveautomation.ignitionsdk:vision-common", version.ref = "ignition" }
+    ignition-vision-designer-api = { module = "com.inductiveautomation.ignitionsdk:vision-designer-api", version.ref = "ignition" }
+
+# Dependencies for 3rd party libraries used in this module
+    google-guava = { module = "com.google.guava:guava", version = "23.3-jre" }
+    google-jsr305 = { module = "com.google.code.findbugs:jsr305", version = "3.0.1" }
+    # ia modified version of gson from https://github.com/inductiveautomation/gson
+    ia-gson = { module = "com.inductiveautomation.ignition:ia-gson", version = "2.8.5" }
+

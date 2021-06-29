@@ -1,51 +1,61 @@
-import com.moowork.gradle.node.npm.NpmTask
-import com.moowork.gradle.node.yarn.YarnTask
+import com.github.gradle.node.yarn.task.YarnTask
+import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
-    id "base"
-    id "com.moowork.node" version "1.3.1"
+    base
+    id("com.github.node-gradle.node") version("3.0.1")
 }
 
 // configurations on which versions of Node, Npm, and Yarn the gradle build should use.  Configuration provided by/to
 // the gradle node plugin that"s applied above (com.moowork.node)
 node {
-    version = "10.18.1"
-    yarnVersion = "1.22.4"
-    npmVersion = "6.4.1"
-    download = true
-    nodeModulesDir = file(project.projectDir)
+
+
+    version.set("10.18.1")
+    yarnVersion.set("1.22.4")
+    npmVersion.set("6.4.1")
+    download.set(true)
+    nodeProjectDir.set(file(project.projectDir))
 }
 
 //// define a variable that describes the path to the mounted gateway folder, where we want to put things eventually
-String  mountedJsDir= "$project.parent.projectDir/gateway/src/main/resources/mounted"
+val mountedJsDir: String = "$project.parent.projectDir/gateway/src/main/resources/mounted"
 
 // define a gradle task that will install our npm dependencies, extends the YarnTask provided by the node gradle plugin
-task yarnPackages(type: YarnTask) {
+val yarnPackages by tasks.registering(YarnTask::class) {
 
     // group only used to categorize the task when running "gradle tasks" and viewing the list of possible tasks.group = "Web Build tasks"
     description = "Executes 'yarn' at the root of the web/ directory to install npm dependencies for the yarn workspace."
     // which yarn command to execute
-    args = ["install", "--verbose"]
+    args.set(listOf("install", "--verbose"))
 
     // set this tasks "inputs" to be any package.json files or yarn.lock files that are found in or below our current
     // folder (project.projectDir).  This lets the build system avoid repeatedly trying to reinstall dependencies
     // which have already been installed.  If changes to package.json or yarn.lock are detected, then it will execute
     // the install task again.
-//    inputs.files(
-//            fileTree(project.projectDir).matching {
-//                include("**/package.json")//, "**/yarn.lock")
-//            })
+    inputs.files(
+        fileTree(project.projectDir).matching {
+            include("**/package.json") //, "**/yarn.lock")
+        }
+    )
 
-    dependsOn("${project.path}:yarn")
+    // outputs of running 'yarn install'
+    outputs.dirs(
+        file("node_modules"),
+        file("packages/client/node_modules"),
+        file("packages/designer/node_modules")
+    )
+
+    dependsOn("${project.path}:yarn", ":web:npmSetup")
 }
 
 // define a gradle task that executes an npm script (defined in the package.json).
-task webpack(type: NpmTask) {
-    group "Web Build Tasks"
-    description "Runs 'npm run build', executing the build script of the project root's package.json"
+val webpack by tasks.registering(NpmTask::class) {
+    group = "Ignition Module"
+    description = "Runs 'npm run build', executing the build script of the web project's root package.json"
 
     // same as running "npm run build" in the ./web/ directory.
-    args = ["run", "build"]
+    args.set(listOf("run", "build"))
 
     // we require the installPackages to be done before the npm build (which calls webpack) can run, as we need our dependencies!
     dependsOn(yarnPackages)
@@ -63,23 +73,31 @@ task webpack(type: NpmTask) {
     outputs.files(fileTree("${project.parent?.projectDir}/gateway/src/main/resources/mounted"))
 }
 
-project.tasks.findByName("build").dependsOn(webpack)
+
 
 // task to delete the dist folders
-task deleteDistFolders(type: Delete) {
+val deleteDistFolders by tasks.registering(Delete::class) {
     delete(file("packages/designer/dist/"))
     delete(file("packages/client/dist/"))
 }
 
 // task to delete the output files from the gateway resources folder.
-task deleteGwJs(type: Delete) {
-    delete fileTree(mountedJsDir) { include("**/Rad*.js", "**/Rad*.js.map") }
+val deleteGwJs by tasks.registering(Delete::class) {
+    delete(fileTree(mountedJsDir) { include("**/Rad*.js", "**/Rad*.js.map") })
+}
+tasks {
+    build {
+        dependsOn(webpack)
+    }
+
+    clean {
+        // makes the "built in" clean task execute the deletion tasks
+        dependsOn(deleteDistFolders, deleteGwJs)
+    }
 }
 
-// makes the "built in" clean task execute the deletion tasks
-clean.dependsOn(deleteDistFolders, deleteGwJs)
 
-task deepClean() {
+val deepClean by tasks.registering {
     doLast {
         delete(file("packages/designer/node_modules"))
         delete(file("packages/designer/.gradle"))
@@ -89,14 +107,10 @@ task deepClean() {
         delete(file("node_modules"))
     }
 
-    dependsOn clean
+    dependsOn(project.tasks.named("clean"))
 }
-
 
 // make sure the gateway project doesn't process resources until the webpack task is done.
-project(":gateway") {
-    tasks.getByName("processResources").dependsOn(webpack)
+project(":gateway")?.tasks?.named("processResources")?.configure {
+    dependsOn(webpack)
 }
-
-
-
