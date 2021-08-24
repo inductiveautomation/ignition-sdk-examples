@@ -34,7 +34,7 @@ public class HomeConnectOverviewContributor implements OverviewContributor {
         SystemsEntry connections = new SystemsEntry(
                 "Home Connections",
                 new InfoLine(String.format("%d configured", connectionCount), false),
-                "/main/web/status/sys.homeconnect"
+                "/web/status/sys.homeconnect"
         );
         return Collections.singletonList(connections);
     }

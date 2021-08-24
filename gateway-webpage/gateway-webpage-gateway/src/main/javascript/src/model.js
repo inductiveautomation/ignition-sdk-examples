@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {fetchJson, checkStatus, JSCache} from 'ignition-lib';
+import {checkStatus} from 'ignition-lib';
 
 const CONNECTIONS_LOAD = 'hce/CONNECTIONS_LOAD';
 const CONNECTIONS_ERR = 'hce/CONNECTIONS_ERR';
@@ -78,7 +78,7 @@ export default reducer;
  */
 export function getConnectionsStatus(startNextPoll) {
     return function (dispatch) {
-        fetch(`/main/data/hce/status/connections`, {
+        fetch(`/data/hce/status/connections`, {
             method: 'get',
             credentials: 'same-origin',
             headers: {
