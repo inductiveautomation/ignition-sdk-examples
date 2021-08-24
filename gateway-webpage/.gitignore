@@ -39,3 +39,7 @@ local.properties
 .gradletasknamecache
 .gradle/
 build/
+
+# ignore webpack outputs
+gateway-webpage-gateway/src/main/resources/mounted/js/homeconnectstatus.js
+gateway-webpage-gateway/src/main/resources/mounted/js/homeconnectstatus.js.map
