@@ -130,7 +130,7 @@ export class MessageComponentGatewayDelegate extends ComponentStoreDelegate {
 
     // Used by our component to fire a message to the gateway.
     public fireGatewayMessage(): void {
-        this.fireDelegateEvent(MessageEvents.MESSAGE_RESPONSE_EVENT, { count: this.messageCount });
+        this.fireDelegateEvent(MessageEvents.MESSAGE_REQUEST_EVENT, { count: this.messageCount });
     }
 
     /**
