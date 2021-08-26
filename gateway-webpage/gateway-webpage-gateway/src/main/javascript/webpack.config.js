@@ -19,17 +19,19 @@ var config = {
     libraryTarget: 'var'
   },
   resolve: {
-    modulesDirectories: ['node_modules']
+    modules: ['node_modules']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.jsx|\.js)$/,
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"]
+          }
+        },
         exclude: /(node_modules|bower_components)/,
-        query: {
-          presets: ['es2015', 'react']
-        }
       }
     ]
   },

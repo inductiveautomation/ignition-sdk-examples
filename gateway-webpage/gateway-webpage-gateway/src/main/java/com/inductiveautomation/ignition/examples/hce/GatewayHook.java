@@ -63,7 +63,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         @Override
         public WebMarkupContainer getPanel(String panelId) {
             // We've set  GatewayHook.getMountPathAlias() to return hce, so we need to use that alias here.
-            return new BasicReactPanel(panelId, "/main/res/hce/js/homeconnectstatus.js", "homeconnectstatus");
+            return new BasicReactPanel(panelId, "/res/hce/js/homeconnectstatus.js", "homeconnectstatus");
         }
 
         @Override

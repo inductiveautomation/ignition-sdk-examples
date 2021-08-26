@@ -26,7 +26,7 @@ class ConnectOverview extends Component {
 
     componentWillMount() {
         const {dispatch} = this.props;
-        // refresh the connection status every 5 seconds, but don't start a new request until the last one has returned
+        // // refresh the connection status every 5 seconds, but don't start a new request until the last one has returned
         this.cancelPoll = pollWaitAck(dispatch, getConnectionsStatus, 5000);
     }
 
@@ -54,7 +54,7 @@ class ConnectOverview extends Component {
                 const connectionList = connections.connections;
                 let items = [];
                 if (connectionList != null){
-                    items = connectionList.map(function(connection){
+                    items = connectionList.map((connection) => {
                         return [
                             connection.HomeConnectHubName,
                             connection.BroadcastSSID.toString(),
@@ -71,7 +71,7 @@ class ConnectOverview extends Component {
                         <div className="small-12 columns">
                             <div className="page-heading">
                                 <div className="quick-links">
-                                    <a href="/main/web/config/hce.hub">Configure</a>
+                                    <a href="/web/config/hce.hub">Configure</a>
                                 </div>
                                 <h6>Systems</h6>
                                 <h1>Performance</h1>
@@ -98,11 +98,6 @@ class ConnectOverview extends Component {
         }
     }
 }
-
-ConnectOverview.propTypes = {
-    connections: React.PropTypes.object,
-    connectionsError: React.PropTypes.string,
-};
 
 function selector(state) {
     return {
