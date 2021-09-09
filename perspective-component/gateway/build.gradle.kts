@@ -17,9 +17,9 @@ dependencies {
     implementation(projects.web)
 
     // declare our dependencies on ignition sdk elements.  These are defined in the gradle/libs.versions.toml file of
-    // this repo
+    // the root project for this module
     compileOnly(libs.ignition.common)
-    compileOnly (libs.ignition.gateway.api)
-    compileOnly (libs.ignition.perspective.gateway)
+    compileOnly(libs.ignition.gateway.api)
+    compileOnly(libs.ignition.perspective.gateway)
     compileOnly(libs.ia.gson)
 }
