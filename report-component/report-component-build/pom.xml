@@ -72,11 +72,11 @@
                     <depends>
                         <depend>
                             <scope>D</scope>
-                            <moduleId>rept</moduleId>
+                            <moduleId>com.inductiveautomation.reporting</moduleId>
                         </depend>
                         <depend>
                             <scope>G</scope>
-                            <moduleId>rept</moduleId>
+                            <moduleId>com.inductiveautomation.reporting</moduleId>
                         </depend>
                     </depends>
 
