@@ -64,7 +64,7 @@ To run the build, clone this repo and open a command line in the `perspective-co
 gradlew.bat buildModule
 
 // on linux/osx
-./gradlew.sh buildModule
+sh ./gradlew buildModule
 ```
 
 If you would like to be able to execute parts of the build without depending on gradle, you'll need familiarity with
