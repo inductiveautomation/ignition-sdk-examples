@@ -23,3 +23,6 @@ org.eclipse.m2e.core.prefs
 org.eclipse.core.resources.prefs
 .classpath
 .project
+perspective-component/yarn.lock
+perspective-component/package-lock.json
+perspective-component/package.json

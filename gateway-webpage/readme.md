@@ -46,6 +46,8 @@ Once installed, follow these instructions at the command line, in the `javascrip
 	
 #### Note
 
+When installing this example module for the first time, the above steps must be performed in order to build `homeconnect.js`.  If it is not built, the module file size will only be around 15kb after running `mvn-package` and the status page will not appear.  Correctly built, the module size will be around 75kb after running `mvn-package`.
+
 While this example uses [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org/), it should be noted that React is *not* a requirement for Ignition status pages.  Webpack transpiles this React source code into a javascript file which is located in `hce-gateway/src/main/resources/mounted/js`.  That transpiled javascript is what is ultimately mounted and served by Ignition. 
 
 For Ignition 7.9, 8.0, and 8.1, we provide React and Redux as part of our gateway api (which is why they are marked as 'externals' in the webpack config), but as a module developer, you are free to use whatever client side technologies you'd like to build the javascript that gets mounted for your pages. The components used in the Ignition Gateway Status section (such as Tables, Charts, etc) are implemented as reusable React components through the 'ignition-react' javascript package, so it may be easier for you to maintain a consistent appearance with the rest of Ignition's web components through their reuse.  

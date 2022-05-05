@@ -56,4 +56,4 @@ These examples utilize Maven and our Maven Plugin.  The ignition-maven-plugin is
 The pom files in these examples should prove useful tools to understanding how the new SDK works while we update the documentation in preparation for the full release of this new SDK.  
 
 ## Javadocs
-Head over to our [wiki page](https://github.com/inductiveautomation/ignition-sdk-examples/wiki/Javadocs) for a listing of 8.0+ javadocs. 
+Head over to our [wiki page](https://github.com/inductiveautomation/ignition-sdk-examples/wiki/Javadocs-&-Notable-Api-Changes) for a listing of 8.0+ javadocs. 
