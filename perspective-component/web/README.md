@@ -1,7 +1,12 @@
 # Web subproject #
 
 This folder contains all the Typescript source files for the custom component set.  This readme contains information
-about the tools/requirements used to build the final JS that can be used for perspective.
+about the tools/requirements used to build the final JS that can be used for perspective.  It's important to note that
+there are many options for assembling frontend (javascript, css) files.  These are just examples, and it's up to the
+developer to learn them, or choose your own alternatives.  The important part is that you generate js that is consistent
+with the APIs provided by the browser-side perspective runtime, and that this js is available to the gateway at 
+runtime, which is accomplished through the component registry and descriptors demonstrated in the gateway and common
+projects.  
 
 ## Requirements ##
 
@@ -17,7 +22,6 @@ following dependencies:
 * Node JS
 * Npm (the Node Package Manager)
 * Typescript 
-* Tslint
 * Webpack 
 * Lerna
 * Yarn
@@ -75,8 +79,6 @@ packages.  Notably, this is required to tell our dependency manager that depende
  * *webpack.config.js* - configuration file used for webpack, bearing the default webpack name.
  * *package.json* - Where package names, versions, and dependencies are defined, including dev dependencies.  May
  optionally contain configuration for additional tools.
- * *tslint.json* - Where code formatting/linting configuration is defined.  This allows us to enforce consistent code
- formatting/styling.
  * *tsconfig.json* - Contains configuration specific to the typescript compiler as well as (optionally) configuration
  for typescript related build plugins/tools
  * *yarn.lock* - a dependency 'lock file' - which is used to 'lock' the dependency structure into specific versions and 
@@ -114,4 +116,3 @@ registered as part of the GatewayHook.
 ## Terms ##
 
 `package` - in NPM/Node parlance, a 'package' is a dependency that may be used by other packages, either as a global name on the page, or as a Universal Module (UMD).
- 

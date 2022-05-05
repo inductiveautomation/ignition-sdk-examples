@@ -29,11 +29,11 @@ Ultimately it's up to implementors to choose the tools they prefer.
 
 ## Quick Tool Overview
 
-This project uses a number of build tools in order to complete the various parts of its assembly.  Namely:
+This project uses a number of build tools in order to complete the various parts of its assembly.  It's importatnt to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
 
 * [Gradle](https://gradle.org/) - the primary build tool. Most tasks executed in a typical workflow are gradle tasks.  
 * [lerna.js](https://lernajs.io/) - is a javascript build-orchestration tool.  It allows us to have independent 'modules'
- and 'packages' in the same git/hg repository without having to do a lot of complicated symlinking/publishing to pull in changes from one project to another.  
+ and 'packages' in the same git/hg repository without having to do a lot of complicated symlinking/publishing to pull in changes from one project to another.  It's mostly useful from the commandline, outside of gradle.
 * [yarn](https://yarnpkg.com/) - is a javascript dependency (package) manager that provides a number of improvements 
 over npm, though it shares much of the same commands and api.  Much like Ivy or Maven, yarn is used to resolve and download dependencies hosted on remotely hosted repositories.  Inductive Automation publishes our own dependencies through the
  same nexus repository system we use for other sdk artifacts.  To correctly resolve the Inductive Automation node packages,
@@ -43,8 +43,6 @@ over npm, though it shares much of the same commands and api.  Much like Ivy or 
   other tools handle the actual bundling of assets, css, and other supporting dependencies.  Think of typescript as the
   java compiler without jars or resources.  It just takes typescript files in, and emits the javascript files. 
 * [Webpack](https://webpack.js.org/) - the 'bundler' that we use to take the javascript emitted by the typescript compiler and turn it into an actual package that includes necessary assets, dependencies, generates sourcemaps, etc.
-* tslint - a 'linter', which basically is a configurable code-format checker.  Tslinter acts much like checkstyle for
-  java.  You configure the code formatting, and the linter will complain if your code doesn't fit the settings.
   
   
 More documentation incoming, and the web/README.md contains a lot of information about the typescript build process.
@@ -57,14 +55,17 @@ Strictly speaking, this module should be buildable without downloading or instal
 build commands are executed through the [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html),
 it will handle downloading the appropriate versions of all tools, and then use those tools to execute the build.
 
-To run the build, clone this repo and open a command line in the `perspective-component` directory, and run the `buildModule` gradle task:
+
+> Note: the module related task are defined by the module plugin.  Check the documentation at the [Ignition Module Tool](https://github.com/inductiveautomation/ignition-module-tools) repository for more information about the tasks and configuration options. 
+
+To run the build, clone this repo and open a command line in the `perspective-component` directory, and run the `build` gradle task:
 
 ```
 // on Windows
-gradlew buildModule
+gradlew build
 
 // on linux/osx
-./gradlew buildModule
+./gradlew build
 ```
 
 If you would like to be able to execute parts of the build without depending on gradle, you'll need familiarity with
@@ -192,5 +193,3 @@ qualities and may cause the component to throw an error.  The ref can still be a
 if needed.  In addition, it is highly recommended that the root element does not change throughout the lifecycle 
 of the component.  For more information and an example usage, see the `MessengerComponent` from the example
 components.
-
-
