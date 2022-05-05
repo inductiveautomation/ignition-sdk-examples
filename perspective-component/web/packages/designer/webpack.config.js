@@ -1,8 +1,9 @@
 const webpack = require('webpack'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+    AfterBuildPlugin = require('@fiverr/afterbuild-webpack-plugin');
 
-const WebpackOnBuildPlugin = require('on-build-webpack');
 
 const LibName = "RadDesignComponents";
 
@@ -15,9 +16,8 @@ function copyToResources() {
 
     // if the desired folder doesn't exist, create it
     if (!fs.existsSync(generatedResourceDir)){
-        fs.mkdirSync(generatedResourceDir)
+        fs.mkdirSync(generatedResourceDir, {recursive: true})
     }
-
 
     try {
         console.log(`copying ${toCopy}...`);
@@ -61,7 +61,6 @@ var config = {
             path.resolve(__dirname, "../../node_modules")
         ]
     },
-
     module: {
         rules: [
             {
@@ -69,18 +68,34 @@ var config = {
                 use: {
                     loader: 'ts-loader',
                     options: {
-                        transpileOnly: false,
-                        experimentalWatchApi: true
+                        transpileOnly: false
                     }
                 },
-                exclude: /node_modules/
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.css$|.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            // tells css-loader not to treat `url('/some/path')` as things that need to resolve at build time
+                            // in other words, the url value is simply passed-through as written in the css/sass
+                            url: false
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                    }
+                ]
             }
         ]
     },
     plugins: [
-        new WebpackOnBuildPlugin(function(stats) {
+        new AfterBuildPlugin(function(stats) {
             copyToResources();
-        })
+        }),
     ],
 
     // IMPORTANT -- don't include these things as part of the webpack bundle.  They are 'provided' via perspective.

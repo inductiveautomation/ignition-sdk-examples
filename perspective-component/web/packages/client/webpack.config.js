@@ -10,7 +10,7 @@ const webpack = require('webpack'),
     path = require('path'),
     fs = require('fs'),
     MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-    WebpackOnBuildPlugin = require('on-build-webpack');
+    AfterBuildPlugin = require('@fiverr/afterbuild-webpack-plugin');
 
 const LibName = "RadComponents";
 
@@ -29,7 +29,7 @@ function copyToResources() {
 
     // if the desired folder doesn't exist, create it
     if (!fs.existsSync(generatedResourcesDir)){
-        fs.mkdirSync(generatedResourcesDir)
+        fs.mkdirSync(generatedResourcesDir, {recursive: true})
     }
 
     toCopy.forEach( file => {
@@ -85,35 +85,32 @@ const config = {
                 use: {
                     loader: 'ts-loader',
                     options: {
-                        transpileOnly: false,
-                        experimentalWatchApi: true
+                        transpileOnly: false
                     }
                 },
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$|.scss$/,
                 use: [
+                    MiniCssExtractPlugin.loader,
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: 'css-loader',
                         options: {
-                            sourceMap: false
+                            // tells css-loader not to treat `url('/some/path')` as things that need to resolve at build time
+                            // in other words, the url value is simply passed-through as written in the css/sass
+                            url: false
                         }
                     },
                     {
-                        loader: 'css-loader',
-                        options: {sourceMap: false }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {sourceMap: false }
-                    },
+                        loader: "sass-loader",
+                    }
                 ]
             }
         ]
     },
     plugins: [
-        new WebpackOnBuildPlugin(function(stats) {
+        new AfterBuildPlugin(function(stats) {
             copyToResources();
         }),
         // pulls CSS out into a single file instead of dynamically inlining it

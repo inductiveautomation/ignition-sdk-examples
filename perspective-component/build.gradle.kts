@@ -4,13 +4,12 @@ import java.util.concurrent.TimeUnit
 plugins {
     base
     // the ignition module plugin: https://github.com/inductiveautomation/ignition-module-tools
-    id("io.ia.sdk.modl") version("0.1.0-SNAPSHOT-12")
+    id("io.ia.sdk.modl") version("0.1.0")
     id("org.barfuin.gradle.taskinfo") version "1.3.0"
-
 }
 
 allprojects {
-    version = "2.0.0"
+    version = "1.0.0"
     group = "org.fakester"
 }
 
@@ -23,7 +22,7 @@ ignitionModule {
     id.set("org.fakester.radcomponent")
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds components to the Perspective module.")
-    requiredIgnitionVersion.set("8.1.0")
+    requiredIgnitionVersion.set("8.1.8")
     requiredFrameworkVersion.set("8")
     // says 'this module is free, does not require licensing'.  Defaults to false, delete for commercial modules.
     freeModule.set(true)
@@ -69,8 +68,3 @@ val deepClean by tasks.registering {
         delete(file(".gradle"))
     }
 }
-
-/* Gradle wrapper version configuration */
-// wrapper {
-//     distributionUrl = "https://services.gradle.org/distributions/gradle-7.1-all.zip"
-// }

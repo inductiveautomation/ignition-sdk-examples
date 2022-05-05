@@ -20,6 +20,7 @@ dependencies {
     // the root project for this module
     compileOnly(libs.ignition.common)
     compileOnly(libs.ignition.gateway.api)
-    compileOnly(libs.ignition.perspective.gateway)
+    implementation(libs.ignition.perspective.gateway)
+    implementation(libs.ignition.perspective.common)
     compileOnly(libs.ia.gson)
 }
