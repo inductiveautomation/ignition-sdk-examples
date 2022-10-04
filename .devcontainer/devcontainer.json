@@ -41,7 +41,6 @@
 	"remoteUser": "vscode",
 	"features": {
 		"docker-in-docker": "latest",
-		"git": "latest",
 		"git-lfs": "latest"
 	},
 	"containerEnv": {
