@@ -8,7 +8,7 @@ Creates an exampleMultiply expression that can be used by other components, such
 Requires two Gateways connected via the gateway network. The module must also be installed on both Gateways. This module adds a system.example.getRemoteLogEntries script function that can retrieve console log entries from a remote Gateway over the gateway network. Also adds a Gateway Task type that can retrieve a remote gateway’s wrapper log and save as a local file.
 
 ##### [Gateway Webpage/Home Connect](gateway-webpage)
-Demonstrates how to implement Gateway Status and Config pages. HomeConnect pages are added to the Gateway that configure an imaginary HomeConnect device. 
+Demonstrates how to implement Gateway Status and Config pages. HomeConnect pages are added to the Gateway that configure an imaginary HomeConnect device.
 
 ##### [Managed Tag Provider](managed-tag-provider)
 Shows how to implement a Managed Tag Provider, to allow easy control of Ignition tags from an external program or data.
@@ -17,7 +17,10 @@ Shows how to implement a Managed Tag Provider, to allow easy control of Ignition
 Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
 
 ##### [Perspective Component](perspective-component)
-Adds a simple image component to the Perspective module's set of components.  In addition, utilizes Gradle as the build tool.  See the example readme for additional information.
+Adds component to the Perspective module's set of components, demonstrating use of various APIs in a build automation which represents one possible solution for 'production' toolchains.  In addition, utilizes Gradle as the build tool.  See the example readme for additional information.
+
+##### [Perspective Minimal Component](perspective-component-minimal)
+Adds a single simple component to the Perspective component palette.  This minimal example demonstrates the minimal APIs required to register a single simple component.  See the larger Perspective Component example for
 
 ##### [Report Component](report-component)
 Adds a Smiley shaped component to the Report Designer.
@@ -37,7 +40,7 @@ Creates a Hello World component that can be dragged onto a window in the Designe
 ## Requirements
 * Java Development Kit (JDK) 11 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.
 * Maven 3.+ installed. Linux users can use their package manager to install at the command line (ex: `sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`. Windows users can install via [Chocolatey](https://chocolatey.org/) (`choco install maven`) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
-* A running, 8.0+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.  
+* A running, 8.0+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.
 * For development, you will want to allow unsigned modules. Open the `ignition.conf` file in the `data/` directory, then in the `wrapper.java.additional` section add a line like: `wrapper.java.additional.7=-Dignition.allowunsignedmodules=true` (the index does not matter).
 
 ## Getting Started
@@ -51,9 +54,9 @@ Creates a Hello World component that can be dragged onto a window in the Designe
 * Then, from the Ignition gateway web interface, head to Configure -> Modules, and scroll down to install any of your built modules from the `/module/module-build/` directory.
 
 ## The Module Build System
-These examples utilize Maven and our Maven Plugin.  The ignition-maven-plugin is available through our [Nexus Repository](https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/) (see examples for how to add to depenency sources).  
+Most examples utilize Maven and our Maven Plugin.  The ignition-maven-plugin is available through our [Nexus Repository](https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/) (see examples for how to add to depenency sources).
 
-The pom files in these examples should prove useful tools to understanding how the new SDK works while we update the documentation in preparation for the full release of this new SDK.  
+Perspective examples utilize our gradle plugin, which is also open source and available in the [ignition-module-tools](https://github.com/inductiveautomation/ignition-module-tools).
 
 ## Javadocs
-Head over to our [wiki page](https://github.com/inductiveautomation/ignition-sdk-examples/wiki/Javadocs-&-Notable-Api-Changes) for a listing of 8.0+ javadocs. 
+Head over to our [wiki page](https://github.com/inductiveautomation/ignition-sdk-examples/wiki/Javadocs-&-Notable-Api-Changes) for a listing of 8.0+ javadocs.
