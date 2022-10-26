@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 plugins {
     base
     // the ignition module plugin: https://github.com/inductiveautomation/ignition-module-tools
-    id("io.ia.sdk.modl") version("0.1.0")
+    id("io.ia.sdk.modl") version("0.1.1")
     id("org.barfuin.gradle.taskinfo") version "1.3.0"
 }
 
@@ -23,9 +23,6 @@ ignitionModule {
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds components to the Perspective module.")
     requiredIgnitionVersion.set("8.1.8")
-    requiredFrameworkVersion.set("8")
-    // says 'this module is free, does not require licensing'.  Defaults to false, delete for commercial modules.
-    freeModule.set(true)
     license.set("license.html")
 
     // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,
