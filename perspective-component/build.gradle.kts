@@ -28,12 +28,7 @@ ignitionModule {
     // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,
     // and specify the Ignition Scope that applies. "G" for gateway, "D" for designer, "C" for VISION client
     // (this module does not run in the scope of a Vision client, so we don't need a "C" entry here)
-    moduleDependencies.putAll(
-        mapOf(
-            "com.inductiveautomation.perspective" to "G",
-            "com.inductiveautomation.perspective" to "D"
-        )
-    )
+    moduleDependencies.put("com.inductiveautomation.perspective", "DG")
 
     // map of 'Gradle Project Path' to Ignition Scope in which the project is relevant.  This is is combined with
     // the dependency declarations within the subproject's build.gradle.kts in order to determine which

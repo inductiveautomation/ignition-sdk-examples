@@ -14,7 +14,7 @@ dependencies {
     // as 'api(project(":common"))'. See https://docs.gradle.org/7.0/release-notes.html on Type-safe project accessors
     implementation(projects.common)
 
-    implementation(projects.web)
+    modlImplementation(projects.web)
 
     // declare our dependencies on ignition sdk elements.  These are defined in the gradle/libs.versions.toml file of
     // the root project for this module

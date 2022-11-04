@@ -117,20 +117,21 @@ Within the `web` directory is a _lerna workspace_, which is simply a javascript 
   registries.
 
 
+
 ```
 
 
   ├── build.gradle.kts                     // root build configuration, like a root pom.xml file
   ├── common
-  │   ├── build.gradle                     // configuration for common scoped build
+  │   ├── build.gradle.kts                     // configuration for common scoped build
   │   └── src
   │       └── main/java                    // where source files live
   ├── designer
-  │   ├── build.gradle
+  │   ├── build.gradle.kts
   │   └── src
   │       └── main/java
   ├── gateway
-  │   ├── build.gradle
+  │   ├── build.gradle.kts
   │   └── src
   │       └── main/java
   ├── gradle                              // gradle wrapper assets to allow wrapper functionality,should be commited
@@ -142,7 +143,7 @@ Within the `web` directory is a _lerna workspace_, which is simply a javascript 
   ├── settings.gradle.kts                 // Gradle project structure/global configuration.
   └── web                                 // parent directory for the web assets we build
       ├── README.md
-      ├── build.gradle
+      ├── build.gradle.kts
       ├── lerna.json                      // lerna configuration file
       │
       ├── package.json
