@@ -1,5 +1,7 @@
 package io.ia.examples.resource;
 
+import javax.swing.JCheckBox;
+
 import com.inductiveautomation.ignition.common.project.resource.ProjectResource;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceBuilder;
 import com.inductiveautomation.ignition.common.project.resource.ResourcePath;
@@ -9,25 +11,25 @@ import net.miginfocom.swing.MigLayout;
 
 public class PythonResourceEditor extends ResourceEditor<PythonResource> {
 
-    private final ExtensionFunctionPanel extensionFunctionPanel;
+    private ExtensionFunctionPanel extensionFunctionPanel;
+    private JCheckBox enabledCheckBox;
 
     public PythonResourceEditor(PythonResourceWorkspace workspace, ResourcePath resourcePath) {
         super(workspace, resourcePath);
-
-        setLayout(new MigLayout("ins 16, fill"));
-        extensionFunctionPanel = new ExtensionFunctionPanel(
-            ExtensionFunctionPanel.GATEWAY_HINTS,
-            PythonResource.FUNCTION_DESCRIPTOR
-        );
-        extensionFunctionPanel.setEnabled(false);
-
-        add(extensionFunctionPanel, "push, grow");
     }
 
     @Override
     protected void init(PythonResource pythonResource) {
+        removeAll();
+        setLayout(new MigLayout("ins 16, fill"));
+
+        enabledCheckBox = new JCheckBox("Enabled");
+        add(enabledCheckBox, "wrap");
+        extensionFunctionPanel = new ExtensionFunctionPanel(ExtensionFunctionPanel.GATEWAY_HINTS);
+        extensionFunctionPanel.setDescriptor(PythonResource.FUNCTION_DESCRIPTOR);
         extensionFunctionPanel.setUserScript(pythonResource.getUserCode());
-        extensionFunctionPanel.setEnabled(true);
+
+        add(extensionFunctionPanel, "push, grow");
     }
 
     @Override
@@ -37,7 +39,12 @@ public class PythonResourceEditor extends ResourceEditor<PythonResource> {
 
     @Override
     protected PythonResource getObjectForSave() {
-        return new PythonResource(resourcePath.getName(), extensionFunctionPanel.getUserScript());
+        return new PythonResource(extensionFunctionPanel.getUserScript(), enabledCheckBox.isSelected());
+    }
+
+    @Override
+    protected boolean isOptimizeCommits() {
+        return true;
     }
 
     @Override

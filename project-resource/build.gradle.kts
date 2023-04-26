@@ -1,3 +1,6 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 plugins {
     alias(libs.plugins.modl)
 }
@@ -11,11 +14,14 @@ subprojects {
     }
 }
 
+version = "0.0.1"
+
 ignitionModule {
     id.set("io.ia.examples.resource")
     name.set("Project Resource Example")
     moduleDescription.set("Example module for project resources")
-    moduleVersion.set("1.0.0")
+    val buildNumber = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyDDDHHmm"))
+    moduleVersion.set("${project.version}.$buildNumber")
     fileName.set("ProjectResourceExample.modl")
     requiredIgnitionVersion.set(libs.versions.ignition)
 
@@ -28,8 +34,8 @@ ignitionModule {
     )
     hooks.set(
         mapOf(
-            "G" to "io.ia.examples.resource.GatewayHook",
-            "D" to "io.ia.examples.resource.DesignerHook",
+            "io.ia.examples.resource.GatewayHook" to "G",
+            "io.ia.examples.resource.DesignerHook" to "D",
         ),
     )
     skipModlSigning.set(true)

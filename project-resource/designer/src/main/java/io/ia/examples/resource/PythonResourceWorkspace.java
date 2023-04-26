@@ -26,14 +26,16 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
     public static final ResourceDescriptor DESCRIPTOR = ResourceDescriptor.builder()
         .resourceType(PythonResource.RESOURCE_TYPE)
         .nounKey("Python Example")
-        .icon(DesignerHook.ICONS.getIcon("python"))
+        .icon(DesignerHook.RESOURCE_ICON)
+        .rootFolderText("Event Handlers")
+        .rootIcon(DesignerHook.RESOURCE_ICON)
         .build();
 
     private static final String WORKSPACE_KEY = "python-example-workspace-key";
 
     private static class NewPythonResourceAction extends NewResourceAction {
         public NewPythonResourceAction(TabbedResourceWorkspace workspace, ResourceFolderNode folder) {
-            super(workspace, folder, PythonResourceWorkspace.newPythonResource);
+            super(workspace, folder, defaultPythonResource());
         }
 
         @Override
@@ -76,11 +78,7 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
                         i18n("python.noun"),
                         PythonResource.RESOURCE_TYPE.rootPath(),
                         List.of(
-                            ResourceBuilderDelegate.build(
-                                "python.resources",
-                                DesignerHook.ICONS.getIcon("python"),
-                                newPythonResource
-                            )
+                            ResourceBuilderDelegate.build(defaultPythonResource())
                         ),
                         PythonResourceWorkspace.this::open
                     ),
@@ -96,6 +94,9 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
     }
 
     @NotNull
-    private static final Consumer<ProjectResourceBuilder> newPythonResource =
-        PythonResource.toResource(new PythonResource("new-python-resource.py", "pass"));
+    private static Consumer<ProjectResourceBuilder> defaultPythonResource() {
+        return PythonResource.toResource(
+            new PythonResource("\tpass", true)
+        );
+    }
 }

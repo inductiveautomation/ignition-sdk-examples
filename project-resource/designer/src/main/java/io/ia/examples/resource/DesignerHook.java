@@ -1,28 +1,15 @@
 package io.ia.examples.resource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import javax.swing.Icon;
 
-import com.inductiveautomation.ignition.client.icons.VectorIcons;
+import com.inductiveautomation.ignition.client.icons.SvgIconUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceId;
 import com.inductiveautomation.ignition.designer.model.AbstractDesignerModuleHook;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
 
 public class DesignerHook extends AbstractDesignerModuleHook {
-    public static final VectorIcons ICONS;
-
-    static {
-        try (InputStream stream = DesignerHook.class.getResourceAsStream("vector-icons.json")) {
-            ICONS = VectorIcons.createFromJson(new InputStreamReader(stream, StandardCharsets.UTF_8));
-        } catch (IOException ex) {
-            throw new RuntimeException("Unable to initialize vector icon source", ex);
-        }
-    }
-
+    public static final Icon RESOURCE_ICON = SvgIconUtil.getIcon(DesignerHook.class, "code-block");
     private DesignerContext context;
 
     @Override
@@ -49,7 +36,7 @@ public class DesignerHook extends AbstractDesignerModuleHook {
     @Override
     public Icon getResourceIcon(ProjectResourceId id) {
         if (id.getResourceType().equals(PythonResource.RESOURCE_TYPE)) {
-            return ICONS.getIcon("python");
+            return RESOURCE_ICON;
         } else {
             return null;
         }

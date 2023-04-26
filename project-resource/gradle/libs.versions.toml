@@ -1,5 +1,5 @@
 [versions]
-ignition = "8.1.20"
+ignition = "8.1.26"
 java = "11"
 
 [plugins]

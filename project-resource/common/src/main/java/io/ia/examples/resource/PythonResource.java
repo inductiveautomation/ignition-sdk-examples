@@ -1,10 +1,10 @@
 package io.ia.examples.resource;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import com.inductiveautomation.ignition.common.gson.JsonElement;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResource;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceBuilder;
 import com.inductiveautomation.ignition.common.project.resource.ResourceType;
@@ -14,33 +14,38 @@ import org.jetbrains.annotations.NotNull;
 
 public final class PythonResource {
     public static final ResourceType RESOURCE_TYPE = new ResourceType(Constants.MODULE_ID, "example-resource");
+    public static final String RESOURCE_FILE = "code.py";
 
     public static final ExtensionFunctionDescriptor FUNCTION_DESCRIPTOR =
         new ExtensionFunctionDescriptor.Builder("onEvent")
             .param("payload", "The payload sent to the event handler", TypeDescriptor.Dictionary)
             .build();
-    private final String name;
     private final String userCode;
+    private final boolean enabled;
 
-    public PythonResource(@NotNull String name, @NotNull String userCode) {
-        this.name = Objects.requireNonNull(name);
+    public PythonResource(@NotNull String userCode, boolean enabled) {
         this.userCode = Objects.requireNonNull(userCode);
+        this.enabled = enabled;
     }
 
     public static PythonResource fromResource(ProjectResource resource) {
-        String resourceName = resource.getResourceName();
-        return new PythonResource(
-            resourceName,
-            new String(Objects.requireNonNull(resource.getData(resourceName + ".py")), StandardCharsets.UTF_8)
+        String code = new String(
+            Objects.requireNonNull(resource.getData(RESOURCE_FILE)),
+            StandardCharsets.UTF_8
         );
+        boolean isEnabled = resource.getAttribute("enabled")
+            .map(JsonElement::getAsBoolean)
+            .orElse(true);
+        return new PythonResource(code, isEnabled);
     }
 
     public static Consumer<ProjectResourceBuilder> toResource(@NotNull PythonResource resource) {
-        return builder -> builder.setData(
-            Map.of(
-                resource.getName() + ".py",
+        return builder -> builder
+            .putAttribute("enabled", resource.enabled)
+            .putData(
+                RESOURCE_FILE,
                 resource.getUserCode().getBytes(StandardCharsets.UTF_8)
-            ));
+            );
     }
 
     @Override
@@ -54,26 +59,22 @@ public final class PythonResource {
 
         PythonResource that = (PythonResource) o;
 
-        if (!Objects.equals(name, that.name)) {
+        if (enabled != that.enabled) {
             return false;
         }
-        return Objects.equals(userCode, that.userCode);
+        return userCode.equals(that.userCode);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + userCode.hashCode();
+        int result = userCode.hashCode();
+        result = 31 * result + (enabled ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("PythonResource{name='%s', userCode='%s'}", name, userCode);
-    }
-
-    public String getName() {
-        return name;
+        return String.format("PythonResource{userCode='%s', enabled=%s}", userCode, enabled);
     }
 
     public String getUserCode() {
