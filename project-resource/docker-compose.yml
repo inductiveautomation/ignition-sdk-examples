@@ -1,0 +1,21 @@
+services:
+  gateway:
+    image: inductiveautomation/ignition:8.1.20
+    ports:
+      - 18088:8088
+      - 18000:8000
+    environment:
+      GATEWAY_ADMIN_PASSWORD: password
+      IGNITION_EDITION: standard
+      ACCEPT_IGNITION_EULA: "Y"
+    volumes:
+      - gateway-data:/usr/local/bin/ignition/data
+    command: >
+      -n Ignition-module-dev
+      -d
+      --
+      -Dignition.allowunsignedmodules=true
+      -Dia.developer.moduleupload=true
+
+volumes:
+  gateway-data:
