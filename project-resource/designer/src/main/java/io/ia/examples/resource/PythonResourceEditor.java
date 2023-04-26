@@ -9,6 +9,8 @@ import com.inductiveautomation.ignition.designer.gui.tools.ExtensionFunctionPane
 import com.inductiveautomation.ignition.designer.tabbedworkspace.ResourceEditor;
 import net.miginfocom.swing.MigLayout;
 
+import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
+
 public class PythonResourceEditor extends ResourceEditor<PythonResource> {
 
     private ExtensionFunctionPanel extensionFunctionPanel;
@@ -19,15 +21,15 @@ public class PythonResourceEditor extends ResourceEditor<PythonResource> {
     }
 
     @Override
-    protected void init(PythonResource pythonResource) {
+    protected void init(PythonResource resource) {
         removeAll();
         setLayout(new MigLayout("ins 16, fill"));
 
-        enabledCheckBox = new JCheckBox("Enabled");
+        enabledCheckBox = new JCheckBox(i18n("words.enabled"));
         add(enabledCheckBox, "wrap");
         extensionFunctionPanel = new ExtensionFunctionPanel(ExtensionFunctionPanel.GATEWAY_HINTS);
         extensionFunctionPanel.setDescriptor(PythonResource.FUNCTION_DESCRIPTOR);
-        extensionFunctionPanel.setUserScript(pythonResource.getUserCode());
+        extensionFunctionPanel.setUserScript(resource.getUserCode());
 
         add(extensionFunctionPanel, "push, grow");
     }
