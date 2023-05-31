@@ -9,6 +9,7 @@ import javax.swing.JPopupMenu;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceBuilder;
 import com.inductiveautomation.ignition.common.project.resource.ResourcePath;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
+import com.inductiveautomation.ignition.designer.navtree.model.AbstractNavTreeNode;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.NewResourceAction;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.ResourceDescriptor;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.ResourceEditor;
@@ -25,7 +26,7 @@ import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
 public class PythonResourceWorkspace extends TabbedResourceWorkspace {
     public static final ResourceDescriptor DESCRIPTOR = ResourceDescriptor.builder()
         .resourceType(PythonResource.RESOURCE_TYPE)
-        .nounKey("Python Example")
+        .nounKey("python")
         .icon(DesignerHook.RESOURCE_ICON)
         .rootFolderText("Event Handlers")
         .rootIcon(DesignerHook.RESOURCE_ICON)
@@ -91,6 +92,16 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
                 );
             }
         });
+    }
+
+    @Override
+    protected AbstractNavTreeNode createRootNavTreeNode() {
+        return super.createRootNavTreeNode();
+    }
+
+    @Override
+    public AbstractNavTreeNode getRootNode() {
+        return super.getRootNode();
     }
 
     @NotNull

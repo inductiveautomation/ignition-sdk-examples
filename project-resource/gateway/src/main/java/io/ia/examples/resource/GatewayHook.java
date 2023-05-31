@@ -13,7 +13,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     @Override
     public void setup(GatewayContext gatewayContext) {
         this.context = gatewayContext;
-        this.factory = new EventHandlerLifecycleFactory(context.getProjectManager());
+        this.factory = new EventHandlerLifecycleFactory(context);
     }
 
     @Override

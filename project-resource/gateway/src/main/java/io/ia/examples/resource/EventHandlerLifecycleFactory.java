@@ -5,18 +5,22 @@ import java.util.List;
 import com.inductiveautomation.ignition.common.project.RuntimeProject;
 import com.inductiveautomation.ignition.common.script.ModuleLibrary;
 import com.inductiveautomation.ignition.common.script.ScriptLibrary;
+import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.project.ProjectLifecycleFactory;
 import com.inductiveautomation.ignition.gateway.project.ProjectManagerBase;
 import com.inductiveautomation.ignition.gateway.project.ResourceFilter;
 
 public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventHandlerLifecycle> {
-    public EventHandlerLifecycleFactory(ProjectManagerBase projectManager) {
-        super(projectManager);
+    private final GatewayContext context;
+
+    public EventHandlerLifecycleFactory(GatewayContext context) {
+        super(context.getProjectManager());
+        this.context = context;
     }
 
     @Override
     public EventHandlerLifecycle createProjectLifecycle(RuntimeProject runtimeProject) {
-        return new EventHandlerLifecycle(runtimeProject);
+        return new EventHandlerLifecycle(runtimeProject, context);
     }
 
     @Override
