@@ -12,6 +12,16 @@ import com.inductiveautomation.ignition.common.script.typing.ExtensionFunctionDe
 import com.inductiveautomation.ignition.common.script.typing.TypeDescriptor;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * An extremely basic POJO that serves to demonstrate best practices for an Ignition 'resource class'.
+ * <p>
+ * The static {@link PythonResource#fromResource} method is used to allow evolution of the resource format over time in
+ * a forwards compatible way, as any prior version of your module/Ignition could be storing your resource in a different
+ * way.
+ * <p>
+ * The {@link PythonResource#toResource} method returns a {@link Consumer} to ease interop with various Ignition
+ * platform methods.
+ */
 public final class PythonResource {
     public static final ResourceType RESOURCE_TYPE = new ResourceType(Constants.MODULE_ID, "example-resource");
     public static final String RESOURCE_FILE = "code.py";

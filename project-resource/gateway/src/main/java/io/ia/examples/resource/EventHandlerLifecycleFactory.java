@@ -1,13 +1,13 @@
 package io.ia.examples.resource;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import com.inductiveautomation.ignition.common.project.RuntimeProject;
 import com.inductiveautomation.ignition.common.script.ModuleLibrary;
 import com.inductiveautomation.ignition.common.script.ScriptLibrary;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.project.ProjectLifecycleFactory;
-import com.inductiveautomation.ignition.gateway.project.ProjectManagerBase;
 import com.inductiveautomation.ignition.gateway.project.ResourceFilter;
 
 public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventHandlerLifecycle> {
@@ -23,6 +23,8 @@ public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventH
         return new EventHandlerLifecycle(runtimeProject, context);
     }
 
+    // Every time any of these resources change (in any project that meets the project filter), the lifecycle will be
+    // notified.
     @Override
     protected ResourceFilter getResourceFilter() {
         return ResourceFilter.newBuilder()
@@ -32,5 +34,11 @@ public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventH
                 ScriptLibrary.RESOURCE_TYPE
             ))
             .build();
+    }
+
+    // Entrypoint to customize projects to 'listen' to. Defaults to runnable projects (not-inheritable && enabled)
+    @Override
+    public Predicate<RuntimeProject> getProjectFilter() {
+        return super.getProjectFilter();
     }
 }

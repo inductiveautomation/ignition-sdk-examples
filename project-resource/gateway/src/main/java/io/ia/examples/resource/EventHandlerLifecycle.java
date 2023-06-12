@@ -8,6 +8,9 @@ import com.inductiveautomation.ignition.common.project.resource.ProjectResourceI
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.project.ProjectLifecycle;
 
+/**
+ * Override the methods on ProjectLifecycle to handle project updates performed in the designer.
+ */
 public class EventHandlerLifecycle extends ProjectLifecycle {
     private final GatewayContext context;
 

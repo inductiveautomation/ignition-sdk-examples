@@ -34,6 +34,10 @@ public class PythonResourceEditor extends ResourceEditor<PythonResource> {
         add(extensionFunctionPanel, "push, grow");
     }
 
+    /*
+     Preferred pattern is to override deserialize(ProjectResource) so that you can store configuration data using
+     whatever resource keys you prefer.
+     */
     @Override
     protected PythonResource deserialize(ProjectResource resource) {
         return PythonResource.fromResource(resource);
@@ -44,11 +48,18 @@ public class PythonResourceEditor extends ResourceEditor<PythonResource> {
         return new PythonResource(extensionFunctionPanel.getUserScript(), enabledCheckBox.isSelected());
     }
 
+    // Don't save changes if getObjectForSave() is equal to the cached T
     @Override
     protected boolean isOptimizeCommits() {
         return true;
     }
 
+    /*
+    Preferred pattern is to override serializeResource(builder, T) so that you can serialize in whatever custom
+    format you want, rather than relying on Java serialization of your resource class into a data.bin file.
+
+    This allows human-readable diffing and easier source control compatibility.
+    */
     @Override
     protected void serializeResource(ProjectResourceBuilder builder, PythonResource object) {
         PythonResource.toResource(object).accept(builder);

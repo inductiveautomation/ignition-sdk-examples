@@ -9,7 +9,6 @@ import javax.swing.JPopupMenu;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceBuilder;
 import com.inductiveautomation.ignition.common.project.resource.ResourcePath;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
-import com.inductiveautomation.ignition.designer.navtree.model.AbstractNavTreeNode;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.NewResourceAction;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.ResourceDescriptor;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.ResourceEditor;
@@ -92,16 +91,6 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
                 );
             }
         });
-    }
-
-    @Override
-    protected AbstractNavTreeNode createRootNavTreeNode() {
-        return super.createRootNavTreeNode();
-    }
-
-    @Override
-    public AbstractNavTreeNode getRootNode() {
-        return super.getRootNode();
     }
 
     @NotNull
