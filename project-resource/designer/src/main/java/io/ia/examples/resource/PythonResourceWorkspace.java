@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 
+import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceBuilder;
 import com.inductiveautomation.ignition.common.project.resource.ResourcePath;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
@@ -25,9 +26,9 @@ import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
 public class PythonResourceWorkspace extends TabbedResourceWorkspace {
     public static final ResourceDescriptor DESCRIPTOR = ResourceDescriptor.builder()
         .resourceType(PythonResource.RESOURCE_TYPE)
-        .nounKey("python")
+        .nounKey("pr.handler.noun")
         .icon(DesignerHook.RESOURCE_ICON)
-        .rootFolderText("Event Handlers")
+        .rootFolderText("Custom Event Handlers")
         .rootIcon(DesignerHook.RESOURCE_ICON)
         .build();
 
@@ -66,7 +67,7 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
     @Override
     protected Optional<JComponent> createWorkspaceHomeTab() {
         return Optional.of(new WorkspaceWelcomePanel(
-            i18n("python.module.name"),
+            i18n("pr.resource.category"),
             null,
             null
         ) {
@@ -75,7 +76,7 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
                 return List.of(
                     new ResourceBuilderPanel(
                         context,
-                        i18n("python.noun"),
+                        i18n("pr.handler.noun"),
                         PythonResource.RESOURCE_TYPE.rootPath(),
                         List.of(
                             ResourceBuilderDelegate.build(defaultPythonResource())
@@ -85,7 +86,7 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
                     new RecentlyModifiedTablePanel(
                         context,
                         PythonResource.RESOURCE_TYPE,
-                        i18n("python.nouns"),
+                        i18n("pr.handler.nouns"),
                         PythonResourceWorkspace.this::open
                     )
                 );

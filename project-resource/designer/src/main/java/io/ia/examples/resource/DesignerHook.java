@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.swing.Icon;
 
 import com.inductiveautomation.ignition.client.icons.SvgIconUtil;
+import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.project.resource.ProjectResourceId;
 import com.inductiveautomation.ignition.designer.model.AbstractDesignerModuleHook;
@@ -11,6 +12,8 @@ import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.svg.SVGDocument;
+
+import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
 
 public class DesignerHook extends AbstractDesignerModuleHook {
     public static final Icon RESOURCE_ICON;
@@ -34,7 +37,12 @@ public class DesignerHook extends AbstractDesignerModuleHook {
     public void startup(DesignerContext context, LicenseState activationState) throws Exception {
         this.context = context;
 
-        context.registerResourceWorkspace(new PythonResourceWorkspace(context));
+        PythonResourceWorkspace workspace = new PythonResourceWorkspace(context);
+        context.registerResourceWorkspace(workspace);
+
+        BundleUtil.get().addBundle("pr", DesignerHook.class, "designer");
+
+        context.registerSearchProvider(new HandlerSearchProvider(context, workspace));
     }
 
     @Override
@@ -44,7 +52,7 @@ public class DesignerHook extends AbstractDesignerModuleHook {
     @Override
     public String getResourceCategoryKey(ProjectResourceId id) {
         if (id.getResourceType().equals(PythonResource.RESOURCE_TYPE)) {
-            return "Custom Event Handlers";
+            return i18n("pr.resource.category");
         } else {
             return null;
         }

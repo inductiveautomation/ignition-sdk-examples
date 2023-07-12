@@ -90,4 +90,8 @@ public final class PythonResource {
     public String getUserCode() {
         return userCode;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
