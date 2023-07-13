@@ -1,0 +1,11 @@
+[versions]
+ignition = "8.1.26"
+java = "11"
+
+[plugins]
+modl = { id = "io.ia.sdk.modl", version = "0.1.1" }
+
+[libraries]
+ignition-common = { module = "com.inductiveautomation.ignitionsdk:ignition-common", version.ref = "ignition" }
+ignition-designer = { module = "com.inductiveautomation.ignitionsdk:designer-api", version.ref = "ignition" }
+ignition-gateway = { module = "com.inductiveautomation.ignitionsdk:gateway-api", version.ref = "ignition" }
