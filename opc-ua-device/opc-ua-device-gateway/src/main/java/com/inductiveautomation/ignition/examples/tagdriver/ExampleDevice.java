@@ -22,8 +22,10 @@ import org.eclipse.milo.opcua.sdk.server.util.SubscriptionModel;
 import org.eclipse.milo.opcua.stack.core.AttributeId;
 import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
 import org.eclipse.milo.opcua.stack.core.Identifiers;
+import org.eclipse.milo.opcua.stack.core.StatusCodes;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.LocalizedText;
+import org.eclipse.milo.opcua.stack.core.types.builtin.StatusCode;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,6 +102,10 @@ public class ExampleDevice extends ManagedDevice {
 
     private void onShutdown() {
         subscriptionModel.shutdown();
+
+        deviceContext.getSubscriptionModel()
+            .getDataItems(deviceContext.getName())
+            .forEach(item -> item.setQuality(new StatusCode(StatusCodes.Uncertain_LastUsableValue)));
 
         deviceContext.getGatewayContext()
             .getExecutionManager()
