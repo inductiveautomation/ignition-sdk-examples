@@ -1,6 +1,6 @@
 [versions]
 ignition = "8.1.26"
-java = "11"
+java = "17"
 
 [plugins]
 modl = { id = "io.ia.sdk.modl", version = "0.1.1" }
