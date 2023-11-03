@@ -24,8 +24,12 @@ public class GetWrapperLogTaskType extends AbstractTaskType {
     public static final String BUNDLE_KEY = "remotelogging.tasks";
     public static final String TYPE_ID = "getwrapperlog";
 
-    public GetWrapperLogTaskType() {
-        super(GatewayHook.TASK_OWNERID, TYPE_ID, BUNDLE_KEY, false, false);
+    private GatewayContext context;
+
+
+    public GetWrapperLogTaskType(GatewayContext context) {
+       super(GatewayHook.TASK_OWNERID, TYPE_ID, BUNDLE_KEY, false, false);
+        this.context = context;
     }
 
     /**
@@ -63,7 +67,7 @@ public class GetWrapperLogTaskType extends AbstractTaskType {
             }
         };
 
-        model.add(new RemoteServerSelectionStep(stepModel));
+        model.add(new RemoteServerSelectionStep(stepModel, context));
     }
 
     /**

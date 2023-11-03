@@ -75,10 +75,10 @@ public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplemen
 
 
         // If all security checks passed, we can continue. Start by making a temporary copy of wrapper.log
-        File wrapperFile = new File(context.getSystemManager().getLogsDir() + File.separator + "wrapper.log");
+        File wrapperFile = new File(context.getSystemManager().getLogsDir() + File.separator + "system_logs.idb");
         File tempLog;
         if(wrapperFile.exists()){
-            tempLog = new File(System.getProperty("java.io.tmpdir") + File.separator + UUID.randomUUID().toString() + ".wrapper.log");
+            tempLog = new File(System.getProperty("java.io.tmpdir") + File.separator + UUID.randomUUID().toString() + ".system_logs.idb");
             try {
                 FileUtils.copyFile(wrapperFile, tempLog);
             } catch (IOException e) {
@@ -89,7 +89,7 @@ public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplemen
         }
         else{
             logger.warn(String.format("%s does not exist. Log file will not be sent", wrapperFile.getAbsolutePath()));
-            return GetLogsService.FAIL_MSG + ": wrapper.log file was not found";
+            return GetLogsService.FAIL_MSG + ": system_logs.idb file was not found";
         }
 
         String finalResult;
@@ -116,7 +116,7 @@ public class GetLogsServiceImpl implements GetLogsService, SecuredEntityImplemen
         // The passed wrapperFilePath holds the path to the streamed wrapper.log file on the local system.
         // From here, you can move the file to an archived location as you see fit. You will need to return
         // a success or fail message so the original caller can report on the task execution.
-        logger.info(String.format("Streamed wrapper.log file for server '%s' is available here: %s",
+        logger.info(String.format("Streamed system_logs.idb file for server '%s' is available here: %s",
                 sourceServerId.toDescriptiveString(),
                 wrapperFilePath));
 
