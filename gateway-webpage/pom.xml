@@ -7,7 +7,7 @@
     <groupId>com.inductiveautomation.ignition.examples.hce</groupId>
     <artifactId>gateway-webpage</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
 
     <modules>
         <module>gateway-webpage-gateway</module>
