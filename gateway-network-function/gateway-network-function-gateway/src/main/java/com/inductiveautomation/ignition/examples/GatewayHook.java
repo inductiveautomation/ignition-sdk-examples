@@ -44,7 +44,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         sm.registerService(GetLogsService.class, getLogsService);
 
         // Task setup
-        registeredTasks.add(new GetWrapperLogTaskType(context));
+        registeredTasks.add(new GetWrapperLogTaskType());
         for(TaskType tt: registeredTasks){
             context.getTaskManager().registerTaskType(tt);
         }

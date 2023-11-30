@@ -8,6 +8,7 @@ import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.gateway.gan.GatewayNetworkManager;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.metro.api.ServerId;
+import org.apache.wicket.Application;
 import org.apache.wicket.extensions.wizard.WizardStep;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -28,7 +29,7 @@ public class RemoteServerSelectionStep extends WizardStep {
     private List<SimpleRemoteGateway> gateways;
     private String accessKey;
 
-    public RemoteServerSelectionStep(IModel<RemoteGatewaySelection> settings, GatewayContext context){
+    public RemoteServerSelectionStep(IModel<RemoteGatewaySelection> settings){
         super(BundleUtil.get().getString(TITLE), null, settings);
 
         // A form is required when using elements like checkboxes
@@ -38,7 +39,7 @@ public class RemoteServerSelectionStep extends WizardStep {
         // The gateways list is serialized when the Previous button is clicked in the wizard. This functionality
         // allows the checkbox selections to be preserved when returning to this page in the wizard.
         if(gateways == null){
-            gateways = loadRemoteGateways(settings.getObject().getSelectedGateways(), context);
+            gateways = loadRemoteGateways(settings.getObject().getSelectedGateways());
         }
 
         this.accessKey = settings.getObject().getAccessKey();
@@ -95,12 +96,13 @@ public class RemoteServerSelectionStep extends WizardStep {
      * @param initialSelectedGateways
      * @return
      */
-    private List<SimpleRemoteGateway> loadRemoteGateways(List<String> initialSelectedGateways, GatewayContext context) {
+    private List<SimpleRemoteGateway> loadRemoteGateways(List<String> initialSelectedGateways){
         List<SimpleRemoteGateway> gateways = new ArrayList<>();
 
+        // Determine all known remote Gateways
+        GatewayContext context = (GatewayContext) Application.get();
         GatewayNetworkManager gn = context.getGatewayAreaNetworkManager();
         List<ServerId> servers = gn.getKnownServers();
-
         for(ServerId server: servers){
             SimpleRemoteGateway sg = new SimpleRemoteGateway(server.getServerName(), gn.getServer(server).getState().toString());
             if(initialSelectedGateways.contains(server.getServerName())){
