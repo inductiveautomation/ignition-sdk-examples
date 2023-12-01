@@ -52,8 +52,8 @@ The Gradle Plugin is published to the [Gradle Plugin Portal](https://plugins.gra
 
 These requirements generally apply to both Gradle and Maven build tools.
 
-* Java Development Kit (JDK) 11 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.  Licensed/TCK tested JDK vendors such as Adoptium, Azul Zulu, etc, are generally suitable JDKs as well.
-* A running, 8.0+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.
+* Java Development Kit (JDK) 17 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.  Licensed/TCK tested JDK vendors such as Adoptium, Azul Zulu, etc, are generally suitable JDKs as well.
+* A running, 8.1.33+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.
 * For development convenience, you may want to allow unsigned modules. Open the `ignition.conf` file in the `data/` directory, then in the `wrapper.java.additional` section add a line like: `wrapper.java.additional.7=-Dignition.allowunsignedmodules=true` (the index does not matter).
 
 ## Getting Started

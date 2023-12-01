@@ -11,11 +11,11 @@ You will need to install the module on two separate Gateways. You can create a s
 ```
 import datetime
 
-servers = ["ide_controller"]
+servers = ["agent"]
 startTime = datetime.datetime.now() - datetime.timedelta(hours=3)
 
 map = system.example.getRemoteLogEntries(servers, startTime)
-serverLogs = map["ide_controller"]
+serverLogs = map["agent"]
 for row in range(serverLogs.rowCount):
 	printable = {
 	'level': serverLogs.getValueAt(row, "level"), 
