@@ -71,7 +71,7 @@
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.gan-function</moduleId>
+                    <moduleId>com.inductiveautomation.examples.gateway-network-function</moduleId>
                     <moduleName>${module-name}</moduleName>
                     <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
