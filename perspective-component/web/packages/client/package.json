@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@inductiveautomation/perspective-client": "^2.1.16",
-        "axios": "^0.27.2",
+        "axios": "^0.28.0",
         "react": "16.14.0",
         "react-dom": "16.14.0"
     },
