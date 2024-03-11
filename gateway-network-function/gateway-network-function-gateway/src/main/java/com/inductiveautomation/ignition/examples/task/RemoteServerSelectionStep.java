@@ -7,6 +7,7 @@ import java.util.List;
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.gateway.gan.GatewayNetworkManager;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.model.IgnitionWebApp;
 import com.inductiveautomation.metro.api.ServerId;
 import org.apache.wicket.Application;
 import org.apache.wicket.extensions.wizard.WizardStep;
@@ -100,7 +101,7 @@ public class RemoteServerSelectionStep extends WizardStep {
         List<SimpleRemoteGateway> gateways = new ArrayList<>();
 
         // Determine all known remote Gateways
-        GatewayContext context = (GatewayContext) Application.get();
+        GatewayContext context = (((IgnitionWebApp) Application.get()).getContext());
         GatewayNetworkManager gn = context.getGatewayAreaNetworkManager();
         List<ServerId> servers = gn.getKnownServers();
         for(ServerId server: servers){

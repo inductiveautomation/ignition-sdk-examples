@@ -10,29 +10,30 @@ const webpack = require('webpack'),
     path = require('path'),
     fs = require('fs'),
     MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-    WebpackOnBuildPlugin = require('on-build-webpack');
+    AfterBuildPlugin = require('@fiverr/afterbuild-webpack-plugin');
 
 const LibName = "RadComponents";
 
-// function that copies the result of the webpack from the dist/ folder into the gateway resources folder.  Used
-// in a post-build step so that our web assets are packed into our jar when the module is built.
+// function that copies the result of the webpack from the dist/ folder into the  generated-resources folder which
+// ultimately gets included in a 'web.jar'.  This jar is included in the module's gateway scope, and its contents are
+// accessible as classpath resources just as if they were included in the gateway jar itself.
 function copyToResources() {
-    const resourceFolder = path.resolve(__dirname, '../../..', 'gateway/src/main/resources/mounted/');
+    const generatedResourcesDir = path.resolve(__dirname, '../..', 'build/generated-resources/mounted/');
     const jsToCopy = path.resolve(__dirname, "dist/", `${LibName}.js`);
     const cssToCopy = path.resolve(__dirname, "dist/", `${LibName}.css`);
-    const jSResourcePath = path.resolve(resourceFolder, `${LibName}.js`);
-    const cssResourcePath = path.resolve(resourceFolder, `${LibName}.css`);
+    const jSResourcePath = path.resolve(generatedResourcesDir, `${LibName}.js`);
+    const cssResourcePath = path.resolve(generatedResourcesDir, `${LibName}.css`);
 
 
     const toCopy = [{from:jsToCopy, to: jSResourcePath}, {from: cssToCopy, to: cssResourcePath}];
 
     // if the desired folder doesn't exist, create it
-    if (!fs.existsSync(resourceFolder)){
-        fs.mkdirSync(resourceFolder)
+    if (!fs.existsSync(generatedResourcesDir)){
+        fs.mkdirSync(generatedResourcesDir, {recursive: true})
     }
 
     toCopy.forEach( file => {
-        console.log(`copying ${file} into ${resourceFolder}...`);
+        console.log(`copying ${file} into ${generatedResourcesDir}...`);
 
         try {
             fs.access(file.from, fs.constants.R_OK, (err) => {
@@ -84,35 +85,32 @@ const config = {
                 use: {
                     loader: 'ts-loader',
                     options: {
-                        transpileOnly: false,
-                        experimentalWatchApi: true
+                        transpileOnly: false
                     }
                 },
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$|.scss$/,
                 use: [
+                    MiniCssExtractPlugin.loader,
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: 'css-loader',
                         options: {
-                            sourceMap: false
+                            // tells css-loader not to treat `url('/some/path')` as things that need to resolve at build time
+                            // in other words, the url value is simply passed-through as written in the css/sass
+                            url: false
                         }
                     },
                     {
-                        loader: 'css-loader',
-                        options: {sourceMap: false }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {sourceMap: false }
-                    },
+                        loader: "sass-loader",
+                    }
                 ]
             }
         ]
     },
     plugins: [
-        new WebpackOnBuildPlugin(function(stats) {
+        new AfterBuildPlugin(function(stats) {
             copyToResources();
         }),
         // pulls CSS out into a single file instead of dynamically inlining it
