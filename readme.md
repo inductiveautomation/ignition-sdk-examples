@@ -45,12 +45,6 @@ Adds a Slack Alarm Notification type that handles alarm notifications through Sl
 ##### [Vision Component](vision-component)
 Creates a Hello World component that can be dragged onto a window in the Designer.
 
-## Requirements
-* Java Development Kit (JDK) 11 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.
-* Maven 3.+ installed. Linux users can use their package manager to install at the command line (ex: `sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`. Windows users can install via [Chocolatey](https://chocolatey.org/) (`choco install maven`) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
-* A running, 8.0+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.
-* For development, you will want to allow unsigned modules. Open the `ignition.conf` file in the `data/` directory, then in the `wrapper.java.additional` section add a line like: `wrapper.java.additional.7=-Dignition.allowunsignedmodules=true` (the index does not matter).
-
 ## The Module Build System
 
 These examples utilize either Maven and our Maven Plugin, or Gradle and our [Gradle Plugin](https://github.com/inductiveautomation/ignition-module-tools).  Both tools are mature and capable, offering different tradeoffs in terms of performance, ease of customization, language support, etc.  If you prefer XML configuration, take a look at Maven.  If you prefer declarative programming-language based configuration, check out Gradle.  Inductive Automation uses Gradle to build Ignition and our own modules with the same open source plugin linked above.
