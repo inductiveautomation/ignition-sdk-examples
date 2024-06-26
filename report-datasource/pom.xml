@@ -6,7 +6,7 @@
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>report-datasource</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -17,7 +17,8 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
+        <!--add -SNAPSHOT back to version after 8.3.0 published-->
+        <ignition-platform-version>8.3.0</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Report Datasource Example</module-name>
         <module-description>Adds a REST/Json datasource to Ignition's reporting module as a datasource
@@ -45,7 +46,8 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <!--change -beta back to -releases after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -59,7 +61,8 @@
     <repositories>
         <repository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <!--change -beta back to -releases after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -71,7 +74,8 @@
 
         <repository>
             <id>snapshots</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
+            <!--change -beta back to -snapshots after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>

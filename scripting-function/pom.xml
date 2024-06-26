@@ -6,7 +6,7 @@
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>scripting-function</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -18,10 +18,11 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
+        <!--add -SNAPSHOT back to version after 8.3.0 published-->
+        <ignition-platform-version>8.3.0</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Scripting Function Example</module-name>
-        <module-description>Adds a simple scripting function to the client and gateway</module-description>
+        <module-description>Adds a simple scripting function to the Client and Gateway</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -29,7 +30,8 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <!--change -beta back to -releases after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -43,7 +45,8 @@
     <repositories>
         <repository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <!--change -beta back to -releases after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -55,7 +58,8 @@
 
         <repository>
             <id>snapshots</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
+            <!--change -beta back to -snapshots after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>

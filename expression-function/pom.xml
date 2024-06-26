@@ -6,11 +6,12 @@
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>expression-function</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
+        <!--add -SNAPSHOT back to version after 8.3.0 published-->
+        <ignition-platform-version>8.3.0</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Expression Function Example</module-name>
         <module-description>Implements a simple expression function in the client, designer, and gateway scope.</module-description>
@@ -29,14 +30,16 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <!--change -beta back to -releases after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
         </pluginRepository>
     </pluginRepositories>
 
     <repositories>
         <repository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <!--change -beta back to -releases after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -48,7 +51,8 @@
 
         <repository>
             <id>snapshots</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
+            <!--change -beta back to -snapshots after 8.3.0 published-->
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>

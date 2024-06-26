@@ -14,7 +14,7 @@ subprojects {
     }
 }
 
-version = "0.0.1"
+version = "1.3.0"
 
 ignitionModule {
     id.set("io.ia.examples.resource")
