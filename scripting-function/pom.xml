@@ -18,8 +18,7 @@
     </modules>
 
     <properties>
-        <!--add -SNAPSHOT back to version after 8.3.0 published-->
-        <ignition-platform-version>8.3.0</ignition-platform-version>
+        <ignition-platform-version>8.3.0-SNAPSHOT</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Scripting Function Example</module-name>
         <module-description>Adds a simple scripting function to the Client and Gateway</module-description>
