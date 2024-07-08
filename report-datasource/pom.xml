@@ -59,9 +59,8 @@
 
     <repositories>
         <repository>
-            <id>releases</id>
-            <!--change -beta back to -releases after 8.3.0 published-->
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
+            <id>ia-releases</id>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -72,9 +71,8 @@
         </repository>
 
         <repository>
-            <id>snapshots</id>
-            <!--change -beta back to -snapshots after 8.3.0 published-->
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
+            <id>ia-snapshots</id>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -85,7 +83,7 @@
         </repository>
 
         <repository>
-            <id>thirdparty</id>
+            <id>ia-thirdparty</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty</url>
             <releases>
                 <enabled>true</enabled>
@@ -95,5 +93,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+        <repository>
+            <id>ia-beta</id>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
+        </repository>
     </repositories>
+
 </project>
