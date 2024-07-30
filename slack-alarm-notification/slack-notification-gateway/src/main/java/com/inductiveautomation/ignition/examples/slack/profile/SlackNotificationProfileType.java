@@ -12,7 +12,7 @@ import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 public class SlackNotificationProfileType extends AlarmNotificationProfileType{
     public static final String TYPE_ID = "SlackType";
     public static final ContactType SLACK =
-        new ContactType("Slack", new LocalizedString("SlackNotification.ContactType.slack"));
+        new ContactType("Slack", new LocalizedString("SlackNotification.ContactType.Slack"));
 
 	public SlackNotificationProfileType() {
 		super(TYPE_ID,
