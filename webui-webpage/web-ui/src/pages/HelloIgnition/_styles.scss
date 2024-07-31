@@ -1,0 +1,17 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .button-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .info {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+  }
+}

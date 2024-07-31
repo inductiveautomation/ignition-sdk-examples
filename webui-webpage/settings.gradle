@@ -1,0 +1,56 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
+        }
+        maven {
+            url = "https://nexus.inductiveautomation.com/repository/public" 
+        }
+    }
+}
+
+rootProject.name = "webui-webpage"
+
+dependencyResolutionManagement {
+    repositories {
+        // enable resolving dependencies from the inductive automation artifact repository
+        maven {
+            url "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
+        }
+
+        maven {
+            url "https://nexus.inductiveautomation.com/repository/public"
+        }
+
+        mavenCentral()
+
+        // Declare the Node.js download repository.  We do this here so that we can continue to have repositoryMode set
+        // to 'PREFER SETTINGS', as the node plugin will respect that and not set the node repo, meaning we can't
+        // resolve the node runtime we need for building the web packages.
+        ivy {
+            name = "Node.js"
+            setUrl("https://nodejs.org/dist/")
+            patternLayout {
+                artifact("v[revision]/[artifact](-v[revision]-[classifier]).[ext]")
+            }
+            metadataSources {
+                artifact()
+            }
+            content {
+                includeModule("org.nodejs", "node")
+            }
+        }
+    }
+}
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+include(
+":",
+    ":common",
+    ":gateway",
+    ":web-ui"
+)
