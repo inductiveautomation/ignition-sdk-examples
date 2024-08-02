@@ -5,7 +5,7 @@ This is an example module which adds a React built webpage and a corresponding n
 
 ## Quick Tool Overview
 
-This project uses a number of build tools in order to complete the various parts of its assembly.  It's importatnt to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
+This project uses a number of build tools in order to complete the various parts of its assembly.  It's important to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
 
 * [Gradle](https://gradle.org/) - the primary build tool. Most tasks executed in a typical workflow are gradle tasks.
   and 'packages' in the same git/hg repository without having to do a lot of complicated symlinking/publishing to pull in changes from one project to another.  It's mostly useful from the commandline, outside of gradle.
@@ -39,7 +39,7 @@ This project uses a number of build tools in order to complete the various parts
 
 ## Additional Information
 - React is required in order to inject your page / component into the gateway.
-- We use webpack in this example, but feel free to use whatever bundling tool your comfortable with.
+- We use webpack in this example, but feel free to use whatever bundling tool you're comfortable with.
 - Bundles need to be in the UMD ([Universal Module Definition](https://github.com/umdjs/umd)) format.
 - We provide a handful of libraries that are currently listed as "externals" in the webpack config. You should install them while developing locally, but they should not be bundled with your JS file as they will be provided by the gateway.
 - We do have a shared component library built in React (documentation / storybook will eventually be available). You will need a .yarnrc file to direct requests for @inductiveatutomation libraries when using yarn or NPM (.yarnrc included in example)
