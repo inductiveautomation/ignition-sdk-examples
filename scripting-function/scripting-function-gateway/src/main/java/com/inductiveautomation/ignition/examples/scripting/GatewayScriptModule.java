@@ -1,10 +1,16 @@
 package com.inductiveautomation.ignition.examples.scripting;
 
-public class GatewayScriptModule extends AbstractScriptModule {
+import java.util.function.Supplier;
 
-    @Override
-    protected int multiplyImpl(int arg0, int arg1) {
-        return arg0 * arg1;
+public class GatewayScriptModule extends AbstractScriptModule {
+    private final Supplier<Metadata> metadataSupplier;
+
+    public GatewayScriptModule(Supplier<Metadata> metadataSupplier) {
+        this.metadataSupplier = metadataSupplier;
     }
 
+    @Override
+    protected Metadata getArchImpl() {
+        return metadataSupplier.get();
+    }
 }

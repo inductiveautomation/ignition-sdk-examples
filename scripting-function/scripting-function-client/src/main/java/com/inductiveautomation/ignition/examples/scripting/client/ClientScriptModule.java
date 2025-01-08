@@ -1,23 +1,24 @@
 package com.inductiveautomation.ignition.examples.scripting.client;
 
+import com.inductiveautomation.ignition.client.gateway_interface.GatewayConnection;
 import com.inductiveautomation.ignition.examples.scripting.AbstractScriptModule;
-import com.inductiveautomation.ignition.examples.scripting.MathBlackBox;
-import com.inductiveautomation.ignition.client.gateway_interface.ModuleRPCFactory;
+import com.inductiveautomation.ignition.examples.scripting.Constants;
+import com.inductiveautomation.ignition.examples.scripting.Metadata;
+import com.inductiveautomation.ignition.examples.scripting.RpcFunctions;
+
 
 public class ClientScriptModule extends AbstractScriptModule {
 
-    private final MathBlackBox rpc;
+    private static final RpcFunctions RPC = GatewayConnection.getRpcInterface(
+            RpcFunctions.SERIALIZER,
+            Constants.MODULE_ID,
+            RpcFunctions.class
+    );
 
-    public ClientScriptModule() {
-        rpc = ModuleRPCFactory.create(
-            "com.inductiveautomation.ignition.examples.scripting-function",
-            MathBlackBox.class
-        );
-    }
+    public ClientScriptModule() {}
 
     @Override
-    protected int multiplyImpl(int arg0, int arg1) {
-        return rpc.multiply(arg0, arg1);
+    protected Metadata getArchImpl() {
+        return RPC.getGatewayMetadata();
     }
-
 }
