@@ -1,6 +1,5 @@
 package com.inductiveautomation.ignition.examples.tagdriver.settings;
 
-import com.inductiveautomation.ignition.gateway.localdb.persistence.Category;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.IntField;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.LongField;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.PersistentRecord;
@@ -14,6 +13,7 @@ import simpleorm.dataset.SFieldFlags;
  * Implements all functionality needed to save a device and its settings in the internal database.
  */
 @Deprecated(since = "8.3.0")
+@SuppressWarnings("unused")
 public class ExampleDeviceSettings extends PersistentRecord {
 
   @Serial
@@ -43,51 +43,14 @@ public class ExampleDeviceSettings extends PersistentRecord {
       DEVICE_SETTINGS_ID
   );
 
-  @Override
-  public RecordMeta<?> getMeta() {
-    return META;
-  }
-
   /**
    * Settings specific to the ExampleDevice; each one must be placed in a Category.
    */
   public static final IntField TAG_COUNT = new IntField(META, "TagCount", SFieldFlags.SMANDATORY);
 
-  /**
-   * Categories specific to the ExampleDevice; each category appears below the General category in
-   * the Gateway when creating a new driver.
-   * <p>
-   * In this case, the displayKey below is referencing ExampleDeviceSettings.properties, which
-   * should be located in the same package as the class file on the file system. You must put the
-   * actual category name into this file.
-   * <p>
-   * The order number determines the order in which multiple categories are displayed on the page.
-   */
-  @SuppressWarnings("unused")
-  public static final Category EXAMPLE_CATEGORY =
-      new Category("ExampleDeviceSettings.ExampleCategory", 1001).include(TAG_COUNT);
-
-  static {
-    // Hides some generic ReferenceField settings that are not needed in our driver example.
-    DEVICE_SETTINGS.getFormMeta().setVisible(false);
-  }
-
-  /**
-   * Get the number of tags that will be exposed to the driver
-   *
-   * @return an int with the saved tag count
-   */
-  public int getTagCount() {
-    return getInt(TAG_COUNT);
-  }
-
-  /**
-   * Set the number of tags that will be exposed to the driver
-   *
-   * @param tagCount an int that represents the tag count to save
-   */
-  public void setTagCount(int tagCount) {
-    setInt(TAG_COUNT, tagCount);
+  @Override
+  public RecordMeta<?> getMeta() {
+    return META;
   }
 
 }
