@@ -9,6 +9,8 @@ Adds a simple image component to the Perspective module's set of components.  In
 
 ### Maven Examples
 
+### [Event Stream](event-stream-source) 
+
 ##### [Expression Function](expression-function)
 Creates an exampleMultiply expression that can be used by other components, such as expression tags. The example expression is located under the Extended expression category.
 
@@ -84,7 +86,7 @@ These requirements generally apply to both Gradle and Maven build tools.
 * Then, from the Ignition gateway web interface, head to Configure -> Modules, and scroll down to install any of your built modules from the `/module/module-build/` directory.
 
 ## The Module Build System
-Most examples utilize Maven and our Maven Plugin.  The ignition-maven-plugin is available through our [Nexus Repository](https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/) (see examples for how to add to depenency sources).
+Most examples utilize Maven and our Maven Plugin.  The ignition-maven-plugin is available through our [Nexus Repository](https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/) (see examples for how to add to dependency sources).
 
 Perspective examples utilize our gradle plugin, which is also open source and available in the [ignition-module-tools](https://github.com/inductiveautomation/ignition-module-tools).
 
