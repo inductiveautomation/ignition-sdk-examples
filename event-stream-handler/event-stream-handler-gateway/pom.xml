@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>event-stream-source</artifactId>
+        <artifactId>event-stream-handler</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>event-stream-source-gateway</artifactId>
+    <artifactId>event-stream-handler-gateway</artifactId>
 
     <dependencies>
         <dependency>
@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>event-stream-source-common</artifactId>
+            <artifactId>event-stream-handler-common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

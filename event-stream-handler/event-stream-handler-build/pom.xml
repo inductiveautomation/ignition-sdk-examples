@@ -5,27 +5,27 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>event-stream-source</artifactId>
+        <artifactId>event-stream-handler</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>event-stream-source-build</artifactId>
+    <artifactId>event-stream-handler-build</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>event-stream-source-designer</artifactId>
+            <artifactId>event-stream-handler-designer</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>event-stream-source-common</artifactId>
+            <artifactId>event-stream-handler-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>event-stream-source-gateway</artifactId>
+            <artifactId>event-stream-handler-gateway</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -50,20 +50,20 @@
                 <configuration>
                     <projectScopes>
                         <projectScope>
-                            <name>event-stream-source-common</name>
+                            <name>event-stream-handler-common</name>
                             <scope>CDG</scope>
                         </projectScope>
                         <projectScope>
-                            <name>event-stream-source-designer</name>
+                            <name>event-stream-handler-designer</name>
                             <scope>D</scope>
                         </projectScope>
                         <projectScope>
-                            <name>event-stream-source-gateway</name>
+                            <name>event-stream-handler-gateway</name>
                             <scope>G</scope>
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.event-stream-source</moduleId>
+                    <moduleId>com.inductiveautomation.ignition.examples.event-stream-handler</moduleId>
                     <moduleName>${module-name}</moduleName>
                     <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
@@ -83,11 +83,11 @@
                     <hooks>
                         <hook>
                             <scope>D</scope>
-                            <hookClass>com.inductiveautomation.ignition.examples.eventstream.source.designer.ExampleSourceDesignerHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.eventstream.handler.designer.ExampleHandlerDesignerHook</hookClass>
                         </hook>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.ignition.examples.eventstream.source.gateway.ExampleSourceGatewayHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.eventstream.handler.gateway.ExampleHandlerGatewayHook</hookClass>
                         </hook>
                     </hooks>
                 </configuration>

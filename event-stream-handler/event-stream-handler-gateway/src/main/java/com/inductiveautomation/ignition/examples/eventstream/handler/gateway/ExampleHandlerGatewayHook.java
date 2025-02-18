@@ -1,18 +1,18 @@
-package com.inductiveautomation.ignition.examples.eventstream.source.gateway;
+package com.inductiveautomation.ignition.examples.eventstream.handler.gateway;
 
 import com.inductiveautomation.eventstream.gateway.EventStreamManager;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
-import com.inductiveautomation.ignition.examples.eventstream.source.ExampleSourceModule;
+import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerModule;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 
-public class ExampleSourceGatewayHook extends AbstractGatewayModuleHook {
+public class ExampleHandlerGatewayHook extends AbstractGatewayModuleHook {
 
     @Override
     public void setup(GatewayContext context) {
-        EventStreamManager.get(context).getSourceRegistry().register(
-            ExampleSourceModule.MODULE_ID,
-            ExampleSource.createFactory()
+        EventStreamManager.get(context).getHandlerRegistry().register(
+            ExampleHandlerModule.MODULE_ID,
+            ExampleHandler.createFactory()
         );
     }
 

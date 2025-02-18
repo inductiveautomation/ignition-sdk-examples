@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>event-stream-source</artifactId>
+        <artifactId>event-stream-handler</artifactId>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <version>1.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>event-stream-source-gateway</artifactId>
+    <artifactId>event-stream-handler-common</artifactId>
 
     <dependencies>
         <dependency>
@@ -19,18 +19,6 @@
             <version>${ignition-sdk-version}</version>
             <scope>provided</scope>
             <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>com.inductiveautomation.eventstream</groupId>
-            <artifactId>event-stream-gateway</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
-            <scope>provided</scope>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>com.inductiveautomation.ignition.examples</groupId>
-            <artifactId>event-stream-source-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -47,4 +35,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

@@ -18,15 +18,19 @@ public class ExampleSourceEditor extends SourceEditor {
         add(textField, BorderLayout.NORTH);
     }
 
+    /**
+     * This method is executed on the Event Dispatcher Thread (EDT).
+     */
     @Override
-    // IS THIS EDT?
     public void initialize(EventStreamContext context, JsonObject json) {
         ExampleSourceConfig config = ExampleSourceConfig.fromJson(json);
         textField.setText(config.textToStream());
     }
 
+    /**
+     * This method is NOT executed on the Event Dispatcher Thread (EDT).
+     */
     @Override
-    // IS THIS EDT?
     public JsonObject getConfig() {
         return new ExampleSourceConfig(textField.getText()).toJson();
     }
