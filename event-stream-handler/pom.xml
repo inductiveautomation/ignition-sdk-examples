@@ -19,8 +19,7 @@
     <properties>
         <!--add -SNAPSHOT back to version after 8.3.0 published-->
         <ignition-platform-version>8.3.0-SNAPSHOT</ignition-platform-version>
-<!--        <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>-->
-        <ignition-sdk-version>1.3.0-SNAPSHOT</ignition-sdk-version>
+        <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Event Stream Handler Example</module-name>
         <module-description>Adds a simple Event Stream Handler to the Event Stream module.</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

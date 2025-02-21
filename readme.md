@@ -9,7 +9,11 @@ Adds a simple image component to the Perspective module's set of components.  In
 
 ### Maven Examples
 
-### [Event Stream](event-stream-source) 
+### [Event Stream Source](event-stream-source)
+Creates a source that for a given list of comma separated items, will emit an event for each item in the list every second. 
+
+### [Event Stream Handler](event-stream-handler)
+Creates a handler that will listen for events from the Event Stream and write the payload to file. 
 
 ##### [Expression Function](expression-function)
 Creates an exampleMultiply expression that can be used by other components, such as expression tags. The example expression is located under the Extended expression category.

@@ -9,6 +9,9 @@ import com.inductiveautomation.eventstream.EventPayload;
 import com.inductiveautomation.eventstream.gateway.api.EventStreamSource;
 import com.inductiveautomation.ignition.examples.eventstream.source.ExampleSourceConfig;
 
+/**
+ * Given a list of comma separated items, this source will emit each item in the list every second.
+ */
 public class ExampleSource implements EventStreamSource {
 
     private final AtomicReference<Subscriber> subscriber = new AtomicReference<>();
@@ -46,7 +49,7 @@ public class ExampleSource implements EventStreamSource {
                     items[index]).build()
                 );
             }
-        }, 0, 15_000);
+        }, 0, 1_000);
     }
 
     private void stop() {
