@@ -9,6 +9,7 @@ import com.inductiveautomation.eventstream.gateway.api.EventStreamHandler;
 import com.inductiveautomation.eventstream.gateway.api.expression.EventStreamExpressionFactory;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerConfig;
+import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerModule;
 
 public class ExampleHandler implements EventStreamHandler {
     private final LoggerEx logger = LoggerEx.newBuilder().build(ExampleHandler.class);
@@ -24,6 +25,7 @@ public class ExampleHandler implements EventStreamHandler {
 
     @Override
     public void onStartup(EventStreamExpressionFactory expressionFactory) throws Exception {
+        logger.infof("Starting %s", ExampleHandlerModule.MODULE_NAME);
         writer = new FileWriter(config.filePath());
         if (config.useTestFilePath()) {
             testWriter = new FileWriter(config.testFilePath());
@@ -32,6 +34,7 @@ public class ExampleHandler implements EventStreamHandler {
 
     @Override
     public void onShutdown() {
+        logger.infof("Shutting down %s", ExampleHandlerModule.MODULE_NAME);
         if (writer != null) {
             try {
                 writer.close();
@@ -49,8 +52,12 @@ public class ExampleHandler implements EventStreamHandler {
         }
     }
 
+    /**
+     * Handles a list of EventPayloads, either when the event stream runs or using the Dry Run option for testing.
+     */
     @Override
     public void handle(List<EventPayload> list, boolean testMode) throws Exception {
+        logger.infof("Handling events using testMode? %b", testMode);
         for (EventPayload event : list) {
             writeEvent(event, testMode);
         }
@@ -58,7 +65,7 @@ public class ExampleHandler implements EventStreamHandler {
 
     private void writeEvent(EventPayload event, boolean testMode) throws IOException {
         var dataAsString = event.getData().toString();
-
+        logger.infof("Writing data: %s", dataAsString);
         if (testMode) {
             if (config.useTestFilePath()) {
                 testWriter.write(dataAsString);

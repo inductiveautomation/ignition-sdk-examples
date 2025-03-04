@@ -1,9 +1,9 @@
 package com.inductiveautomation.ignition.examples.eventstream.handler.designer;
 
-import com.inductiveautomation.eventstream.EventStreamModule;
 import com.inductiveautomation.eventstream.designer.api.EventStreamContext;
 import com.inductiveautomation.eventstream.designer.api.handler.EventStreamHandlerDesignDelegate;
 import com.inductiveautomation.eventstream.designer.api.handler.HandlerEditor;
+import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerModule;
 
 public class ExampleHandlerDesignDelegate implements EventStreamHandlerDesignDelegate {
 
@@ -14,12 +14,12 @@ public class ExampleHandlerDesignDelegate implements EventStreamHandlerDesignDel
 
     @Override
     public String getType() {
-        return EventStreamModule.MODULE_ID;
+        return ExampleHandlerModule.MODULE_ID;
     }
 
     @Override
     public String getName() {
-        return "Example Handler";
+        return ExampleHandlerModule.MODULE_NAME;
     }
 
     @Override

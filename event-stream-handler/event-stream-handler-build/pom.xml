@@ -51,7 +51,7 @@
                     <projectScopes>
                         <projectScope>
                             <name>event-stream-handler-common</name>
-                            <scope>CDG</scope>
+                            <scope>DG</scope>
                         </projectScope>
                         <projectScope>
                             <name>event-stream-handler-designer</name>
@@ -67,15 +67,12 @@
                     <moduleName>${module-name}</moduleName>
                     <moduleDescription>${module-description}</moduleDescription>
                     <moduleVersion>${project.version}</moduleVersion>
-                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
+<!--                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>-->
+                    <requiredIgnitionVersion>8.3.0</requiredIgnitionVersion>
 
                     <depends>
                         <depend>
-                            <scope>D</scope>
-                            <moduleId>com.inductiveautomation.eventstream</moduleId>
-                        </depend>
-                        <depend>
-                            <scope>G</scope>
+                            <scope>DG</scope>
                             <moduleId>com.inductiveautomation.eventstream</moduleId>
                         </depend>
                     </depends>

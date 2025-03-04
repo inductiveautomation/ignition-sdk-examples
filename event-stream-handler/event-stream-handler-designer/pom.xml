@@ -15,6 +15,20 @@
     <dependencies>
         <dependency>
             <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>client-api</artifactId>
+            <version>${ignition-sdk-version}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
+            <artifactId>designer-api</artifactId>
+            <version>${ignition-sdk-version}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.inductiveautomation.ignitionsdk</groupId>
             <artifactId>event-stream-designer</artifactId>
             <version>${ignition-sdk-version}</version>
             <scope>provided</scope>

@@ -1,13 +1,14 @@
 package com.inductiveautomation.ignition.examples.eventstream.handler.designer;
 
-import java.awt.BorderLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.inductiveautomation.eventstream.designer.api.EventStreamContext;
 import com.inductiveautomation.eventstream.designer.api.handler.HandlerEditor;
 import com.inductiveautomation.ignition.common.gson.JsonObject;
 import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerConfig;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * The editor contains 2 {@link JTextField} components and a {@link JCheckBox} component. The text fields are used to
@@ -32,10 +33,14 @@ public class ExampleHandlerEditor extends HandlerEditor {
 
     public ExampleHandlerEditor() {
         super();
-        setLayout(new BorderLayout());
-        add(textField, BorderLayout.NORTH);
-        add(testTextField, BorderLayout.SOUTH);
-        add(useTestFilePathCheckBox, BorderLayout.CENTER);
+        setLayout(new MigLayout(
+            "ins 0, fillx, gapy 4, wrap 1",
+            "[fill, grow]", "")
+        );
+        add(new JLabel("File Path"));
+        add(textField, "width 20:400:400, wrap 16");
+        add(useTestFilePathCheckBox);
+        add(testTextField, "width 20:400:400");
 
         installListeners();
     }

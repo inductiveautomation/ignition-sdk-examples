@@ -84,6 +84,7 @@
                         <hook>
                             <scope>D</scope>
                             <hookClass>com.inductiveautomation.ignition.examples.eventstream.source.designer.ExampleSourceDesignerHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.eventstream.source.designer.ExampleSourceDesignerHook</hookClass>
                         </hook>
                         <hook>
                             <scope>G</scope>

@@ -19,11 +19,19 @@ public record ExampleHandlerConfig(String filePath, String testFilePath, boolean
         return json;
     }
 
-    public static ExampleHandlerConfig fromJson(JsonObject json) {
+    public static ExampleHandlerConfig fromJson(JsonObject config) {
+        if (config == null || config.isEmpty()) {
+            return defaultConfig();
+        }
+
         return new ExampleHandlerConfig(
-            json.get(FILE_PATH).getAsString(),
-            json.get(TEST_FILE_PATH).getAsString(),
-            json.get(USE_TEST_FILE_PATH).getAsBoolean()
+            config.get(FILE_PATH).getAsString(),
+            config.get(TEST_FILE_PATH).getAsString(),
+            config.get(USE_TEST_FILE_PATH).getAsBoolean()
         );
+    }
+
+    public static ExampleHandlerConfig defaultConfig() {
+        return new ExampleHandlerConfig("", "", false);
     }
 }
