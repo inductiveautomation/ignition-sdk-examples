@@ -1,11 +1,11 @@
 package com.inductiveautomation.ignition.examples.designer;
 
-import com.inductiveautomation.ignition.examples.client.GetLogsClientFunctions;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.script.ScriptManager;
+import com.inductiveautomation.ignition.common.script.hints.PropertiesFileDocProvider;
 import com.inductiveautomation.ignition.designer.model.AbstractDesignerModuleHook;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
-import com.inductiveautomation.ignition.examples.GetLogsScriptFunctions.Documentation;
+import com.inductiveautomation.ignition.examples.client.gn.GetLogsClientFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,9 @@ public class DesignerHook extends AbstractDesignerModuleHook {
 
     @Override
     public void initializeScriptManager(ScriptManager manager) {
-        manager.addScriptModule("system.example", new GetLogsClientFunctions(), new Documentation());
+        manager.addScriptModule("system.example.gn",
+            new GetLogsClientFunctions(),
+            new PropertiesFileDocProvider());
     }
 
     @Override

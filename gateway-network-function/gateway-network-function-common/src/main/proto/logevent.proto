@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+// It's best practice in Protobuf to set a package. By doing so, the message objects in this .proto file can be
+// reused by other .proto files
+package getlogs.protobuf;
+
+// When a .proto file is transpiled into Java, we need to tell it where to put the .java version of the file.
+// This setting is what does that. In this case, the .java file is placed in:
+// `target/generated-sources/protobuf/java/com/inductiveautomation/ignition/examples/gn/protocolbuffers/`
+option java_package = "com.inductiveautomation.ignition.examples.gn.protocolbuffers";
+
+// This setting provides the name of the transpiled .java file. The Ignition ProtobufSerializable implementation
+// (in this case LogEventSerializer.java) needs to reference the package of the transpiled .java file. The Java package
+// in LogEventSerializer will be:
+// `import com.inductiveautomation.ignition.examples.gn.protocolbuffers.GetLogsProto`
+option java_outer_classname = "GetLogsProto";
+
+message LogEventPB {
+  // The timestamp of the log message
+  int64 timestamp = 1;
+
+  // The logger name
+  string loggerName = 2;
+
+  // This uses the LogLevel enum message below. The values were taken directly from the
+  // com.inductiveautomation.ignition.common.logging.Level enum
+  LogLevel level = 3;
+
+  // The actual log message
+  string message = 4;
+
+  // A log marker annotates a log entry with some information, such as the remote gateway name. Some loggers don't use
+  // a marker, so the marker object will be null in the LogEvent object. We make the marker portion optional here
+  // to tell Protobuf that the value may not be available.
+  optional string marker = 5;
+
+  // If a log message has a stacktrace, they will be added as an array of Strings. If there is no stacktrace, this
+  // functions as an empty array.
+  repeated string exception = 6;
+}
+
+enum LogLevel {
+    TRACE = 0;
+    DEBUG = 1;
+    INFO = 2;
+    WARN = 3;
+    ERROR = 4;
+    FATAL = 5;
+    OFF = 6;
+}
