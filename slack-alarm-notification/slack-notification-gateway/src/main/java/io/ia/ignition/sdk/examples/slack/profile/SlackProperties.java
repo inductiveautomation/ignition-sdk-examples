@@ -1,4 +1,4 @@
-package com.inductiveautomation.ignition.examples.slack.profile;
+package io.ia.ignition.sdk.examples.slack.profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import com.inductiveautomation.ignition.common.i18n.LocalizedString;
 import static com.inductiveautomation.ignition.common.BundleUtil.i18n;
 
 public class SlackProperties {
+	private SlackProperties() {}
 
 	public static final BasicNotificationProfileProperty<String> MESSAGE = new BasicNotificationProfileProperty<>(
 		"message",
@@ -70,5 +71,4 @@ public class SlackProperties {
 		options.add(new ConfigurationProperty.Option<>(false, new LocalizedString("words.no")));
 		TEST_MODE.setOptions(options);
 	}
-
 }
