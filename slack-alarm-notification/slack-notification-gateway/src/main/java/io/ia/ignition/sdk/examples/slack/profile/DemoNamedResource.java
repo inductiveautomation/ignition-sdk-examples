@@ -1,5 +1,6 @@
 package io.ia.ignition.sdk.examples.slack.profile;
 
+import com.inductiveautomation.ignition.common.resourcecollection.Resource;
 import com.inductiveautomation.ignition.common.resourcecollection.ResourceType;
 import com.inductiveautomation.ignition.gateway.config.ResourceTypeMeta;
 import com.inductiveautomation.ignition.gateway.dataroutes.openapi.annotations.DefaultValue;
@@ -7,6 +8,18 @@ import com.inductiveautomation.ignition.gateway.dataroutes.openapi.annotations.D
 import com.inductiveautomation.ignition.gateway.dataroutes.openapi.annotations.Required;
 import io.ia.ignition.sdk.examples.slack.GatewayHook;
 
+/**
+ * A simple "dummy" resource intended only as a proof of concept.
+ * Named resources are suitable for "instance" state, such as a single "profile" or instance of configuration (think
+ * a particular notification profile, database connection, or similar).
+ * <p/>
+ * Note: This resource does not have a name, UUID, enabled, or description field.
+ * Those are provided "for free" via the resource system, and should not be repeated on your individual config.
+ *
+ * @see com.inductiveautomation.ignition.common.util.ResourceUtil#isEnabled(Resource)
+ * @see com.inductiveautomation.ignition.common.util.ResourceUtil#getUuid(Resource)
+ * @see com.inductiveautomation.ignition.gateway.config.DecodedResource
+ */
 public record DemoNamedResource(
         @DescriptionKey("SlackNotificationProfileSettings.DemoNamed.someField")
         @DefaultValue("someDefault")

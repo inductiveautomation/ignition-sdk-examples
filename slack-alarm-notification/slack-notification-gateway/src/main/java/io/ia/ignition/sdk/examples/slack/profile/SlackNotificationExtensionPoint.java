@@ -14,6 +14,13 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 
+/**
+ * This is an example of implementing an existing "extension point" from Ignition; specifically, an alarm notification
+ * profile.
+ * <p>
+ * Extension points are the most common way for modules to interface smoothly with Ignition, and knowing which extension
+ * point you are extending is a core part of working with Ignition.
+ */
 public class SlackNotificationExtensionPoint
         extends AlarmNotificationProfileExtensionPoint<SlackNotificationProfileResource> {
     public static final String TYPE_ID = "SlackType";
@@ -26,9 +33,11 @@ public class SlackNotificationExtensionPoint
                 "SlackNotification.SlackNotificationProfileType.Description",
                 SlackNotificationProfileResource.class);
 
-        // Add a "reference property", so that the gateway knows we're using an audit profile's name in our config
-        // If something tries to delete that audit profile, it will be prevented
-        // If that audit profile is renamed, it will update our config (per the lambda below)
+        /*
+         Add a "reference property", so that the gateway knows we're using an audit profile's name in our config
+         If something tries to delete that audit profile, it will be prevented
+         If that audit profile is renamed, it will update our config (per the lambda below)
+        */
         addReferenceProperty(
                 "auditProfileName",
                 builder -> builder
