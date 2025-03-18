@@ -58,7 +58,7 @@ public class ExampleHandlerEditor extends HandlerEditor {
     }
 
     /**
-     * This method is NOT executed on the Event Dispatcher Thread (EDT).
+     * This method is executed on the Event Dispatcher Thread (EDT).
      */
     @Override
     public JsonObject getConfig() {
