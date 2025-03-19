@@ -59,8 +59,10 @@ public class SlackNotificationExtensionPoint
 
     @Override
     protected void validate(SlackNotificationProfileResource settings, ValidationErrors.Builder errors) {
-        // Optionally add validation to an incoming configuration object
-        // These error messages will be conveyed back to the standard web UI automatically
+        /*
+         Optionally add validation to an incoming configuration object
+         These error messages will be conveyed back to the standard web UI automatically
+        */
         // errors.requireNotNull("someField", settings.auditProfileName());
         super.validate(settings, errors);
     }

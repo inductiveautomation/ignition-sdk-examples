@@ -5,12 +5,3 @@
 Provides a framework for implementing a custom alarm notification system.
 Users to be notified need to have an outgoing webhook registered through Slack's API, then added to their user profile
 in Ignition.
-
-### Module SDK Purposes
-
-#### Extension Points
-
-#### Persistent Configuration
-
-#### Secrets
-
