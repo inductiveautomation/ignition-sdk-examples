@@ -10,10 +10,14 @@ public class ExampleHandlerGatewayHook extends AbstractGatewayModuleHook {
 
     @Override
     public void setup(GatewayContext context) {
-        EventStreamManager.get(context).getHandlerRegistry().register(
-            ExampleHandlerModule.MODULE_ID,
-            ExampleHandler.createFactory()
-        );
+
+        // checks if the event stream module is installed
+        if (context.getModule(ExampleHandlerModule.EVENT_STREAM_MODULE_ID) != null) {
+            EventStreamManager.get(context).getHandlerRegistry().register(
+                ExampleHandlerModule.MODULE_ID,
+                ExampleHandler.createFactory()
+            );
+        }
     }
 
     @Override

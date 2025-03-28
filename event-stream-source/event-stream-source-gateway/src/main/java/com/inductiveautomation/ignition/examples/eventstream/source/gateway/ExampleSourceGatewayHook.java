@@ -10,10 +10,14 @@ public class ExampleSourceGatewayHook extends AbstractGatewayModuleHook {
 
     @Override
     public void setup(GatewayContext context) {
-        EventStreamManager.get(context).getSourceRegistry().register(
-            ExampleSourceModule.MODULE_ID,
-            ExampleSource.createFactory()
-        );
+
+        // checks if the event stream module is installed
+        if (context.getModule(ExampleSourceModule.EVENT_STREAM_MODULE_ID) != null) {
+            EventStreamManager.get(context).getSourceRegistry().register(
+                ExampleSourceModule.MODULE_ID,
+                ExampleSource.createFactory()
+            );
+        }
     }
 
     @Override
