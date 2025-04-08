@@ -18,7 +18,6 @@
             <artifactId>event-stream-common</artifactId>
             <version>${ignition-sdk-version}</version>
             <scope>provided</scope>
-            <optional>true</optional>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -26,7 +25,6 @@
             <artifactId>event-stream-gateway</artifactId>
             <version>${ignition-sdk-version}</version>
             <scope>provided</scope>
-            <optional>true</optional>
             <type>pom</type>
         </dependency>
         <dependency>
