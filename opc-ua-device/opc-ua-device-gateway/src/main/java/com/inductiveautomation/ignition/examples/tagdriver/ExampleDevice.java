@@ -15,8 +15,8 @@ import org.eclipse.milo.opcua.sdk.server.nodes.UaVariableNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.filters.AttributeFilters;
 import org.eclipse.milo.opcua.sdk.server.util.SubscriptionModel;
 import org.eclipse.milo.opcua.stack.core.AttributeId;
-import org.eclipse.milo.opcua.stack.core.BuiltinDataType;
 import org.eclipse.milo.opcua.stack.core.NodeIds;
+import org.eclipse.milo.opcua.stack.core.OpcUaDataType;
 import org.eclipse.milo.opcua.stack.core.StatusCodes;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.LocalizedText;
@@ -125,7 +125,7 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
           b.setNodeId(context.nodeId(String.format("%s/node%d", formattedName, n)))
               .setBrowseName(context.qualifiedName(formattedName))
               .setDisplayName(new LocalizedText(formattedName))
-              .setDataType(BuiltinDataType.UInt32.getNodeId())
+              .setDataType(OpcUaDataType.UInt32.getNodeId())
               .setTypeDefinition(NodeIds.BaseDataVariableType)
               .setAccessLevel(AccessLevel.READ_ONLY)
               .setUserAccessLevel(AccessLevel.READ_ONLY)
@@ -172,7 +172,7 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
           b.setNodeId(context.nodeId(String.format("%s/node%d", formattedName, n)))
               .setBrowseName(context.qualifiedName(formattedName))
               .setDisplayName(new LocalizedText(formattedName))
-              .setDataType(BuiltinDataType.UInt16.getNodeId())
+              .setDataType(OpcUaDataType.UInt16.getNodeId())
               .setTypeDefinition(NodeIds.BaseDataVariableType)
               .setAccessLevel(accessLevel)
               .setUserAccessLevel(accessLevel)
