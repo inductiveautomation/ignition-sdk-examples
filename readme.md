@@ -9,10 +9,10 @@ Adds a simple image component to the Perspective module's set of components.  In
 
 ### Maven Examples
 
-### [Event Stream Source](event-stream-source)
+##### [Event Stream Source](event-stream-source)
 Creates a source that for a given list of comma separated items, will emit an event for each item in the list every second. 
 
-### [Event Stream Handler](event-stream-handler)
+##### [Event Stream Handler](event-stream-handler)
 Creates a handler that will listen for events from the Event Stream and write the payload to file. 
 
 ##### [Expression Function](expression-function)
@@ -50,6 +50,9 @@ Adds a Slack Alarm Notification type that handles alarm notifications through Sl
 
 ##### [Vision Component](vision-component)
 Creates a Hello World component that can be dragged onto a window in the Designer.
+
+##### [WebUI Webpage](webui-webpage)
+Adds a React built webpage and a corresponding nav link to the gateway application.
 
 ## Requirements
 * Java Development Kit (JDK) 11 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.
