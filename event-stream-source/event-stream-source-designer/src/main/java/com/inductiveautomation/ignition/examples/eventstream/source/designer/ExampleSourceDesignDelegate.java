@@ -17,14 +17,4 @@ public class ExampleSourceDesignDelegate implements EventStreamSourceDesignDeleg
         return ExampleSourceModule.MODULE_ID;
     }
 
-    @Override
-    public String getName() {
-        return ExampleSourceModule.MODULE_NAME;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Given a comma delimited string, will stream each value on a 15 second interval.";
-    }
-
 }

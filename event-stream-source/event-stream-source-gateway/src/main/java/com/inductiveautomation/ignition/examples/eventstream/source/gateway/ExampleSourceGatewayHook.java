@@ -14,7 +14,6 @@ public class ExampleSourceGatewayHook extends AbstractGatewayModuleHook {
         // checks if the event stream module is installed
         if (context.getModule(ExampleSourceModule.EVENT_STREAM_MODULE_ID) != null) {
             EventStreamManager.get(context).getSourceRegistry().register(
-                ExampleSourceModule.MODULE_ID,
                 ExampleSource.createFactory()
             );
         }
