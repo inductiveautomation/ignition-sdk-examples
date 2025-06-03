@@ -3,6 +3,11 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
         mavenLocal()
+        // add the IA repo to pull in the module-signer artifact.  Can be removed if the module-signer is maven
+        // published locally from its source-code and loaded via mavenLocal.
+        maven {
+            url = uri("https://nexus.inductiveautomation.com/repository/public/")
+        }
     }
 }
 

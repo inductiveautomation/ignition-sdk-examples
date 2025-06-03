@@ -55,6 +55,7 @@ ignitionModule {
             "io.ia.example.perspective.min.designer.OneComponentDesignerHook" to "D"
         )
     )
+    skipModlSigning.set(true)
 }
 
 

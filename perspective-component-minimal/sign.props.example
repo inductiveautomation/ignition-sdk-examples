@@ -1,0 +1,14 @@
+# this 'sign.props' file required for signing modules.  Should NOT be committed as it will contain private information.
+# This file can be in the root of the project, or can be put in the user's home directory so that it's usable
+# by all projects.
+
+# NOTE: Change the file name/extension to remove the `.example`, so the file is just 'sign.props'
+
+# these fields should contain the signing certs for your company/organization, these values just used as example
+# paths can be relative to the root of the module project, or full paths.
+key.file=./private/mykeys.pfx
+key.pass=myPassword1234
+
+cert.file=./private/certificates.p7b
+cert.alias=fake_alias
+cert.pass=supersecure5678
