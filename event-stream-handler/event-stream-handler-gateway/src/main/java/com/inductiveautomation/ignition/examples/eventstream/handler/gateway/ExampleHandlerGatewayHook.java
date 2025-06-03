@@ -13,10 +13,7 @@ public class ExampleHandlerGatewayHook extends AbstractGatewayModuleHook {
 
         // checks if the event stream module is installed
         if (context.getModule(ExampleHandlerModule.EVENT_STREAM_MODULE_ID) != null) {
-            EventStreamManager.get(context).getHandlerRegistry().register(
-                ExampleHandlerModule.MODULE_ID,
-                ExampleHandler.createFactory()
-            );
+            EventStreamManager.get(context).getHandlerRegistry().register(ExampleHandler.createFactory());
         }
     }
 

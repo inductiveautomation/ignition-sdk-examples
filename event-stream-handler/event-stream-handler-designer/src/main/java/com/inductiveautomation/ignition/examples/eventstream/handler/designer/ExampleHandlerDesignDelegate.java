@@ -16,15 +16,4 @@ public class ExampleHandlerDesignDelegate implements EventStreamHandlerDesignDel
     public String getType() {
         return ExampleHandlerModule.MODULE_ID;
     }
-
-    @Override
-    public String getName() {
-        return ExampleHandlerModule.MODULE_NAME;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Writes payload to a specified path";
-    }
-
 }

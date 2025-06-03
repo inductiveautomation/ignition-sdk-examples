@@ -14,8 +14,8 @@ import net.miginfocom.swing.MigLayout;
  * The editor contains 2 {@link JTextField} components and a {@link JCheckBox} component. The text fields are used to
  * input the {@code file path} and {@code test file path}. <br>
  * <br>
- * If the {@code useTestFilePathCheckBox} is checked, the {@code testTextField} is enabled and
- * the payloads will be written to the {@code test file path}, otherwise the payloads will be written to the
+ * If the {@code useTestFilePathCheckBox} is checked, the {@code testTextField} is enabled, and
+ * the payload will be written to the {@code test file path}, otherwise the payload will be written to the
  * logger. <br>
  * <br>
  * The {@link #initialize(EventStreamContext, JsonObject)} method is called in the following scenarios:
