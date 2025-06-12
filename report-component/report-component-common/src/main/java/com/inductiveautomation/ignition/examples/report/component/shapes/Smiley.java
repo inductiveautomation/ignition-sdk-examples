@@ -21,7 +21,7 @@ import com.inductiveautomation.rm.shape.j2dshapes.AbstractJ2DShape;
  * to our component's icon resource, which has a base path of 'images/'.
  * @author Perry Arellano-Jones
  */
-@ShapeMeta(category = "reporting.Category.Shapes", iconPath = "smiley.png")
+@ShapeMeta(category = "reporting.Category.Shapes", iconPath = "smiley")
 @KeyBase("component.Shape.Smiley")  // the base resource path to our bundle containing property terms for this component
 public class Smiley extends AbstractJ2DShape {
     public static final String ARCHIVE_NAME = "report-smiley-component";   // unique id of serialization archive, needs
