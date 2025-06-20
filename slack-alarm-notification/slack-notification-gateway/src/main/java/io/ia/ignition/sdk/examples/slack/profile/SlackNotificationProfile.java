@@ -137,7 +137,8 @@ public class SlackNotificationProfile implements AlarmNotificationProfile {
                 return;
             }
 
-            try (var client = HttpClient.newHttpClient()) {
+            try {
+                var client = HttpClient.newHttpClient();
                 for (ContactInfo slackContactInfo : slackContactInfos) {
                     String url = slackContactInfo.getValue();
 
