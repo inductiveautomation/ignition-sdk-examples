@@ -2,7 +2,6 @@ package io.ia.example.perspective.min.gateway;
 
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletResponse;
 import static io.ia.example.perspective.min.common.OneComponent.URL_ALIAS;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
@@ -11,6 +10,7 @@ import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.perspective.common.api.ComponentRegistry;
 import com.inductiveautomation.perspective.gateway.api.PerspectiveContext;
 import io.ia.example.perspective.min.common.comp.Image;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class OneComponentGatewayHook extends AbstractGatewayModuleHook {
 
