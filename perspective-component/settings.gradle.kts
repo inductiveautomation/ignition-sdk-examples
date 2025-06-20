@@ -19,6 +19,9 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://nexus.inductiveautomation.com/repository/public/")
         }
+        maven {
+            url = uri("https://nexus.inductiveautomation.com/repository/inductiveautomation-beta/")
+        }
 
         // Declare the Node.js download repository.  We do this here so that we can continue to have repositoryMode set
         // to 'PREFER SETTINGS', as the node plugin will respect that and not set the node repo, meaning we can't
