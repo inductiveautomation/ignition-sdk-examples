@@ -84,8 +84,8 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
 
     addDynamicNodes(rootNode);
 
-    addStaticNodes(rootNode, "static", config.tagCount(), AccessLevel.READ_WRITE);
-    addStaticNodes(rootNode, "readOnly", config.tagCount(), AccessLevel.READ_ONLY);
+    addStaticNodes(rootNode, "static", config.general().tagCount(), AccessLevel.READ_WRITE);
+    addStaticNodes(rootNode, "readOnly", config.general().tagCount(), AccessLevel.READ_ONLY);
 
     // fire initial subscription creation
     onDataItemsCreated(
@@ -117,7 +117,7 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
     // addOrganizes is just a helper method to an OPC UA "Organizes" references to a folder node
     rootNode.addOrganizes(folder);
 
-    for (int i = 0; i < config.tagCount(); i++) {
+    for (int i = 0; i < config.general().tagCount(); i++) {
       final int n = i;
       String formattedName = String.format("%s%d", name, n);
 

@@ -46,9 +46,10 @@ public class ModuleHook extends AbstractDeviceModuleHook {
             .profileMeta(DeviceSettingsRecord.META)
             .settingsRecordForeignKey(ExampleDeviceSettings.DEVICE_SETTINGS)
             .settingsMeta(ExampleDeviceSettings.META)
+            .settingsEncoder(
+                b -> b.withCustomFieldName(ExampleDeviceSettings.TAG_COUNT, "general.tagCount"))
             .build();
 
     return List.of(strategy);
   }
-
 }
