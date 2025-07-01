@@ -29,7 +29,7 @@ public class SlackNotificationExtensionPoint
         extends AlarmNotificationProfileExtensionPoint<SlackNotificationProfileResource> {
     public static final String TYPE_ID = "SlackType";
     public static final ContactType SLACK_WEBHOOK =
-            new ContactType("Slack", new LocalizedString("SlackNotification.ContactType.slack"));
+            new ContactType("Slack", new LocalizedString("SlackNotification.ContactType.Slack"));
 
     public SlackNotificationExtensionPoint() {
         super(TYPE_ID,
