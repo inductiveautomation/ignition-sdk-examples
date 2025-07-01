@@ -39,6 +39,7 @@ public record DemoSingletonResource(
                 .resourceType(TYPE)
                 .singleton()
                 .defaultConfig(DEFAULT)
+                .categoryName("Demo Singleton Resource")
                 .buildValidator((resource, validator) -> {
                         validator.requireNotEmpty("someField", resource.someField());
                 })

@@ -42,6 +42,7 @@ public record DemoNamedResource(
 
         public static final ResourceTypeMeta<DemoNamedResource> META = ResourceTypeMeta.newBuilder(DemoNamedResource.class)
                 .resourceType(TYPE)
+                .categoryName("Demo Named Resource")
                 .defaultConfig(DEFAULT)
                 .buildValidator((resource, validator) -> {
                         validator.checkField(
