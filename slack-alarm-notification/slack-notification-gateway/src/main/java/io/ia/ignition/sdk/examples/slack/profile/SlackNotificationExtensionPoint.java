@@ -1,17 +1,21 @@
 package io.ia.ignition.sdk.examples.slack.profile;
 
-import com.inductiveautomation.ignition.alarming.notification.*;
+import com.inductiveautomation.ignition.alarming.notification.AlarmNotificationProfile;
+import com.inductiveautomation.ignition.alarming.notification.AlarmNotificationProfileConfig;
+import com.inductiveautomation.ignition.alarming.notification.AlarmNotificationProfileExtensionPoint;
 import com.inductiveautomation.ignition.common.i18n.LocalizedString;
 import com.inductiveautomation.ignition.common.user.ContactType;
 import com.inductiveautomation.ignition.gateway.audit.AuditProfileType;
 import com.inductiveautomation.ignition.gateway.config.DecodedResource;
 import com.inductiveautomation.ignition.gateway.config.ExtensionPointConfig;
-import com.inductiveautomation.ignition.gateway.config.ReferenceFinderBuilder;
 import com.inductiveautomation.ignition.gateway.config.ValidationErrors;
+import com.inductiveautomation.ignition.gateway.dataroutes.openapi.SchemaUtil;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.web.nav.ExtensionPointResourceForm;
+import com.inductiveautomation.ignition.gateway.web.nav.WebUiComponent;
 
 import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.Optional;
 
 
 /**
@@ -65,5 +69,18 @@ public class SlackNotificationExtensionPoint
         */
         // errors.requireNotNull("someField", settings.auditProfileName());
         super.validate(settings, errors);
+    }
+
+    @Override
+    public Optional<WebUiComponent> getWebUiComponent(ComponentType type) {
+        return Optional.of(
+            new ExtensionPointResourceForm(
+                AlarmNotificationProfileConfig.RESOURCE_TYPE,
+                "Alarm Notification Profile",
+                TYPE_ID,
+                SchemaUtil.fromType(AlarmNotificationProfileConfig.class),
+                SchemaUtil.fromType(SlackNotificationProfileResource.class)
+            )
+        );
     }
 }
