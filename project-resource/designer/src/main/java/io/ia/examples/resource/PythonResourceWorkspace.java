@@ -3,12 +3,9 @@ package io.ia.examples.resource;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import javax.swing.JComponent;
-import javax.swing.JPopupMenu;
-
-import com.inductiveautomation.ignition.common.BundleUtil;
-import com.inductiveautomation.ignition.common.project.resource.ProjectResourceBuilder;
-import com.inductiveautomation.ignition.common.project.resource.ResourcePath;
+import javax.swing.*;
+import com.inductiveautomation.ignition.common.resourcecollection.ResourceBuilder;
+import com.inductiveautomation.ignition.common.resourcecollection.ResourcePath;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.NewResourceAction;
 import com.inductiveautomation.ignition.designer.tabbedworkspace.ResourceDescriptor;
@@ -47,11 +44,6 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
 
     public PythonResourceWorkspace(DesignerContext context) {
         super(context, DESCRIPTOR);
-    }
-
-    @Override
-    protected ResourceEditor<PythonResource> newResourceEditor(ResourcePath resourcePath) {
-        return new PythonResourceEditor(this, resourcePath);
     }
 
     @Override
@@ -94,8 +86,13 @@ public class PythonResourceWorkspace extends TabbedResourceWorkspace {
         });
     }
 
+    @Override
+    protected ResourceEditor newResourceEditor(ResourcePath resourcePath) {
+        return new PythonResourceEditor(this, resourcePath);
+    }
+
     @NotNull
-    private static Consumer<ProjectResourceBuilder> defaultPythonResource() {
+    private static Consumer<ResourceBuilder> defaultPythonResource() {
         return PythonResource.toResource(
             new PythonResource("\tpass", true)
         );

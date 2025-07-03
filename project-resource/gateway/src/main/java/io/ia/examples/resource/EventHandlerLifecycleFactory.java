@@ -2,15 +2,14 @@ package io.ia.examples.resource;
 
 import java.util.List;
 import java.util.function.Predicate;
-
-import com.inductiveautomation.ignition.common.project.RuntimeProject;
+import com.inductiveautomation.ignition.common.resourcecollection.ResourceFilter;
+import com.inductiveautomation.ignition.common.resourcecollection.RuntimeResourceCollection;
 import com.inductiveautomation.ignition.common.script.ModuleLibrary;
 import com.inductiveautomation.ignition.common.script.ScriptLibrary;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.ignition.gateway.project.ProjectLifecycleFactory;
-import com.inductiveautomation.ignition.gateway.project.ResourceFilter;
+import com.inductiveautomation.ignition.gateway.resourcecollection.ResourceCollectionLifecycleFactory;
 
-public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventHandlerLifecycle> {
+public class EventHandlerLifecycleFactory extends ResourceCollectionLifecycleFactory<EventHandlerLifecycle> {
     private final GatewayContext context;
 
     public EventHandlerLifecycleFactory(GatewayContext context) {
@@ -19,8 +18,8 @@ public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventH
     }
 
     @Override
-    public EventHandlerLifecycle createProjectLifecycle(RuntimeProject runtimeProject) {
-        return new EventHandlerLifecycle(runtimeProject, context);
+    public EventHandlerLifecycle createLifecycle(RuntimeResourceCollection runtimeResourceCollection) {
+        return new EventHandlerLifecycle(runtimeResourceCollection, context);
     }
 
     // Every time any of these resources change (in any project that meets the project filter), the lifecycle will be
@@ -38,7 +37,7 @@ public class EventHandlerLifecycleFactory extends ProjectLifecycleFactory<EventH
 
     // Entrypoint to customize projects to 'listen' to. Defaults to runnable projects (not-inheritable && enabled)
     @Override
-    public Predicate<RuntimeProject> getProjectFilter() {
-        return super.getProjectFilter();
+    public Predicate<RuntimeResourceCollection> getResourceCollectionFilter() {
+        return super.getResourceCollectionFilter();
     }
 }

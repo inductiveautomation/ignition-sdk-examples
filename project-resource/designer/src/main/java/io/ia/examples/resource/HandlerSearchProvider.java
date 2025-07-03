@@ -1,15 +1,13 @@
 package io.ia.examples.resource;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import com.inductiveautomation.ignition.common.gui.progress.TaskProgressListener;
 import com.inductiveautomation.ignition.designer.findreplace.AbstractSearchProvider;
 import com.inductiveautomation.ignition.designer.findreplace.DefaultSearchObject;
 import com.inductiveautomation.ignition.designer.findreplace.SearchObject;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
-import org.python.util.PythonObjectInputStream;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 import static io.ia.examples.resource.Constants.MODULE_ID;
 
@@ -68,11 +66,11 @@ class HandlerSearchProvider extends AbstractSearchProvider {
                             .setPropertyName("script")
                             .setLocation(resource.getFolderPath())
                             .setMutable(true)
-                            .setValue(pythonResource.getUserCode())
+                            .setValue(pythonResource.userCode())
                             .onLocate(() -> workspace.open(resource.getResourcePath()))
                             .whenAltered(newValue -> {
                                 PythonResource updatedResource =
-                                        new PythonResource(newValue, pythonResource.isEnabled());
+                                        new PythonResource(newValue, pythonResource.enabled());
                                 context.getProject().createOrModify(resource.getResourcePath(),
                                         PythonResource.toResource(updatedResource));
                             })

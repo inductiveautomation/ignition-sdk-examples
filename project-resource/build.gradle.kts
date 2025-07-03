@@ -11,6 +11,9 @@ subprojects {
         maven {
             url = uri("https://nexus.inductiveautomation.com/repository/public/")
         }
+        maven {
+            url = uri("https://nexus.inductiveautomation.com/repository/inductiveautomation-beta/")
+        }
     }
 }
 

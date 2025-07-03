@@ -3,7 +3,7 @@ ignition = "8.3.0-SNAPSHOT"
 java = "17"
 
 [plugins]
-modl = { id = "io.ia.sdk.modl", version = "1.3.0" }
+modl = { id = "io.ia.sdk.modl", version = "0.1.1" }
 
 [libraries]
 ignition-common = { module = "com.inductiveautomation.ignitionsdk:ignition-common", version.ref = "ignition" }

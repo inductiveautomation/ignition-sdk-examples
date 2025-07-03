@@ -1,27 +1,26 @@
 package io.ia.examples.resource;
 
 import java.util.List;
-
-import com.inductiveautomation.ignition.common.project.RuntimeProject;
-import com.inductiveautomation.ignition.common.project.resource.ProjectResource;
-import com.inductiveautomation.ignition.common.project.resource.ProjectResourceId;
+import com.inductiveautomation.ignition.common.resourcecollection.Resource;
+import com.inductiveautomation.ignition.common.resourcecollection.ResourceId;
+import com.inductiveautomation.ignition.common.resourcecollection.RuntimeResourceCollection;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.ignition.gateway.project.ProjectLifecycle;
+import com.inductiveautomation.ignition.gateway.resourcecollection.ResourceCollectionLifecycle;
 
 /**
- * Override the methods on ProjectLifecycle to handle project updates performed in the designer.
+ * Override the methods on ResourceCollectionLifecycle to handle project updates performed in the designer.
  */
-public class EventHandlerLifecycle extends ProjectLifecycle {
+public class EventHandlerLifecycle extends ResourceCollectionLifecycle {
     private final GatewayContext context;
 
-    public EventHandlerLifecycle(RuntimeProject project, GatewayContext context) {
+    public EventHandlerLifecycle(RuntimeResourceCollection project, GatewayContext context) {
         super(project);
         this.context = context;
     }
 
     @Override
-    protected void onStartup(List<ProjectResource> list) {
-        for (ProjectResource resource : list) {
+    protected void onStartup(List<Resource> list) {
+        for (Resource resource : list) {
             if (resource.getResourceType().equals(PythonResource.RESOURCE_TYPE)) {
                 var pythonResource = PythonResource.fromResource(resource);
                 // do something with the resource
@@ -30,22 +29,22 @@ public class EventHandlerLifecycle extends ProjectLifecycle {
     }
 
     @Override
-    protected void onShutdown(List<ProjectResourceId> list) {
+    protected void onShutdown(List<ResourceId> list) {
 
     }
 
     @Override
-    protected void onResourcesCreated(List<ProjectResource> list) {
+    protected void onResourcesCreated(List<Resource> list) {
 
     }
 
     @Override
-    protected void onResourcesModified(List<ProjectResource> list) {
+    protected void onResourcesModified(List<Resource> list) {
 
     }
 
     @Override
-    protected void onResourcesDeleted(List<ProjectResourceId> list) {
+    protected void onResourcesDeleted(List<ResourceId> list) {
 
     }
 }

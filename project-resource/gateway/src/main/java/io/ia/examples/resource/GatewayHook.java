@@ -3,8 +3,6 @@ package io.ia.examples.resource;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
-import com.inductiveautomation.ignition.gateway.project.ProjectLifecycleFactory;
-import org.apache.poi.ss.formula.functions.Even;
 
 public class GatewayHook extends AbstractGatewayModuleHook {
     private GatewayContext context;
