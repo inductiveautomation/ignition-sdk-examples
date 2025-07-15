@@ -1,19 +1,15 @@
 package org.webui.test.gateway;
 
-import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpServletResponse;
 
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.model.GatewayModule;
-import com.inductiveautomation.ignition.gateway.web.models.ConfigCategory;
-import com.inductiveautomation.ignition.gateway.web.models.IConfigTab;
-import com.inductiveautomation.ignition.gateway.web.pages.config.overviewmeta.ConfigOverviewContributor;
-import com.inductiveautomation.ignition.gateway.web.pages.status.overviewmeta.OverviewContributor;
+import com.inductiveautomation.ignition.gateway.model.GatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.web.systemjs.SystemJsModule;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Class which is instantiated by the Ignition platform when the module is loaded in the gateway scope.
@@ -68,25 +64,6 @@ public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
     }
 
     /**
-     * A list (may be null or empty) of panels to display in the config section. Note that any config panels that are
-     * part of a category that doesn't exist already or isn't included in {@link #getConfigCategories()} will
-     * <i>not be shown</i>.
-     */
-    @Override
-    public List<? extends IConfigTab> getConfigPanels() {
-        return null;
-    }
-
-    /**
-     * A list (may be null or empty) of custom config categories needed by any panels returned by  {@link
-     * #getConfigPanels()}
-     */
-    @Override
-    public List<ConfigCategory> getConfigCategories() {
-        return null;
-    }
-
-    /**
      * @return the path to a folder in one of the module's gateway jar files that should be mounted at
      * /res/module-id/foldername
      */
@@ -120,22 +97,6 @@ public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
     @Override
     public boolean isFreeModule() {
         return true;
-    }
-
-    /**
-     * Implement this method to contribute meta data to the Status section's Systems / Overview page.
-     */
-    @Override
-    public Optional<OverviewContributor> getStatusOverviewContributor() {
-        return Optional.empty();
-    }
-
-    /**
-     * Implement this method to contribute meta data to the Configure section's Overview page.
-     */
-    @Override
-    public Optional<ConfigOverviewContributor> getConfigOverviewContributor() {
-        return Optional.empty();
     }
 
     /**
