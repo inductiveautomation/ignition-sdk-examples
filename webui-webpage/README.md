@@ -66,6 +66,3 @@ This project uses a number of build tools in order to complete the various parts
 - We provide a handful of libraries that are currently listed as "externals" in the webpack config. You should install them while developing locally, but they should not be bundled with your JS file as they will be provided by the gateway.
 - We do have a shared component library built in React (documentation / storybook will eventually be available). You will need a .yarnrc file to direct requests for @inductiveatutomation libraries when using yarn or NPM (.yarnrc included in example)
 - We also have a shared Icon library (used in example, documentation also coming)
-- Included in the `web-ui` package.json is a script that will run your FE code locally for development purposes `run:dev`. This does not need to be used but is just an example of how it can be done.
-  - This can be executed while in the `web-ui` folder by running `yarn run:dev`
-  - This script runs a local server on port 9999 using webpack-dev-server. Instead of bundling your project, it will serve an HTML file and your bundled file so that you can develop your page.
