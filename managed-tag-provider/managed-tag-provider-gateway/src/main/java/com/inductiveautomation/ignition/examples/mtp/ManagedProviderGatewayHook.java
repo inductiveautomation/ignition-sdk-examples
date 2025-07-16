@@ -8,10 +8,11 @@ import com.inductiveautomation.ignition.common.model.values.QualityCode;
 import com.inductiveautomation.ignition.common.sqltags.model.TagProviderMeta;
 import com.inductiveautomation.ignition.common.sqltags.model.types.DataType;
 import com.inductiveautomation.ignition.common.tags.model.TagPath;
+import com.inductiveautomation.ignition.common.tags.config.TagProviderValuePersistence;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.tags.managed.ManagedTagProvider;
-import com.inductiveautomation.ignition.gateway.tags.managed.ProviderConfiguration;
+import com.inductiveautomation.ignition.gateway.tags.managed.ManagedTagProviderConfiguration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -45,13 +46,17 @@ public class ManagedProviderGatewayHook extends AbstractGatewayModuleHook {
     public void setup(GatewayContext context) {
         try {
             this.context = context;
-            ProviderConfiguration configuration = new ProviderConfiguration("Example");
-
-            // Needed to allow tag configuration to be editable. Comment this out to disable tag configuration editing.
-            configuration.setAllowTagCustomization(true);
-            configuration.setPersistTags(false);
-            configuration.setPersistValues(false);
-            configuration.setAttribute(TagProviderMeta.FLAG_HAS_OPCBROWSE, false);
+            ManagedTagProviderConfiguration configuration = ManagedTagProviderConfiguration.builder("Example")
+                    .persistTags(false)
+                    // Needed to allow tag configuration to be editable. Comment this out to disable tag configuration
+                    // editing.
+                    .allowTagCustomization(true)
+                    // The valuePersistence setting controls where Managed Tag value are stored. Given Managed Tags are
+                    // procedurally generated, TagProviderValuePersistence.None makes the most sense as this will keep
+                    // tag values in memory only, and not persist them to the database or configuration files.
+                    .valuePersistence(TagProviderValuePersistence.None)
+                    .setAttribute(TagProviderMeta.FLAG_HAS_OPCBROWSE, false)
+                    .build();
 
             ourProvider = context.getTagManager().getOrCreateManagedProvider(configuration);
             //Set up the control tag.
