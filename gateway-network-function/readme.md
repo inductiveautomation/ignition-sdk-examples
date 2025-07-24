@@ -7,6 +7,11 @@ This module provides examples for the following functionality:
 
 You will need to install the module on two separate Gateways. You can create a script to retrieve log entries from a remote machine, as shown below.
 
+*Note*: If you create a GAN connection between the two instances, you can use the `getRemoteLogEntries()` function. However,
+in order to use the `getRemoteLogFile()` or `pushRemoteLogFile()` functions, you will need to set up a Controller/Agent
+EAM configuration between the two instances.
+
+
 ### Retrieve Logs as Dataset
 This retrieves log entries and places them in a dataset. The dataset is sorted in reverse chronological order, with the most recent entry being first in the dataset.
 ```python

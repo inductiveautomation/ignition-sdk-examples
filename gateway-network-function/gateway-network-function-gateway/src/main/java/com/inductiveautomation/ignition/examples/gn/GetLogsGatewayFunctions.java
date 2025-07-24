@@ -110,9 +110,15 @@ public class GetLogsGatewayFunctions extends AbstractGetLogsFunctions implements
             ReceiveDownloadIntent fires and locates our waiting CompletableFuture using the download id. It completes
             our CompletableFuture and passes over the full path of the downloaded log file (the file is stored in a
             temporary location, but can be moved as needed).
+
+            NB. The gateways must have EAM configured, and be setup in a Controller/Agent configuration. If EAM
+            hasn't been configured on the instance yet, the ReceiveDownloadIntent will not be available.
              */
             ReceiveDownloadIntent downloadIntent = (ReceiveDownloadIntent)
-                gm.retrieveIntent(ReceiveDownloadIntent.NAME).orElseThrow();
+                gm.retrieveIntent(ReceiveDownloadIntent.NAME)
+                    .orElseThrow(() -> new IllegalStateException(
+                        "ReceiveDownloadIntent not registered; EAM has not been configured."
+                    ));
 
             String localGwbkPath = null;
             CompletableFuture<String> downloadFuture = new CompletableFuture<>();
