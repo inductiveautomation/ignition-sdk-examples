@@ -42,15 +42,15 @@ public class SlackNotificationExtensionPoint
          If something tries to delete that audit profile, it will be prevented
          If that audit profile is renamed, it will update our config (per the lambda below)
         */
-        addReferenceProperty(
-                "auditProfileName",
-                builder -> builder
-                        .match((config, auditProfile) -> Objects.equals(auditProfile, config.auditProfileName()))
-                        .targetType(AuditProfileType.RESOURCE_TYPE)
-                        .onUpdate((oldResource, newName) ->
-                                new SlackNotificationProfileResource(newName)
-                        )
-        );
+//        addReferenceProperty(
+//                "auditProfileName",
+//                builder -> builder
+//                        .match((config, auditProfile) -> Objects.equals(auditProfile, config.auditProfileName()))
+//                        .targetType(AuditProfileType.RESOURCE_TYPE)
+//                        .onUpdate((oldResource, newName) ->
+//                                new SlackNotificationProfileResource(newName)
+//                        )
+//        );
     }
 
     @Override
