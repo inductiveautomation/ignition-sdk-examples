@@ -41,14 +41,14 @@ ignitionModule {
 
     /*
      * Minimum version of Ignition required for the module to function correctly.  This typically won't change over
-     * the course of a major Ignition (7.9, 8.0, etc) version, except for when the Ignition Platform adds/changes APIs
+     * the course of a major Ignition (7.9, 8.0, etc.) version, except for when the Ignition Platform adds/changes APIs
      * used by the module.
      */
     requiredIgnitionVersion.set("8.3.0")
     /*
      *  This is a map of String: String, where the 'key' represents the fully qualified path to the project
      *  (using gradle path syntax), and the value is the shorthand Scope string.
-     *  Example entry: listOf( ":gateway" to "G", ":common" to "GC", ":vision-client" to "C")
+     *  Example entry: listOf(":gateway" to "G", ":common" to "GC", ":vision-client" to "C")
      */
     projectScopes.putAll(mapOf(
         ":common" to "G",
