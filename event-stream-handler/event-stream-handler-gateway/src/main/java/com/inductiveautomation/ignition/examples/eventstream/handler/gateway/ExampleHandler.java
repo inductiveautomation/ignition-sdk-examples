@@ -10,7 +10,6 @@ import com.inductiveautomation.eventstream.gateway.api.EventStreamContext;
 import com.inductiveautomation.eventstream.gateway.api.EventStreamHandler;
 import com.inductiveautomation.eventstream.gateway.api.expression.EventStreamExpressionFactory;
 import com.inductiveautomation.ignition.common.gson.JsonObject;
-import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerConfig;
 import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerModule;
 
@@ -47,7 +46,7 @@ public class ExampleHandler implements EventStreamHandler {
 
     @Override
     public void onStartup(EventStreamExpressionFactory expressionFactory) throws Exception {
-        context.logger().infof("Starting %s", ExampleHandlerModule.MODULE_NAME);
+        context.logger().debugf("Starting %s", ExampleHandlerModule.MODULE_NAME);
         writer = new FileWriter(config.filePath());
         if (config.useTestFilePath()) {
             testWriter = new FileWriter(config.testFilePath());
@@ -56,7 +55,7 @@ public class ExampleHandler implements EventStreamHandler {
 
     @Override
     public void onShutdown() {
-        context.logger().infof("Shutting down %s", ExampleHandlerModule.MODULE_NAME);
+        context.logger().debugf("Shutting down %s", ExampleHandlerModule.MODULE_NAME);
         if (writer != null) {
             try {
                 writer.close();
@@ -79,22 +78,22 @@ public class ExampleHandler implements EventStreamHandler {
      */
     @Override
     public void handle(List<EventPayload> list, boolean testMode) throws Exception {
-        context.logger().infof("Handling events using testMode? %b", testMode);
+        context.logger().debugf("Handling events using testMode? %b", testMode);
         for (EventPayload event : list) {
             writeEvent(event, testMode);
         }
     }
 
     private void writeEvent(EventPayload event, boolean testMode) throws IOException {
-        var dataAsString = event.getData().toString();
-        context.logger().infof("Writing data: %s", dataAsString);
+        String dataAsString = event.getData().toString();
+        context.logger().debugf("Writing data: %s", dataAsString);
         if (testMode) {
             if (config.useTestFilePath()) {
                 testWriter.write(dataAsString);
                 testWriter.write("\n");
                 testWriter.flush();
             } else {
-                context.logger().infof("In Test Mode. Writing to log: %s", dataAsString);
+                context.logger().debugf("In Test Mode. Writing to log: %s", dataAsString);
             }
         } else {
             writer.write(dataAsString);

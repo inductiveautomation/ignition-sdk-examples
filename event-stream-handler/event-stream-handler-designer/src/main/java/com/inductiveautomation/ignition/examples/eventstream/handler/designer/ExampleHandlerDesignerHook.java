@@ -15,7 +15,7 @@ public class ExampleHandlerDesignerHook extends AbstractDesignerModuleHook imple
 
         // checks if the event stream module is installed
         if (context.getModule(ExampleHandlerModule.EVENT_STREAM_MODULE_ID) != null) {
-            var hook = EventStreamDesignerHook.get(context);
+            EventStreamDesignerHook hook = EventStreamDesignerHook.get(context);
 
             if (hook != null) {
                 hook.getEventStreamManager().getHandlerRegistry().register(

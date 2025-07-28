@@ -6,8 +6,8 @@
 
     <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>event-stream-handler</artifactId>
-    <packaging>pom</packaging>
     <version>1.3.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>event-stream-handler-build</module>
@@ -83,5 +83,4 @@
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
         </repository>
     </repositories>
-
 </project>

@@ -20,7 +20,6 @@
             <type>pom</type>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -34,5 +33,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

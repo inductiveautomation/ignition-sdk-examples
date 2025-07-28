@@ -5,6 +5,7 @@ import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerModule;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.model.GatewayModule;
 import com.inductiveautomation.ignition.gateway.model.ModuleState;
 
 public class ExampleHandlerGatewayHook extends AbstractGatewayModuleHook {
@@ -15,7 +16,7 @@ public class ExampleHandlerGatewayHook extends AbstractGatewayModuleHook {
         if (eventStreamLoaded(context)) {
             EventStreamInstaller.setup(context);
         } else {
-            var warningMessage = "The Event Stream module is not installed or not active. "
+            String warningMessage = "The Event Stream module is not installed or not active. "
                     + "The ExampleHandler will not be available. "
                     + "Please install or enable the Event Stream module to use this module.";
             logger.warn(warningMessage);
@@ -24,7 +25,7 @@ public class ExampleHandlerGatewayHook extends AbstractGatewayModuleHook {
     }
 
     private boolean eventStreamLoaded(GatewayContext context) {
-        var eventStreamModule = context.getModuleManager()
+        GatewayModule eventStreamModule = context.getModuleManager()
             .getModule(ExampleHandlerModule.EVENT_STREAM_MODULE_ID);
 
         return eventStreamModule != null
