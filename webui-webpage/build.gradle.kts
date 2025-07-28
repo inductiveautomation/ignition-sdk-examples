@@ -19,14 +19,14 @@ allprojects {
 
 ignitionModule {
     /*
-     * Human readable name of the module, as will be displayed on the gateway status page
+     * Human-readable name of the module, as will be displayed on the gateway status page
      */
     name.set("WebUI Webpage")
 
     /*
      * Name of the '.modl' file to be created, without file extension.
      */
-    fileName.set("WebUI Webpage")
+    fileName.set("WebUI-Webpage")
     /*
      * Unique identifier for the module.  Reverse domain convention is recommended (e.g.: com.mycompany.charting-module)
      */
@@ -48,7 +48,7 @@ ignitionModule {
     /*
      *  This is a map of String: String, where the 'key' represents the fully qualified path to the project
      *  (using gradle path syntax), and the value is the shorthand Scope string.
-     *  Example entry: listOf( ":gateway" to "G", ":common" to "GC", ":vision-client" to "C" )
+     *  Example entry: listOf( ":gateway" to "G", ":common" to "GC", ":vision-client" to "C")
      */
     projectScopes.putAll(mapOf(
         ":common" to "G",
@@ -91,7 +91,7 @@ ignitionModule {
 
     /*
      * Map of fully qualified hook class to the shorthand scope.  Only one scope may apply to a class, and each scope
-     * must have no more than single class registered.  You may omit scope registrations if they do not apply.
+     * must have no more than a single class registered.  You may omit scope registrations if they do not apply.
      *
      * Example entry: "com.myorganization.vectorizer.VectorizerDesignerHook" to "D"
      */
