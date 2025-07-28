@@ -21,12 +21,12 @@ ignitionModule {
     /*
      * Human readable name of the module, as will be displayed on the gateway status page
      */
-    name.set("Webui Webpage")
+    name.set("WebUI Webpage")
 
     /*
      * Name of the '.modl' file to be created, without file extension.
      */
-    fileName.set("webui-webpage.modl")
+    fileName.set("WebUI Webpage")
     /*
      * Unique identifier for the module.  Reverse domain convention is recommended (e.g.: com.mycompany.charting-module)
      */
