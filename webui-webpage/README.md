@@ -1,6 +1,8 @@
 # Web UI Webpage (Hello Ignition) Example
 
-This is an example module that adds a React built webpage and a corresponding nav link to the gateway application.
+This is an example module that adds a React built "Hello Ignition" webpage and a corresponding nav link to the gateway 
+application. The page is added to the "Home" section of the gateway, under the label "Web UI Webpage." You 
+access the page at `<host gateway>/app/hello-ignition`.
 
 ## Getting Started
 
@@ -35,11 +37,11 @@ This project uses a number of build tools in order to complete the various parts
   over npm, though it shares many of the same commands and api.  Much like Ivy or Maven, yarn is used to resolve and download dependencies hosted on remotely hosted repositories.  Inductive Automation publishes our own dependencies through the
   same nexus repository system we use for other sdk artifacts.  To correctly resolve the Inductive Automation node packages,
   an `.npmrc` file needs to be added to the front end projects to tell yarn/npm where to find packages in the `@inductiveautomation` namespace.  You will find examples of these in the `web-ui/` directory.
-* [Typescript](https://www.typescriptlang.org/) - the language used to write the front end parts.  TypeScript is not required, but is strongly recommended.  TypeScript can be thought of as modern JavaScript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
+* [Typescript](https://www.typescriptlang.org/) - the language used to write the front end parts.  TypeScript is not required but is strongly recommended.  TypeScript can be thought of as modern JavaScript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
   support.  This can improve maintainability, refactoring, code navigation, bug discovery, etc. TypeScript has its own compiler which emits JavaScript.  This compiler is frequently paired with other build tools in a way that it emits the JavaScript, but
-  other tools handle the actual bundling of assets, css, and other supporting dependencies.  Think of TypeScript as the
+  other tools handle the actual bundling of assets, CSS, and other supporting dependencies.  Think of TypeScript as the
   java compiler without jars or resources.  It just takes TypeScript files in, and emits the JavaScript files.
-* [Webpack](https://webpack.js.org/) - the 'bundler' that we use to take the JavaScript emitted by the TypeScript compiler and turn it into an actual package that includes necessary assets, dependencies, generates sourcemaps, etc.
+* [Webpack](https://webpack.js.org/) - the 'bundler' that we use to take the JavaScript emitted by the TypeScript compiler and turn it into an actual package that includes the necessary assets, dependencies, generates sourcemaps, etc.
 
 
 ## How it works

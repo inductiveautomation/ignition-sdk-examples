@@ -10,20 +10,21 @@ import com.inductiveautomation.ignition.gateway.model.GatewayModule;
 import com.inductiveautomation.ignition.gateway.model.GatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.web.systemjs.SystemJsModule;
 import jakarta.servlet.http.HttpServletResponse;
+import org.webui.test.common.WebuiWebpageModule;
 
 /**
  * Class which is instantiated by the Ignition platform when the module is loaded in the gateway scope.
  */
 public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
     /**
-     * Called to before startup. This is the chance for the module to add its extension points and update persistent
+     * Called before startup. This is the chance for the module to add its extension points and update persistent
      * records and schemas. None of the managers will be started up at this point, but the extension point managers will
      * accept extension point types.
      */
     @Override
     public void setup(GatewayContext context) {
 
-        GatewayModule module = context.getModuleManager().getModule("org.webui.test.WebuiWebpage");
+        GatewayModule module = context.getModuleManager().getModule(WebuiWebpageModule.MODULE_ID);
         if (module == null || module.getHook() != this) {
             System.exit(0);
         }
@@ -100,7 +101,7 @@ public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
     }
 
     /**
-     * Register any {@link ResourceTypeAdapter}s this module needs with with {@code registry}.
+     * Register any {@link ResourceTypeAdapter}s this module needs with {@code registry}.
      * <p>
      * ResourceTypeAdapters are used to adapt a legacy (7.9 or prior) resource type name or payload into a nicer format
      * for the Ignition 8.0 project resource system.Ò Only override this method for modules that aren't known by the
