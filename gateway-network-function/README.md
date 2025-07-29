@@ -1,4 +1,6 @@
 # Get Remote Logs (Gateway Network) Example
+> [!WARNING]
+> This example has not been fully verified. The following two functions may not work as expected: `getRemoteLogFile()` and `pushRemoteLogFile()`
 
 This module provides examples for the following functionality:
 - retrieve log events for a remote server over the Gateway network in the form of a Python dataset. A start date and an end date can be used to filter log queries.

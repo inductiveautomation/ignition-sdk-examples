@@ -1,4 +1,6 @@
 # Slack Alarm Notification Example
+> [!WARNING]
+> This example is pending an update to the SDK. Will be **FAULTED** when installed on the Gateway
 
 ### Overview
 
@@ -28,9 +30,9 @@ Open the `users.json` file, and under the `"users"` key, find the user you want 
 the following Json object to the `"contactInfos"` array:
 ```json
 {
-   "contactType": "Slack",
-   "value": "[YOUR_WEBHOOK_URL]",
-   "order": 0
+  "contactType": "Slack",
+  "value": "[YOUR_WEBHOOK_URL]",
+  "order": 0
 }
 ```
 

@@ -1,23 +1,19 @@
 # Report Datasource Example
+> [!WARNING]
+> This example will be **FAULTED** when installed. It will be updated when API changes are merged into Ignition
 
 This example demonstrates how to add a `DataSource` to the Ignition Reporting module.  In this example we utilitize some
-open source libraries to very quickly add datasources in the form of Json responses from REST endpoints on the web.
+open source libraries to very quickly add datasources in the form of JSON responses from REST endpoints on the web.
 
 ### Information
 The Reporting API provides a simple process to add DataSources.  It requires a few things:
- 
+
 1. Create the DataSource by implementing `ReportDataSource` in the Gateway Scope.
 2. Create a Java-serializable data object that can be passed between the Gateway and Designer
 3. Register the DataSource in the GatewayHook by calling `GatewayDataSourceRegistry.get().register()` in the hook's `startup()` method.
-4. Create a DataSource UI for configuration by extending `DataSourceConfigPanel`, and implementing `AbstractDataSourceConfigFactory` within it. 
+4. Create a DataSource UI for configuration by extending `DataSourceConfigPanel`, and implementing `AbstractDataSourceConfigFactory` within it.
 5. Register the factory with the DesignerHook.
 
 The `DataSource` itself simply provides a way to add to the existing `Map<String, Object>`.  While there may be some
 flexibility in the structure of the Data that the reporting engine can handle, it is recommended that Datasets
 (`com.inductiveautomation.ignition.common.Dataset`) are used for compatibility.
-
-
-
-
-
- 
