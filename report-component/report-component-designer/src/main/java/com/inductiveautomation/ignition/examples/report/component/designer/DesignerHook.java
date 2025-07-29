@@ -5,6 +5,7 @@ import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.designer.model.AbstractDesignerModuleHook;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import com.inductiveautomation.ignition.designer.model.DesignerModuleHook;
+import com.inductiveautomation.ignition.examples.report.component.shapes.RMSmiley;
 import com.inductiveautomation.reporting.designer.api.DesignerShapeRegistry;
 import com.inductiveautomation.ignition.examples.report.component.shapes.Smiley;
 import com.inductiveautomation.rm.archiver.RMArchiver;
@@ -26,6 +27,9 @@ import com.inductiveautomation.rm.archiver.RMArchiver;
             /* This is where our new shape registered for the Report Designer */
             RMArchiver.registerClass(Smiley.ARCHIVE_NAME, Smiley.class);
             DesignerShapeRegistry.get(context).register(Smiley.class);
+
+            RMArchiver.registerClass(RMSmiley.ARCHIVE_NAME, RMSmiley.class);
+            DesignerShapeRegistry.get(context).register(RMSmiley.class);
         }
     }
 

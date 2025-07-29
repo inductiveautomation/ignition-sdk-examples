@@ -1,6 +1,7 @@
 package com.inductiveautomation.ignition.examples.report.component.gateway;
 
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
+import com.inductiveautomation.ignition.examples.report.component.shapes.RMSmiley;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.examples.report.component.shapes.Smiley;
@@ -21,6 +22,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     public void startup(LicenseState activationState) {
         // shape classes need to be registered from the gateway and designer hooks
         RMArchiver.registerClass(Smiley.ARCHIVE_NAME, Smiley.class);
+        RMArchiver.registerClass(RMSmiley.ARCHIVE_NAME, RMSmiley.class);
     }
 
     @Override
