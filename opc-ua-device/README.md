@@ -1,4 +1,7 @@
 # OPC-UA Device Example
+> [!WARNING]
+> Dynamic tags currently do not work. They provide a static value instead of incrementing values.
+
 ### Description
 Provides the scaffolding to create a device driver that will register nodes (tags) in Ignition's OPC-UA server.
 
