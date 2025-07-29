@@ -133,7 +133,7 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
       );
 
       // just tells our simulator to keep track of this node
-      simulator.addTrackedValue(formattedName, i);
+      simulator.addTrackedValue(formattedName, (long) i);
 
       // an AttributeFilter is used so that when this node is asked for its value, it will call out to the
       // simulator

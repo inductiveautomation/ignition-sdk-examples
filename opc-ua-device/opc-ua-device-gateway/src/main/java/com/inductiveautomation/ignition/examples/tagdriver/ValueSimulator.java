@@ -12,7 +12,7 @@ class ValueSimulator implements Runnable {
 
   public ValueSimulator() {}
 
-  public void addTrackedValue(String key, long initial) {
+  public void addTrackedValue(String key, Long initial) {
     trackedValues.put(key, Variant.ofInt64(initial));
   }
 
@@ -29,11 +29,11 @@ class ValueSimulator implements Runnable {
   public void run() {
     for (Map.Entry<String, Variant> entry : trackedValues.entrySet()) {
       String key = entry.getKey();
-      Object value = entry.getValue().getValue();
+      Object value = entry.getValue();
 
-      long nextValue = 0;
+      Long nextValue = 0L;
       if (value instanceof Variant variant && variant.getValue() instanceof Long currentValue) {
-        nextValue = currentValue + 1;
+        nextValue = currentValue + 1L;
       }
 
       trackedValues.put(key, Variant.ofInt64(nextValue));
