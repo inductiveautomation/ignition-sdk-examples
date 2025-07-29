@@ -58,9 +58,6 @@ Adds a datasource to the report designer that can retrieve JSON data via a REST 
 Adds a system.example.multiply script that can be executed from both a client and a Gateway. Also demonstrates how the client can call a method in the Gateway via RPC.
 
 ##### [Slack Alarm Notification](slack-alarm-notification)
-> [!WARNING]
-> This example is pending an update to the SDK. Will be **FAULTED** when installed on the Gateway
-
 Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
 
 ##### [Vision Component](vision-component)
