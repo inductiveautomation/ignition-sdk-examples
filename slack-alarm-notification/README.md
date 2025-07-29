@@ -46,7 +46,7 @@ the following JSON object to the `"contactInfos"` array:
     {
       "users": [
         {
-          ... // other user properties
+          //... other user properties
       
           "contactInfos": [
             {
