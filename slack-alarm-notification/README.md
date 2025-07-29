@@ -24,40 +24,40 @@ Contact Type where the value is the URL of the webhook.
 
 #### Using The Resource Configuration
 1. Navigate to the Ignition install directory, then navigate to the following subdirectory:
-```bash
-cd $IGNITION_HOME
-cd ./data/config/resources/core/ignition/user-source/$YOUR_USER_SOURCE
-```
+    ```bash
+    cd $IGNITION_HOME
+    cd ./data/config/resources/core/ignition/user-source/$YOUR_USER_SOURCE
+    ```
 
-2. Open the `users.json` file, and under the `"users"` key, find the user you want to edit, and add
-the following JSON object to the `"contactInfos"` array:
-```json
-{
-  "contactType": "Slack",
-  "value": "[YOUR_WEBHOOK_URL]",
-  "order": 0
-}
-```
+   2. Open the `users.json` file, and under the `"users"` key, find the user you want to edit, and add
+   the following JSON object to the `"contactInfos"` array:
+       ```json
+       {
+         "contactType": "Slack",
+         "value": "[YOUR_WEBHOOK_URL]",
+         "order": 0
+       }
+       ```
+      
+       NB. `"order"` here is the sequence number for the priority of the particular contact type.
 
-Your `users.json` should look something like this after the above:
-```json
-{
-  "users": [
-    {
-      ...
-              
-      "contactInfos": [
-        {
-          "contactType": "Slack",
-          "value": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXX",
-          "order": 0
-        }
-      ]
-    }
-  ]
-}
-```
+       Your `users.json` should look something like this after the above:
+       ```jsonc
+       {
+         "users": [
+           {
+             ... // other user properties
+      
+             "contactInfos": [
+               {
+                 "contactType": "Slack",
+                 "value": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXX",
+                 "order": 0
+               }
+             ]
+           }
+         ]
+       }
+       ```
 
-3. Restart the Gateway to apply the changes.
-
-NB. `"order"` here is the sequence number for the priority of the particular contact type.
+    3. Restart the Gateway to apply the changes.
