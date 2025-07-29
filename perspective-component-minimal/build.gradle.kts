@@ -21,7 +21,7 @@ ignitionModule {
     id.set("io.ia.example.perspective.min")
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds components to the Perspective module.")
-    requiredIgnitionVersion.set("8.1.8")
+    requiredIgnitionVersion.set("8.3.0")
     requiredFrameworkVersion.set("8")
     // says 'this module is free, does not require licensing'.  Defaults to false, delete for commercial modules.
     freeModule.set(true)

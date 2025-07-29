@@ -17,7 +17,6 @@
     </modules>
 
     <properties>
-        <!--add -SNAPSHOT back to version after 8.3.0 published-->
         <ignition-platform-version>8.3.0-SNAPSHOT</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Event Stream Handler Example</module-name>
@@ -29,8 +28,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <!--change -beta back to -releases after 8.3.0 published-->
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>

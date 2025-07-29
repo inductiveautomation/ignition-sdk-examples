@@ -1,4 +1,6 @@
 # Perspective Component Module Example
+> [!WARNING]
+> Additional work on Ignition is required before all components in this example will work as expected.
 
 This is an example module which adds some custom components to the Perspective module.  There are 3 different components
 in this example, each exercising different aspects of the Perspective component API, as well as demonstrating

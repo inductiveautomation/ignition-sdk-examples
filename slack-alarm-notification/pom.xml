@@ -26,7 +26,6 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <!--change -beta back to -release after 8.3.0 published-->
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
             <releases>
                 <enabled>true</enabled>
