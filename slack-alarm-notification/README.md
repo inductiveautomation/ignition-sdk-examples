@@ -1,6 +1,6 @@
 # Slack Alarm Notification Example
 > [!WARNING]
-> This example is pending an update to the SDK. Will be **FAULTED** when installed on the Gateway
+> This example uses a custom contact type, which is not currently accessible via the UI; it must be added to the user's profile manually.
 
 ### Overview
 

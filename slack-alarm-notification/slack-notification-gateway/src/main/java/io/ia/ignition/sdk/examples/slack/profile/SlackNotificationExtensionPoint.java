@@ -14,7 +14,6 @@ import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.web.nav.ExtensionPointResourceForm;
 import com.inductiveautomation.ignition.gateway.web.nav.WebUiComponent;
 
-import java.util.Objects;
 import java.util.Optional;
 
 

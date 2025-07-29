@@ -59,7 +59,7 @@ Adds a system.example.multiply script that can be executed from both a client an
 
 ##### [Slack Alarm Notification](slack-alarm-notification)
 > [!WARNING]
-> This example is pending an update to the SDK. Will be **FAULTED** when installed on the Gateway
+> This example uses a custom contact type, which is not currently accessible via the UI; it must be added to the user's profile manually.
 
 Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
 
