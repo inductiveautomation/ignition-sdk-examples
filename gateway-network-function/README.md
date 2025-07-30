@@ -1,20 +1,21 @@
 # Get Remote Logs (Gateway Network) Example
-> [!WARNING]
-> This example has not been fully verified. The following two functions may not work as expected: `getRemoteLogFile()` and `pushRemoteLogFile()`
-
 This module provides examples for the following functionality:
 - retrieve log events for a remote server over the Gateway network in the form of a Python dataset. A start date and an end date can be used to filter log queries.
 - download a copy of system_logs.idb file from a remote server. This functionality also demonstrates file streaming over the Gateway Network using a CompletableFuture to wait for the file to download.
 - stream a local copy of system_logs.idb to a remote server. This functionality also demonstrates file streaming over the Gateway Network by passing a file path as a service call parameter.
 
-You will need to install the module on two separate Gateways. You can create a script to retrieve log entries from a remote machine, as shown below.
+## How to Use This Module
+### Requirements
+The following are required:
+1. Two Gateway instances connected via the Gateway Area Network. 
+2. This module must be installed on both Gateways.
 
-*Note*: If you create a GAN connection between the two instances, you can use the `getRemoteLogEntries()` function. However,
-in order to use the `getRemoteLogFile()` or `pushRemoteLogFile()` functions, you will need to set up a Controller/Agent
-EAM configuration between the two instances.
+> [!NOTE]
+> `getRemoteLogEntries()` will work once the above requirements are met.  
+> `getRemoteLogFile()` and `pushRemoteLogFile()` require an additional step: a Controller/Agent EAM configuration between the two Gateways must be created with the Controller being the issue of the script call and the Agent being the target of the script call.  
 
-
-### Retrieve Logs as Dataset
+### Example Scripts
+#### Retrieve Logs as Dataset
 This retrieves log entries and places them in a dataset. The dataset is sorted in reverse chronological order, with the most recent entry being first in the dataset.
 ```python
 import datetime
@@ -36,7 +37,7 @@ for row in range(serverLogs.rowCount):
 	print baseStr % printable
 ```
 
-### Retrieve Logs as File
+#### Retrieve Logs as File
 After system_logs.idb is downloaded to your local machine, you can use [Kindling](https://github.com/inductiveautomation/kindling) to view the file.
 ```python
 import datetime
@@ -50,12 +51,13 @@ print("Successfully downloaded system_logs.idb, saving to '%s'" % save_file)
 system.file.writeFile(save_file, bytes)
 ```
 
-### Send Logs as File
+#### Send Logs as File
 This function is minimally useful as an example, but it does demonstrate how to stream a file over the gateway network as a service method parameter.
 ```python
 print system.example.gn.pushRemoteLogFile("controller")
 ```
 
+## Working with the Code
 ### Java class structure
 `com.inductiveautomation.ignition.examples.gn.GetLogsFunctions` The interface for the gateway to designer/client RPC functions.
 

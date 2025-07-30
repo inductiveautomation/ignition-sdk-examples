@@ -31,9 +31,6 @@ Creates a handler that will listen for events from the Event Stream and write th
 Creates an exampleMultiply expression that can be used by other components, such as expression tags. The example expression is located under the Extended expression category.
 
 ##### [Gateway Network/Get Remote Logs](gateway-network-function)
-> [!WARNING]
-> This example has not been fully verified. Some functions may not work as expected. See README.md of the project for additional details.
-
 Requires two Gateways connected via the gateway network. The module must also be installed on both Gateways. This module adds a system.example.getRemoteLogEntries script function that can retrieve console log entries from a remote Gateway over the gateway network. Also adds a Gateway Task type that can retrieve a remote gateway’s wrapper log and save as a local file.
 
 ##### [Managed Tag Provider](managed-tag-provider)
@@ -55,9 +52,6 @@ Adds a datasource to the report designer that can retrieve JSON data via a REST 
 Adds a system.example.multiply script that can be executed from both a client and a Gateway. Also demonstrates how the client can call a method in the Gateway via RPC.
 
 ##### [Slack Alarm Notification](slack-alarm-notification)
-> [!WARNING]
-> This example is pending an update to the SDK. Will be **FAULTED** when installed on the Gateway
-
 Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
 
 ##### [Vision Component](vision-component)
