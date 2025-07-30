@@ -1,19 +1,19 @@
 # Get Remote Logs (Gateway Network) Example
-> [!WARNING]
-> This example has not been fully verified. The following two functions may not work as expected: `getRemoteLogFile()` and `pushRemoteLogFile()`
-
 This module provides examples for the following functionality:
 - retrieve log events for a remote server over the Gateway network in the form of a Python dataset. A start date and an end date can be used to filter log queries.
 - download a copy of system_logs.idb file from a remote server. This functionality also demonstrates file streaming over the Gateway Network using a CompletableFuture to wait for the file to download.
 - stream a local copy of system_logs.idb to a remote server. This functionality also demonstrates file streaming over the Gateway Network by passing a file path as a service call parameter.
 
-You will need to install the module on two separate Gateways. You can create a script to retrieve log entries from a remote machine, as shown below.
+## Setup
+The following is required:
+1. Two Gateway instances connected via the Gateway Area Network. 
+2. This module must be installed on both Gateways.
 
-*Note*: If you create a GAN connection between the two instances, you can use the `getRemoteLogEntries()` function. However,
-in order to use the `getRemoteLogFile()` or `pushRemoteLogFile()` functions, you will need to set up a Controller/Agent
-EAM configuration between the two instances.
+> [!NOTE]
+> `getRemoteLogEntries()` can be once the above requirements are met.
+> `getRemoteLogFile()` and `pushRemoteLogFile()` functions, requires an additional step: a Controller/Agent EAM configuration between the two Gateways must be created with the Controller being the issue of the script call and the Agent being the target of the script call.
 
-
+## Example Scripts
 ### Retrieve Logs as Dataset
 This retrieves log entries and places them in a dataset. The dataset is sorted in reverse chronological order, with the most recent entry being first in the dataset.
 ```python
@@ -56,7 +56,7 @@ This function is minimally useful as an example, but it does demonstrate how to 
 print system.example.gn.pushRemoteLogFile("controller")
 ```
 
-### Java class structure
+## Java class structure
 `com.inductiveautomation.ignition.examples.gn.GetLogsFunctions` The interface for the gateway to designer/client RPC functions.
 
 `com.inductiveautomation.ignition.examples.gn.AbstractGetLogsFunctions` The system.example.gn functions are executed here for both the gateway and designer/client. The functions call abstract internal functions that do different things depending on whether in gateway or designer/client scope.
@@ -73,7 +73,7 @@ print system.example.gn.pushRemoteLogFile("controller")
 
 `com.inductiveautomation.ignition.examples.gn.protoserializers.LogEventSerializer` Implements the ProtobufSerializable interface and provides the glue between the logevent.proto file and the gateway network. It converts a LogEvent object into a Protobuf message, and vice versa.
 
-### Protobuf implementation
+## Protobuf implementation
 The Ignition gateway network doesn't have a built-in Protobuf serializer for the LogEvent class, so this example adds one. Without this, LogEvent objects can't be serialized and sent between gateways. The serializer is implemented like so:
 - gateway-network-function/gateway-network-function-common/src/main/proto/logevent.proto
 - gateway-network-function/gateway-network-function-common/src/main/java/com/inductiveautomation/ignition/examples/gn/protoserializers/LogEventSerializer.java
