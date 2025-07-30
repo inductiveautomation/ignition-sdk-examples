@@ -37,9 +37,6 @@ Requires two Gateways connected via the gateway network. The module must also be
 Shows how to implement a Managed Tag Provider, to allow easy control of Ignition tags from an external program or data.
 
 ##### [OPC UA Device](opc-ua-device)
-> [!WARNING]
-> Dynamic tags currently do not work. They provide a static value instead of incrementing values.
-
 Creates an example device in the Gateway. The device will create tags that are visible under the local OPC-UA server.
 
 ##### [Report Component](report-component)
