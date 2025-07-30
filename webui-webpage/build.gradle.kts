@@ -11,10 +11,10 @@ plugins {
     id("io.ia.sdk.modl") version("0.1.1")
 }
 
-val sdk_version by extra("8.3.0-SNAPSHOT")
+val sdk_version by extra("8.3.0-beta1")
 
 allprojects {
-    version = "0.0.1-SNAPSHOT"
+    version = "0.0.1-beta1"
 }
 
 ignitionModule {
