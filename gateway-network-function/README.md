@@ -4,7 +4,7 @@ This module provides examples for the following functionality:
 - download a copy of system_logs.idb file from a remote server. This functionality also demonstrates file streaming over the Gateway Network using a CompletableFuture to wait for the file to download.
 - stream a local copy of system_logs.idb to a remote server. This functionality also demonstrates file streaming over the Gateway Network by passing a file path as a service call parameter.
 
-## Setup
+## How to Use This Module
 ### Requirements
 The following are required:
 1. Two Gateway instances connected via the Gateway Area Network. 
@@ -57,7 +57,7 @@ This function is minimally useful as an example, but it does demonstrate how to 
 print system.example.gn.pushRemoteLogFile("controller")
 ```
 
-## About the Code
+## Working with the Code
 ### Java class structure
 `com.inductiveautomation.ignition.examples.gn.GetLogsFunctions` The interface for the gateway to designer/client RPC functions.
 
