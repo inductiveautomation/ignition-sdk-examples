@@ -5,16 +5,17 @@ This module provides examples for the following functionality:
 - stream a local copy of system_logs.idb to a remote server. This functionality also demonstrates file streaming over the Gateway Network by passing a file path as a service call parameter.
 
 ## Setup
-The following is required:
+### Requirements
+The following are required:
 1. Two Gateway instances connected via the Gateway Area Network. 
 2. This module must be installed on both Gateways.
 
 > [!NOTE]
-> `getRemoteLogEntries()` can be once the above requirements are met.
-> `getRemoteLogFile()` and `pushRemoteLogFile()` functions, requires an additional step: a Controller/Agent EAM configuration between the two Gateways must be created with the Controller being the issue of the script call and the Agent being the target of the script call.
+> `getRemoteLogEntries()` will work once the above requirements are met.  
+> `getRemoteLogFile()` and `pushRemoteLogFile()` require an additional step: a Controller/Agent EAM configuration between the two Gateways must be created with the Controller being the issue of the script call and the Agent being the target of the script call.  
 
-## Example Scripts
-### Retrieve Logs as Dataset
+### Example Scripts
+#### Retrieve Logs as Dataset
 This retrieves log entries and places them in a dataset. The dataset is sorted in reverse chronological order, with the most recent entry being first in the dataset.
 ```python
 import datetime
@@ -36,7 +37,7 @@ for row in range(serverLogs.rowCount):
 	print baseStr % printable
 ```
 
-### Retrieve Logs as File
+#### Retrieve Logs as File
 After system_logs.idb is downloaded to your local machine, you can use [Kindling](https://github.com/inductiveautomation/kindling) to view the file.
 ```python
 import datetime
@@ -50,13 +51,14 @@ print("Successfully downloaded system_logs.idb, saving to '%s'" % save_file)
 system.file.writeFile(save_file, bytes)
 ```
 
-### Send Logs as File
+#### Send Logs as File
 This function is minimally useful as an example, but it does demonstrate how to stream a file over the gateway network as a service method parameter.
 ```python
 print system.example.gn.pushRemoteLogFile("controller")
 ```
 
-## Java class structure
+## About the Code
+### Java class structure
 `com.inductiveautomation.ignition.examples.gn.GetLogsFunctions` The interface for the gateway to designer/client RPC functions.
 
 `com.inductiveautomation.ignition.examples.gn.AbstractGetLogsFunctions` The system.example.gn functions are executed here for both the gateway and designer/client. The functions call abstract internal functions that do different things depending on whether in gateway or designer/client scope.
@@ -73,7 +75,7 @@ print system.example.gn.pushRemoteLogFile("controller")
 
 `com.inductiveautomation.ignition.examples.gn.protoserializers.LogEventSerializer` Implements the ProtobufSerializable interface and provides the glue between the logevent.proto file and the gateway network. It converts a LogEvent object into a Protobuf message, and vice versa.
 
-## Protobuf implementation
+### Protobuf implementation
 The Ignition gateway network doesn't have a built-in Protobuf serializer for the LogEvent class, so this example adds one. Without this, LogEvent objects can't be serialized and sent between gateways. The serializer is implemented like so:
 - gateway-network-function/gateway-network-function-common/src/main/proto/logevent.proto
 - gateway-network-function/gateway-network-function-common/src/main/java/com/inductiveautomation/ignition/examples/gn/protoserializers/LogEventSerializer.java
