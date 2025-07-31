@@ -23,7 +23,7 @@ node {
 // define a gradle task that will install our npm dependencies, extends the YarnTask provided by the node gradle plugin
 val yarnPackages by tasks.registering(YarnTask::class) {
 
-    description = "Executes 'yarn' at the root of the web/ directory to install npm dependencies for the yarn workspace."
+    description = "Executes 'yarn' at the root of the web-ui/ directory to install npm dependencies for the yarn workspace."
     // which yarn command to execute
     args.set(listOf("install", "--verbose"))
 
@@ -48,10 +48,10 @@ val yarnPackages by tasks.registering(YarnTask::class) {
 // define a gradle task that executes an npm script (defined in the package.json).
 val webpack by tasks.registering(NpmTask::class) {
     group = "Ignition Module"
-    description = "Runs 'npm run build', executing the build script of the web project's root package.json"
+    description = "Runs 'npm run-build', executing the build script of the web project's root package.json"
 
     // same as running "npm run build" in the ./web-ui/ directory.
-    args.set(listOf("run", "build"))
+    args.set(listOf("run", "build-dev"))
 
     // we require the installPackages to be done before the npm build (which calls webpack) can run, as we need our dependencies!
     dependsOn(yarnPackages)

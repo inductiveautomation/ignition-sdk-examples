@@ -4,6 +4,12 @@ pluginManagement {
         mavenCentral()
         mavenLocal()
         maven {
+            name = "inductiveautomation-releases"
+            url = uri(
+                    "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/"
+            )
+        }
+        maven {
             url "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
         }
         maven {
@@ -16,6 +22,13 @@ rootProject.name = "webui-webpage"
 
 dependencyResolutionManagement {
     repositories {
+        maven {
+            name = "inductiveautomation-releases"
+            url = uri(
+                    "https://nexus.inductiveautomation.com/repository/inductiveautomation-releases/"
+            )
+        }
+
         // enable resolving dependencies from the inductive automation artifact repository
         maven {
             url "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
