@@ -21,7 +21,7 @@ To run the build, clone this repo and open a command line in the `webui-webpage`
 // on Windows
 gradlew build
 
-// on linux/osx
+// on linux/macOS
 ./gradlew build
 ```
 
@@ -31,23 +31,23 @@ This will produce a `.modl` file in the `build` directory, which can be installe
 
 This project uses a number of build tools in order to complete the various parts of its assembly.  It's important to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
 
-* [Gradle](https://gradle.org/) - the primary build tool. Most tasks executed in a typical workflow are gradle tasks.
+* [Gradle](https://gradle.org/) — the primary build tool. Most tasks executed in a typical workflow are gradle tasks.
   and 'packages' in the same git/hg repository without having to do a lot of complicated symlinking/publishing to pull in changes from one project to another.  It's mostly useful from the commandline, outside of Gradle.
-* [yarn](https://yarnpkg.com/) - is a JavaScript dependency (package) manager that provides a number of improvements
+* [yarn](https://yarnpkg.com/) — is a JavaScript dependency (package) manager that provides a number of improvements
   over npm, though it shares many of the same commands and api.  Much like Ivy or Maven, yarn is used to resolve and download dependencies hosted on remotely hosted repositories.  Inductive Automation publishes our own dependencies through the
   same nexus repository system we use for other sdk artifacts.  To correctly resolve the Inductive Automation node packages,
   an `.npmrc` file needs to be added to the front end projects to tell yarn/npm where to find packages in the `@inductiveautomation` namespace.  You will find examples of these in the `web-ui/` directory.
-* [Typescript](https://www.typescriptlang.org/) - the language used to write the front end parts.  TypeScript is not required but is strongly recommended.  TypeScript can be thought of as modern JavaScript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
+* [TypeScript](https://www.typescriptlang.org/) — the language used to write the front end parts.  TypeScript is not required but is strongly recommended.  TypeScript can be thought of as modern JavaScript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
   support.  This can improve maintainability, refactoring, code navigation, bug discovery, etc. TypeScript has its own compiler which emits JavaScript.  This compiler is frequently paired with other build tools in a way that it emits the JavaScript, but
   other tools handle the actual bundling of assets, CSS, and other supporting dependencies.  Think of TypeScript as the
   java compiler without jars or resources.  It just takes TypeScript files in, and emits the JavaScript files.
-* [Webpack](https://webpack.js.org/) - the 'bundler' that we use to take the JavaScript emitted by the TypeScript compiler and turn it into an actual package that includes the necessary assets, dependencies, generates sourcemaps, etc.
+* [Webpack](https://webpack.js.org/) — the 'bundler' that we use to take the JavaScript emitted by the TypeScript compiler and turn it into an actual package that includes the necessary assets, dependencies, generates sourcemaps, etc.
 
 
 ## How it works
 1. The React component that represents your page will need to be bundled into a single UMD JS file.
     - We use webpack in this example.
-    - This example uses Gradle to download tools necessary to build the project (node, yarn and NPM) and then runs a yarn install to install all of the dependencies listed in the package.json. After this is complete, it will use the webpack.config.js file to build the JS bundle and place it in proper location.
+    - This example uses Gradle to download tools necessary to build the project (node, yarn and NPM) and then runs a yarn install to install all the dependencies listed in the package.json. After this is complete, it will use the webpack.config.js file to build the JS bundle and place it in proper location.
    
 
 2. The file will need to be served on the gateway using the Module Resource API.
