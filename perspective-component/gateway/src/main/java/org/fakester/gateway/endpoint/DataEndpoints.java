@@ -1,5 +1,6 @@
 package org.fakester.gateway.endpoint;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -12,6 +13,8 @@ import com.inductiveautomation.ignition.gateway.dataroutes.RequestContext;
 import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.tags.model.GatewayTagManager;
+import com.inductiveautomation.perspective.gateway.api.SessionScope;
+import com.inductiveautomation.perspective.gateway.comm.Routes;
 import jakarta.servlet.http.HttpServletResponse;
 
 
@@ -33,6 +36,7 @@ public final class DataEndpoints {
         routes.newRoute("/component/tagcount")
             .type(RouteGroup.TYPE_JSON)
             .handler(DataEndpoints::fetchTagCount)
+            .accessControl(Routes.requireSession(EnumSet.of(SessionScope.Client, SessionScope.Designer)))
             .mount();
     }
 
