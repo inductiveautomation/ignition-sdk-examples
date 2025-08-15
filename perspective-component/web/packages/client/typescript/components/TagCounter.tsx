@@ -27,7 +27,7 @@ interface TagCountProps {
 }
 
 const HOST = `${location.protocol}//${location.host}`;
-const COUNT_FETCH_URL = `${HOST}/main/data/radcomponents/component/tagcount`;
+const COUNT_FETCH_URL = `${HOST}/data/radcomponents/component/tagcount`;
 
 interface TagCounterState {
     tagCount: number;

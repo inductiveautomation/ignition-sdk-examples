@@ -5,9 +5,6 @@
 ### Gradle Examples
 
 ##### [Perspective Component](perspective-component)
-> [!WARNING]
-> Additional work on Ignition is required before all components in this example will work as expected.
-
 Adds component to the Perspective module's set of components, demonstrating use of various APIs in a build automation which represents one possible solution for 'production' toolchains.
 
 ##### [Perspective Minimal Component](perspective-component-minimal)

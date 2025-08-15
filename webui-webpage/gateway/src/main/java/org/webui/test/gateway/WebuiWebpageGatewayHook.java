@@ -75,7 +75,7 @@ public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
 
     /**
      * Provides a chance for the module to mount any route handlers it wants. These will be active at
-     * <tt>/main/data/module-id/*</tt> See {@link RouteGroup} for details. Will be called after startup().
+     * <tt>/data/module-id/*</tt> See {@link RouteGroup} for details. Will be called after startup().
      */
     @Override
     public void mountRouteHandlers(RouteGroup routes) {
@@ -83,7 +83,7 @@ public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
     }
 
     /**
-     * Used by the mounting underneath /res/module-id/* and /main/data/module-id/* as an alternate mounting path instead
+     * Used by the mounting underneath /res/module-id/* and /data/module-id/* as an alternate mounting path instead
      * of your module id, if present.
      */
     @Override
