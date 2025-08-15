@@ -1,7 +1,4 @@
 # Perspective Component Module Example
-> [!WARNING]
-> Additional work on Ignition is required before all components in this example will work as expected.
-
 This is an example module which adds some custom components to the Perspective module.  There are 3 different components
 in this example, each exercising different aspects of the Perspective component API, as well as demonstrating
 a few different ways of dealing with data and configuration of the components in the gateway designer.
@@ -31,20 +28,20 @@ Ultimately it's up to implementors to choose the tools they prefer.
 
 ## Quick Tool Overview
 
-This project uses a number of build tools in order to complete the various parts of its assembly.  It's importatnt to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
+This project uses a number of build tools in order to complete the various parts of its assembly.  It's important to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
 
-* [Gradle](https://gradle.org/) - the primary build tool. Most tasks executed in a typical workflow are gradle tasks.
-* [lerna.js](https://lernajs.io/) - is a javascript build-orchestration tool.  It allows us to have independent 'modules'
+* [Gradle](https://gradle.org/) — the primary build tool. Most tasks executed in a typical workflow are gradle tasks.
+* [lerna.js](https://lernajs.io/) — is a javascript build-orchestration tool.  It allows us to have independent 'modules'
  and 'packages' in the same git/hg repository without having to do a lot of complicated symlinking/publishing to pull in changes from one project to another.  It's mostly useful from the commandline, outside of gradle.
-* [yarn](https://yarnpkg.com/) - is a javascript dependency (package) manager that provides a number of improvements
+* [yarn](https://yarnpkg.com/) — is a javascript dependency (package) manager that provides a number of improvements
 over npm, though it shares much of the same commands and api.  Much like Ivy or Maven, yarn is used to resolve and download dependencies hosted on remotely hosted repositories.  Inductive Automation publishes our own dependencies through the
  same nexus repository system we use for other sdk artifacts.  To correctly resolve the Inductive Automation node packages,
   an `.npmrc` file needs to be added to the front end projects to tell yarn/npm where to find packages in the `@inductiveautomation` namespace.  You will find examples of these in the `web/` directory.
-* [Typescript](https://www.typescriptlang.org/) - the language used to write the front end parts.  Typescript is not required, but is strongly recommended.  Typescript can be thought of as modern javascript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
+* [Typescript](https://www.typescriptlang.org/) — the language used to write the front end parts.  Typescript is not required, but is strongly recommended.  Typescript can be thought of as modern javascript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
   support.  This can improve maintainability, refactoring, code navigation, bug discovery, etc.  Typescript has its own compiler which emits javascript.  This compiler is frequently paired with other build tools in a way that it emits the javascript, but
   other tools handle the actual bundling of assets, css, and other supporting dependencies.  Think of typescript as the
   java compiler without jars or resources.  It just takes typescript files in, and emits the javascript files.
-* [Webpack](https://webpack.js.org/) - the 'bundler' that we use to take the javascript emitted by the typescript compiler and turn it into an actual package that includes necessary assets, dependencies, generates sourcemaps, etc.
+* [Webpack](https://webpack.js.org/) — the 'bundler' that we use to take the javascript emitted by the typescript compiler and turn it into an actual package that includes necessary assets, dependencies, generates sourcemaps, etc.
 
 
 More documentation incoming, and the web/README.md contains a lot of information about the typescript build process.
@@ -71,13 +68,13 @@ gradlew build
 ```
 
 If you would like to be able to execute parts of the build without depending on gradle, you'll need familiarity with
-the javascript and typescript ecosystem, including NodeJs, NPM/Yarn, Typescript, Webpack, Babel, etc.
+the javascript and typescript ecosystem, including Node.js, NPM/Yarn, Typescript, Webpack, Babel, etc.
 
 While not a comprehensive instruction set, the process of setting up these tools would look something like the following:
 
-1. Install node and npm, which can be used to further install yarn, typescript, webpack, etc.  MacOs and Linux can
+1. Install node and npm, which can be used to further install yarn, typescript, webpack, etc.  macOS and Linux can
 install via package managers, or they and Windows can be installed via the downloads at the
-[NodeJS Website](https://nodejs.org/).   We recommend sticking with the LTS versions (actual versions used by the build)
+[Node.js Website](https://nodejs.org/).   We recommend sticking with the LTS versions (actual versions used by the build)
 can be seen in the `./web/build.gradle` file, within the `node` configuration block.
 
 2. With npm installed, install the global dev-dependency tools.  While it's possible to make gradle handle all these,
@@ -104,7 +101,7 @@ This section provides a high-level overview of the different parts of this proje
 the `web` subproject, see the readme there.
 
 This example module has a fairly traditional Ignition Module project layout with one key difference.  Like most cross-scope projects, this one has a `common` subproject which is  shared between gateway and designer scopes.  What it does NOT
-have is a `client` scope.  Instead we have a `web` subproject which contains the source code, assets, and build
+have is a `client` scope.  Instead, we have a `web` subproject which contains the source code, assets, and build
 configuration used to build the html/js/css used in the module.
 
 Within the `web` directory is a _lerna workspace_, which is simply a javascript corollary to a 'maven multi-module
