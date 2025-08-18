@@ -1,7 +1,4 @@
 # Slack Alarm Notification Example
-> [!WARNING]
-> This example uses a custom contact type, which is not currently accessible via the UI; it must be added to the user's profile manually (see  [Using The Resource Configuration](#using-the-resource-configuration)). 
-
 ### Overview
 
 Provides a framework for implementing a custom alarm notification system.
@@ -14,9 +11,6 @@ webhook, you can add the webhook as a `SLACK_WEBHOOK` Contact Type under your us
 of the following methods:
 
 #### Using the UI
-> [!WARNING]
-> Currently you cannot add the contact type through this method, use the method outlined in [Using The Resource Configuration](#using-the-resource-configuration) instead.
-
 Login to the Gateway, navigate to "Platform > Security > User Sources > [YOUR_USER_SOURCE]," select "Manage Users"
 under the dropdown next to the User Source you want to use, select your user and then "Edit," and add the "Slack"
 Contact Type where the value is the URL of the webhook.
