@@ -1,31 +1,30 @@
 package com.inductiveautomation.ignition.examples.reporting.datasource.common;
 
 import java.io.IOException;
-import java.io.Serializable;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.google.common.collect.Iterators;
-import com.inductiveautomation.ignition.examples.reporting.datasource.common.gateway.GatewayHook;
 import com.inductiveautomation.ignition.common.BasicDataset;
 import com.inductiveautomation.ignition.common.Dataset;
 import com.inductiveautomation.ignition.common.TypeUtilities;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.util.DatasetBuilder;
-import com.inductiveautomation.reporting.common.resource.DataSourceConfig;
+import com.inductiveautomation.ignition.examples.reporting.datasource.common.gateway.GatewayHook;
 import com.inductiveautomation.ignition.examples.reporting.datasource.common.utils.JsonUtils;
+import com.inductiveautomation.reporting.common.resource.DataSourceConfig;
 import com.inductiveautomation.reporting.gateway.api.GatewayDataSourceRegistry;
 import com.inductiveautomation.reporting.gateway.api.ReportDataSource;
 import com.inductiveautomation.reporting.gateway.api.ReportExecutionContext;
 import com.inductiveautomation.reporting.gateway.api.ReportExecutionContext.ReportLoggerEx;
 import com.inductiveautomation.rm.base.RMKey;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,10 +33,11 @@ import org.json.JSONObject;
  * This class provides the Gateway scoped functionality for the example Datasource.  By implementing {@link ReportDataSource}
  * and registering it in the {@link GatewayHook#startup(LicenseState)}
  * through {@link GatewayDataSourceRegistry}.
+ *
  * @author Perry Arellano-Jones
  */
 public class RestJsonDataSource implements ReportDataSource {
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     /*
      * ReportLoggerEx is a wrapper around LoggerEx that adds WARN and ERROR level log messages to the data collection
      * error popup that is displayed in the Report Design/Preview panels as well as the Report Viewer component in
@@ -49,20 +49,21 @@ public class RestJsonDataSource implements ReportDataSource {
      * This method is where data can be added to the data map.  We utilitize the
      * {@link ReportExecutionContext} to get the data map, and simple inject our data as an additional
      * entry.
+     *
      * @param reportExecutionContext provides
-     * @param _configObject is the configuration object we defined in Common scope.  It's information originates from
-     *                      the Designer's {@link DataSourceConfig} panel.
-     * @param extraConfigs Extra info the datasource may need. The key is the datasource ID.
+     * @param _configObject          is the configuration object we defined in Common scope.  It's information originates from
+     *                               the Designer's {@link DataSourceConfig} panel.
+     * @param extraConfigs           Extra info the datasource may need. The key is the datasource ID.
      */
     @Override
-    public void gatherData(ReportExecutionContext reportExecutionContext, Serializable _configObject,
+    public void gatherData(ReportExecutionContext reportExecutionContext, DataSourceConfig _configObject,
                            Map<String, Object> extraConfigs) {
         log = reportExecutionContext.getLog();
 
         /* Collect information from the config object and add to the data map with the proper ID. */
         Map<String, Object> data = reportExecutionContext.getExecutionData().getData();
 
-        RestJsonDataObject configObject = (RestJsonDataObject) _configObject;
+        RestJsonDataObject configObject = RestJsonDataObject.fromJson(_configObject.getConfigObjectJson());
 
         // verify the user entered a valid datakey
         if (configObject != null && RMKey.isKey(configObject.getKey())) {
@@ -81,13 +82,13 @@ public class RestJsonDataSource implements ReportDataSource {
 
             try {
                 //collect the data as a String
-                String jsonString = collectData(url);
+                String jsonString = fetchData(url);
                 if (!TypeUtilities.isNullOrEmpty(jsonString)) {
                     try {
                         log.tracef("Attempting to build JSON Object from data string.");
                         // map our simple string to a reporting-engine friendly map
                         JSONObject jsonObject = new JSONObject(jsonString);
-                        Map<String,Object> mappedJSON = JsonUtils.toMap(jsonObject);
+                        Map<String, Object> mappedJSON = JsonUtils.toMap(jsonObject);
                         if (mappedJSON != null) {
                             data.put(configObject.getKey(), mappedJSON);
                         }
@@ -102,14 +103,14 @@ public class RestJsonDataSource implements ReportDataSource {
                             }
                             log.tracef("Dataset created from Json Array and added to map.");
                         } catch (Exception e) {
-                            log.warnf("Could not parse JSONArray from \'%s\'.", configObject.getUrl(), e);
+                            log.warnf("Could not parse JSONArray from '%s'.", configObject.getUrl(), e);
                         }
                     }
                 } else {
-                    log.warnf("No Json data could be found at \'%s\'", configObject.getUrl());
+                    log.warnf("No Json data could be found at '%s'", configObject.getUrl());
                 }
-            } catch (Exception e){
-                log.warnf("Could not create usable data from \'%s\'", configObject.getUrl(), e);
+            } catch (Exception e) {
+                log.warnf("Could not create usable data from '%s'", configObject.getUrl(), e);
             }
         }
     }
@@ -120,6 +121,7 @@ public class RestJsonDataSource implements ReportDataSource {
      * set of keys.  This process is useful because not all JSON objects in an array may have the same key set.  There
      * are some assumptions made that the largest keyset will contain all the keys available in those of lower sets.
      * This is far from true, but this assumption is allowed for the sake of simplicity for this example.
+     *
      * @param jsonArray a {@link JSONArray}
      * @return a JSONObject containing the most keys found in the array.  May be empty.
      */
@@ -191,32 +193,37 @@ public class RestJsonDataSource implements ReportDataSource {
         return RestJsonDataObject.ID;
     }
 
+    private static final String APPLICATION_JSON = "application/json";
+
     /**
-     * Attempts to connect to a Url using {@link OkHttpClient} and return the body of the reply as a String, if it is
-     * JSON mime type.
-     * @param url String specifying the
-     * @return the body of the http response received from the specified Url
+     * Attempts to connect to a {@code url} and return the body of the reply as a String if it is
+     * JSON mime type. If it is not JSON, {@code null} is returned.
+     *
+     * @param url String specifying the URL to connect to
+     * @return The body of the http response received from the specified URL if it is JSON, otherwise {@code null}.
      */
-    private String collectData(String url) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
+    public static String fetchData(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
                 .build();
 
-        Response response = client.newCall(request).execute();
+        // This is a synchronous call to send the request and receive the response.
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // get headers to check the content type out of
-        Headers headers = null;
-        if (response != null) {
-            headers = response.headers();
+        Optional<String> contentTypeHeader = response.headers().firstValue("Content-Type");
+
+        // 5. Check if the content type is JSON.
+        boolean isJSON = contentTypeHeader
+                .map(contentType -> contentType.startsWith(APPLICATION_JSON))
+                .orElse(false);
+
+        if (isJSON) {
+            return response.body();
+        } else {
+            return null;
         }
-
-        // at least try to make sure we have JSON data.
-        boolean isJSON = false;
-        if (headers != null) {
-            isJSON = MediaType.parse(headers.get("Content-Type")).equals(JSON);
-        }
-
-        return isJSON ? response.body().string() : "";
     }
 }

@@ -26,40 +26,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.3</version>
-                    <configuration>
-                        <source>17</source>
-                        <target>17</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-release</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <repositories>
         <repository>
             <id>ia-releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -68,7 +38,6 @@
                 <updatePolicy>always</updatePolicy>
             </releases>
         </repository>
-
         <repository>
             <id>ia-snapshots</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-snapshots</url>
@@ -80,7 +49,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-
         <repository>
             <id>ia-thirdparty</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-thirdparty</url>
@@ -92,11 +60,23 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-
         <repository>
             <id>ia-beta</id>
             <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-beta</url>
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>releases</id>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
