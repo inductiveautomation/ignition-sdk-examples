@@ -25,7 +25,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>releases</id>
-            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases.</url>
+            <url>https://nexus.inductiveautomation.com/repository/inductiveautomation-releases</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
