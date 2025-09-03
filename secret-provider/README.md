@@ -1,6 +1,6 @@
 # Secret Provider
 
-This module provides an example implementation of the `SecretProvider` interface, which allows for the user of stored 
+This module provides an example implementation of the `SecretProvider` interface, which allows for the use of stored 
 secrets by Ignition. It is backed by a MongoDB backend, and the secrets are expected to be stored in the MongoDB 
 database as the JSON returned from `SystemEncryptionService.entryToJson(Plaintext)`.
 

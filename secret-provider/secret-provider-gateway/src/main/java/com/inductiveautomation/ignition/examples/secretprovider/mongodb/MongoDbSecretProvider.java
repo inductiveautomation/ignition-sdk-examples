@@ -39,8 +39,6 @@ import java.util.Objects;
  */
 public class MongoDbSecretProvider implements SecretProvider, Lifecycle {
 
-    private static final LoggerEx LOGGER = LoggerEx.newBuilder().build(MongoDbSecretProvider.class);
-
     // The names of the MongoDB collections used in this example.
     private static final String COLLECTION_SECRETS = "secrets";
 
@@ -126,7 +124,7 @@ public class MongoDbSecretProvider implements SecretProvider, Lifecycle {
                     .map(doc -> doc.getString(KEY_NAME))
                     .into(new java.util.ArrayList<>());
         } catch (Exception e) {
-            LOGGER.error("Failed to list secrets from MongoDB", e);
+            context.getLog().error("Failed to list secrets from MongoDB", e);
             throw new SecretProviderException("Failed to list secrets", e);
         }
     }
@@ -141,7 +139,7 @@ public class MongoDbSecretProvider implements SecretProvider, Lifecycle {
         try {
             doc = collection.find(new Document(KEY_NAME, s)).first();
         } catch (Exception e) {
-            LOGGER.error("Failed to read secret '" + s + "' from MongoDB", e);
+            context.getLog().error("Failed to read secret '" + s + "' from MongoDB", e);
             throw new SecretProviderException("Failed to read secret", e);
         }
 
@@ -155,7 +153,7 @@ public class MongoDbSecretProvider implements SecretProvider, Lifecycle {
             JsonElement element = JsonParser.parseString(doc.get(KEY_CIPHERTEXT, Document.class).toJson());
             return context.getGatewayContext().getSystemEncryptionService().decryptFromJson(element);
         } catch (Exception e) {
-            LOGGER.error("Failed to decrypt secret '" + s + "'", e);
+            context.getLog().error("Failed to decrypt secret '" + s + "'", e);
             throw new SecretProviderException("Failed to decrypt secret", e);
         }
     }

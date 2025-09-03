@@ -101,23 +101,16 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     private MongoClientSettings mongoClientSettings;
     private MongoClient mongoClient;
     private MongoDatabase database;
-    private MongoDbUserSourceResource settings;
+    private final MongoDbUserSourceResource settings;
 
     /**
      * Constructor for the {@link MongoDbUserSource}.
      *
      * @param kernel the UserSourceProfileKernel that provides the context for this profile.
-     */
-    MongoDbUserSource(UserSourceProfileKernel kernel) {
-        super(kernel);
-    }
-
-    /**
-     * Sets the settings for this user source profile.
-     *
      * @param settings the {@link MongoDbUserSourceResource} containing configuration settings.
      */
-    public void setSettings(MongoDbUserSourceResource settings) {
+    MongoDbUserSource(UserSourceProfileKernel kernel, MongoDbUserSourceResource settings) {
+        super(kernel);
         this.settings = settings;
     }
 
