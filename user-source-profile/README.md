@@ -2,7 +2,7 @@
 
 This module provides an implementation of the `UserSourceProvider` interface, which allows for the management of user 
 profiles in a system. It includes methods for creating, updating, and deleting user profiles, as well as retrieving user
-information. It is backed by a MongoDB backend.
+information and authenticating users. It is backed by a MongoDB backend.
 
 In a production environment, you may want to use the MongoDB Connector module, but for simplicity, this module uses the
 MongoDB Java driver directly. This allows for easy testing without the need to add another module to Ignition.

@@ -7,7 +7,7 @@
     <groupId>com.inductiveautomation.ignition.examples</groupId>
     <artifactId>user-source-profile</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
 
     <modules>
         <module>user-source-build</module>
@@ -15,7 +15,7 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.3.0-beta3</ignition-platform-version>
+        <ignition-platform-version>8.3.0-rc1</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>MongoDB User Source Example</module-name>
         <module-description>Adds an example user source backed by MongoDB to Ignition.</module-description>

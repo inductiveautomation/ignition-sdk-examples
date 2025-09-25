@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.inductiveautomation.ignition.examples</groupId>
         <artifactId>user-source-profile</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>user-source-build</artifactId>

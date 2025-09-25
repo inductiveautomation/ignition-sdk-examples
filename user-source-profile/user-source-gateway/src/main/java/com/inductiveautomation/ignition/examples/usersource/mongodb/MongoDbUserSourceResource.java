@@ -107,7 +107,7 @@ public record MongoDbUserSourceResource(
                 validator.checkField(
                         resource.passwordMaxAge() >= 0 && resource.passwordMaxAge() < 360,
                         "passwordMaxAge",
-                        "passwordMaxAge must be in the range [0, 1000)"
+                        "passwordMaxAge must be in the range [0, 360)"
                 );
                 validator.checkField(
                         resource.passwordHistory() < 0,

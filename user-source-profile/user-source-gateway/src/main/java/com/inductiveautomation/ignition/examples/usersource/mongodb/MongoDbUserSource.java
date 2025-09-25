@@ -101,23 +101,16 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     private MongoClientSettings mongoClientSettings;
     private MongoClient mongoClient;
     private MongoDatabase database;
-    private MongoDbUserSourceResource settings;
+    private final MongoDbUserSourceResource settings;
 
     /**
      * Constructor for the {@link MongoDbUserSource}.
      *
      * @param kernel the UserSourceProfileKernel that provides the context for this profile.
-     */
-    MongoDbUserSource(UserSourceProfileKernel kernel) {
-        super(kernel);
-    }
-
-    /**
-     * Sets the settings for this user source profile.
-     *
      * @param settings the {@link MongoDbUserSourceResource} containing configuration settings.
      */
-    public void setSettings(MongoDbUserSourceResource settings) {
+    MongoDbUserSource(UserSourceProfileKernel kernel, MongoDbUserSourceResource settings) {
+        super(kernel);
         this.settings = settings;
     }
 
@@ -298,7 +291,6 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
         try {
             // Validate the user exists
             MongoCollection<Document> collection = getDatabase().getCollection(COLLECTION_USERS);
-            Bson filter = Filters.eq(KEY_BADGE, badge);
 
             // Find all users with the specified badge
             FindIterable<Document> findIterable = collection.find(Filters.eq(KEY_BADGE, badge));
@@ -350,7 +342,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void addRole(Role role, UICallback ui) throws Exception {
+    public void addRole(Role role, UICallback ui) {
         if (!role.getProfileName().equals(getProfileName())) {
             ui.warn("User source does not match role. Unexpected results may occur.");
         }
@@ -370,7 +362,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void alterRole(Role role, UICallback ui) throws Exception {
+    public void alterRole(Role role, UICallback ui) {
         MongoCollection<Document> collection = getDatabase().getCollection(COLLECTION_ROLES);
 
         // Validate the role already exists
@@ -398,7 +390,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void removeRole(Role role, UICallback ui) throws Exception {
+    public void removeRole(Role role, UICallback ui) {
         // Remove the role from all users that have this role
         Bson update = Updates.pull(KEY_ROLES, role.getId());
         getDatabase().getCollection(COLLECTION_USERS).updateMany(Filters.empty(), update);
@@ -412,7 +404,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
 
     @Nonnull
     @Override
-    public Collection<Role> getRoles() throws Exception {
+    public Collection<Role> getRoles() {
         Collection<Role> roles = new ArrayList<>();
         try (MongoCursor<Document> cursor = getDatabase().getCollection(COLLECTION_ROLES).find().iterator()) {
             while (cursor.hasNext()) {
@@ -423,7 +415,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void addUser(User user, UICallback ui) throws Exception {
+    public void addUser(User user, UICallback ui) {
         if (!user.getProfileName().equals(getProfileName())) {
             ui.warn("User source does not match user. Unexpected results may occur.");
         }
@@ -600,7 +592,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void alterUser(User user, UICallback ui) throws Exception {
+    public void alterUser(User user, UICallback ui) {
         MongoCollection<Document> collection = getDatabase().getCollection(COLLECTION_USERS);
 
         // Validate the user already exists
@@ -660,7 +652,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void removeUser(User user, UICallback ui) throws Exception {
+    public void removeUser(User user, UICallback ui) {
         DeleteResult result = getDatabase().getCollection(COLLECTION_USERS).deleteOne(Filters.eq(KEY_ID, user.getId()));
         if (result.getDeletedCount() == 0) {
             throw new IllegalArgumentException("Cannot remove user: user with ID '" + user.getId() + "' not found.");
@@ -668,7 +660,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
     }
 
     @Override
-    public void alterPassword(User user, String oldPassword, String newPassword) throws Exception {
+    public void alterPassword(User user, String oldPassword, String newPassword) {
         MongoCollection<Document> collection = getDatabase().getCollection(COLLECTION_USERS);
 
         // Validate the user already exists
@@ -700,7 +692,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
 
     @Nonnull
     @Override
-    public Collection<User> getUsers() throws Exception {
+    public Collection<User> getUsers() {
         Collection<User> users = new ArrayList<>();
         try (MongoCursor<Document> cursor = getDatabase().getCollection(COLLECTION_USERS).find().iterator()) {
             while (cursor.hasNext()) {
@@ -712,7 +704,7 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
 
     @Nonnull
     @Override
-    public Optional<User> getUser(String userName) throws Exception {
+    public Optional<User> getUser(String userName) {
         return Optional.ofNullable(
                 toUser(getDatabase().getCollection(COLLECTION_USERS).find(Filters.eq(KEY_NAME, userName)).first())
         );

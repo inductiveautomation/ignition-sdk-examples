@@ -43,9 +43,7 @@ public class MongoDbUserSourceExtensionPoint extends UserSourceExtensionPoint<Mo
 
         // Create a new UserSourceProfileKernel using the profile name and settings.
         UserSourceProfileKernel kernel = createKernel(profileName, resource.config().profile(), context);
-        MongoDbUserSource profile = new MongoDbUserSource(kernel);
-        profile.setSettings(settings);
-        return profile;
+        return new MongoDbUserSource(kernel, settings);
     }
 
     @Override
