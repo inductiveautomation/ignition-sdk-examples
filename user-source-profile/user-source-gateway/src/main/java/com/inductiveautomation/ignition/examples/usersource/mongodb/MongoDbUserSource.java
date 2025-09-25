@@ -27,12 +27,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Level;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 
 import javax.annotation.Nonnull;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -264,13 +263,9 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
         // Password is valid, now check if the password is expired
         if (settings.passwordMaxAge() > 0 && !bypassExpiration) {
             long pwdTimestamp = document.getLong(KEY_PASSWORD_DATE);
-            if (pwdTimestamp > 0) {
-                DateTime passwordCreatedOn = new DateTime(pwdTimestamp);
-                DateTime now = DateTime.now();
-                int days = Days.daysBetween(passwordCreatedOn.toLocalDate(), now.toLocalDate()).getDays();
-                if (days > settings.passwordMaxAge()) {
-                    throw new PasswordExpiredException(getName(), uname);
-                }
+            long pwdExpiration = pwdTimestamp + TimeUnit.DAYS.toMillis(settings.passwordMaxAge());
+            if (pwdTimestamp > 0 && System.currentTimeMillis() >= pwdExpiration) {
+                throw new PasswordExpiredException(getName(), uname);
             }
         }
 

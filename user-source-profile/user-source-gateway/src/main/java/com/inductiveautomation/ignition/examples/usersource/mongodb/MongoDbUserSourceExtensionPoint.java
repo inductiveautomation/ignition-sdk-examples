@@ -5,6 +5,8 @@ import com.inductiveautomation.ignition.gateway.config.ExtensionPointConfig;
 import com.inductiveautomation.ignition.gateway.config.ValidationErrors;
 import com.inductiveautomation.ignition.gateway.dataroutes.openapi.SchemaUtil;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.secrets.SecretConfig;
+import com.inductiveautomation.ignition.gateway.secrets.SecretProviderConfig;
 import com.inductiveautomation.ignition.gateway.user.UserSourceExtensionPoint;
 import com.inductiveautomation.ignition.gateway.user.UserSourceProfile;
 import com.inductiveautomation.ignition.gateway.user.UserSourceProfileConfig;
@@ -26,6 +28,39 @@ public class MongoDbUserSourceExtensionPoint extends UserSourceExtensionPoint<Mo
                 "MongoDbUserSource.UserSourceType.Name",
                 "MongoDbUserSource.UserSourceType.Desc",
                 MongoDbUserSourceResource.class);
+
+        // The password in our configuration might be a referenced secret that points to a secret provider, so we need
+        // to add a reference property for it. We need to register our reference property and consume updates / renames
+        // of the SecretProvider to keep our configuration in sync.
+        addReferenceProperty("password", builder -> builder
+                .targetType(SecretProviderConfig.RESOURCE_TYPE)
+                .value(resource -> {
+                    // Return the SecretProvider name if the password is a referenced secret.
+                    SecretConfig secretConfig = resource.password();
+                    if (secretConfig != null && secretConfig.isReferenced()) {
+                        return secretConfig.getAsReferenced().getProviderName();
+                    }
+                    return null;
+                })
+                .caseSensitive(true)
+                .onUpdate((resource, newName) -> {
+                    // Return a new resource with the updated SecretProvider name if the password is a
+                    // referenced secret.
+                    SecretConfig secretConfig = resource.password();
+                    if (secretConfig != null && secretConfig.isReferenced()) {
+                        return new MongoDbUserSourceResource(
+                                resource.connectionString(),
+                                resource.databaseName(),
+                                resource.username(),
+                                SecretConfig.referenced(newName, secretConfig.getAsReferenced().getSecretName()),
+                                resource.authenticationDb(),
+                                resource.passwordMaxAge(),
+                                resource.passwordHistory()
+                        );
+                    }
+                    return resource; // Should never get here, but return the original resource if we do.
+                })
+        );
     }
 
     @Override
