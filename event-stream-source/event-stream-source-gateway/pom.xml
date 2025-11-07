@@ -26,6 +26,12 @@
             <version>${ignition-sdk-version}</version>
             <scope>provided</scope>
             <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.inductiveautomation.eventstream</groupId>
+                    <artifactId>web-ui</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.inductiveautomation.ignition.examples</groupId>

@@ -32,7 +32,7 @@ public class SlackNotificationExtensionPoint
 
     public SlackNotificationExtensionPoint() {
         super(TYPE_ID,
-                "SlackNotification.SlackNotificationProfileType.Name",
+                "SlackNotification.SlackNotificationProfileType.DisplayName",
                 "SlackNotification.SlackNotificationProfileType.Description",
                 SlackNotificationProfileResource.class);
 

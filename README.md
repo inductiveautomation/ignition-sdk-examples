@@ -45,8 +45,14 @@ Adds a datasource to the report designer that can retrieve JSON data via a REST 
 ##### [Scripting Function (RPC)](scripting-function)
 Adds a system.example.multiply script that can be executed from both a client and a Gateway. Also demonstrates how the client can call a method in the Gateway via RPC.
 
+##### [Secret Provider](secret-provider)
+Adds a Secret Provider that allows you to store and retrieve secrets in the Gateway. The secrets are stored in a Mongo DB backend.
+
 ##### [Slack Alarm Notification](slack-alarm-notification)
 Adds a Slack Alarm Notification type that handles alarm notifications through Slack's outgoing webhooks.
+
+##### [User Source Profile](user-source-profile)
+Adds a User Source Profile that allows you to manage users and roles in the Gateway. Users and roles stored in a Mongo DB backend.
 
 ##### [Vision Component](vision-component)
 Creates a Hello World component that can be dragged onto a window in the Designer.

@@ -1,5 +1,5 @@
 [versions]
-ignition = "8.3.0-SNAPSHOT"
+ignition = "8.3.0"
 java = "17"
 
 [plugins]

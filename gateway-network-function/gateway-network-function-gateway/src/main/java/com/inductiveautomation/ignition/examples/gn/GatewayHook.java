@@ -5,15 +5,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.script.ScriptManager;
 import com.inductiveautomation.ignition.common.script.hints.PropertiesFileDocProvider;
+import com.inductiveautomation.ignition.examples.gn.intent.HandleLogFileIntent;
 import com.inductiveautomation.ignition.examples.gn.protoserializers.LogEventSerializer;
 import com.inductiveautomation.ignition.examples.gn.service.GetLogsService;
 import com.inductiveautomation.ignition.examples.gn.service.GetLogsServiceImpl;
+import com.inductiveautomation.ignition.gateway.gan.GatewayNetworkManager;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.rpc.GatewayRpcImplementation;
@@ -31,6 +34,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     private GetLogsGatewayFunctions gatewayFunctions;
     private GatewayRpcImplementation rpc;
     private GetLogsService getLogsService;
+    private final AtomicInteger taskIdAcc = new AtomicInteger();
 
     @Override
     public void setup(GatewayContext gatewayContext) {
@@ -51,6 +55,10 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         ServiceManager sm = context.getGatewayNetworkManager().getServiceManager();
         getLogsService = new GetLogsServiceImpl(context, this);
         sm.registerService(GetLogsService.class, getLogsService);
+
+        // Intent setup
+        GatewayNetworkManager gm = context.getGatewayNetworkManager();
+        gm.registerIntent(new HandleLogFileIntent());
     }
 
     @Override
@@ -63,6 +71,10 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         // Remove services
         ServiceManager sm = context.getGatewayNetworkManager().getServiceManager();
         sm.unregisterService(GetLogsService.class);
+
+        // Remove intents
+        GatewayNetworkManager gm = context.getGatewayNetworkManager();
+        gm.unregisterIntent(HandleLogFileIntent.NAME);
 
         // Remove properties files
         BundleUtil.get().removeBundle(getClass());
@@ -108,5 +120,13 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         }
 
         return tempLog;
+    }
+
+    /**
+     * A central incrementer that can be used to register temporary intents
+     *
+     */
+    public Integer getNextIntentId() {
+        return taskIdAcc.getAndIncrement();
     }
 }
