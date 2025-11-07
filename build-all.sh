@@ -5,6 +5,9 @@
 
 set -e  # Exit on any error
 
+# Projects to ignore (temporarily broken or excluded from builds)
+IGNORE_LIST=("report-datasource")
+
 # Color output for better readability
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -27,6 +30,13 @@ echo ""
 
 for dir in $directories; do
     project_name=$(basename "$dir")
+
+    # Check if project is in ignore list
+    if [[ " ${IGNORE_LIST[@]} " =~ " ${project_name} " ]]; then
+        echo -e "${YELLOW}⚠ Skipping ${project_name} (in ignore list)${NC}"
+        echo ""
+        continue
+    fi
 
     echo -e "${YELLOW}>>> Building: ${project_name}${NC}"
 
