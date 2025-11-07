@@ -20,6 +20,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+          cache: maven
 
       - name: Make build script executable
         run: chmod +x build-all.sh
