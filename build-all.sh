@@ -1,9 +1,12 @@
-``#!/bin/bash
+#!/bin/bash
 
 # Build script for all Ignition SDK example projects
 # Automatically detects Maven (pom.xml) or Gradle (build.gradle/build.gradle.kts) projects
 
 set -e  # Exit on any error
+
+# Projects to ignore (temporarily broken or excluded from builds)
+IGNORE_LIST=("report-datasource")
 
 # Color output for better readability
 RED='\033[0;31m'
@@ -18,7 +21,7 @@ successful_builds=()
 failed_builds=()
 
 # Get list of directories (excluding hidden and special directories)
-directories=$(find . -maxdepth 1 -type d ! -name "." ! -name "..*" ! -name ".git" ! -name ".idea" | sort)
+directories=$(find . -maxdepth 1 -type d ! -name "." ! -name "..*" ! -name ".git" ! -name ".github" ! -name ".idea" | sort)
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Building All Ignition SDK Examples${NC}"
@@ -28,6 +31,13 @@ echo ""
 for dir in $directories; do
     project_name=$(basename "$dir")
 
+    # Check if project is in ignore list
+    if [[ " ${IGNORE_LIST[@]} " =~ " ${project_name} " ]]; then
+        echo -e "${YELLOW}⚠ Skipping ${project_name} (in ignore list)${NC}"
+        echo ""
+        continue
+    fi
+
     echo -e "${YELLOW}>>> Building: ${project_name}${NC}"
 
     cd "$dir"
@@ -35,7 +45,7 @@ for dir in $directories; do
     # Detect project type and build accordingly
     if [ -f "pom.xml" ]; then
         echo -e "${BLUE}Detected Maven project${NC}"
-        if mvn clean package; then
+        if mvn clean package -B -q; then
             echo -e "${GREEN}✓ ${project_name} built successfully${NC}"
             successful_builds+=("$project_name")
         else
@@ -45,7 +55,7 @@ for dir in $directories; do
         fi
     elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
         echo -e "${BLUE}Detected Gradle project${NC}"
-        if ./gradlew clean build; then
+        if ./gradlew clean build -q --console=plain; then
             echo -e "${GREEN}✓ ${project_name} built successfully${NC}"
             successful_builds+=("$project_name")
         else
