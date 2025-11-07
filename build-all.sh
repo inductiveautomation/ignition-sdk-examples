@@ -1,4 +1,4 @@
-``#!/bin/bash
+#!/bin/bash
 
 # Build script for all Ignition SDK example projects
 # Automatically detects Maven (pom.xml) or Gradle (build.gradle/build.gradle.kts) projects
@@ -35,7 +35,7 @@ for dir in $directories; do
     # Detect project type and build accordingly
     if [ -f "pom.xml" ]; then
         echo -e "${BLUE}Detected Maven project${NC}"
-        if mvn clean package; then
+        if mvn clean package -B -q; then
             echo -e "${GREEN}✓ ${project_name} built successfully${NC}"
             successful_builds+=("$project_name")
         else
@@ -45,7 +45,7 @@ for dir in $directories; do
         fi
     elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
         echo -e "${BLUE}Detected Gradle project${NC}"
-        if ./gradlew clean build; then
+        if ./gradlew clean build -q --console=plain; then
             echo -e "${GREEN}✓ ${project_name} built successfully${NC}"
             successful_builds+=("$project_name")
         else
