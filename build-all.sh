@@ -18,7 +18,7 @@ successful_builds=()
 failed_builds=()
 
 # Get list of directories (excluding hidden and special directories)
-directories=$(find . -maxdepth 1 -type d ! -name "." ! -name "..*" ! -name ".git" ! -name ".idea" | sort)
+directories=$(find . -maxdepth 1 -type d ! -name "." ! -name "..*" ! -name ".git" ! -name ".github" ! -name ".idea" | sort)
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Building All Ignition SDK Examples${NC}"
