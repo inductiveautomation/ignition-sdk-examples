@@ -19,6 +19,12 @@
             <version>${ignition-sdk-version}</version>
             <type>pom</type>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.inductiveautomation.reporting</groupId>
+                    <artifactId>web-ui</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

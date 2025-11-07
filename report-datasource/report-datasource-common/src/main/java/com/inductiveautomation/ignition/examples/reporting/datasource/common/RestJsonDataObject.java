@@ -63,7 +63,7 @@ public class RestJsonDataObject implements DataSourceConfigObject {
 
     @Override
     public JsonObject toJson() {
-        var json = new JsonObject();
+        JsonObject json = new JsonObject();
         json.addProperty("key", key);
         json.addProperty("url", url);
         return json;

@@ -52,7 +52,7 @@ public class RestJsonDataConfigPanel extends DataSourceConfigPanel {
 
                 @Override
                 public Optional<String> getDataKeyForConfigObject(DataSourceConfig config) {
-                    var restJsonDataObject = RestJsonDataObject.fromJson(config.getConfigObjectJson());
+                    RestJsonDataObject restJsonDataObject = RestJsonDataObject.fromJson(config.getConfigObjectJson());
                     return Optional.fromNullable(restJsonDataObject.getKey());
                 }
             };

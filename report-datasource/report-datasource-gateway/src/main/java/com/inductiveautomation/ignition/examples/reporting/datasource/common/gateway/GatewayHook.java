@@ -5,6 +5,7 @@ import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.examples.reporting.datasource.common.ExampleReportDatasourceModule;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
+import com.inductiveautomation.ignition.gateway.model.GatewayModule;
 import com.inductiveautomation.ignition.gateway.model.ModuleState;
 
 /**
@@ -29,7 +30,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         if (reportingLoaded(context)) {
             ReportingInstaller.setup(context);
         } else {
-            var warningMessage = "The Reporting module is not installed or not active. "
+            String warningMessage = "The Reporting module is not installed or not active. "
                     + "The Example Datasource will not be available. "
                     + "Please install or enable the Reporting module to use this module.";
 
@@ -39,7 +40,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
     }
 
     private boolean reportingLoaded(GatewayContext context) {
-        var reportingModule = context.getModuleManager()
+        GatewayModule reportingModule = context.getModuleManager()
                 .getModule(ExampleReportDatasourceModule.REPORTING_MODULE_ID);
 
         return reportingModule != null
