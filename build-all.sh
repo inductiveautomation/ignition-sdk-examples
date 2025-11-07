@@ -6,7 +6,7 @@
 set -e  # Exit on any error
 
 # Projects to ignore (temporarily broken or excluded from builds)
-IGNORE_LIST=("report-datasource")
+IGNORE_LIST=()
 
 # Color output for better readability
 RED='\033[0;31m'

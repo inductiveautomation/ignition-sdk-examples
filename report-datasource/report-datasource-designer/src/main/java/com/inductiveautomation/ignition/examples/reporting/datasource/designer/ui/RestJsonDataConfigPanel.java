@@ -1,12 +1,13 @@
 package com.inductiveautomation.ignition.examples.reporting.datasource.designer.ui;
 
 import javax.swing.JTextField;
-import java.io.Serializable;
 
 import com.google.common.base.Optional;
 import com.inductiveautomation.ignition.client.util.gui.HeaderLabel;
 import com.inductiveautomation.ignition.client.util.gui.ValidatedTextField;
 import com.inductiveautomation.ignition.designer.model.DesignerContext;
+import com.inductiveautomation.reporting.common.resource.DataSourceConfig;
+import com.inductiveautomation.reporting.common.resource.DataSourceConfigObject;
 import com.inductiveautomation.reporting.common.resource.ReportResource;
 import com.inductiveautomation.reporting.designer.api.AbstractDataSourceConfigFactory;
 import com.inductiveautomation.reporting.designer.api.DataSourceConfigFactory;
@@ -39,19 +40,19 @@ public class RestJsonDataConfigPanel extends DataSourceConfigPanel {
     public static final DataSourceConfigFactory FACTORY =
             new AbstractDataSourceConfigFactory(RestJsonDataObject.ID, "datasource.DataSource.Type" ) {
                 @Override
-                public Serializable newConfigObject() {
-                    return new RestJsonDataObject("NasaMeteorData", "https://data.nasa.gov/resource/mc52-syum.json");
+                public DataSourceConfigObject newConfigObject() {
+                    return new RestJsonDataObject("cat_facts", "https://catfact.ninja/fact");
                 }
 
                 @Override
-                public DataSourceConfigPanel createConfigPanel(DesignerContext designerContext, ReportResource reportResource, Serializable dataObject) {
+                public DataSourceConfigPanel createConfigPanel(DesignerContext designerContext, ReportResource reportResource, DataSourceConfigObject dataObject) {
                     RestJsonDataObject obj = (RestJsonDataObject) dataObject;
                     return new RestJsonDataConfigPanel(obj);
                 }
 
                 @Override
-                public Optional getDataKeyForConfigObject(Serializable dataObject) {
-                    RestJsonDataObject restJsonDataObject = (RestJsonDataObject) dataObject;
+                public Optional<String> getDataKeyForConfigObject(DataSourceConfig config) {
+                    RestJsonDataObject restJsonDataObject = RestJsonDataObject.fromJson(config.getConfigObjectJson());
                     return Optional.fromNullable(restJsonDataObject.getKey());
                 }
             };
@@ -75,7 +76,6 @@ public class RestJsonDataConfigPanel extends DataSourceConfigPanel {
                 } else {
                     return i18n("datasource.Data.InvalidKey");
                 }
-
             }
         };
 
@@ -92,7 +92,7 @@ public class RestJsonDataConfigPanel extends DataSourceConfigPanel {
 
 
     @Override
-    public Serializable getConfigObject() {
+    public DataSourceConfigObject getConfigObject() {
         return new RestJsonDataObject(dataKeyTextField.getText(), urlField.getText());
     }
 }
