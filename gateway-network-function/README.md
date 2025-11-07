@@ -7,12 +7,8 @@ This module provides examples for the following functionality:
 ## How to Use This Module
 ### Requirements
 The following are required:
-1. Two Gateway instances connected via the Gateway Area Network. 
+1. Two Gateway instances connected via the Gateway Network. 
 2. This module must be installed on both Gateways.
-
-> [!NOTE]
-> `getRemoteLogEntries()` will work once the above requirements are met.  
-> `getRemoteLogFile()` and `pushRemoteLogFile()` require an additional step: a Controller/Agent EAM configuration between the two Gateways must be created with the Controller being the issue of the script call and the Agent being the target of the script call.  
 
 ### Example Scripts
 #### Retrieve Logs as Dataset
@@ -47,7 +43,7 @@ bytes = system.example.gn.getRemoteLogFile(remote_gateway)
 
 now=datetime.datetime.now().strftime("%m%d%Y_%H%M%S")
 save_file="/tmp/%s_%s-system_logs.idb" % (remote_gateway, now)
-print("Successfully downloaded system_logs.idb, saving to '%s'" % save_file)
+print("Successfully downloaded system_logs.idb, copying to local machine at '%s'" % save_file)
 system.file.writeFile(save_file, bytes)
 ```
 

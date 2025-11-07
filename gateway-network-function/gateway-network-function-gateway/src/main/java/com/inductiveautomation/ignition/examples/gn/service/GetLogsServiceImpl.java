@@ -7,12 +7,12 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
-import com.inductiveautomation.eam.gateway.intents.ReceiveDownloadIntent;
 import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.logging.LogQueryConfig;
 import com.inductiveautomation.ignition.common.logging.LogQueryConfig.LogQueryConfigBuilder;
 import com.inductiveautomation.ignition.common.logging.LogResults;
 import com.inductiveautomation.ignition.examples.gn.GatewayHook;
+import com.inductiveautomation.ignition.examples.gn.intent.HandleLogFileIntent;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.metro.api.Message;
 import com.inductiveautomation.metro.api.MessageQueue;
@@ -85,7 +85,7 @@ public class GetLogsServiceImpl implements GetLogsService {
             MessageQueue queue = server.getQueue(ServerInterface.DIAGNOSTIC_INFO_QUEUE_ID).orElse(server);
 
             // This is already a response, so we use a post operation, which itself does not check for a response.
-            queue.post(Message.buildWithDiagnosticMsg(ReceiveDownloadIntent.NAME, ReceiveDownloadIntent.class, sso));
+            queue.post(Message.buildWithDiagnosticMsg(HandleLogFileIntent.NAME, HandleLogFileIntent.class, sso));
             return SUCCESS_MSG;
         }
     }
