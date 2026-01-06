@@ -28,11 +28,11 @@ import org.apache.log4j.Level;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import javax.annotation.Nonnull;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.jspecify.annotations.NonNull;
 
 /**
  * An example implementation of a User Source Profile that uses MongoDB as the backend data store.
@@ -397,9 +397,8 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
         }
     }
 
-    @Nonnull
     @Override
-    public Collection<Role> getRoles() {
+    public @NonNull Collection<Role> getRoles() {
         Collection<Role> roles = new ArrayList<>();
         try (MongoCursor<Document> cursor = getDatabase().getCollection(COLLECTION_ROLES).find().iterator()) {
             while (cursor.hasNext()) {
@@ -685,9 +684,8 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
         collection.updateOne(filter, update);
     }
 
-    @Nonnull
     @Override
-    public Collection<User> getUsers() {
+    public @NonNull Collection<User> getUsers() {
         Collection<User> users = new ArrayList<>();
         try (MongoCursor<Document> cursor = getDatabase().getCollection(COLLECTION_USERS).find().iterator()) {
             while (cursor.hasNext()) {
@@ -697,9 +695,8 @@ public class MongoDbUserSource extends AbstractUserSourceProfile {
         return users;
     }
 
-    @Nonnull
     @Override
-    public Optional<User> getUser(String userName) {
+    public @NonNull Optional<User> getUser(String userName) {
         return Optional.ofNullable(
                 toUser(getDatabase().getCollection(COLLECTION_USERS).find(Filters.eq(KEY_NAME, userName)).first())
         );
