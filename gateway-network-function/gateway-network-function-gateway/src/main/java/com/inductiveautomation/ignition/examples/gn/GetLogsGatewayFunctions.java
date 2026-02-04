@@ -11,10 +11,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-import com.inductiveautomation.eam.gateway.intents.ReceiveDownloadIntent;
-import com.inductiveautomation.eam.gateway.module.EAMGatewayHook;
 import com.inductiveautomation.ignition.common.logging.LogEvent;
 import com.inductiveautomation.ignition.common.script.hints.NoHint;
+import com.inductiveautomation.ignition.examples.gn.intent.HandleLogFileIntent;
 import com.inductiveautomation.ignition.examples.gn.service.GetLogsService;
 import com.inductiveautomation.ignition.gateway.gan.GatewayNetworkManager;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
@@ -103,28 +102,26 @@ public class GetLogsGatewayFunctions extends AbstractGetLogsFunctions implements
         else {
             /* Getting a file as a service call result is a bit tricky with the gateway network. The file must be
             streamed between gateways, and service call results can't be streamed directly. To get around this,
-            we have to use the built-in ReceiveDownloadIntent and a CompletableFuture. We register a new
-            CompletableFuture with the ReceiveDownloadIntent using a unique download id. Then we pass that id to the
-            service call. The other gateway will retrieve the file and then make a ReceiveDownloadIntent gateway
-            network call. It passes the file stream and download id as part of the call. On this gateway, the
-            ReceiveDownloadIntent fires and locates our waiting CompletableFuture using the download id. It completes
-            our CompletableFuture and passes over the full path of the downloaded log file (the file is stored in a
-            temporary location, but can be moved as needed).
+            we have to use the HandleLogFileIntent and a CompletableFuture. The intent's receive() function on this
+            gateway fires when it receives the streamed log file, and it will complete the CompletableFuture
+            created here.
 
-            NB. The gateways must have EAM configured, and be setup in a Controller/Agent configuration. If EAM
-            hasn't been configured on the instance yet, the ReceiveDownloadIntent will not be available.
+            We register a new CompletableFuture with the HandleLogFileIntent using a unique download id. Then we pass
+            that id to the service call. The other gateway will retrieve the file and then make a HandleLogFileIntent
+            gateway network call. It passes the file stream and download id as part of the call. On this gateway,
+            HandleLogFileIntent#receive() fires and internally retrieves our waiting CompletableFuture using the
+            download id. It completes our CompletableFuture and passes over the full path of the downloaded log file
+             (the file is stored in a temporary location, but can be moved as needed).
              */
-            ReceiveDownloadIntent downloadIntent = (ReceiveDownloadIntent)
-                gm.retrieveIntent(ReceiveDownloadIntent.NAME)
-                    .orElseThrow(() -> new IllegalStateException(
-                        "ReceiveDownloadIntent not registered; EAM has not been configured."
-                    ));
+            HandleLogFileIntent logFileIntent = (HandleLogFileIntent) gm.retrieveIntent(HandleLogFileIntent.NAME)
+                .orElseThrow(() ->
+                    new IllegalStateException("HandleLogFileIntent not registered in gateway network manager"));
 
             String localGwbkPath = null;
             CompletableFuture<String> downloadFuture = new CompletableFuture<>();
 
-            int nextId = EAMGatewayHook.getInstance().getNextIntentId();
-            downloadIntent.addPendingFuture(nextId, downloadFuture);
+            int nextId = this.gatewayHook.getNextIntentId();
+            logFileIntent.addPendingFuture(nextId, downloadFuture);
 
             String response = null;
             try {
@@ -141,7 +138,7 @@ public class GetLogsGatewayFunctions extends AbstractGetLogsFunctions implements
             } catch (Exception e) {
                 // Clean up the CompletableFuture since it will never be completed normally.
                 downloadFuture.cancel(true);
-                downloadIntent.removePendingFuture(nextId);
+                logFileIntent.removePendingFuture(nextId);
                 throw new IOException(e.getMessage());
             }
         }

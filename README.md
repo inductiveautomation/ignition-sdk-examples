@@ -40,9 +40,6 @@ Creates an example device in the Gateway. The device will create tags that are v
 Adds a Smiley shaped component to the Report Designer.
 
 ##### [Report Datasource](report-datasource)
-> [!WARNING]
-> This example is pending an update to the SDK. Will be **FAULTED** when installed on the Gateway
-
 Adds a datasource to the report designer that can retrieve JSON data via a REST call to a website.
 
 ##### [Scripting Function (RPC)](scripting-function)
