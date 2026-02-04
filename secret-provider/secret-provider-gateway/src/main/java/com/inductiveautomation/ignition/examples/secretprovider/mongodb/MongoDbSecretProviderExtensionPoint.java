@@ -20,8 +20,27 @@ public class MongoDbSecretProviderExtensionPoint
         super(EXTENSION_POINT_TYPE,
                 "MongoDbSecretProvider.SecretProviderType.Name",
                 "MongoDbSecretProvider.SecretProviderType.Desc");
+
+        // The 'password' field can be a secret reference, so we define a reference property for it
+        // to handle name changes to the provider pointed to by a referenced secret.
+        //
+        // Ignition 8.3.3 or later is required to use the SecretReferenceProperty helper class.
+        // Alternatively, you can implement similar logic manually by creating a custom
+        // ReferencePropertyBuilder.
+        addReferenceProperty("password",
+            SecretReferenceProperty.<MongoDbSecretProviderResource>builder()
+                .setGetSecretConfigFunction(MongoDbSecretProviderResource::password)
+                .setUpdateSecretConfigFunction((resource, secret) -> new MongoDbSecretProviderResource(
+                    resource.connectionString(),
+                    resource.databaseName(),
+                    resource.username(),
+                    secret,
+                    resource.authenticationDb()
+                ))
+                .build());
     }
 
+    @Override
     public SecretProvider createProvider(SecretProviderContext context) throws SecretProviderTypeException {
         ExtensionPointConfig<SecretProviderConfig, ?> config = context.getResource().config();
         MongoDbSecretProviderResource settings = getSettings(config)
@@ -50,11 +69,7 @@ public class MongoDbSecretProviderExtensionPoint
 
     @Override
     protected void validate(MongoDbSecretProviderResource settings, ValidationErrors.Builder errors) {
-        /*
-         Optionally, add validation to an incoming configuration object
-         These error messages will be conveyed back to the standard web UI automatically
-        */
-        // errors.requireNotNull("someField", settings.auditProfileName());
         super.validate(settings, errors);
+        settings.validate(errors);
     }
 }
