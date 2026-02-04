@@ -24,12 +24,13 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
     private NamedResourceHandler<MongoDbSecretProviderResource> namedResourceHandler;
 
+    static {
+        // Register our localized properties with BundleUtil
+        BundleUtil.get().addBundle(MongoDbSecretProvider.class);
+    }
+
     @Override
     public void setup(GatewayContext context) {
-
-        // Register our localized properties with BundleUtil
-        BundleUtil.get().addBundle("MongoDbSecretProvider", getClass(), "MongoDbSecretProvider");
-
         // Register our named resource handler for the MongoDbSecretProviderResource type.
         namedResourceHandler = NamedResourceHandler.newBuilder(MongoDbSecretProviderResource.META)
                 .context(context)
@@ -43,7 +44,6 @@ public class GatewayHook extends AbstractGatewayModuleHook {
 
     @Override
     public void shutdown() {
-        BundleUtil.get().removeBundle("MongoDbSecretProvider");
         namedResourceHandler.shutdown();
     }
 

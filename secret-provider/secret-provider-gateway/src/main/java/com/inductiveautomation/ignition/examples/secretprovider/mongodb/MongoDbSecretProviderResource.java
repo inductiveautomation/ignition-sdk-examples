@@ -2,6 +2,7 @@ package com.inductiveautomation.ignition.examples.secretprovider.mongodb;
 
 import com.inductiveautomation.ignition.common.resourcecollection.ResourceType;
 import com.inductiveautomation.ignition.gateway.config.ResourceTypeMeta;
+import com.inductiveautomation.ignition.gateway.config.ValidationErrors;
 import com.inductiveautomation.ignition.gateway.dataroutes.openapi.annotations.*;
 import com.inductiveautomation.ignition.gateway.secrets.SecretConfig;
 import com.inductiveautomation.ignition.gateway.web.nav.FormFieldType;
@@ -17,8 +18,7 @@ public record MongoDbSecretProviderResource(
         @FormField(FormFieldType.TEXT)
         @DefaultValue("mongodb://localhost:27017")
         @Required
-//        @DescriptionKey("MongoDbSecretProviderResource.connectionString.Desc")
-        @Description("The connection string to use to connect to the MongoDB instance.")
+        @DescriptionKey("MongoDbSecretProvider.connectionString.Desc")
         String connectionString,
 
         @FormCategory("CUSTOM SETTINGS")
@@ -26,32 +26,26 @@ public record MongoDbSecretProviderResource(
         @FormField(FormFieldType.TEXT)
         @DefaultValue("secrets_db")
         @Required
-//        @DescriptionKey("MongoDbSecretProviderResource.databaseName.Desc")
-        @Description("The MongoDB database name to use to store the secret provider documents.")
+        @DescriptionKey("MongoDbSecretProvider.databaseName.Desc")
         String databaseName,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Username")
         @FormField(FormFieldType.TEXT)
-//        @DescriptionKey("MongoDbSecretProviderResource.username.Desc")
-        @Description("The username to use to connect to the MongoDB instance.")
+        @DescriptionKey("MongoDbSecretProvider.username.Desc")
         String username,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Password")
         @FormField(FormFieldType.SECRET)
-//        @DescriptionKey("MongoDbSecretProviderResource.password.Desc")
-        @Description("The password to use to connect to the MongoDB instance.")
+        @DescriptionKey("MongoDbSecretProvider.password.Desc")
         SecretConfig password,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Authentication Database")
         @FormField(FormFieldType.TEXT)
         @DefaultValue("admin")
-//        @DescriptionKey("MongoDbSecretProviderResource.authenticationDb.Desc")
-        @Description("""
-                The name of the database to use for authentication. This is typically the "admin" database in MongoDB.
-                """)
+        @DescriptionKey("MongoDbSecretProvider.authenticationDb.Desc")
         String authenticationDb
 ) {
     public static final ResourceType RESOURCE_TYPE = new ResourceType(GatewayHook.MODULE_ID, "mongodb-user-source");
@@ -95,5 +89,16 @@ public record MongoDbSecretProviderResource(
         if (StringUtils.isBlank(authenticationDb)) {
             authenticationDb = DEFAULT.authenticationDb();
         }
+    }
+
+    /**
+     * Perform validation on the resource fields. These checks will be invoked when the resource is
+     * created or updated. Error messages will be returned via the REST API and displayed in the
+     * web UI.
+     *
+     * @param errors The builder to collect validation errors.
+     */
+    void validate(ValidationErrors.Builder errors) {
+        // Optionally, add validation to an incoming configuration object.
     }
 }

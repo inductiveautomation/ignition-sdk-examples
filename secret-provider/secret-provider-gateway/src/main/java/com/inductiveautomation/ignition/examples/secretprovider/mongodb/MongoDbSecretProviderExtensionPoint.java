@@ -21,38 +21,26 @@ public class MongoDbSecretProviderExtensionPoint
                 "MongoDbSecretProvider.SecretProviderType.Name",
                 "MongoDbSecretProvider.SecretProviderType.Desc");
 
-        // The password in our configuration might be a referenced secret that points to a secret provider, so we need
-        // to add a reference property for it. We need to register our reference property and consume updates / renames
-        // of the SecretProvider to keep our configuration in sync.
-        addReferenceProperty("password", builder -> builder
-                .targetType(SecretProviderConfig.RESOURCE_TYPE)
-                .value(resource -> {
-                    // Return the SecretProvider name if the password is a referenced secret.
-                    SecretConfig secretConfig = resource.password();
-                    if (secretConfig != null && secretConfig.isReferenced()) {
-                        return secretConfig.getAsReferenced().getProviderName();
-                    }
-                    return null;
-                })
-                .caseSensitive(true)
-                .onUpdate((resource, newName) -> {
-                    // Return a new resource with the updated SecretProvider name if the password is a
-                    // referenced secret.
-                    SecretConfig secretConfig = resource.password();
-                    if (secretConfig != null && secretConfig.isReferenced()) {
-                        return new MongoDbSecretProviderResource(
-                                resource.connectionString(),
-                                resource.databaseName(),
-                                resource.username(),
-                                SecretConfig.referenced(newName, secretConfig.getAsReferenced().getSecretName()),
-                                resource.authenticationDb()
-                        );
-                    }
-                    return resource; // Should never get here, but return the original resource if we do.
-                })
-        );
+        // The 'password' field can be a secret reference, so we define a reference property for it
+        // to handle name changes to the provider pointed to by a referenced secret.
+        //
+        // Ignition 8.3.3 or later is required to use the SecretReferenceProperty helper class.
+        // Alternatively, you can implement similar logic manually by creating a custom
+        // ReferencePropertyBuilder.
+        addReferenceProperty("password",
+            SecretReferenceProperty.<MongoDbSecretProviderResource>builder()
+                .setGetSecretConfigFunction(MongoDbSecretProviderResource::password)
+                .setUpdateSecretConfigFunction((resource, secret) -> new MongoDbSecretProviderResource(
+                    resource.connectionString(),
+                    resource.databaseName(),
+                    resource.username(),
+                    secret,
+                    resource.authenticationDb()
+                ))
+                .build());
     }
 
+    @Override
     public SecretProvider createProvider(SecretProviderContext context) throws SecretProviderTypeException {
         ExtensionPointConfig<SecretProviderConfig, ?> config = context.getResource().config();
         MongoDbSecretProviderResource settings = getSettings(config)
@@ -81,11 +69,7 @@ public class MongoDbSecretProviderExtensionPoint
 
     @Override
     protected void validate(MongoDbSecretProviderResource settings, ValidationErrors.Builder errors) {
-        /*
-         Optionally, add validation to an incoming configuration object
-         These error messages will be conveyed back to the standard web UI automatically
-        */
-        // errors.requireNotNull("someField", settings.auditProfileName());
         super.validate(settings, errors);
+        settings.validate(errors);
     }
 }
