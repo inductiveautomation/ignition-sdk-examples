@@ -2,6 +2,7 @@ package com.inductiveautomation.ignition.examples.usersource.mongodb;
 
 import com.inductiveautomation.ignition.common.resourcecollection.ResourceType;
 import com.inductiveautomation.ignition.gateway.config.ResourceTypeMeta;
+import com.inductiveautomation.ignition.gateway.config.ValidationErrors;
 import com.inductiveautomation.ignition.gateway.dataroutes.openapi.annotations.*;
 import com.inductiveautomation.ignition.gateway.secrets.SecretConfig;
 import com.inductiveautomation.ignition.gateway.web.nav.FormFieldType;
@@ -16,42 +17,33 @@ public record MongoDbUserSourceResource(
         @Label("Connection String")
         @FormField(FormFieldType.TEXT)
         @DefaultValue("mongodb://localhost:27017")
-        @Required
-//        @DescriptionKey("MongoDbUserSourceResource.connectionString.Desc")
-        @Description("The connection string to use to connect to the MongoDB instance.")
+        @DescriptionKey("MongoDbUserSource.connectionString.Desc")
         String connectionString,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Database Name")
         @FormField(FormFieldType.TEXT)
         @DefaultValue("user_db")
-        @Required
-//        @DescriptionKey("MongoDbUserSourceResource.databaseName.Desc")
-        @Description("The MongoDB database name to use to store the user source documents.")
+        @DescriptionKey("MongoDbUserSource.databaseName.Desc")
         String databaseName,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Username")
         @FormField(FormFieldType.TEXT)
-//        @DescriptionKey("MongoDbUserSourceResource.username.Desc")
-        @Description("The username to use to connect to the MongoDB instance.")
+        @DescriptionKey("MongoDbUserSource.username.Desc")
         String username,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Password")
         @FormField(FormFieldType.SECRET)
-//        @DescriptionKey("MongoDbUserSourceResource.password.Desc")
-        @Description("The password to use to connect to the MongoDB instance.")
+        @DescriptionKey("MongoDbUserSource.password.Desc")
         SecretConfig password,
 
         @FormCategory("CUSTOM SETTINGS")
         @Label("Authentication Database")
         @FormField(FormFieldType.TEXT)
         @DefaultValue("admin")
-//        @DescriptionKey("MongoDbUserSourceResource.authenticationDb.Desc")
-        @Description("""
-                The name of the database to use for authentication. This is typically the "admin" database in MongoDB.
-                """)
+        @DescriptionKey("MongoDbUserSource.authenticationDb.Desc")
         String authenticationDb,
 
         @FormCategory("CUSTOM SETTINGS")
@@ -60,14 +52,8 @@ public record MongoDbUserSourceResource(
         @DefaultValue("90")
         @Minimum("0")
         @Maximum(value = "360", exclusive = true)
-        @Required
         @NonSecret
-//        @DescriptionKey("MongoDbUserSourceResource.passwordMaxAge.Desc")
-        @Description("""
-                This is a setting that defines the maximum age of a password in days. If set to 0, the password will \
-                never expire. If set to a positive number, users will be required to change their password after the \
-                specified number of days.
-                """)
+        @DescriptionKey("MongoDbUserSource.passwordMaxAge.Desc")
         Integer passwordMaxAge,
 
         @FormCategory("CUSTOM SETTINGS")
@@ -75,14 +61,8 @@ public record MongoDbUserSourceResource(
         @FormField(FormFieldType.NUMBER)
         @DefaultValue("5")
         @Minimum("0")
-        @Required
         @NonSecret
-//        @DescriptionKey("MongoDbUserSourceResource.passwordHistory.Desc")
-        @Description("""
-                This is a setting that defines the number of previous passwords to remember for a user. Set to 0 to \
-                disable. When changing a password, the new password will be checked against this history to ensure \
-                that the user is not reusing an old password.
-                """)
+        @DescriptionKey("MongoDbUserSource.passwordHistory.Desc")
         Integer passwordHistory
 ) {
     public static final ResourceType RESOURCE_TYPE = new ResourceType(GatewayHook.MODULE_ID, "mongodb-user-source");
@@ -154,5 +134,21 @@ public record MongoDbUserSourceResource(
         if (passwordHistory == null) {
             passwordHistory = DEFAULT.passwordHistory();
         }
+    }
+
+    /**
+     * Perform validation on the resource fields. These checks will be invoked when the resource is
+     * created or updated. Error messages will be returned via the REST API and displayed in the
+     * web UI.
+     *
+     * @param errors The builder to collect validation errors.
+     */
+    void validate(ValidationErrors.Builder errors) {
+         errors.checkField(this.passwordMaxAge >= 0 && this.passwordMaxAge < 360,
+             "passwordMaxAge",
+             "passwordMaxAge must be in the range [0, 360)");
+         errors.checkField(this.passwordHistory >= 0,
+             "passwordHistory",
+             "passwordHistory must be greater than or equal to 0");
     }
 }
