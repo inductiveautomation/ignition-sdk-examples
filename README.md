@@ -4,6 +4,9 @@
 
 ### Gradle Examples
 
+#### [Immutable Project](immutable-project)
+Imports a project that cannot be viewed or edited in the designer, but can be launched in a Perspective session.
+
 ##### [Perspective Component](perspective-component)
 Adds component to the Perspective module's set of components, demonstrating use of various APIs in a build automation which represents one possible solution for 'production' toolchains.
 
