@@ -2,8 +2,7 @@ package io.ia.ignition.sdk.examples.slack.profile;
 
 import com.inductiveautomation.ignition.gateway.dataroutes.openapi.annotations.*;
 import com.inductiveautomation.ignition.gateway.web.nav.FormFieldType;
-
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public record SlackNotificationProfileResource(
         @Nullable
