@@ -10,7 +10,7 @@
     <version>2.0.1-SNAPSHOT</version>
 
     <properties>
-        <ignition-platform-version>8.3.4-SNAPSHOT</ignition-platform-version>
+        <ignition-platform-version>8.3.4</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Gateway Network Function Example</module-name>
         <module-description>Provides examples of gateway network functions</module-description>

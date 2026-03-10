@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.3.4-SNAPSHOT</ignition-platform-version>
+        <ignition-platform-version>8.3.4</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Event Stream Handler Example</module-name>
         <module-description>Adds a simple Event Stream Handler to the Event Stream module.</module-description>
