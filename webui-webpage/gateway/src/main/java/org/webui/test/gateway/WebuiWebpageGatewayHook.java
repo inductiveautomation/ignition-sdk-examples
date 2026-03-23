@@ -33,9 +33,9 @@ public class WebuiWebpageGatewayHook extends AbstractGatewayModuleHook {
             new SystemJsModule("org.webui.test.WebuiWebpage",
                 "/res/web-ui-test/helloIgnition.js");
 
-        // note that we are adding the nav to the "home" section of the nav by using getHome(), but this can be added
-        // to different sections by using the appropriate method (IE: getPlatform(), getConnections(), getNetwork(), ect)
-        context.getWebResourceManager().getNavigationModel().getHome().addCategory("webuiwebpage", cat -> cat
+        // note that we are adding the nav to the "Connections" section of the nav by using getConnection(), but this can be added
+        // to different sections by using the appropriate method (IE: getHome(), getPlatform(), getNetwork(), ect)
+        context.getWebResourceManager().getNavigationModel().getConnections().addCategory("webuiwebpage", cat -> cat
             .label("Web UI Webpage")
             .addPage("Hello Ignition", page -> page
                 .position(10)
