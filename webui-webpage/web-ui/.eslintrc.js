@@ -16,14 +16,8 @@ module.exports = {
         plugins: [],
         presets: ['@babel/preset-env', '@babel/preset-react'],
     },
-    extends: ['plugin:prettier/recommended', 'eslint:recommended'],
+    extends: ['eslint:recommended'],
     rules: {
-        'prettier/prettier': [
-            'error',
-            {
-                endOfLine: 'auto',
-            },
-        ],
         'react/prop-types': 'off',
         'react/jsx-uses-react': 2,
         'react/jsx-uses-vars': 2,
@@ -52,7 +46,7 @@ module.exports = {
                 'plugin:@typescript-eslint/recommended',
                 'plugin:react/recommended',
                 'plugin:react-hooks/recommended',
-                'plugin:prettier/recommended',
+
             ],
             rules: {
                 '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -66,7 +60,7 @@ module.exports = {
                 '@typescript-eslint/no-non-null-assertion': 'off',
                 '@typescript-eslint/no-unused-vars': 'off',
                 semi: [2, 'always'],
-                'prettier/prettier': ['error', { endOfLine: 'auto' }],
+
                 '@typescript-eslint/ban-types': [
                     'error',
                     {

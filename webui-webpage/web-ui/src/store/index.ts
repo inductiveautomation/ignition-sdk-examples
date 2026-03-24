@@ -1,10 +1,8 @@
 import { configureStore, Store } from "@reduxjs/toolkit";
 import baseApi from "../api/index";
-import CounterReducer from "../features/counter/counter";
 
 const store: Store = configureStore({
   reducer: {
-    counter: CounterReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

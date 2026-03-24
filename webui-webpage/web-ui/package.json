@@ -14,7 +14,7 @@
         "run:dev": "webpack serve --env isStandalone",
         "clean": "rimraf build/dist",
         "deepClean": "yarn run clean && rimraf node_modules",
-        "lint": "eslint ./src --ext .jsx,.js"
+        "lint": "eslint --fix ./src --ext .jsx,.js"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.3",
