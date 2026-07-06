@@ -1,0 +1,18 @@
+# Build output
+.gradle/
+build/
+*.class
+*.modl
+
+# Keep the Gradle wrapper jar (normally caught by *.jar rules elsewhere)
+!gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+
+# macOS
+.DS_Store

@@ -1,0 +1,6 @@
+[versions]
+    ignition = "8.3.0"
+
+[libraries]
+    # Dependencies provided by the Ignition SDK, they all reference the 'ignition' version
+    ignition-gateway-api = { module = "com.inductiveautomation.ignitionsdk:gateway-api", version.ref = "ignition" }
