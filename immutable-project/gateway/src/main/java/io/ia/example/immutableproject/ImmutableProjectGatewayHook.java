@@ -20,13 +20,16 @@ public class ImmutableProjectGatewayHook extends AbstractGatewayModuleHook {
         log.info("Setting up Immutable Project module.");
         // Stream project zip into bytes and import it using addImmutableProject method
         try (InputStream projBytes = getClass().getResourceAsStream("/sampleimmutableproject.zip")) {
+            if (projBytes == null) {
+                throw new IllegalStateException(
+                        "Bundled project resource '/sampleimmutableproject.zip' was not found on the classpath.");
+            }
 
             ProjectImport importedProj = ProjectFileUtil.importFromZip(projBytes, "sampleimmutableproject");
             gatewayContext.getProjectManager().addImmutableProject(importedProj);
 
         } catch (IOException | ResourceCollectionInvalidException e) {
-            // Log error if project fails to import
-            log.error("Project failed to import.", e);
+            throw new RuntimeException("Failed to import the bundled immutable project.", e);
         }
     }
 
