@@ -38,6 +38,6 @@ The entire example consists of only two major parts. ImmutableProjectGatewayHook
 ```
 
 The ImmutableProjectGatewayHook.java extends off AbstractGatewayModuleHook and on startup imports the project in 3 basic steps:
-1. Create an input stream to read the projext export sampleimmutableproject.zip from the resources root
+1. Create an input stream to read the project export sampleimmutableproject.zip from the resources root
 2. Create a ProjectImport object using ProjectFileUtil.importFromZip()
 3. Import the project object into the gateway as an immutable project via gatewayContext.getProjectManager().addImmutableProject()

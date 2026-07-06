@@ -20,8 +20,6 @@ ignitionModule {
     moduleDescription.set("A module that adds a sample immutable project.")
     requiredIgnitionVersion.set("8.3.0")
     requiredFrameworkVersion.set("8")
-    // says 'this module is free, does not require licensing'.  Defaults to false, delete for commercial modules.
-    freeModule.set(true)
 
     // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,
     // and specify the Ignition Scope(s) that apply. "G" for gateway, "D" for designer, "C" for VISION client
