@@ -13,7 +13,7 @@ import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 
 public class ImmutableProjectGatewayHook extends AbstractGatewayModuleHook {
 
-    private static final LoggerEx log = LoggerEx.newBuilder().build("io.ia.example.immutableproject.ImmutableProjectGatewayHook");
+    private static final LoggerEx log = LoggerEx.newBuilder().build(ImmutableProjectGatewayHook.class.getName());
 
     @Override
     public void setup(GatewayContext gatewayContext) {
