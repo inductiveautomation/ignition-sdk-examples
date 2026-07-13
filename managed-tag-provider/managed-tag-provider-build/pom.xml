@@ -25,13 +25,14 @@
             <plugin>
                 <groupId>com.inductiveautomation.ignitionsdk</groupId>
                 <artifactId>ignition-maven-plugin</artifactId>
-                <version>1.1.0</version>
+                <version>1.2.1-SNAPSHOT</version>
 
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>modl</goal>
+                            <goal>write-dev-descriptor</goal>
                         </goals>
                     </execution>
                 </executions>
