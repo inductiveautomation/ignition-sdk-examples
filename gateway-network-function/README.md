@@ -85,3 +85,21 @@ If you call the `system.example.gn.getRemoteLogEntries()` script function, one o
 ```
 Encoding job 365 service response 'CallResult:GetLogsService/getLogEvents': header='{ "intentName": "_rpc:355|0", "codecName": "_svcres_", "headersValues": { "_headerid_": "e42a75f4-81bd-4430-9545-ebfc4713fd58", "_source_": "_0:0:agent", "_ver_": "2" } }', data='{ "body": { "@type": "type.googleapis.com/metro.protobuf.ServiceResponsePB", "result": { "@type": "type.googleapis.com/metro.protobuf.ListPB", "listType": "List_ArrayList", "items": [{ "@type": "type.googleapis.com/getlogs.protobuf.LogEventPB", "timestamp": "1741183729192",.....
 ```
+
+## Dev Mode Descriptor
+
+The build binds the `ignition-maven-plugin`'s `write-dev-descriptor` goal to the `package` phase, next to the `modl` goal:
+
+```xml
+<goals>
+    <goal>modl</goal>
+    <goal>write-dev-descriptor</goal>
+</goals>
+```
+
+Running `mvn package` then produces, in the build module's `target/` directory:
+
+* the packaged `*.modl` you install from the Gateway's `Config > Modules` page, and
+* a JSON dev descriptor at `target/dev/<moduleId>.json`.
+
+The descriptor records the module metadata (id, name, version, hooks, dependencies) along with each subproject's compiled `target/classes` directory and resolved dependency JARs, letting a development Ignition Gateway load the module straight from the Maven build outputs instead of requiring a full `.modl` install. Because it points at `target/classes`, the module must be compiled first — the `package`-phase binding ensures that. It is generated automatically by the module build, so `mvn package` (re)produces it.
