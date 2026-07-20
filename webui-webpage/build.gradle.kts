@@ -21,14 +21,17 @@ ignitionModule {
     /*
      * Human-readable name of the module, as will be displayed on the gateway status page
      */
-    name.set("WebUI Webpage")
+    name.set("WebUI Examples")
 
     /*
      * Name of the '.modl' file to be created, without file extension.
      */
-    fileName.set("WebUI-Webpage")
+    fileName.set("WebUI-Examples")
     /*
      * Unique identifier for the module.  Reverse domain convention is recommended (e.g.: com.mycompany.charting-module)
+     *
+     * NOTE: this id is also the first segment of every resource type this module defines (e.g.
+     * "org.webui.test.WebuiWebpage/greeting"), and is used to build the web resource mount path.
      */
     id.set("org.webui.test.WebuiWebpage")
 
@@ -37,7 +40,10 @@ ignitionModule {
      */
     moduleVersion.set("${project.version}")
 
-    moduleDescription.set("Module that sets up a page with navigation")
+    moduleDescription.set(
+        "Demonstrates the three canonical configuration-resource shapes (named, singleton, and " +
+            "extension point) and the gateway web UI they drive."
+    )
 
     /*
      * Minimum version of Ignition required for the module to function correctly.  This typically won't change over

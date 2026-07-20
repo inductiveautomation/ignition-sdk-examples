@@ -1,21 +1,113 @@
-# Web UI Webpage (Hello Ignition) Example
+# WebUI Examples
 
-This is an example module that adds a React built "Hello Ignition" webpage and a corresponding nav link to the gateway 
-application. The page is added to the "Home" section of the gateway, under the label "Web UI Webpage." You 
-access the page at `<host gateway>/app/hello-ignition`.
+This module demonstrates how an Ignition 8.3 module contributes **configuration resources** and
+the **gateway web UI** that manages them. It covers the three canonical shapes a configuration
+resource can take:
 
-## Getting Started
+| Example | Shape | What it shows |
+| --- | --- | --- |
+| **Greeting** | **Named** resource | Many instances, each with a unique name (like database connections). List + create + edit + delete. |
+| **Greeting Settings** | **Singleton** resource | Exactly one instance for the whole gateway (like "Gateway Settings"). |
+| **Greeting Provider** | **Extension point** | A category with multiple module-provided *types* (`static`, `timeBased`), each with its own settings and a schema-driven editor. |
 
-This is a quick-start set of requirements/commands to get this project built.
+It also serves a small React **landing page** (added under the gateway **Home** section as *WebUI
+Examples*) that reads all three resource types back through the REST API.
 
-Strictly speaking, this module should be buildable without downloading or installing any additional tools.  If
-build commands are executed through the [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html),
-it will handle downloading the appropriate versions of all tools, and then use those tools to execute the build.
+> **The substance of this example is on the Java side.** Registering a resource type is what makes
+> the gateway generate its REST routes and render a schema-driven editor — no front-end code is
+> required for editing. See [A note on the web UI](#a-note-on-the-web-ui) below for why the shipped
+> React page is intentionally thin.
 
+## The three resource examples
 
-> Note: the module related tasks are defined by the module plugin.  Check the documentation at the [Ignition Module Tool](https://github.com/inductiveautomation/ignition-module-tools) repository for more information about the tasks and configuration options.
+Every configuration resource is described to the platform by a
+`ResourceTypeMeta`, which is registered with the `ResourceTypeMetaRegistry` at gateway startup (see
+[`WebuiWebpageGatewayHook`](gateway/src/main/java/org/webui/test/gateway/WebuiWebpageGatewayHook.java)).
+When a meta provides a *route delegate*, the platform automatically mounts CRUD REST routes for the
+resource and exposes a JSON schema (built from `x-form` annotations on the config record) that the
+gateway web UI turns into an editor form.
 
-To run the build, clone this repo and open a command line in the `webui-webpage` directory, and run the `build` gradle task:
+### 1. Named resource — Greeting
+
+* Config record: [`GreetingConfig`](gateway/src/main/java/org/webui/test/gateway/named/GreetingConfig.java)
+* Built with `ResourceTypeMeta.newBuilder(GreetingConfig.class)`.
+* At runtime a `NamedResourceHandler` tracks create/update/delete of the many named instances.
+
+### 2. Singleton resource — Greeting Settings
+
+* Config record: [`GreetingSettings`](gateway/src/main/java/org/webui/test/gateway/singleton/GreetingSettings.java)
+* Identical to a named resource except the meta is built with `.singleton()`.
+* A `SingletonResourceHandler` seeds the default values on first startup, then tracks changes. Because
+  of this the singleton always exists — the landing page can read it immediately.
+
+### 3. Extension point — Greeting Provider
+
+* Profile config (shared by all types): [`GreetingProviderConfig`](gateway/src/main/java/org/webui/test/gateway/extensionpoint/GreetingProviderConfig.java)
+* Category base class: [`GreetingProviderExtensionPoint`](gateway/src/main/java/org/webui/test/gateway/extensionpoint/GreetingProviderExtensionPoint.java)
+* Concrete types: [`StaticGreetingProviderExtensionPoint`](gateway/src/main/java/org/webui/test/gateway/extensionpoint/StaticGreetingProviderExtensionPoint.java) and [`TimeBasedGreetingProviderExtensionPoint`](gateway/src/main/java/org/webui/test/gateway/extensionpoint/TimeBasedGreetingProviderExtensionPoint.java)
+* Runtime object produced by each type: [`GreetingProvider`](gateway/src/main/java/org/webui/test/gateway/extensionpoint/GreetingProvider.java)
+
+An extension point splits its configuration into a shared **profile** (defined by the category) and
+type-specific **settings** (defined by each type). Key points demonstrated here:
+
+* The meta is built with `ResourceTypeMeta.newExtensionPointBuilder(...)` and an
+  `ExtensionPointCollection`. Because the collection is populated from every module hook's
+  `getExtensionPoints()`, a *different* module could contribute additional greeting-provider types.
+* The module exposes its two types from `WebuiWebpageGatewayHook.getExtensionPoints()`.
+* Each type returns an `ExtensionPointResourceForm` from `getWebUiComponent(...)`. This is a
+  **schema-driven** form descriptor rendered by the gateway itself — the module ships **no**
+  front-end code for the editor. The gateway swaps the "settings" portion of the form based on the
+  selected type.
+
+## Trying it out (REST)
+
+Once the module is installed, the platform serves CRUD routes for each resource type under
+`/data/api/v1/resources/`. The `<resourceType>` path segment is `<module-id>/<type-id>`.
+
+```bash
+# List greetings (named)
+curl -u admin:password http://localhost:8088/data/api/v1/resources/list/org.webui.test.WebuiWebpage/greeting
+
+# Read the singleton settings
+curl -u admin:password http://localhost:8088/data/api/v1/resources/singleton/org.webui.test.WebuiWebpage/greeting-settings
+
+# Inspect the extension point (its available types + JSON schema)
+curl -u admin:password http://localhost:8088/data/api/v1/resources/type/org.webui.test.WebuiWebpage/greeting-provider
+
+# Create a greeting (named)
+curl -u admin:password -X POST \
+  http://localhost:8088/data/api/v1/resources/org.webui.test.WebuiWebpage/greeting \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"welcome","config":{"message":"Hi there","tone":"FRIENDLY","repeatCount":1,"shout":false}}'
+```
+
+The landing page at `<gateway>/web/config` → **Home → WebUI Examples → Overview** (URL
+`/webui-examples`) reflects whatever you create.
+
+## A note on the web UI
+
+The canonical way first-party modules build these pages is with the
+`@inductiveautomation/ignition-gateway-lib` React library (`ResourceModeDataGrid`,
+`ResourceModeSingletonPage`, `ExtensionPointDataGridPage`, and the schema-driven `GeneratedForm`).
+
+**That package is not currently published to the SDK npm registry** (`ignition-web-ui` and
+`ignition-icons` are). First-party modules resolve it from the Ignition monorepo, which an external
+SDK consumer can't do. So this example takes a **Java-first** approach:
+
+* All three resource types are fully implemented and functional in Java — REST routes, schemas, the
+  extension-point form descriptors, and runtime handlers all work today.
+* The shipped React page ([`web-ui/src/pages/WebUiExamples`](web-ui/src/pages/WebUiExamples/WebUiExamples.tsx))
+  uses only the published `@inductiveautomation/ignition-web-ui` primitives and talks to the resource
+  REST API directly. It is a read-only dashboard, kept deliberately thin.
+* The [`web-ui/reference/`](web-ui/reference) folder contains the **fully-canonical** pages
+  (`ResourceModeDataGrid` / `ResourceModeSingletonPage` / `ExtensionPointDataGridPage`) as
+  documentation. They are excluded from the build; see [`web-ui/reference/README.md`](web-ui/reference/README.md)
+  for how to enable them once `ignition-gateway-lib` is available.
+
+## Building
+
+Build with the [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html); it
+downloads the appropriate versions of all tools (including Node/Yarn for the front end).
 
 ```
 // on Windows
@@ -25,46 +117,34 @@ gradlew build
 ./gradlew build
 ```
 
-This will produce a `.modl` file in the `build` directory, which can be installed on an 8.3+ gateway to add the `Web UI Webpage` category to the `Home` section of the gateway.
+This produces a `.modl` file in the `build/` directory that can be installed on an 8.3+ gateway. See
+the [Ignition Module Tool](https://github.com/inductiveautomation/ignition-module-tools) docs for the
+tasks and configuration options provided by the module plugin.
 
-## Quick Tool Overview
+### How the front-end bundle is served
 
-This project uses a number of build tools in order to complete the various parts of its assembly.  It's important to note that these tools are just some example options.  You may use any tool you want (or no tool at all).  These examples use:
+1. `web-ui` compiles a single UMD JS bundle with webpack (entry name `webuiExamples` →
+   `webuiExamples.js`). Named exports from `web-ui/src/index.ts` (here `WebUiExamples`) become the
+   "component ids" the gateway mounts.
+2. The bundle is packaged into the module and served at
+   `/res/<mount-alias>/webuiExamples.js`, where the mount alias (`web-ui-test`) and mounted folder
+   (`mounted`) are set by `getMountPathAlias()` / `getMountedResourceFolder()` in the gateway hook.
+3. The hook registers a `SystemJsModule` for that URL and mounts a nav page with
+   `.mount("/webui-examples", "WebUiExamples", jsModule)`.
 
-* [Gradle](https://gradle.org/) — the primary build tool. Most tasks executed in a typical workflow are gradle tasks.
-  and 'packages' in the same git/hg repository without having to do a lot of complicated symlinking/publishing to pull in changes from one project to another.  It's mostly useful from the commandline, outside of Gradle.
-* [yarn](https://yarnpkg.com/) — is a JavaScript dependency (package) manager that provides a number of improvements
-  over npm, though it shares many of the same commands and api.  Much like Ivy or Maven, yarn is used to resolve and download dependencies hosted on remotely hosted repositories.  Inductive Automation publishes our own dependencies through the
-  same nexus repository system we use for other sdk artifacts.  To correctly resolve the Inductive Automation node packages,
-  an `.npmrc` file needs to be added to the front end projects to tell yarn/npm where to find packages in the `@inductiveautomation` namespace.  You will find examples of these in the `web-ui/` directory.
-* [TypeScript](https://www.typescriptlang.org/) — the language used to write the front end parts.  TypeScript is not required but is strongly recommended.  TypeScript can be thought of as modern JavaScript with types added (though this is a simplification). The addition of types to JS results in a far better developer experience through much better tooling
-  support.  This can improve maintainability, refactoring, code navigation, bug discovery, etc. TypeScript has its own compiler which emits JavaScript.  This compiler is frequently paired with other build tools in a way that it emits the JavaScript, but
-  other tools handle the actual bundling of assets, CSS, and other supporting dependencies.  Think of TypeScript as the
-  java compiler without jars or resources.  It just takes TypeScript files in, and emits the JavaScript files.
-* [Webpack](https://webpack.js.org/) — the 'bundler' that we use to take the JavaScript emitted by the TypeScript compiler and turn it into an actual package that includes the necessary assets, dependencies, generates sourcemaps, etc.
+## Project layout
 
-
-## How it works
-1. The React component that represents your page will need to be bundled into a single UMD JS file.
-    - We use webpack in this example.
-    - This example uses Gradle to download tools necessary to build the project (node, yarn and NPM) and then runs a yarn install to install all the dependencies listed in the package.json. After this is complete, it will use the webpack.config.js file to build the JS bundle and place it in proper location.
-   
-
-2. The file will need to be served on the gateway using the Module Resource API.
-    - Files should be available at `<host gateway>/res/<module id>/<mounted folder>/<target file>`, provided they are identifiable on the module's classpath - i.e., they need to be bundled into a jar that is part of you module.  The module id is used in the url by default, but a shorter alternative may be specified by overriding `GatewayHook.getMountPathAlias()`. Similarly, the 'mounted folder' may also be specified, by overriding `GatewayHook.getMountedResourceFolder()`. See the `GatewayHook.java` file for implementation details.
-   
-
-3. The gateway hook (WebuiWebpageGatewayHook.java in this example) will need to be altered to include information about the JS module.
-    - The setup method, in the Gateway hook, should create the JS module (SystemJsModule) and then define the navigation using the module (see example in WebuiWebpageGatewayHook.java)
-    - The name of your exported component is important as it will be required in this step to let the application know what component in your module to look for.
-
-
-> Note: the module related tasks are defined by the module plugin.  Check the documentation at the [Ignition Module Tool](https://github.com/inductiveautomation/ignition-module-tools) repository for more information about the tasks and configuration options.
-
-## Additional Information
-- React is required in order to inject your page / component into the gateway.
-- We use webpack in this example, but feel free to use whatever bundling tool you're comfortable with.
-- Bundles need to be in the UMD ([Universal Module Definition](https://github.com/umdjs/umd)) format.
-- We provide a handful of libraries that are currently listed as "externals" in the webpack config. You should install them while developing locally, but they should not be bundled with your JS file as they will be provided by the gateway.
-- We do have a shared component library built in React (documentation / storybook will eventually be available). You will need a .yarnrc file to direct requests for @inductiveautomation libraries when using yarn or NPM (.yarnrc included in example)
-- We also have a shared Icon library (used in example, documentation also coming)
+```
+webui-webpage/
+├─ build.gradle.kts             # ignitionModule { } config
+├─ common/                      # module id constant (shared)
+├─ gateway/                     # Gateway scope — the three resource examples + the hook
+│  └─ src/main/java/org/webui/test/gateway/
+│     ├─ WebuiWebpageGatewayHook.java
+│     ├─ named/GreetingConfig.java
+│     ├─ singleton/GreetingSettings.java
+│     └─ extensionpoint/…        # profile, base class, two types, settings, provider
+└─ web-ui/                      # React front end
+   ├─ src/                       # the thin, shipped landing page (uses ignition-web-ui only)
+   └─ reference/                 # canonical ignition-gateway-lib pages (not compiled)
+```

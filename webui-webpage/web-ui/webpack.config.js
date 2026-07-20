@@ -58,7 +58,7 @@ module.exports = (webpackConfigEnv, argv) => {
   return {
     mode,
     entry: {
-      helloIgnition: [path.join(__dirname, `src/${rootAppFileName}`)],
+      webuiExamples: [path.join(__dirname, `src/${rootAppFileName}`)],
     },
     output: {
       library: "[name]",

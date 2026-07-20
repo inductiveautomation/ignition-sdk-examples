@@ -1,7 +1,7 @@
 {
-    "name": "hello_ignition",
+    "name": "webui-examples",
     "version": "1.0.0",
-    "description": "",
+    "description": "Thin landing page for the Ignition WebUI resource examples module.",
     "main": "build/dist/index.js",
     "scripts": {
         "build": "yarn run build:dev",
@@ -17,13 +17,10 @@
         "lint": "eslint ./src --ext .jsx,.js"
     },
     "dependencies": {
-        "@reduxjs/toolkit": "^1.9.3",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-hook-form": "^7.44.3",
-        "react-redux": "^8.0.5",
-        "@inductiveautomation/ignition-icons": "^1.3.0-beta1",
-        "@inductiveautomation/ignition-web-ui": "^1.3.0-beta1"
+        "@inductiveautomation/ignition-icons": "^1.3.8",
+        "@inductiveautomation/ignition-web-ui": "^1.3.8"
     },
     "devDependencies": {
         "@babel/core": "^7.17.8",
@@ -63,6 +60,6 @@
         "webpack-dev-server": "^4.11.1"
     },
     "resolutions": {
-        "@inductiveautomation/ignition-icons": "^1.3.0-beta1"
+        "@inductiveautomation/ignition-icons": "^1.3.8"
     }
 }
