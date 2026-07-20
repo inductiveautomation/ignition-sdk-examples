@@ -13,8 +13,8 @@ Adds a single simple component to the Perspective component palette.  This minim
 ##### [Project Resource](project-resource)
 A basic example/tour of APIs involved in the project resource system as of Ignition 8.3.
 
-##### [WebUI Webpage](webui-webpage)
-Adds a React built webpage and a corresponding nav link to the gateway application.
+##### [WebUI Examples](webui-webpage)
+Demonstrates the three canonical configuration-resource shapes — a named resource, a singleton resource, and an extension point — along with the gateway web UI they drive (schema-driven editors, REST routes, and a React landing page).
 
 ### Maven Examples
 

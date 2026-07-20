@@ -1,0 +1,59 @@
+.webui-examples {
+  padding: 16px 24px;
+  max-width: 900px;
+
+  &__intro {
+    color: var(--neutral-70, #4a4a4a);
+    line-height: 1.5;
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  &__timestamp {
+    color: var(--neutral-50, #808080);
+    font-size: 0.85rem;
+  }
+
+  &__error {
+    padding: 8px 12px;
+    margin: 12px 0;
+    border-radius: 4px;
+    background: var(--error-10, #fdecea);
+    color: var(--error-60, #b3261e);
+  }
+
+  &__empty {
+    color: var(--neutral-50, #808080);
+    font-style: italic;
+  }
+
+  &__table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 8px;
+
+    th,
+    td {
+      text-align: left;
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--neutral-20, #e0e0e0);
+      vertical-align: top;
+    }
+
+    thead th {
+      font-weight: 600;
+    }
+  }
+
+  code {
+    font-family: monospace;
+    background: var(--neutral-10, #f2f2f2);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+}
