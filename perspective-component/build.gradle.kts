@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 plugins {
     base
     // the ignition module plugin: https://github.com/inductiveautomation/ignition-module-tools
-    id("io.ia.sdk.modl") version("0.1.1")
+    id("io.ia.sdk.modl") version("0.5.0")
     id("org.barfuin.gradle.taskinfo") version "2.1.0"
 }
 
@@ -23,12 +23,18 @@ ignitionModule {
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds components to the Perspective module.")
     requiredIgnitionVersion.set("8.3.0")
+    requiredFrameworkVersion.set("8")
     license.set("license.html")
 
-    // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,
-    // and specify the Ignition Scope that applies. "G" for gateway, "D" for designer, "C" for VISION client
-    // (this module does not run in the scope of a Vision client, so we don't need a "C" entry here)
-    moduleDependencies.put("com.inductiveautomation.perspective", "DG")
+    // Module dependencies for Ignition 8.3+: use moduleDependencySpecs (not the deprecated
+    // moduleDependencies map). "G" = gateway, "D" = designer, "C" = Vision client.
+    // (this module does not run in Vision client scope, so no "C" entry)
+    moduleDependencySpecs {
+        register("com.inductiveautomation.perspective") {
+            scope = "DG"
+            required = true
+        }
+    }
 
     // map of 'Gradle Project Path' to Ignition Scope in which the project is relevant.  This is is combined with
     // the dependency declarations within the subproject's build.gradle.kts in order to determine which
