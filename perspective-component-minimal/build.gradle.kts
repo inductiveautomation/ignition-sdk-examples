@@ -4,7 +4,7 @@ import io.ia.sdk.gradle.modl.task.Deploy
 plugins {
     base
     // the ignition module plugin: https://github.com/inductiveautomation/ignition-module-tools
-    id("io.ia.sdk.modl") version("0.1.1")
+    id("io.ia.sdk.modl") version("0.5.0")
 }
 
 allprojects {
@@ -27,14 +27,15 @@ ignitionModule {
     freeModule.set(true)
     license.set("license.html")
 
-    // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,
-    // and specify the Ignition Scope(s) that apply. "G" for gateway, "D" for designer, "C" for VISION client
-    // (this module does not run in the scope of a Vision client, so we don't need a "C" entry here)
-    moduleDependencies.putAll(
-        mapOf(
-            "com.inductiveautomation.perspective" to "GD"
-        )
-    )
+    // Module dependencies for Ignition 8.3+: use moduleDependencySpecs (not the deprecated
+    // moduleDependencies map). "G" = gateway, "D" = designer, "C" = Vision client.
+    // (this module does not run in Vision client scope, so no "C" entry)
+    moduleDependencySpecs {
+        register("com.inductiveautomation.perspective") {
+            scope = "GD"
+            required = true
+        }
+    }
 
     // map of 'Gradle Project Path' to Ignition Scope in which the project is relevant.  This is is combined with
     // the dependency declarations within the subproject's build.gradle.kts in order to determine which

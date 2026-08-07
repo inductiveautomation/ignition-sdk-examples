@@ -8,7 +8,7 @@
  */
 
 plugins {
-    id("io.ia.sdk.modl") version("0.1.1")
+    id("io.ia.sdk.modl") version("0.5.0")
 }
 
 val sdk_version by extra("8.3.0")
@@ -57,17 +57,6 @@ ignitionModule {
     ))
 
     /*
-     * Add your module dependencies here, following the examples, with scope being one or more of G, C or D,
-     * for (G)ateway, (D)esigner, Vision (C)lient.
-     * Example:
-     * moduleDependencies = mapOf(
-     *    "CD" to "com.inductiveautomation.vision",
-     *    "G" to "com.inductiveautomation.opcua"
-     *  )
-     */
-    moduleDependencies.set(mapOf<String, String>())
-
-    /*
      * Add required module dependencies here, following the examples, with scope being one or more of G, C or D,
      * for (G)ateway, (D)esigner, Vision (C)lient.
      *
@@ -80,14 +69,16 @@ ignitionModule {
      *      // register("com.another.mod") { ...
      *   }
      *
-     * If any of module's required module dependencies are not present, the
+     * If any of the module's required module dependencies are not present, the
      * gateway will fault on loading the module.
      *
-     * NOTE: For modules targeting Ignition 8.3 and later. Use `moduleDependencies` for 8.1 and earlier.
-     * This property will only add the "required" flag if {requiredIgnitionVersion} is at least 8.3
+     * NOTE: For modules targeting Ignition 8.3 and later, use moduleDependencySpecs.
+     * Use the deprecated `moduleDependencies` map only for 8.1 and earlier.
+     * The "required" flag is honored when requiredIgnitionVersion is at least 8.3.
      *
+     * This example has no module-level dependencies beyond the platform.
      */
-    //moduleDependencySpecs { }
+    // moduleDependencySpecs { }
 
     /*
      * Map of fully qualified hook class to the shorthand scope.  Only one scope may apply to a class, and each scope
