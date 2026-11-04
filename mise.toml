@@ -1,0 +1,11 @@
+# Tools needed to build the Ignition SDK examples, managed by mise (https://mise.jdx.dev).
+#
+# Run `mise install` once from the repository root. With mise activated in your shell, every example
+# directory then has JDK 25 and Maven on the PATH, with JAVA_HOME set to the JDK.
+#
+# Gradle examples don't need anything else: the Gradle wrapper (./gradlew) brings its own Gradle, and
+# the web examples download their own Node.js.
+
+[tools]
+java = "temurin-25"
+maven = "3.10"
