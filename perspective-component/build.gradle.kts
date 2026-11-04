@@ -54,7 +54,7 @@ ignitionModule {
 }
 
 
-val deepClean by tasks.registering {
+tasks.register("deepClean") {
     dependsOn(allprojects.map { "${it.path}:clean" })
     description = "Executes clean tasks and remove node plugin caches."
     doLast {

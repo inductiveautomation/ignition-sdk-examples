@@ -30,9 +30,9 @@ ignitionModule {
 
     projectScopes.set(
         mapOf(
-            projects.gateway.dependencyProject.path to "G",
-            projects.designer.dependencyProject.path to "D",
-            projects.common.dependencyProject.path to "GD",
+            projects.gateway.path to "G",
+            projects.designer.path to "D",
+            projects.common.path to "GD",
         ),
     )
     hooks.set(

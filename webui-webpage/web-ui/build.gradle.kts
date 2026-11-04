@@ -3,11 +3,19 @@ import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
     java
-    id("com.github.node-gradle.node") version("7.0.2")
+    id("com.github.node-gradle.node") version("7.1.0")
+}
+
+// Use the same Java toolchain as the other subprojects. Without one, this project targets whichever JDK runs
+// Gradle, and the gateway project can't depend on it when that JDK is newer than the toolchain.
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 // define a variable that describes the path to the mounted gateway folder, where we want to put things eventually
-val projectOutput: String by extra("$buildDir/generated-resources/")
+val projectOutput = layout.buildDirectory.dir("generated-resources")
 
 // configurations on which versions of Node, Npm, and Yarn the gradle build should use.  Configuration provided by/to
 // the gradle node plugin that"s applied above (com.moowork.node)
@@ -21,7 +29,7 @@ node {
 }
 
 // define a gradle task that will install our npm dependencies, extends the YarnTask provided by the node gradle plugin
-val yarnPackages by tasks.registering(YarnTask::class) {
+val yarnPackages = tasks.register<YarnTask>("yarnPackages") {
 
     description = "Executes 'yarn' at the root of the web-ui/ directory to install npm dependencies for the yarn workspace."
     // which yarn command to execute
@@ -46,7 +54,7 @@ val yarnPackages by tasks.registering(YarnTask::class) {
 }
 
 // define a gradle task that executes an npm script (defined in the package.json).
-val webpack by tasks.registering(NpmTask::class) {
+val webpack = tasks.register<NpmTask>("webpack") {
     group = "Ignition Module"
     description = "Runs 'npm run-build', executing the build script of the web project's root package.json"
 
@@ -80,7 +88,7 @@ tasks {
 }
 
 
-val deepClean by tasks.registering {
+tasks.register("deepClean") {
     doLast {
         delete(file(".gradle"))
         delete(file("node_modules"))
