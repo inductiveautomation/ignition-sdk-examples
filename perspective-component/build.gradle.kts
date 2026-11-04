@@ -22,7 +22,7 @@ ignitionModule {
     id.set("org.fakester.radcomponent")
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds components to the Perspective module.")
-    requiredIgnitionVersion.set("8.3.0")
+    requiredIgnitionVersion.set("2027.2.0")
     license.set("license.html")
 
     // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,

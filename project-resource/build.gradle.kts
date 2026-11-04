@@ -26,7 +26,7 @@ ignitionModule {
     val buildNumber = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyDDDHHmm"))
     moduleVersion.set("${project.version}.$buildNumber")
     fileName.set("ProjectResourceExample.modl")
-    requiredIgnitionVersion.set("8.3.0")
+    requiredIgnitionVersion.set("2027.2.0")
 
     projectScopes.set(
         mapOf(

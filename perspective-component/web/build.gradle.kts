@@ -10,7 +10,7 @@ plugins {
 // Gradle, and the gateway project can't depend on it when that JDK is newer than the toolchain.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
@@ -20,9 +20,9 @@ val projectOutput = layout.buildDirectory.dir("generated-resources")
 // configurations on which versions of Node, Npm, and Yarn the gradle build should use.  Configuration provided by/to
 // the gradle node plugin that"s applied above (com.moowork.node)
 node {
-    version.set("16.15.0")
+    version.set("22.22.0")
     yarnVersion.set("1.22.18")
-    npmVersion.set("8.5.5")
+    npmVersion.set("10.9.4")
     download.set(true)
     nodeProjectDir.set(file(project.projectDir))
 

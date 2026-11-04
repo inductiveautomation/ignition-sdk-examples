@@ -1,6 +1,6 @@
 [versions]
-ignition = "8.3.4"
-java = "17"
+ignition = "2027.2.0-beta1"
+java = "25"
 
 [plugins]
 modl = { id = "io.ia.sdk.modl", version = "0.1.1" }

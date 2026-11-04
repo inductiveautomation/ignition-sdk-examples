@@ -15,13 +15,13 @@
     </modules>
 
     <properties>
-        <ignition-platform-version>8.3.4</ignition-platform-version>
+        <ignition-platform-version>2027.2.0-beta1</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>MongoDB User Source Example</module-name>
         <module-description>Adds an example user source backed by MongoDB to Ignition.</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
     </properties>
 
     <build>

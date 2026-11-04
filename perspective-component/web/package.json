@@ -16,5 +16,10 @@
   },
     "devDependencies" : {
         "lerna": "3.22.1"
+    },
+    "resolutions": {
+        "@inductiveautomation/perspective-client": "2027.2.0-beta1",
+        "@inductiveautomation/perspective-common": "2027.2.0-beta1",
+        "@inductiveautomation/perspective-drawing-common": "2027.2.0-beta1"
     }
 }

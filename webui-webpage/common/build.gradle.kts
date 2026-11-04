@@ -4,7 +4,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(org.gradle.jvm.toolchain.JavaLanguageVersion.of(17))
+        languageVersion.set(org.gradle.jvm.toolchain.JavaLanguageVersion.of(25))
     }
 }
 

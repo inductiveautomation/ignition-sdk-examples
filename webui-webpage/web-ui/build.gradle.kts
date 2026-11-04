@@ -10,7 +10,7 @@ plugins {
 // Gradle, and the gateway project can't depend on it when that JDK is newer than the toolchain.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
