@@ -3,24 +3,33 @@ import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
     java
-    id("com.github.node-gradle.node") version("3.2.1")
+    id("com.github.node-gradle.node") version("7.1.0")
 }
+
+// Use the same Java toolchain as the other subprojects. Without one, this project targets whichever JDK runs
+// Gradle, and the gateway project can't depend on it when that JDK is newer than the toolchain.
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
 // define a variable that describes the path to the mounted gateway folder, where we want to put things eventually
-val projectOutput: String by extra("$buildDir/generated-resources/")
+val projectOutput = layout.buildDirectory.dir("generated-resources")
 
 // configurations on which versions of Node, Npm, and Yarn the gradle build should use.  Configuration provided by/to
 // the gradle node plugin that"s applied above (com.moowork.node)
 node {
-    version.set("16.15.0")
+    version.set("22.22.0")
     yarnVersion.set("1.22.18")
-    npmVersion.set("8.5.5")
+    npmVersion.set("10.9.4")
     download.set(true)
     nodeProjectDir.set(file(project.projectDir))
 
 }
 
 // define a gradle task that will install our npm dependencies, extends the YarnTask provided by the node gradle plugin
-val yarnPackages by tasks.registering(YarnTask::class) {
+val yarnPackages = tasks.register<YarnTask>("yarnPackages") {
 
     description = "Executes 'yarn' at the root of the web/ directory to install npm dependencies for the yarn workspace."
     // which yarn command to execute
@@ -47,7 +56,7 @@ val yarnPackages by tasks.registering(YarnTask::class) {
 }
 
 // define a gradle task that executes an npm script (defined in the package.json).
-val webpack by tasks.registering(NpmTask::class) {
+val webpack = tasks.register<NpmTask>("webpack") {
     group = "Ignition Module"
     description = "Runs 'npm run build', executing the build script of the web project's root package.json"
 
@@ -71,7 +80,7 @@ val webpack by tasks.registering(NpmTask::class) {
 }
 
 // task to delete the dist folders
-val deleteDistFolders by tasks.registering(Delete::class) {
+val deleteDistFolders = tasks.register<Delete>("deleteDistFolders") {
     delete(file("packages/designer/dist/"))
     delete(file("packages/client/dist/"))
 }
@@ -88,7 +97,7 @@ tasks {
 }
 
 
-val deepClean by tasks.registering {
+tasks.register("deepClean") {
     doLast {
         delete(file("packages/designer/node_modules"))
         delete(file("packages/designer/.gradle"))

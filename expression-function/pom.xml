@@ -10,12 +10,13 @@
     <packaging>pom</packaging>
 
     <properties>
-        <ignition-platform-version>8.3.4</ignition-platform-version>
+        <ignition-platform-version>2027.2.0-beta1</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Expression Function Example</module-name>
         <module-description>Implements a simple expression function in the client, designer, and gateway scope.</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>25</maven.compiler.release>
     </properties>
 
     <modules>
@@ -25,6 +26,18 @@
         <module>expression-function-designer</module>
         <module>expression-function-gateway</module>
     </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.16.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <pluginRepositories>
         <pluginRepository>

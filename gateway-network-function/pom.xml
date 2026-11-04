@@ -10,12 +10,13 @@
     <version>2.0.1-SNAPSHOT</version>
 
     <properties>
-        <ignition-platform-version>8.3.4</ignition-platform-version>
+        <ignition-platform-version>2027.2.0-beta1</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
         <module-name>Gateway Network Function Example</module-name>
         <module-description>Provides examples of gateway network functions</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>25</maven.compiler.release>
     </properties>
 
     <modules>
@@ -25,6 +26,18 @@
         <module>gateway-network-function-designer</module>
         <module>gateway-network-function-gateway</module>
     </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.16.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <pluginRepositories>
         <pluginRepository>

@@ -12,7 +12,8 @@
         "deepClean": "yarn run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
-        "@inductiveautomation/perspective-client": "^2.1.16",
+        "@inductiveautomation/perspective-client": "2027.2.0-beta1",
+        "@inductiveautomation/perspective-common": "2027.2.0-beta1",
         "axios": "^0.28.0",
         "react": "16.14.0",
         "react-dom": "16.14.0"
@@ -30,7 +31,7 @@
         "sass": "^1.49.10",
         "sass-loader": "12.6.0",
         "ts-loader": "^9.2.9",
-        "typescript": "4.2.3",
+        "typescript": "4.9.5",
         "webpack": "5.72.0",
         "webpack-cli": "4.9.2",
         "yarn": "^1.22.18"

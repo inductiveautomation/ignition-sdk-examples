@@ -21,7 +21,7 @@ ignitionModule {
     id.set("io.ia.example.perspective.min")
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds components to the Perspective module.")
-    requiredIgnitionVersion.set("8.3.0")
+    requiredIgnitionVersion.set("2027.2.0")
     requiredFrameworkVersion.set("8")
     // says 'this module is free, does not require licensing'.  Defaults to false, delete for commercial modules.
     freeModule.set(true)
@@ -59,7 +59,7 @@ ignitionModule {
 }
 
 
-val deepClean by tasks.registering {
+tasks.register("deepClean") {
     dependsOn(allprojects.map { "${it.path}:clean" })
     description = "Executes clean tasks and remove node plugin caches."
     doLast {

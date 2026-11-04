@@ -1,16 +1,10 @@
 package io.ia.ignition.sdk.examples.slack;
 
-import com.inductiveautomation.ignition.alarming.notification.AlarmNotificationProfileConfig;
-import com.inductiveautomation.ignition.alarming.notification.AlarmNotificationProfileRecord;
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.gateway.config.ExtensionPoint;
 import com.inductiveautomation.ignition.gateway.config.NamedResourceHandler;
 import com.inductiveautomation.ignition.gateway.config.SingletonResourceHandler;
-import com.inductiveautomation.ignition.gateway.config.migration.ExtensionPointRecordMigrationStrategy;
-import com.inductiveautomation.ignition.gateway.config.migration.IdbMigrationStrategy;
-import com.inductiveautomation.ignition.gateway.config.migration.NamedRecordMigrationStrategy;
-import com.inductiveautomation.ignition.gateway.config.migration.SingletonRecordMigrationStrategy;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import io.ia.ignition.sdk.examples.slack.profile.*;
@@ -115,26 +109,6 @@ public class GatewayHook extends AbstractGatewayModuleHook {
         Or, just retrieve all configuration:
         */
 //        List<DecodedResource<DemoNamedResource>> resources = namedResourceHandler.getResources();
-    }
-
-    /**
-     * Here we tell the configuration management system about our "migration strategy", which adapts the legacy <=8.1
-     * "PersistentRecord" storage to our new configuration management approach. You can use one of the existing builders
-     * here, such as {@link ExtensionPointRecordMigrationStrategy}, {@link NamedRecordMigrationStrategy},
-     * or {@link SingletonRecordMigrationStrategy}, or implement your own entirely via the {@link IdbMigrationStrategy}
-     * interface.
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public List<IdbMigrationStrategy> getRecordMigrationStrategies() {
-        return List.of(ExtensionPointRecordMigrationStrategy
-                .newBuilder(SlackNotificationExtensionPoint.TYPE_ID)
-                .resourceType(AlarmNotificationProfileConfig.RESOURCE_TYPE)
-                .profileMeta(AlarmNotificationProfileRecord.META)
-                .settingsRecordForeignKey(SlackNotificationProfileSettings.Profile)
-                .settingsMeta(SlackNotificationProfileSettings.META)
-                .build()
-        );
     }
 
     /**

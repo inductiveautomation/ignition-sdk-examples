@@ -26,13 +26,13 @@ ignitionModule {
     val buildNumber = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyDDDHHmm"))
     moduleVersion.set("${project.version}.$buildNumber")
     fileName.set("ProjectResourceExample.modl")
-    requiredIgnitionVersion.set("8.3.0")
+    requiredIgnitionVersion.set("2027.2.0")
 
     projectScopes.set(
         mapOf(
-            projects.gateway.dependencyProject.path to "G",
-            projects.designer.dependencyProject.path to "D",
-            projects.common.dependencyProject.path to "GD",
+            projects.gateway.path to "G",
+            projects.designer.path to "D",
+            projects.common.path to "GD",
         ),
     )
     hooks.set(

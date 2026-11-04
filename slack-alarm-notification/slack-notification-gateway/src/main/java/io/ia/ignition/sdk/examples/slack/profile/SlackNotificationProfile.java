@@ -8,6 +8,7 @@ import com.inductiveautomation.ignition.common.TypeUtilities;
 import com.inductiveautomation.ignition.common.WellKnownPathTypes;
 import com.inductiveautomation.ignition.common.alarming.AlarmEvent;
 import com.inductiveautomation.ignition.common.audit.AuditRecord;
+import com.inductiveautomation.ignition.common.audit.DefaultAuditRecord;
 import com.inductiveautomation.ignition.common.config.FallbackPropertyResolver;
 import com.inductiveautomation.ignition.common.expressions.parsing.Parser;
 import com.inductiveautomation.ignition.common.expressions.parsing.StringParser;
@@ -19,7 +20,6 @@ import com.inductiveautomation.ignition.common.user.ContactInfo;
 import com.inductiveautomation.ignition.common.user.ContactType;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
 import com.inductiveautomation.ignition.gateway.audit.AuditProfile;
-import com.inductiveautomation.ignition.gateway.audit.AuditRecordBuilder;
 import com.inductiveautomation.ignition.gateway.config.DecodedResource;
 import com.inductiveautomation.ignition.gateway.config.ExtensionPointConfig;
 import com.inductiveautomation.ignition.gateway.expressions.AlarmEventCollectionExpressionParseContext;
@@ -197,18 +197,18 @@ public class SlackNotificationProfile implements AlarmNotificationProfile {
                     return;
                 }
                 for (AlarmEvent event : notificationContext.getAlarmEvents()) {
-                    AuditRecord r = new AuditRecordBuilder()
-                            .setAction("Slack Message")
-                            .setActionTarget(
+                    AuditRecord r = DefaultAuditRecord.newBuilder()
+                            .action("Slack Message")
+                            .actionTarget(
                                     event.getSource().extend(WellKnownPathTypes.Event, event.getId().toString())
                                             .toString())
-                            .setActionValue(success ? "SUCCESS" : "FAILURE")
-                            .setActor(notificationContext.getUser().getPath().toString())
-                            .setActorHost(profileName)
-                            .setOriginatingContext(ApplicationScope.GATEWAY)
-                            .setOriginatingSystem("Alarming")
-                            .setStatusCode(success ? DataQuality.GOOD_DATA.getIntValue() : 0)
-                            .setTimestamp(new Date())
+                            .actionValue(success ? "SUCCESS" : "FAILURE")
+                            .actor(notificationContext.getUser().getPath().toString())
+                            .actorHost(profileName)
+                            .originatingContext(ApplicationScope.GATEWAY)
+                            .originatingSystem("Alarming")
+                            .statusCode(success ? DataQuality.GOOD_DATA.getIntValue() : 0)
+                            .timestamp(new Date())
                             .build();
                     p.audit(r);
                 }

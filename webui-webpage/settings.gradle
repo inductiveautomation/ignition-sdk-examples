@@ -10,10 +10,10 @@ pluginManagement {
             )
         }
         maven {
-            url "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
+            url = "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
         }
         maven {
-            url = "https://nexus.inductiveautomation.com/repository/public" 
+            url = "https://nexus.inductiveautomation.com/repository/public"
         }
     }
 }
@@ -31,11 +31,11 @@ dependencyResolutionManagement {
 
         // enable resolving dependencies from the inductive automation artifact repository
         maven {
-            url "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
+            url = "https://nexus.inductiveautomation.com/repository/inductiveautomation-beta"
         }
 
         maven {
-            url "https://nexus.inductiveautomation.com/repository/public"
+            url = "https://nexus.inductiveautomation.com/repository/public"
         }
 
         mavenCentral()

@@ -18,7 +18,7 @@ ignitionModule {
     id.set("io.ia.example.immutableproject")
     moduleVersion.set("${project.version}")
     moduleDescription.set("A module that adds a sample immutable project.")
-    requiredIgnitionVersion.set("8.3.0")
+    requiredIgnitionVersion.set("2027.2.0")
     requiredFrameworkVersion.set("8")
 
     // If we depend on other module being loaded/available, then we specify IDs of the module we depend on,

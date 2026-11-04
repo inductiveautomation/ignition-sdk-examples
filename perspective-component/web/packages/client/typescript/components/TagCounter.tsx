@@ -7,9 +7,9 @@ import {
     Component,
     ComponentMeta,
     ComponentProps, PComponent,
-    PropertyTree,
-    SizeObject
+    PropertyTree
 } from '@inductiveautomation/perspective-client';
+import type { SizeObject } from '@inductiveautomation/perspective-common';
 import { Poller } from '../util/Poller';
 import { bind } from 'bind-decorator';
 

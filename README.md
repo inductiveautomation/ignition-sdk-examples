@@ -64,8 +64,10 @@ Creates a Hello World component that can be dragged onto a window in the Designe
 
 These requirements generally apply to both Gradle and Maven build tools.
 
-* Java Development Kit (JDK) 17 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.  Licensed/TCK tested JDK vendors such as Adoptium, Azul Zulu, etc., are generally suitable JDKs as well.
-* A running, 8.3.0+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.
+We recommend [mise](https://mise.jdx.dev) to install the build tools. The `mise.toml` file in the root of this repository pins the JDK and Maven versions the examples are built and tested with. After installing mise, run `mise install` from the repository root; with mise [activated](https://mise.jdx.dev/getting-started.html) in your shell, every example directory then has JDK 25 and Maven on the `PATH`.
+
+* Java Development Kit (JDK) 25 installed. You can download it on the [Java SDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) page.  Licensed/TCK tested JDK vendors such as Adoptium, Azul Zulu, etc., are generally suitable JDKs as well.
+* A running, 2027.2.0+ version of Ignition to test your module in. If you don't already have Ignition installed head to the Inductive Automation [downloads](https://www.inductiveautomation.com/downloads/) page, download the correct package for your system and follow the installation instructions to get a gateway up and running.
 * For development convenience, you may want to allow unsigned modules. Open the `ignition.conf` file in the `data/` directory, then in the `wrapper.java.additional` section add a line like: `wrapper.java.additional.7=-Dignition.allowunsignedmodules=true` (the index does not matter).
 
 ## The Module Build System
@@ -85,13 +87,15 @@ The Gradle Plugin is published to the [Gradle Plugin Portal](https://plugins.gra
 
 ## Running Maven Examples
 
-* First, make sure Maven 3.+ installed. Linux users can use their package manager to install at the command line (ex: `sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`. Windows users can install via [Chocolatey](https://chocolatey.org/) (`choco install maven`) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
+* First, make sure Maven 3.6.3+ is installed (`mise install` takes care of this). Linux users can use their package manager to install at the command line (ex: `sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`. Windows users can install via [Chocolatey](https://chocolatey.org/) (`choco install maven`) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
 
 * Once all dependencies are cached, you should be able to run `mvn package` in any of the examples to generate the *.modl* file (which will be created in the `build\target\` directory of the example).  The modl file is the Ignition module file you install to the Dev Mode Ignition in `Config > Modules` in your browser's Gateway page (generally found at `http://localhost:8088/main`). Alternately, if on a Unix system, you can use the `buildall.sh` file in the base directory to build all modules.
 
 * Then, from the Ignition gateway web interface, head to Configure -> Modules, and scroll down to install any of your built modules from the `/module/module-build/` directory.
 
 ## Running Gradle Examples
+
+Each Gradle example includes the Gradle wrapper, so no separate Gradle installation is needed: run `./gradlew build` in the example directory with JDK 25 on the `PATH` (or `JAVA_HOME` pointing to it). The examples with a web front end download their own Node.js during the build.
 
 For instructions on how to build with the Gradle plugin, take a look at the documentation on the [Gradle Plugin](https://github.com/inductiveautomation/ignition-module-tools/tree/master/gradle-module-plugin) repository.
 

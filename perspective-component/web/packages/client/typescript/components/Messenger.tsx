@@ -18,9 +18,9 @@ import {
     JsObject,
     makeLogger,
     PComponent,
-    PropertyTree,
-    SizeObject
+    PropertyTree
 } from '@inductiveautomation/perspective-client';
+import type { SizeObject } from '@inductiveautomation/perspective-common';
 import { bind } from 'bind-decorator';
 
 // The 'key' or 'id' for this component type.  Component must be registered with this EXACT key in the Java side as well

@@ -11,7 +11,7 @@ plugins {
     id("io.ia.sdk.modl") version("0.1.1")
 }
 
-val sdk_version by extra("8.3.0")
+extra["sdk_version"] = "2027.2.0-beta1"
 
 allprojects {
     version = "0.0.1-beta1"
@@ -44,7 +44,7 @@ ignitionModule {
      * the course of a major Ignition (7.9, 8.0, etc.) version, except for when the Ignition Platform adds/changes APIs
      * used by the module.
      */
-    requiredIgnitionVersion.set("8.3.0")
+    requiredIgnitionVersion.set("2027.2.0")
     /*
      *  This is a map of String: String, where the 'key' represents the fully qualified path to the project
      *  (using gradle path syntax), and the value is the shorthand Scope string.
