@@ -92,9 +92,9 @@ The Gradle Plugin is published to the [Gradle Plugin Portal](https://plugins.gra
 
 * First, make sure Maven 3.6.3+ is installed (`mise install` takes care of this). Linux users can use their package manager to install at the command line (ex: `sudo apt-get install maven`), and similarly OSX users using brew can `brew install maven`. Windows users can install via [Chocolatey](https://chocolatey.org/) (`choco install maven`) or by downloading the installer at the [Maven downloads](http://maven.apache.org/download.cgi_) page.
 
-* Once all dependencies are cached, you should be able to run `mvn package` in any of the examples to generate the *.modl* file (which will be created in the `build\target\` directory of the example).  The modl file is the Ignition module file you install to the Dev Mode Ignition in `Config > Modules` in your browser's Gateway page (generally found at `http://localhost:8088/main`). Alternately, if on a Unix system, you can use the `buildall.sh` file in the base directory to build all modules.
+* Once all dependencies are cached, you should be able to run `mvn package` in any of the examples to generate the *.modl* file (which will be created in the `target/` directory of the example's `*-build` module, for example `ai-tool-provider/ai-tool-provider-build/target/`).  The modl file is the Ignition module file you install to the Dev Mode Ignition in `Config > Modules` in your browser's Gateway page (generally found at `http://localhost:8088/main`). Alternately, if on a Unix system, you can run `./build-all.sh` from the base directory to build all the examples, both Maven and Gradle.
 
-* Then, from the Ignition gateway web interface, head to Configure -> Modules, and scroll down to install any of your built modules from the `/module/module-build/` directory.
+* Then, from the Ignition gateway web interface, head to Configure -> Modules, and scroll down to install any of your built modules from that `*-build/target/` directory.
 
 ## Running Gradle Examples
 
