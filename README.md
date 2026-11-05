@@ -21,6 +21,9 @@ Adds a React built webpage and a corresponding nav link to the gateway applicati
 
 ### Maven Examples
 
+##### [AI Tool Provider](ai-tool-provider)
+Adds a tool provider to the AI Agents module, with example tools that AI Agents and MCP clients can call.
+
 ##### [Event Stream Source](event-stream-source)
 Creates a source that for a given list of comma separated items, will emit an event for each item in the list every second.
 
