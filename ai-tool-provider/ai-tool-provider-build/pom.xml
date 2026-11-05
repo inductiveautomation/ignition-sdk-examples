@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ai-tool-provider</artifactId>
+        <groupId>com.inductiveautomation.ignition.examples</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ai-tool-provider-build</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.inductiveautomation.ignition.examples</groupId>
+            <artifactId>ai-tool-provider-gateway</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.inductiveautomation.ignitionsdk</groupId>
+                <artifactId>ignition-maven-plugin</artifactId>
+                <version>1.1.0</version>
+
+                <executions>
+                    <execution>
+                        <id>modl</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>modl</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <projectScopes>
+                        <projectScope>
+                            <name>ai-tool-provider-gateway</name>
+                            <scope>G</scope>
+                        </projectScope>
+                    </projectScopes>
+
+                    <moduleId>com.inductiveautomation.ignition.examples.ai-tool-provider</moduleId>
+                    <moduleName>${module-name}</moduleName>
+                    <moduleDescription>${module-description}</moduleDescription>
+                    <moduleVersion>${project.version}</moduleVersion>
+                    <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
+
+                    <depends>
+                        <depend>
+                            <scope>G</scope>
+                            <moduleId>com.inductiveautomation.catalyst.agent</moduleId>
+                        </depend>
+                    </depends>
+
+                    <hooks>
+                        <hook>
+                            <scope>G</scope>
+                            <hookClass>com.inductiveautomation.ignition.examples.ai.toolprovider.gateway.ExampleToolProviderGatewayHook</hookClass>
+                        </hook>
+                    </hooks>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
