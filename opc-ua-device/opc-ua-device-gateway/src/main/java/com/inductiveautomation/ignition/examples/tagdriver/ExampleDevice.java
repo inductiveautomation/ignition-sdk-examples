@@ -2,18 +2,14 @@ package com.inductiveautomation.ignition.examples.tagdriver;
 
 import com.inductiveautomation.ignition.gateway.opcua.server.api.Device;
 import com.inductiveautomation.ignition.gateway.opcua.server.api.DeviceContext;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.eclipse.milo.opcua.sdk.core.AccessLevel;
 import org.eclipse.milo.opcua.sdk.core.Reference;
 import org.eclipse.milo.opcua.sdk.server.ManagedAddressSpaceWithLifecycle;
-import org.eclipse.milo.opcua.sdk.server.items.DataItem;
-import org.eclipse.milo.opcua.sdk.server.items.MonitoredItem;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaFolderNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.UaVariableNode;
 import org.eclipse.milo.opcua.sdk.server.nodes.filters.AttributeFilters;
-import org.eclipse.milo.opcua.sdk.server.util.SubscriptionModel;
 import org.eclipse.milo.opcua.stack.core.AttributeId;
 import org.eclipse.milo.opcua.stack.core.NodeIds;
 import org.eclipse.milo.opcua.stack.core.OpcUaDataType;
@@ -25,12 +21,18 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A device whose nodes are served from memory and a simple value simulator.
+ *
+ * <p>Data items on this device's nodes are sampled by the {@code SamplingManager} inherited from
+ * {@link ManagedAddressSpaceWithLifecycle}, which reads each item's node at its sampling interval,
+ * so the device doesn't need to handle the data item callbacks itself.
+ */
 public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements Device {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
   private final ValueSimulator simulator = new ValueSimulator();
-  private final SubscriptionModel subscriptionModel;
 
   private final DeviceContext context;
   private final ExampleDeviceConfig config;
@@ -41,9 +43,6 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
     this.context = context;
     this.config = config;
 
-    subscriptionModel = new SubscriptionModel(context.getServer(), this);
-
-    getLifecycleManager().addLifecycle(subscriptionModel);
     getLifecycleManager().addStartupTask(this::onStartup);
     getLifecycleManager().addShutdownTask(this::onShutdown);
   }
@@ -87,7 +86,8 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
     addStaticNodes(rootNode, "static", config.general().tagCount(), AccessLevel.READ_WRITE);
     addStaticNodes(rootNode, "readOnly", config.general().tagCount(), AccessLevel.READ_ONLY);
 
-    // fire initial subscription creation
+    // start sampling the items that already exist for this device, e.g. after a restart or a
+    // config change
     onDataItemsCreated(
         context.getSubscriptionModel()
             .getDataItems(context.getName())
@@ -196,26 +196,6 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
       getNodeManager().addNode(node);
       folder.addOrganizes(node);
     }
-  }
-
-  @Override
-  public void onDataItemsCreated(List<DataItem> dataItems) {
-    subscriptionModel.onDataItemsCreated(dataItems);
-  }
-
-  @Override
-  public void onDataItemsModified(List<DataItem> dataItems) {
-    subscriptionModel.onDataItemsModified(dataItems);
-  }
-
-  @Override
-  public void onDataItemsDeleted(List<DataItem> dataItems) {
-    subscriptionModel.onDataItemsDeleted(dataItems);
-  }
-
-  @Override
-  public void onMonitoringModeChanged(List<MonitoredItem> monitoredItems) {
-    subscriptionModel.onMonitoringModeChanged(monitoredItems);
   }
 
 }
