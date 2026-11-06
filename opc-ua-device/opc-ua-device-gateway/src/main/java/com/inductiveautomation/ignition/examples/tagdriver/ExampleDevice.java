@@ -55,31 +55,30 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
   private void onStartup() {
     // create a basic tag updater service, let the gateway run it separately from UA subscription
     // management
-    context.getGatewayContext().getExecutionManager().registerAtFixedRate(
-        ExampleDeviceExtensionPoint.TYPE_ID,
-        context.getName(),
-        simulator,
-        1, TimeUnit.SECONDS
-    );
+    context
+        .getGatewayContext()
+        .getExecutionManager()
+        .registerAtFixedRate(
+            ExampleDeviceExtensionPoint.TYPE_ID, context.getName(), simulator, 1, TimeUnit.SECONDS);
 
     // create a folder node for our configured device
-    var rootNode = new UaFolderNode(
-        getNodeContext(),
-        context.nodeId(context.getName()),
-        context.qualifiedName(String.format("[%s]", context.getName())),
-        new LocalizedText(String.format("[%s]", context.getName()))
-    );
+    var rootNode =
+        new UaFolderNode(
+            getNodeContext(),
+            context.nodeId(context.getName()),
+            context.qualifiedName(String.format("[%s]", context.getName())),
+            new LocalizedText(String.format("[%s]", context.getName())));
 
     // add the folder node to the server
     getNodeManager().addNode(rootNode);
 
     // add a reference to the root "Devices" folder node
-    rootNode.addReference(new Reference(
-        rootNode.getNodeId(),
-        NodeIds.Organizes,
-        context.getRootNodeId().expanded(),
-        Reference.Direction.INVERSE
-    ));
+    rootNode.addReference(
+        new Reference(
+            rootNode.getNodeId(),
+            NodeIds.Organizes,
+            context.getRootNodeId().expanded(),
+            Reference.Direction.INVERSE));
 
     addDynamicNodes(rootNode);
 
@@ -88,30 +87,29 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
 
     // start sampling the items that already exist for this device, e.g. after a restart or a
     // config change
-    onDataItemsCreated(
-        context.getSubscriptionModel()
-            .getDataItems(context.getName())
-    );
+    onDataItemsCreated(context.getSubscriptionModel().getDataItems(context.getName()));
   }
 
   private void onShutdown() {
-    context.getSubscriptionModel()
+    context
+        .getSubscriptionModel()
         .getDataItems(context.getName())
         .forEach(item -> item.setQuality(new StatusCode(StatusCodes.Uncertain_LastUsableValue)));
 
-    context.getGatewayContext()
+    context
+        .getGatewayContext()
         .getExecutionManager()
         .unRegister(ExampleDeviceExtensionPoint.TYPE_ID, context.getName());
   }
 
   private void addDynamicNodes(UaFolderNode rootNode) {
     String name = "dynamic";
-    UaFolderNode folder = new UaFolderNode(
-        getNodeContext(),
-        context.nodeId(name),
-        context.qualifiedName(name),
-        new LocalizedText(name)
-    );
+    UaFolderNode folder =
+        new UaFolderNode(
+            getNodeContext(),
+            context.nodeId(name),
+            context.qualifiedName(name),
+            new LocalizedText(name));
     getNodeManager().addNode(folder);
 
     // addOrganizes is just a helper method to an OPC UA "Organizes" references to a folder node
@@ -121,26 +119,29 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
       final int n = i;
       String formattedName = String.format("%s%d", name, n);
 
-      UaVariableNode node = UaVariableNode.build(getNodeContext(), b ->
-          b.setNodeId(context.nodeId(String.format("%s/node%d", formattedName, n)))
-              .setBrowseName(context.qualifiedName(formattedName))
-              .setDisplayName(new LocalizedText(formattedName))
-              .setDataType(OpcUaDataType.UInt32.getNodeId())
-              .setTypeDefinition(NodeIds.BaseDataVariableType)
-              .setAccessLevel(AccessLevel.READ_ONLY)
-              .setUserAccessLevel(AccessLevel.READ_ONLY)
-              .build()
-      );
+      UaVariableNode node =
+          UaVariableNode.build(
+              getNodeContext(),
+              b ->
+                  b.setNodeId(context.nodeId(String.format("%s/node%d", formattedName, n)))
+                      .setBrowseName(context.qualifiedName(formattedName))
+                      .setDisplayName(new LocalizedText(formattedName))
+                      .setDataType(OpcUaDataType.UInt32.getNodeId())
+                      .setTypeDefinition(NodeIds.BaseDataVariableType)
+                      .setAccessLevel(AccessLevel.READ_ONLY)
+                      .setUserAccessLevel(AccessLevel.READ_ONLY)
+                      .build());
 
       // just tells our simulator to keep track of this node
       simulator.addTrackedValue(formattedName, (long) i);
 
-      // an AttributeFilter is used so that when this node is asked for its value, it will call out to the
+      // an AttributeFilter is used so that when this node is asked for its value, it will call out
+      // to the
       // simulator
-      node.getFilterChain().addLast(AttributeFilters.getValue(
-          getAttributeContext ->
-              simulator.getTrackedValue(formattedName))
-      );
+      node.getFilterChain()
+          .addLast(
+              AttributeFilters.getValue(
+                  getAttributeContext -> simulator.getTrackedValue(formattedName)));
 
       getNodeManager().addNode(node);
       folder.addOrganizes(node);
@@ -148,18 +149,14 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
   }
 
   private void addStaticNodes(
-      UaFolderNode rootNode,
-      String name,
-      int count,
-      Set<AccessLevel> accessLevel
-  ) {
+      UaFolderNode rootNode, String name, int count, Set<AccessLevel> accessLevel) {
 
-    UaFolderNode folder = new UaFolderNode(
-        getNodeContext(),
-        context.nodeId(name),
-        context.qualifiedName(name),
-        new LocalizedText(name)
-    );
+    UaFolderNode folder =
+        new UaFolderNode(
+            getNodeContext(),
+            context.nodeId(name),
+            context.qualifiedName(name),
+            new LocalizedText(name));
     getNodeManager().addNode(folder);
     rootNode.addOrganizes(folder);
 
@@ -168,16 +165,18 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
       final int n = i;
       String formattedName = String.format("%s%d", name1, n);
 
-      UaVariableNode node = UaVariableNode.build(getNodeContext(), b ->
-          b.setNodeId(context.nodeId(String.format("%s/node%d", formattedName, n)))
-              .setBrowseName(context.qualifiedName(formattedName))
-              .setDisplayName(new LocalizedText(formattedName))
-              .setDataType(OpcUaDataType.UInt16.getNodeId())
-              .setTypeDefinition(NodeIds.BaseDataVariableType)
-              .setAccessLevel(accessLevel)
-              .setUserAccessLevel(accessLevel)
-              .build()
-      );
+      UaVariableNode node =
+          UaVariableNode.build(
+              getNodeContext(),
+              b ->
+                  b.setNodeId(context.nodeId(String.format("%s/node%d", formattedName, n)))
+                      .setBrowseName(context.qualifiedName(formattedName))
+                      .setDisplayName(new LocalizedText(formattedName))
+                      .setDataType(OpcUaDataType.UInt16.getNodeId())
+                      .setTypeDefinition(NodeIds.BaseDataVariableType)
+                      .setAccessLevel(accessLevel)
+                      .setUserAccessLevel(accessLevel)
+                      .build());
 
       node.setValue(new DataValue(new Variant(i)));
 
@@ -186,16 +185,17 @@ public class ExampleDevice extends ManagedAddressSpaceWithLifecycle implements D
         // passing it to the next filter in the chain. The default
         // filter instance at the end will write the attribute to
         // the UaNode instance.
-        node.getFilterChain().addLast(AttributeFilters.setValue((ctx, value) -> {
-          logger.info("setValue: {}", value.getValue().getValue());
+        node.getFilterChain()
+            .addLast(
+                AttributeFilters.setValue((ctx, value) -> {
+                  logger.info("setValue: {}", value.getValue().getValue());
 
-          ctx.setAttribute(AttributeId.Value, value);
-        }));
+                  ctx.setAttribute(AttributeId.Value, value);
+                }));
       }
 
       getNodeManager().addNode(node);
       folder.addOrganizes(node);
     }
   }
-
 }

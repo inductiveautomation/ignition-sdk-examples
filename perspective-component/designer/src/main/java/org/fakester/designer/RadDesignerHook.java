@@ -13,60 +13,60 @@ import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.TagCounter;
 import org.fakester.designer.component.TagCountDesignDelegate;
 
-
 /**
- * The 'hook' class for the designer scope of the module.  Registered in the ignitionModule configuration of the
- * root build.gradle file.
+ * The 'hook' class for the designer scope of the module. Registered in the ignitionModule
+ * configuration of the root build.gradle file.
  */
 public class RadDesignerHook extends AbstractDesignerModuleHook {
-    private static final LoggerEx logger = LoggerEx.newBuilder().build("RadComponents");
+  private static final LoggerEx logger = LoggerEx.newBuilder().build("RadComponents");
 
-    private DesignerContext context;
-    private DesignerComponentRegistry registry;
-    private ComponentDesignDelegateRegistry delegateRegistry;
+  private DesignerContext context;
+  private DesignerComponentRegistry registry;
+  private ComponentDesignDelegateRegistry delegateRegistry;
 
-    static {
-        BundleUtil.get().addBundle("radcomponents", RadDesignerHook.class.getClassLoader(), "radcomponents");
-    }
+  static {
+    BundleUtil.get()
+        .addBundle("radcomponents", RadDesignerHook.class.getClassLoader(), "radcomponents");
+  }
 
-    public RadDesignerHook() {
-        logger.info("Registering Rad Components in Designer!");
-    }
+  public RadDesignerHook() {
+    logger.info("Registering Rad Components in Designer!");
+  }
 
-    @Override
-    public void startup(DesignerContext context, LicenseState activationState) {
-        this.context = context;
-        init();
-    }
+  @Override
+  public void startup(DesignerContext context, LicenseState activationState) {
+    this.context = context;
+    init();
+  }
 
-    private void init() {
-        logger.debug("Initializing registry entrants...");
+  private void init() {
+    logger.debug("Initializing registry entrants...");
 
-        PerspectiveDesignerInterface pdi = PerspectiveDesignerInterface.get(context);
+    PerspectiveDesignerInterface pdi = PerspectiveDesignerInterface.get(context);
 
-        registry = pdi.getDesignerComponentRegistry();
-        delegateRegistry = pdi.getComponentDesignDelegateRegistry();
+    registry = pdi.getDesignerComponentRegistry();
+    delegateRegistry = pdi.getComponentDesignDelegateRegistry();
 
-        // register components to get them on the palette
-        registry.registerComponent(Image.DESCRIPTOR);
-        registry.registerComponent(TagCounter.DESCRIPTOR);
-        registry.registerComponent(Messenger.DESCRIPTOR);
+    // register components to get them on the palette
+    registry.registerComponent(Image.DESCRIPTOR);
+    registry.registerComponent(TagCounter.DESCRIPTOR);
+    registry.registerComponent(Messenger.DESCRIPTOR);
 
-        // register design delegates to get the special config UI when a component type is selected in the designer
-        delegateRegistry.register(TagCounter.COMPONENT_ID, new TagCountDesignDelegate());
-    }
+    // register design delegates to get the special config UI when a component type is selected in
+    // the designer
+    delegateRegistry.register(TagCounter.COMPONENT_ID, new TagCountDesignDelegate());
+  }
 
+  @Override
+  public void shutdown() {
+    removeComponents();
+  }
 
-    @Override
-    public void shutdown() {
-        removeComponents();
-    }
+  private void removeComponents() {
+    registry.removeComponent(Image.COMPONENT_ID);
+    registry.removeComponent(TagCounter.COMPONENT_ID);
+    registry.removeComponent(Messenger.COMPONENT_ID);
 
-    private void removeComponents() {
-        registry.removeComponent(Image.COMPONENT_ID);
-        registry.removeComponent(TagCounter.COMPONENT_ID);
-        registry.removeComponent(Messenger.COMPONENT_ID);
-
-        delegateRegistry.remove(TagCounter.COMPONENT_ID);
-    }
+    delegateRegistry.remove(TagCounter.COMPONENT_ID);
+  }
 }

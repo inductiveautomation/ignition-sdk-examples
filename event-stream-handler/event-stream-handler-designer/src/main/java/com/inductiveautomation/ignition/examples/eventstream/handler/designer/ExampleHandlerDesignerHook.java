@@ -7,21 +7,22 @@ import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import com.inductiveautomation.ignition.designer.model.DesignerModuleHook;
 import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHandlerModule;
 
-public class ExampleHandlerDesignerHook extends AbstractDesignerModuleHook implements DesignerModuleHook {
+public class ExampleHandlerDesignerHook extends AbstractDesignerModuleHook
+    implements DesignerModuleHook {
 
-    @Override
-    public void startup(DesignerContext context, LicenseState activationState) throws Exception {
-        super.startup(context, activationState);
+  @Override
+  public void startup(DesignerContext context, LicenseState activationState) throws Exception {
+    super.startup(context, activationState);
 
-        // checks if the event stream module is installed
-        if (context.getModule(ExampleHandlerModule.EVENT_STREAM_MODULE_ID) != null) {
-            EventStreamDesignerHook hook = EventStreamDesignerHook.get(context);
+    // checks if the event stream module is installed
+    if (context.getModule(ExampleHandlerModule.EVENT_STREAM_MODULE_ID) != null) {
+      EventStreamDesignerHook hook = EventStreamDesignerHook.get(context);
 
-            if (hook != null) {
-                hook.getEventStreamManager().getHandlerRegistry().register(
-                    new ExampleHandlerDesignDelegate()
-                );
-            }
-        }
+      if (hook != null) {
+        hook.getEventStreamManager()
+            .getHandlerRegistry()
+            .register(new ExampleHandlerDesignDelegate());
+      }
     }
+  }
 }

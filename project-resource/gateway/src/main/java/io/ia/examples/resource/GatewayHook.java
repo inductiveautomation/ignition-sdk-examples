@@ -5,32 +5,32 @@ import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 
 public class GatewayHook extends AbstractGatewayModuleHook {
-    private GatewayContext context;
-    private EventHandlerLifecycleFactory factory;
+  private GatewayContext context;
+  private EventHandlerLifecycleFactory factory;
 
-    @Override
-    public void setup(GatewayContext gatewayContext) {
-        this.context = gatewayContext;
-        this.factory = new EventHandlerLifecycleFactory(context);
-    }
+  @Override
+  public void setup(GatewayContext gatewayContext) {
+    this.context = gatewayContext;
+    this.factory = new EventHandlerLifecycleFactory(context);
+  }
 
-    @Override
-    public void startup(LicenseState licenseState) {
-        factory.startup();
-    }
+  @Override
+  public void startup(LicenseState licenseState) {
+    factory.startup();
+  }
 
-    @Override
-    public void shutdown() {
-        factory.shutdown();
-    }
+  @Override
+  public void shutdown() {
+    factory.shutdown();
+  }
 
-    @Override
-    public boolean isMakerEditionCompatible() {
-        return true;
-    }
+  @Override
+  public boolean isMakerEditionCompatible() {
+    return true;
+  }
 
-    @Override
-    public boolean isFreeModule() {
-        return true;
-    }
+  @Override
+  public boolean isFreeModule() {
+    return true;
+  }
 }

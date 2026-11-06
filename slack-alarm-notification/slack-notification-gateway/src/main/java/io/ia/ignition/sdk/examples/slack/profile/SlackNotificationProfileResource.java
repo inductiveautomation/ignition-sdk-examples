@@ -5,7 +5,7 @@ import com.inductiveautomation.ignition.gateway.web.nav.FormFieldType;
 import org.jspecify.annotations.Nullable;
 
 public record SlackNotificationProfileResource(
-        @Nullable
+    @Nullable
         @FormCategory("SLACK SETTINGS")
         @Label("Audit Profile")
         @FormField(FormFieldType.REFERENCE)
@@ -13,6 +13,4 @@ public record SlackNotificationProfileResource(
         @IsNullable
         @DefaultValue("null")
         @DescriptionKey("SlackNotificationProfileSettings.AuditProfileName.Description")
-        String auditProfileName
-) {
-}
+        String auditProfileName) {}

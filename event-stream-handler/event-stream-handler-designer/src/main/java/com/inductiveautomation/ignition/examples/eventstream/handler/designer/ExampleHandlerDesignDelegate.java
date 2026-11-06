@@ -7,13 +7,13 @@ import com.inductiveautomation.ignition.examples.eventstream.handler.ExampleHand
 
 public class ExampleHandlerDesignDelegate implements EventStreamHandlerDesignDelegate {
 
-    @Override
-    public HandlerEditor getEditor(EventStreamContext context) {
-        return new ExampleHandlerEditor();
-    }
+  @Override
+  public HandlerEditor getEditor(EventStreamContext context) {
+    return new ExampleHandlerEditor();
+  }
 
-    @Override
-    public String getType() {
-        return ExampleHandlerModule.MODULE_ID;
-    }
+  @Override
+  public String getType() {
+    return ExampleHandlerModule.MODULE_ID;
+  }
 }

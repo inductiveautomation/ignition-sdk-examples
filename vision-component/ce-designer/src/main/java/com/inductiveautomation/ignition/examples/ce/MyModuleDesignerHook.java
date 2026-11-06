@@ -13,29 +13,24 @@ import com.inductiveautomation.vision.api.designer.palette.JavaBeanPaletteItem;
 import com.inductiveautomation.vision.api.designer.palette.Palette;
 import com.inductiveautomation.vision.api.designer.palette.PaletteItemGroup;
 
-
-/**
- * This is the Designer-scope module hook for the component example module for the Ignition SDK.
- */
+/** This is the Designer-scope module hook for the component example module for the Ignition SDK. */
 public class MyModuleDesignerHook extends AbstractDesignerModuleHook {
 
-    public static final String MODULE_ID = "component-example";
+  public static final String MODULE_ID = "component-example";
 
-    @Override
-    public void startup(DesignerContext context, LicenseState activationState) throws Exception {
-        // Add the BeanInfo package to the search path
-        context.addBeanInfoSearchPath("com.inductiveautomation.ignition.examples.ce.beaninfos");
+  @Override
+  public void startup(DesignerContext context, LicenseState activationState) throws Exception {
+    // Add the BeanInfo package to the search path
+    context.addBeanInfoSearchPath("com.inductiveautomation.ignition.examples.ce.beaninfos");
 
-        // Add my component to its own palette
-        VisionDesignerInterface sdk = (VisionDesignerInterface) context
-                .getModule(VisionDesignerInterface.VISION_MODULE_ID);
-        if (sdk != null) {
-            Palette palette = sdk.getPalette();
+    // Add my component to its own palette
+    VisionDesignerInterface sdk =
+        (VisionDesignerInterface) context.getModule(VisionDesignerInterface.VISION_MODULE_ID);
+    if (sdk != null) {
+      Palette palette = sdk.getPalette();
 
-            PaletteItemGroup group = palette.addGroup("Example");
-            group.addPaletteItem(new JavaBeanPaletteItem(HelloWorldComponent.class));
-        }
+      PaletteItemGroup group = palette.addGroup("Example");
+      group.addPaletteItem(new JavaBeanPaletteItem(HelloWorldComponent.class));
     }
-
+  }
 }
-

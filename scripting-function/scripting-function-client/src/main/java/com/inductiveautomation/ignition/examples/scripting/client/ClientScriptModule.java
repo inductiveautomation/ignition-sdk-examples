@@ -6,19 +6,16 @@ import com.inductiveautomation.ignition.examples.scripting.Constants;
 import com.inductiveautomation.ignition.examples.scripting.Metadata;
 import com.inductiveautomation.ignition.examples.scripting.RpcFunctions;
 
-
 public class ClientScriptModule extends AbstractScriptModule {
 
-    private static final RpcFunctions RPC = GatewayConnection.getRpcInterface(
-            RpcFunctions.SERIALIZER,
-            Constants.MODULE_ID,
-            RpcFunctions.class
-    );
+  private static final RpcFunctions RPC =
+      GatewayConnection.getRpcInterface(
+          RpcFunctions.SERIALIZER, Constants.MODULE_ID, RpcFunctions.class);
 
-    public ClientScriptModule() {}
+  public ClientScriptModule() {}
 
-    @Override
-    protected Metadata getArchImpl() {
-        return RPC.getGatewayMetadata();
-    }
+  @Override
+  protected Metadata getArchImpl() {
+    return RPC.getGatewayMetadata();
+  }
 }

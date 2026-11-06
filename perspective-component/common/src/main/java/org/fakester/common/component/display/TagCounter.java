@@ -5,24 +5,27 @@ import com.inductiveautomation.perspective.common.api.ComponentDescriptor;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptorImpl;
 import org.fakester.common.RadComponents;
 
-/**
- * Meta information about the TagCounter component.  See {@link Image} for docs on each field.
- */
+/** Meta information about the TagCounter component. See {@link Image} for docs on each field. */
 public class TagCounter {
-    public static String COMPONENT_ID = "rad.display.tagcounter";
+  public static String COMPONENT_ID = "rad.display.tagcounter";
 
-    public static JsonSchema SCHEMA =
-        JsonSchema.parse(RadComponents.class.getResourceAsStream("/tagcounter.props.json"));
+  public static JsonSchema SCHEMA =
+      JsonSchema.parse(RadComponents.class.getResourceAsStream("/tagcounter.props.json"));
 
-    public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
-        .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
-        .setId(COMPONENT_ID)
-        .setModuleId(RadComponents.MODULE_ID)
-        .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .setName("Tag Counter")
-        .addPaletteEntry("", "Tag Counter", "A component that displays the number of tags associated with a gateway.", null, null)
-        .setDefaultMetaName("tagCounter")
-        .setResources(RadComponents.BROWSER_RESOURCES)
-        .build();
-
+  public static ComponentDescriptor DESCRIPTOR =
+      ComponentDescriptorImpl.ComponentBuilder.newBuilder()
+          .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
+          .setId(COMPONENT_ID)
+          .setModuleId(RadComponents.MODULE_ID)
+          .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
+          .setName("Tag Counter")
+          .addPaletteEntry(
+              "",
+              "Tag Counter",
+              "A component that displays the number of tags associated with a gateway.",
+              null,
+              null)
+          .setDefaultMetaName("tagCounter")
+          .setResources(RadComponents.BROWSER_RESOURCES)
+          .build();
 }

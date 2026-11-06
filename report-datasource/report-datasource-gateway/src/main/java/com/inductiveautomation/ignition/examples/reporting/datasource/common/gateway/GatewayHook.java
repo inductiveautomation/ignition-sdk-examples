@@ -9,46 +9,46 @@ import com.inductiveautomation.ignition.gateway.model.GatewayModule;
 import com.inductiveautomation.ignition.gateway.model.ModuleState;
 
 /**
- * GatewayModuleHook is the entry point to the Ignition Gateway.  When the .modl file is built using the Ignition Maven
- * plugin, the hook configured in our build pom will be added to the Ignition Module's module.xml file.  When the
- * module is installed, this xml file is read, and this GatewayHook is loaded into ignition's classpath.
+ * GatewayModuleHook is the entry point to the Ignition Gateway. When the .modl file is built using
+ * the Ignition Maven plugin, the hook configured in our build pom will be added to the Ignition
+ * Module's module.xml file. When the module is installed, this xml file is read, and this
+ * GatewayHook is loaded into ignition's classpath.
  *
  * @author Perry Arellano-Jones
  */
 public class GatewayHook extends AbstractGatewayModuleHook {
-    private GatewayContext context;
+  private GatewayContext context;
 
-    private final LoggerEx logger = LoggerEx.newBuilder().build(GatewayHook.class);
+  private final LoggerEx logger = LoggerEx.newBuilder().build(GatewayHook.class);
 
-    @Override
-    public void setup(GatewayContext context) {
-        this.context = context;
+  @Override
+  public void setup(GatewayContext context) {
+    this.context = context;
+  }
+
+  @Override
+  public void startup(LicenseState licenseState) {
+    if (reportingLoaded(context)) {
+      ReportingInstaller.setup(context);
+    } else {
+      String warningMessage =
+          "The Reporting module is not installed or not active. "
+              + "The Example Datasource will not be available. "
+              + "Please install or enable the Reporting module to use this module.";
+
+      logger.warn(warningMessage);
+      throw new IllegalStateException(warningMessage);
     }
+  }
 
-    @Override
-    public void startup(LicenseState licenseState) {
-        if (reportingLoaded(context)) {
-            ReportingInstaller.setup(context);
-        } else {
-            String warningMessage = "The Reporting module is not installed or not active. "
-                    + "The Example Datasource will not be available. "
-                    + "Please install or enable the Reporting module to use this module.";
+  private boolean reportingLoaded(GatewayContext context) {
+    GatewayModule reportingModule =
+        context.getModuleManager().getModule(ExampleReportDatasourceModule.REPORTING_MODULE_ID);
 
-            logger.warn(warningMessage);
-            throw new IllegalStateException(warningMessage);
-        }
-    }
+    return reportingModule != null
+        && (reportingModule.getState() == ModuleState.PENDING
+            || reportingModule.getState() == ModuleState.ACTIVE);
+  }
 
-    private boolean reportingLoaded(GatewayContext context) {
-        GatewayModule reportingModule = context.getModuleManager()
-                .getModule(ExampleReportDatasourceModule.REPORTING_MODULE_ID);
-
-        return reportingModule != null
-                && (reportingModule.getState() == ModuleState.PENDING
-                || reportingModule.getState() == ModuleState.ACTIVE);
-    }
-
-    public void shutdown() {
-
-    }
+  public void shutdown() {}
 }
