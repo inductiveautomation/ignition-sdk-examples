@@ -101,7 +101,7 @@ For instructions on how to build with the Gradle plugin, take a look at the docu
 
 ## Code Formatting
 
-The Java sources in every example are formatted with [google-java-format](https://github.com/google/google-java-format), applied by the [Spotless](https://github.com/diffplug/spotless) Maven or Gradle plugin. Building an example formats its sources.
+The Java sources in every example are formatted with [google-java-format](https://github.com/google/google-java-format), applied by the [Spotless](https://github.com/diffplug/spotless) Maven or Gradle plugin. Building an example formats its sources, and CI checks on every pull request that the committed sources are formatted.
 
 * In a Maven example, run `mvn spotless:apply` to format without building and `mvn spotless:check` to verify.
 * In a Gradle example, run `./gradlew spotlessApply` to format without building and `./gradlew spotlessCheck` to verify.

@@ -1,0 +1,31 @@
+name: check-format
+
+on:
+  push:
+    branches: [ ignition-2027 ]
+  pull_request:
+    branches: [ ignition-2027 ]
+  workflow_dispatch:
+
+jobs:
+  spotless:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Installs the JDK and Maven pinned in mise.toml, so CI formats with the same tools as developers.
+      - name: Set up tools from mise.toml
+        uses: jdx/mise-action@v5
+
+      - name: Cache Maven repository
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven-${{ runner.os }}-
+
+      # Fails if any Java source isn't formatted with google-java-format. Run ./spotless-all.sh apply to fix.
+      - name: Check formatting
+        run: ./spotless-all.sh check
