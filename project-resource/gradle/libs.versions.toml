@@ -4,6 +4,7 @@ java = "25"
 
 [plugins]
 modl = { id = "io.ia.sdk.modl", version = "0.1.1" }
+spotless = { id = "com.diffplug.spotless", version = "8.11.0" }
 
 [libraries]
 ignition-common = { module = "com.inductiveautomation.ignitionsdk:ignition-common", version.ref = "ignition" }

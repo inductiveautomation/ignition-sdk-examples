@@ -6,15 +6,11 @@ import com.inductiveautomation.vision.api.client.AbstractClientModuleHook;
 
 public class ClientHook extends AbstractClientModuleHook {
 
-    @Override
-    public void initializeScriptManager(ScriptManager manager) {
-        super.initializeScriptManager(manager);
+  @Override
+  public void initializeScriptManager(ScriptManager manager) {
+    super.initializeScriptManager(manager);
 
-        manager.addScriptModule(
-            "system.example",
-            new ClientScriptModule(),
-            new PropertiesFileDocProvider()
-        );
-    }
-
+    manager.addScriptModule(
+        "system.example", new ClientScriptModule(), new PropertiesFileDocProvider());
+  }
 }

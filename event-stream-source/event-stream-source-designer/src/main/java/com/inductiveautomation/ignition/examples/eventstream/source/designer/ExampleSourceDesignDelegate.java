@@ -7,14 +7,13 @@ import com.inductiveautomation.ignition.examples.eventstream.source.ExampleSourc
 
 public class ExampleSourceDesignDelegate implements EventStreamSourceDesignDelegate {
 
-    @Override
-    public SourceEditor getEditor(EventStreamContext context) {
-        return new ExampleSourceEditor();
-    }
+  @Override
+  public SourceEditor getEditor(EventStreamContext context) {
+    return new ExampleSourceEditor();
+  }
 
-    @Override
-    public String getType() {
-        return ExampleSourceModule.MODULE_ID;
-    }
-
+  @Override
+  public String getType() {
+    return ExampleSourceModule.MODULE_ID;
+  }
 }

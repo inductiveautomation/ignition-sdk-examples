@@ -9,6 +9,7 @@
 
 plugins {
     id("io.ia.sdk.modl") version("0.1.1")
+    id("com.diffplug.spotless") version("8.11.0")
 }
 
 extra["sdk_version"] = "2027.2.0-beta1"
@@ -115,4 +116,23 @@ ignitionModule {
      * be used merely for development testing
      */
     skipModlSigning.set(true)
+}
+
+// Formats Java sources with google-java-format before they compile.
+spotless {
+    // The build formats the sources, so it doesn't need to check them too.
+    isEnforceCheck = false
+
+    java {
+        target("*/src/**/*.java")
+        googleJavaFormat("2.0.0")
+    }
+}
+
+val spotlessApply = tasks.spotlessApply
+
+subprojects {
+    tasks.withType<JavaCompile>().configureEach {
+        dependsOn(spotlessApply)
+    }
 }

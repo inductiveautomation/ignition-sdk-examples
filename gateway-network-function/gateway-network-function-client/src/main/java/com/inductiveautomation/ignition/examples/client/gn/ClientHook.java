@@ -8,30 +8,26 @@ import com.inductiveautomation.vision.api.client.AbstractClientModuleHook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * The main client entry point to the remote logging module.
- */
+/** The main client entry point to the remote logging module. */
 public class ClientHook extends AbstractClientModuleHook {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
+  private final Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
-    @Override
-    public void initializeScriptManager(ScriptManager manager) {
-        super.initializeScriptManager(manager);
+  @Override
+  public void initializeScriptManager(ScriptManager manager) {
+    super.initializeScriptManager(manager);
 
-        manager.addScriptModule("system.example.gn",
-            new GetLogsClientFunctions(),
-            new PropertiesFileDocProvider());
-    }
+    manager.addScriptModule(
+        "system.example.gn", new GetLogsClientFunctions(), new PropertiesFileDocProvider());
+  }
 
-    @Override
-    public void startup(ClientContext context, LicenseState activationState) throws Exception {
-        super.startup(context, activationState);
-    }
+  @Override
+  public void startup(ClientContext context, LicenseState activationState) throws Exception {
+    super.startup(context, activationState);
+  }
 
-    @Override
-    public void shutdown() {
-        super.shutdown();
-    }
-
+  @Override
+  public void shutdown() {
+    super.shutdown();
+  }
 }

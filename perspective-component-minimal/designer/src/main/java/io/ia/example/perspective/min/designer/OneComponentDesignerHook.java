@@ -9,47 +9,44 @@ import com.inductiveautomation.perspective.designer.api.ComponentDesignDelegateR
 import com.inductiveautomation.perspective.designer.api.PerspectiveDesignerInterface;
 import io.ia.example.perspective.min.common.comp.Image;
 
-
 /**
- * The 'hook' class for the designer scope of the module.  Registered in the ignitionModule configuration of the
- * root build.gradle file.
+ * The 'hook' class for the designer scope of the module. Registered in the ignitionModule
+ * configuration of the root build.gradle file.
  */
 public class OneComponentDesignerHook extends AbstractDesignerModuleHook {
-    private static final LoggerEx logger = LoggerEx.newBuilder().build("OneComponent");
+  private static final LoggerEx logger = LoggerEx.newBuilder().build("OneComponent");
 
-    private DesignerContext context;
-    private DesignerComponentRegistry registry;
-    private ComponentDesignDelegateRegistry delegateRegistry;
+  private DesignerContext context;
+  private DesignerComponentRegistry registry;
+  private ComponentDesignDelegateRegistry delegateRegistry;
 
+  public OneComponentDesignerHook() {
+    logger.info("Registering Rad Components in Designer!");
+  }
 
-    public OneComponentDesignerHook() {
-        logger.info("Registering Rad Components in Designer!");
-    }
+  @Override
+  public void startup(DesignerContext context, LicenseState activationState) {
+    this.context = context;
+    init();
+  }
 
-    @Override
-    public void startup(DesignerContext context, LicenseState activationState) {
-        this.context = context;
-        init();
-    }
+  private void init() {
+    logger.debug("Initializing registry entrants...");
 
-    private void init() {
-        logger.debug("Initializing registry entrants...");
+    PerspectiveDesignerInterface pdi = PerspectiveDesignerInterface.get(context);
 
-        PerspectiveDesignerInterface pdi = PerspectiveDesignerInterface.get(context);
+    registry = pdi.getDesignerComponentRegistry();
 
-        registry = pdi.getDesignerComponentRegistry();
+    // register components to get them on the palette
+    registry.registerComponent(Image.DESCRIPTOR);
+  }
 
-        // register components to get them on the palette
-        registry.registerComponent(Image.DESCRIPTOR);
-    }
+  @Override
+  public void shutdown() {
+    removeComponents();
+  }
 
-
-    @Override
-    public void shutdown() {
-        removeComponents();
-    }
-
-    private void removeComponents() {
-        registry.removeComponent(Image.COMPONENT_ID);
-    }
+  private void removeComponents() {
+    registry.removeComponent(Image.COMPONENT_ID);
+  }
 }

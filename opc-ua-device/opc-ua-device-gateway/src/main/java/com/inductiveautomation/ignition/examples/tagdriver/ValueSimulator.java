@@ -39,5 +39,4 @@ class ValueSimulator implements Runnable {
       trackedValues.put(key, Variant.ofInt64(nextValue));
     }
   }
-
 }
