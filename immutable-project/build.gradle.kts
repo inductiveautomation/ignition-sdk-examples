@@ -2,6 +2,7 @@ plugins {
     base
     // the ignition module plugin: https://github.com/inductiveautomation/ignition-module-tools
     id("io.ia.sdk.modl") version("0.5.0")
+    id("com.diffplug.spotless") version("8.11.0")
 }
 
 allprojects {
@@ -48,4 +49,23 @@ ignitionModule {
     )
 
     skipModlSigning.set(true)
+}
+
+// Formats Java sources with google-java-format before they compile.
+spotless {
+    // The build formats the sources, so it doesn't need to check them too.
+    isEnforceCheck = false
+
+    java {
+        target("*/src/**/*.java")
+        googleJavaFormat("2.0.0")
+    }
+}
+
+val spotlessApply = tasks.spotlessApply
+
+subprojects {
+    tasks.withType<JavaCompile>().configureEach {
+        dependsOn(spotlessApply)
+    }
 }

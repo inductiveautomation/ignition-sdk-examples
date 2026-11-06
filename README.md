@@ -99,5 +99,13 @@ Each Gradle example includes the Gradle wrapper, so no separate Gradle installat
 
 For instructions on how to build with the Gradle plugin, take a look at the documentation on the [Gradle Plugin](https://github.com/inductiveautomation/ignition-module-tools/tree/master/gradle-module-plugin) repository.
 
+## Code Formatting
+
+The Java sources in every example are formatted with [google-java-format](https://github.com/google/google-java-format), applied by the [Spotless](https://github.com/diffplug/spotless) Maven or Gradle plugin. Building an example formats its sources.
+
+* In a Maven example, run `mvn spotless:apply` to format without building and `mvn spotless:check` to verify.
+* In a Gradle example, run `./gradlew spotlessApply` to format without building and `./gradlew spotlessCheck` to verify.
+* From the repository root, run `./spotless-all.sh apply` or `./spotless-all.sh check` to do the same for every example.
+
 ## Javadocs
 Head over to our [wiki page](https://github.com/inductiveautomation/ignition-sdk-examples/wiki/Javadocs-&-Notable-Api-Changes) for a listing of 8.0+ Javadocs.

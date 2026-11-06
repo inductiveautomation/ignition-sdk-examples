@@ -3,9 +3,10 @@ import java.time.format.DateTimeFormatter
 
 plugins {
     alias(libs.plugins.modl)
+    alias(libs.plugins.spotless)
 }
 
-subprojects {
+allprojects {
     repositories {
         mavenCentral()
         maven {
@@ -42,6 +43,25 @@ ignitionModule {
         ),
     )
     skipModlSigning.set(true)
+}
+
+// Formats Java sources with google-java-format before they compile.
+spotless {
+    // The build formats the sources, so it doesn't need to check them too.
+    isEnforceCheck = false
+
+    java {
+        target("*/src/**/*.java")
+        googleJavaFormat("2.0.0")
+    }
+}
+
+val spotlessApply = tasks.spotlessApply
+
+subprojects {
+    tasks.withType<JavaCompile>().configureEach {
+        dependsOn(spotlessApply)
+    }
 }
 
 tasks {
