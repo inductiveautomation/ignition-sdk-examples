@@ -1,0 +1,7 @@
+# Commits that git blame skips, such as bulk reformatting. GitHub's blame view reads this file
+# automatically. To use it locally, run once:
+#
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Reformat Java sources with google-java-format
+8d16085c34e45ed4e22dd8019db1ddf03f5f8292
